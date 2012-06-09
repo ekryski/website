@@ -4,4 +4,4 @@ title: Eric Kryski
 ---
 {% include JB/setup %}
 
-Hey There! This is my place on the web.
+Sorry the site is in disarray.  I will be updating it shortly!
