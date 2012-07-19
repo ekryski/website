@@ -5,18 +5,19 @@ permalink: /:categories/:year/:month/:day/:title
 exclude: [".rvmrc", ".rbenv-version", "README.md", "Rakefile", "changelog.md"]
 auto: true
 pygments: true
+future: false
 
 # Themes are encouraged to use these universal variables 
 # so be sure to set them if your theme uses them.
 #
-title : Tech Wrangler
+title : Eric Kryski
 tagline: A place for Calgary Tech
 author :
   name : Eric Kryski
   email : e.kryski@gmail.com
   github : ekryski
   twitter : ekryski
-  feedburner : ekryski
+  feedburner : 
 
 # The production_url is only used when full-domain names are needed
 # such as sitemap.txt 
@@ -79,13 +80,13 @@ JB :
   # Set 'provider' to false to turn commenting off globally.
   #
   comments :
-    provider : disqus
-    disqus :
-      short_name : ekryski
-    livefyre :
-      site_id : 123
-    intensedebate :
-      account : 123abc
+    provider : false
+    # disqus :
+    #   short_name : ekryski
+    # livefyre :
+    #   site_id : 123
+    # intensedebate :
+    #   account : 123abc
     facebook :
       appid : 123
       num_posts: 5
@@ -99,7 +100,7 @@ JB :
   analytics :
     provider : google
     google : 
-        tracking_id : 'UA-123-12'
+        tracking_id : 'UA-25182712-1'
     getclicky :
       site_id : 
 
@@ -109,7 +110,7 @@ JB :
   # Set 'provider' to false to turn sharing off globally.
   #
   sharing :
-    provider : false
+    provider : twitter
     
   # Settings for all other include helpers can be defined by creating 
   # a hash with key named for the given helper. ex:

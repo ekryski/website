@@ -36,6 +36,13 @@ body {
   border: 0;
 }
 
+#eric-image {
+	width: 30%;
+	height: 30%;
+	float: right;
+	padding-left: 20px;
+}
+
 
 /* tag_box ======================================================== */
 
