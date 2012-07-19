@@ -3,6 +3,7 @@ layout: post
 title: "A Philisophical Approach to Testing"
 category: Testing
 tags: [Testing, Best Practices, Philosophy]
+sharing: true
 ---
 {% include JB/setup %}
 

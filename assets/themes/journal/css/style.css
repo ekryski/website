@@ -386,6 +386,8 @@ h1 small {
 h2 {
   font-size: 24px;
   line-height: 36px;
+  margin-top: 10px;
+  margin-bottom: 15px;
 }
 h2 small {
   font-size: 18px;
@@ -4401,4 +4403,18 @@ pre.prettyprint,
 }
 .invisible {
   visibility: hidden;
+}
+
+.share-links {
+  min-height: 30px;
+  margin: 0;
+  padding: 5px 20px;
+  list-style: none;
+  text-align: center;
+  overflow: hidden;
+}
+
+.share-links li {
+  display: inline;
+  margin: 0 8px;
 }
