@@ -444,6 +444,8 @@ ol {
   list-style: decimal;
 }
 li {
+  padding-top: 5px;
+  padding-bottom: 5px;
   line-height: 18px;
 }
 ul.unstyled,
