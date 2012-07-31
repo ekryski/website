@@ -33,7 +33,7 @@ layout: default
     {% assign tags_list = first_post.tags %}
     {% include JB/tags_list %}
     </ul>
-  {% endunless %}  
+  {% endunless %}
   </div>
   <div class="span4 offset4">
     <div class="pagination">
