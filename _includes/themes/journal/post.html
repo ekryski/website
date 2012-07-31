@@ -1,13 +1,22 @@
 <div class="page-header">
   <h1>{{ page.title }}</h1>
 </div>
-{{ content }}
+<div class="row-fluid">
+  <div class="span3 columns well">
+    <h3>Share this!</h3>
+    <p>If you like it, found it intriguing, think it's useful, or you think I'm a complete idiot.</p>
+    {% include JB/sharing %}
+  </div>
+  <div class="span9">
+    {{ content }}
+  </div>
+</div>
 <hr>
 <div class="row-fluid">
   {% include JB/comments %}
 </div>
 <div class="row-fluid">
-  <div class="span4">
+  <div class="span6">
     <h4>Published</h4>
     <div class="date"><span>{{ page.date | date_to_long_string }}</span></div>
 
@@ -19,7 +28,7 @@
     </ul>
   {% endunless %}  
   </div>
-  <div class="span4">
+  <div class="span6">
     <div class="pagination">
       <ul>
       {% if page.previous %}
@@ -35,8 +44,5 @@
       {% endif %}
       </ul>
     </div>
-  </div>
-  <div class="span4">
-    {% include JB/sharing %}
   </div>
 </div>

@@ -1,5 +1,13 @@
 <div class="page-header">
   <h1>{{ page.title }}</h1>
 </div>
-
-{{ content }}
+<div class="row-fluid">
+  <div class="span3 columns well">
+    <h3>Share this!</h3>
+    <p>If you like it, found it intriguing, think it's useful, or you think I'm a complete idiot.</p>
+    {% include JB/sharing %}
+  </div>
+  <div class="span9">
+    {{ content }}
+  </div>
+</div>

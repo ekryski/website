@@ -3,6 +3,12 @@
 {% case site.JB.sharing.provider %}
 {% when "twitter" %}
   {% include JB/sharing-providers/twitter %}
+  {% include JB/sharing-providers/google %}
+  {% include JB/sharing-providers/facebook %}
+{% when "google" %}
+  {% include JB/sharing-providers/google %}
+{% when "facebook" %}
+  {% include JB/sharing-providers/facebook %}
 {% when "custom" %}
   {% include custom/sharing %}
 {% endcase %}
