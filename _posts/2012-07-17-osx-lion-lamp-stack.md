@@ -18,15 +18,15 @@ Prior to upgrading to OS X Lion when I was kinda messing around with Wordpress I
 
 2. Open up the Apache config in your favourite editor by typing `sudo vi /private/etc/apache2/httpd.conf` in the terminal (which is an alias for `/etc/apache2/httpd.conf`).
 
-      * Enable PHP by uncommenting **line 111**:
+    * Enable PHP by uncommenting **line 111**:
 
             #LoadModule php5_module libexec/apache2/libphp5.so
 
-      * If you want you can change the web user on **line 157**
+    * If you want you can change the web user on **line 157**
 
             User [your_username]
 
-      * If you have other projects you can also add alias':
+    * If you have other projects you can also add alias':
 
             Alias /mySite /Users/me/Documents/workspace/mySite
             <Directory /Users/me/Documents/workspace/mySite>
@@ -63,5 +63,4 @@ All of these sources were used in some fashion:
 * [http://www.djangoapp.com/blog/2011/07/24/installing-phpmyadmin-on-mac-os-x-lion/](http://www.djangoapp.com/blog/2011/07/24/installing-phpmyadmin-on-mac-os-x-lion/)
 * [Where are MySQL's Files?](http://www.sequelpro.com/docs/Where_are_MySQL's_Files%3F)
 * [XDebug on OSX](http://johnmclaughlin.info/blog/getting-php-xdebug-working-again-on-mac-os-x-10-7-lion/)
-*wo [Sublime Text 2 - XDebug](https://github.com/Kindari/SublimeXdebug)
-    - **Note** You need to create a `.sublime-project` file and then put in the project URL for x-debug to look at. Like [here](https://github.com/Kindari/SublimeXdebug#session-based-debugging).
+* [Sublime Text 2 - XDebug](https://github.com/Kindari/SublimeXdebug) - **Note** You need to create a `.sublime-project` file and then put in the project URL for x-debug to look at. Like [here](https://github.com/Kindari/SublimeXdebug#session-based-debugging).
