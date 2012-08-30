@@ -24,7 +24,7 @@ tags: ['NodeJS', 'Pandaboard', 'ARM']
 
 7. `vi deps/v8/SConstruct`
 
-    * Make sure the code on line 82,83 matches this:
+    * Make sure the code on line 82 & 83 matches this:
 
           'all': {
              'CCFLAGS':      ['$DIALECTFLAGS', '$WARNINGFLAGS', '-march=armv7'],
