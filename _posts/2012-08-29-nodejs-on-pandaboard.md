@@ -43,3 +43,4 @@ With a little bit of trial and error and these resources I got it work. **This d
 * [ARM7 Thread on NodeJS Google Group](https://groups.google.com/forum/?fromgroups=#!topic/nodejs/ScReARaD59E)
 * [ARCH Linux Repo V8 Package](https://github.com/archlinuxarm/PKGBUILDs/blob/master/community/v8/PKGBUILD)
 * [Google Cross Compile V8 for ARM](http://code.google.com/p/v8/wiki/CrossCompilingForARM)
+* [NodeJS 0.8 on SBC Fox Board](http://www.yoovant.com/how-install-node-js-0-8-arm-based-sbc-fox-board-g20/)
