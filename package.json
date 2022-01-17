@@ -1,12 +1,13 @@
 {
-  "name": "tailwind-nextjs-starter-blog",
-  "version": "1.4.2",
+  "name": "website",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "start": "cross-env SOCKET=true node ./scripts/next-remote-watch.js ./data",
     "dev": "next dev",
     "build": "next build && node ./scripts/generate-sitemap",
     "serve": "next start",
+    "post:create": "node ./scripts/compose.js",
     "analyze": "cross-env ANALYZE=true next build",
     "lint": "next lint --fix --dir pages --dir components --dir lib --dir layouts --dir scripts",
     "prepare": "husky install"

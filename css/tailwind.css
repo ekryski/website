@@ -23,3 +23,8 @@ input:-webkit-autofill,
 input:-webkit-autofill:focus {
   transition: background-color 600000s 0s, color 600000s 0s;
 }
+
+i.emoji {
+  margin: 0 0.5em;
+  font-style: normal;
+}

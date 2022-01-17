@@ -1,16 +1,16 @@
 ---
-name: Tails Azimuth
-avatar: /static/images/avatar.png
-occupation: Professor of Atmospheric Science
-company: Stanford University
-email: address@yoursite.com
-twitter: https://twitter.com/Twitter
-linkedin: https://www.linkedin.com
-github: https://github.com
+name: Eric Kryski
+avatar: /static/images/avatar.jpg
+occupation: CEO & Co-Founder
+company: Bidali
+email: hello@erickryski.com
+twitter: https://twitter.com/ekryski
+linkedin: https://www.linkedin.com/in/ekryski
+github: https://github.com/ekryski
 ---
 
-Tails Azimuth is a professor of atmospheric sciences at the Stanford AI Lab. His research interests includes complexity modelling of tailwinds, headwinds and crosswinds.
+Eric Kryski is the CEO and co-founder of [Bidali](https://www.bidali.com) — a financial infrastructure company that uses blockchain technology to provide better, cheaper and more transparent financial services.
 
-He leads the clean energy group which develops 3D air pollution-climate models, writes differential equation solvers, and manufactures titanium plated air ballons. In his free time he bakes raspberry pi.
+Eric received a BSc in Computer Science from the University of Calgary in 2011 where he published research in the area of Human Computer Interaction and has been building software and distributed systems for over 15 years. Notably, he co-created [FeathersJS](https://www.feathersjs.com) a full stack NodeJS web development framework that is still powers many startups, SMBs and Fortune 100s and has an active global developer community.
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed neque elit, tristique placerat feugiat ac, facilisis vitae arcu. Proin eget egestas augue. Praesent ut sem nec arcu pellentesque aliquet. Duis dapibus diam vel metus tempus vulputate.
+Eric has a keen interest in macro economics and financial inclusion. This naturally led him to begin to explore cryptocurrency in 2015. Since then, he has written and spoken extensively on the topic. Notably, in 2019 he spoke in Davos Switzerland during the World Economic Forum about the future of money, has advised multiple governments and central banks on their financial digital transformation strategies, and as the co-chair of the FinTech Committee of the [Canadian Blockchain Consortium](https://www.canadablockchain.ca/) has advised Canadian regulators on how to approriately evaluate and regulate crypto-assets.
