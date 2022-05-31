@@ -21,11 +21,14 @@ export default function Home({ posts }) {
       <PageSEO title={siteMetadata.title} description={siteMetadata.description} />
       <div className="flex flex-col items-start justify-start md:flex-row md:space-x-6 md:mt-24 px-6">
         <div className="pt-4 pb-6 space-y-6">
-          <h1 className="text-4xl font-extrabold leading-4 tracking-tight text-primary-600 sm:leading-6 md:text-6xl md:leading-8">
+          <h1 className="text-4xl font-extrabold leading-4 tracking-tigh sm:leading-6 md:text-6xl md:leading-8">
             Eric Kryski
           </h1>
-          <h2 className="text-2xl font-extrabold leading-4 tracking-tight text-gray-900 dark:text-gray-100 sm:leading-6 md:text-4xl md:leading-8">
-            Developer. Designer. Advisor.
+          <h2 className="text-2xl font-extrabold leading-4 tracking-tight sm:leading-6 md:text-4xl md:leading-8">
+            Developer. Designer.
+          </h2>
+          <h2 className="text-2xl font-extrabold leading-4 tracking-tight sm:leading-6 md:text-4xl md:leading-8">
+            Speaker. Advisor.
           </h2>
         </div>
         <div className="flex flex-col md:flex-row">
@@ -79,7 +82,7 @@ export default function Home({ posts }) {
                       <div className="text-base font-medium leading-6">
                         <Link
                           href={`/insights/${slug}`}
-                          className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
+                          // className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
                           aria-label={`Read "${title}"`}
                         >
                           Read more &rarr;
