@@ -10,6 +10,7 @@ import {
   InstagramIcon,
   LinkedInIcon,
   XIcon,
+  DribbbleIcon
 } from '@/components/SocialIcons'
 import logoAirbnb from '@/images/logos/airbnb.svg'
 import logoFacebook from '@/images/logos/facebook.svg'
@@ -187,10 +188,10 @@ function Role({ role }: { role: Role }) {
 function Resume() {
   let resume: Array<Role> = [
     {
-      company: 'Planetaria',
+      company: 'Bidali',
       title: 'CEO',
       logo: logoPlanetaria,
-      start: '2019',
+      start: '2018',
       end: {
         label: 'Present',
         dateTime: new Date().getFullYear().toString(),
@@ -273,30 +274,37 @@ export default async function Home() {
       <Container className="mt-9">
         <div className="max-w-2xl">
           <h1 className="text-4xl font-bold tracking-tight text-zinc-800 sm:text-5xl dark:text-zinc-100">
-            Software designer, founder, and amateur astronaut.
+            Software designer, founder, and amateur economist.
           </h1>
           <p className="mt-6 text-base text-zinc-600 dark:text-zinc-400">
-            I’m Spencer, a software designer and entrepreneur based in New York
-            City. I’m the founder and CEO of Planetaria, where we develop
-            technologies that empower regular people to explore space on their
-            own terms.
+            I'm Eric, a software designer and entrepreneur based in Calgary, Canada 🇨🇦. I'm the co-founder and CEO of <Link href="https://bidali.com" className="text-zinc-800 dark:text-zinc-100">Bidali</Link>, where we develop
+            technologies that empower regular people to participate in the global economy on their own terms.
           </p>
           <div className="mt-6 flex gap-6">
-            <SocialLink href="#" aria-label="Follow on X" icon={XIcon} />
             <SocialLink
-              href="#"
-              aria-label="Follow on Instagram"
-              icon={InstagramIcon}
+              href="https://x.com/ekryski"
+              aria-label="Follow on X"
+              icon={XIcon}
             />
             <SocialLink
-              href="#"
+              href="https://github.com/ekryski"
               aria-label="Follow on GitHub"
               icon={GitHubIcon}
             />
             <SocialLink
-              href="#"
+              href="https://www.linkedin.com/in/ekryski"
               aria-label="Follow on LinkedIn"
               icon={LinkedInIcon}
+            />
+            <SocialLink
+              href="https://www.dribbble.com/ekryski"
+              aria-label="Follow on Dribbble"
+              icon={DribbbleIcon}
+            />
+            <SocialLink
+              href="https://www.instagram.com/ekryski"
+              aria-label="Follow on Instagram"
+              icon={InstagramIcon}
             />
           </div>
         </div>
