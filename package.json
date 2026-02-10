@@ -1,13 +1,20 @@
 {
-  "name": "tailwindui-template",
+  "name": "eric-kryski-website",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "npm run build:cv && next build",
+    "build": "npm run build:feed && npm run build:cv && next build",
+    "build:feed": "node scripts/generate-feed.js",
     "build:cv": "npx md-to-pdf public/cv.md --config-file md-to-pdf-config.js",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "lint:fix": "next lint --fix",
+    "test": "echo \"No tests yet\"",
+    "release": "standard-version",
+    "release:patch": "standard-version --release-as patch",
+    "release:minor": "standard-version --release-as minor",
+    "release:major": "standard-version --release-as major"
   },
   "browserslist": "defaults, not ie <= 11",
   "dependencies": {
@@ -41,6 +48,7 @@
     "md-to-pdf": "^5.2.5",
     "prettier": "^3.3.2",
     "prettier-plugin-tailwindcss": "^0.6.10",
-    "sharp": "0.33.1"
+    "sharp": "0.33.1",
+    "standard-version": "^9.5.0"
   }
 }
