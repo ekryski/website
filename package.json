@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "npm run build:cv && next build",
+    "build:cv": "npx md-to-pdf public/cv.md --config-file md-to-pdf-config.js",
     "start": "next start",
     "lint": "next lint"
   },
@@ -29,6 +30,7 @@
     "next-themes": "^0.2.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-markdown": "^9.1.0",
     "remark-gfm": "^4.0.0",
     "tailwindcss": "^4.0.6",
     "typescript": "^5.3.3"
@@ -36,6 +38,7 @@
   "devDependencies": {
     "eslint": "^8.56.0",
     "eslint-config-next": "^14.0.4",
+    "md-to-pdf": "^5.2.5",
     "prettier": "^3.3.2",
     "prettier-plugin-tailwindcss": "^0.6.10",
     "sharp": "0.33.1"

@@ -24,6 +24,10 @@ npm run dev
 
 Finally, open [http://localhost:3000](http://localhost:3000) in your browser to view the website.
 
+## Building
+
+The production build includes CV PDF generation. Run `npm run build` to build the site and generate `public/Eric-Kryski-CV.pdf` from `public/cv.md`.
+
 ## Customizing
 
 You can edit the website by modifying the files in the `/src` folder. The site will auto-update as you edit these files.

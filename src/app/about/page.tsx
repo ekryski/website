@@ -4,6 +4,7 @@ import Link from 'next/link'
 import clsx from 'clsx'
 
 import { Container } from '@/components/Container'
+import { Resume } from '@/components/Resume'
 import {
   DribbbleIcon,
   GitHubIcon,
@@ -48,6 +49,17 @@ function MailIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
   )
 }
 
+function DownloadIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" {...props}>
+      <path
+        fillRule="evenodd"
+        d="M12 2.25a.75.75 0 0 1 .75.75v11.69l3.22-3.22a.75.75 0 1 1 1.06 1.06l-4.5 4.5a.75.75 0 0 1-1.06 0l-4.5-4.5a.75.75 0 1 1 1.06-1.06l3.22 3.22V3a.75.75 0 0 1 .75-.75Zm-9 13.5a.75.75 0 0 1 .75.75v2.25a1.5 1.5 0 0 0 1.5 1.5h13.5a1.5 1.5 0 0 0 1.5-1.5V16.5a.75.75 0 0 1 1.5 0v2.25a3 3 0 0 1-3 3H5.25a3 3 0 0 1-3-3V16.5a.75.75 0 0 1 .75-.75Z"
+      />
+    </svg>
+  )
+}
+
 export const metadata: Metadata = {
   title: 'About',
   description:
@@ -80,24 +92,10 @@ export default function About() {
               myself to type on.
             </p>
             <p>
-              The only thing I loved more than computers as a kid was space.
-              When I was 8, I climbed the 40-foot oak tree at the back of our
-              yard while wearing my older sister's motorcycle helmet, counted
-              down from three, and jumped — hoping the tree was tall enough that
-              with just a bit of momentum I'd be able to get to orbit.
+              Today I'm the co-founder and CEO of <Link href="https://bidali.com" className="text-zinc-800 dark:text-zinc-100 underline decoration-zinc-400 underline-offset-2 hover:decoration-zinc-600 dark:decoration-zinc-500 dark:hover:decoration-zinc-300">Bidali</Link>, where we're building technologies that empower regular people to participate in the global economy on their own terms. I'm also managing partner at <strong>Bullish Ventures</strong>, a boutique venture development firm that helps startups get quality products to market quickly.
             </p>
             <p>
-              I spent the next few summers indoors working on a rocket design,
-              while I recovered from the multiple surgeries it took to fix my
-              badly broken legs. It took nine iterations, but when I was 15 I
-              sent my dad's Blackberry into orbit and was able to transmit a
-              photo back down to our family computer from space.
-            </p>
-            <p>
-              Today, I'm the founder of Planetaria, where we're working on
-              civilian space suits and manned shuttle kits you can assemble at
-              home so that the next generation of kids really <em>can</em> make
-              it to orbit — from the comfort of their own backyards.
+              I've been building software since 2003 and have a passion for creating beautiful products people love. I maintain the <Link href="https://feathersjs.com" className="text-zinc-800 dark:text-zinc-100 underline decoration-zinc-400 underline-offset-2 hover:decoration-zinc-600 dark:decoration-zinc-500 dark:hover:decoration-zinc-300">Feathers.js</Link> framework, created DeliciousDB, and founded the YYC.js meetup group in Calgary. I serve on the national FinTech committee of the Canadian Blockchain Consortium, and I'm fascinated by the intersection of programmable money, the history of banking, and macroeconomics.
             </p>
           </div>
         </div>
@@ -125,7 +123,17 @@ export default function About() {
             >
               hello@erickryski.com
             </SocialLink>
+            <SocialLink
+              href="/Eric-Kryski-CV.pdf"
+              icon={DownloadIcon}
+              className="mt-4"
+            >
+              Download CV
+            </SocialLink>
           </ul>
+          <div className="mt-12">
+            <Resume showDownloadButton={false} />
+          </div>
         </div>
       </div>
     </Container>
