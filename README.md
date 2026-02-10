@@ -26,7 +26,19 @@ Finally, open [http://localhost:3000](http://localhost:3000) in your browser to 
 
 ## Building
 
-The production build includes CV PDF generation. Run `npm run build` to build the site and generate `public/Eric-Kryski-CV.pdf` from `public/cv.md`.
+The production build includes feed generation, CV PDF generation, and static export. Run `npm run build` to build the site. Requires `NEXT_PUBLIC_SITE_URL` (e.g. `https://erickryski.com`).
+
+## Deployment (GitHub Pages)
+
+1. In repo **Settings > Pages**: set Source to "GitHub Actions"
+2. In **Settings > Secrets and variables > Actions**: add repository variable `NEXT_PUBLIC_SITE_URL` = `https://erickryski.com`
+3. Push to `main` to trigger deploy
+
+## Releases
+
+- `npm run release` - bump version from conventional commits
+- `npm run release:patch` / `release:minor` / `release:major` - bump specific version
+- Push with `git push --follow-tags` to create GitHub Release
 
 ## Customizing
 
