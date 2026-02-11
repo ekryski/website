@@ -50,6 +50,16 @@ npm run optimize-home-photos
 
 This resizes images to 600px max width and outputs JPEG at 80% quality to `src/images/photos/`. Current photos: hiking, golf, mountain, Ray Dalio, snowboarding (image-1 through image-5).
 
+## Google Analytics
+
+To enable GA4 tracking, add your Measurement ID to `.env.local`:
+
+```
+NEXT_PUBLIC_GA_MEASUREMENT_ID=G-XXXXXXXXXX
+```
+
+For production builds, add the same variable in **Settings > Secrets and variables > Actions** as a repository variable. The site tracks page views, social/contact link clicks, and newsletter form submissions.
+
 ## Newsletter
     
 The newsletter subscription form is integrated with [Kit](https://kit.com) (formerly ConvertKit). It uses a standard HTML form submission to the Kit API.
