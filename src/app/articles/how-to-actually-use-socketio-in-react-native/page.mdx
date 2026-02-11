@@ -30,7 +30,7 @@ Previously you might have run into [this guide](http://browniefed.com/blog/2015/
 - You can’t use the debugger. WTF! This turns developing a React Native app from fun to a nightmare really quick.
 - You aren’t actually using websockets! You’re using the ajax long-polling fallback built in to Socket.io.
 
-Here’s how we are **actually **using socket.io in React Native to communicate over websockets with [Feathers](http://feathersjs.com/). **Edit #1:**A [PR to engine.io](https://github.com/socketio/engine.io-parser/pull/55) that fixes this was merged a while ago but we’re still waiting on a socket.io release. ** Edit #2:** Socket.io v1.5.1 has been released and has the fix to engineio-parser, so you don’t need to set `window.navigator` anymore. You should also be able to `import io from 'socket.io-client/socket.io'` now.
+Here’s how we are **actually**using socket.io in React Native to communicate over websockets with [Feathers](http://feathersjs.com/).**Edit #1:** A [PR to engine.io](https://github.com/socketio/engine.io-parser/pull/55) that fixes this was merged a while ago but we’re still waiting on a socket.io release.**Edit #2:** Socket.io v1.5.1 has been released and has the fix to engineio-parser, so you don’t need to set `window.navigator` anymore. You should also be able to `import io from 'socket.io-client/socket.io'` now.
 
 Now you can actually have speedy real-time React Native apps using socket.io. Happy coding! Big thanks to 
 

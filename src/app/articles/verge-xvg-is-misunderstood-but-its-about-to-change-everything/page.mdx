@@ -32,13 +32,13 @@ From [Merriam Webster’s dictionary](https://www.merriam-webster.com/dictionary
 
 > a fraudulent or deceptive act or operation
 
-Personally, I would also add that a scam is likely an **intentionally **deceptive act. There is nothing deceptive or misleading (intentional or unintentional) about what Verge does, the technology behind it, and how it aims to protect your privacy. I personally feel that it just hasn’t been clearly articulated. I’m trying to help with that.
+Personally, I would also add that a scam is likely an **intentionally** deceptive act. There is nothing deceptive or misleading (intentional or unintentional) about what Verge does, the technology behind it, and how it aims to protect your privacy. I personally feel that it just hasn’t been clearly articulated. I’m trying to help with that.
 
 The messaging from [the Verge website](https://vergecurrency.com/) clearly states that it is a privacy focused cryptocurrency:
 
 > Verge is a secure and anonymous cryptocurrency, built with a focus on privacy.
 
-This is entirely true. Unfortunately the website does not tell you specifically **how **this is achieved. The Verge team is working on that and hopefully this piece is a good start. As a result, misinformation has been spread about the specific mechanics that Verge employs because, being completely honest, the codebase has been tricky to navigate and in constant flux. The Verge team is rapidly working on maturing things so the code is more approachable.
+This is entirely true. Unfortunately the website does not tell you specifically **how** this is achieved. The Verge team is working on that and hopefully this piece is a good start. As a result, misinformation has been spread about the specific mechanics that Verge employs because, being completely honest, the codebase has been tricky to navigate and in constant flux. The Verge team is rapidly working on maturing things so the code is more approachable.
 
 The entire Verge codebase is open source so you are free to inspect the code and contribute back to the project as I did. You are free to test it out and determine whether Verge actually does what it says and we’re currently in the process of setting up a more formal [responsible security issue disclosure process](https://github.com/vergecurrency/vergecurrency.com/issues/253) so that we can ensure Verge is as secure as possible.
 
@@ -56,7 +56,7 @@ The implementation of the Wraith protocol is being done in multiple phases. [I a
 
 Next the author talks about ways that law enforcement can track you down and profile you. I completely agree with all that he said although, personally I’m more concerned with a malicious third party that may try to use surveillance techniques to rob or kidnap as opposed to me being arrested. I’m a good law abiding citizen. 🙂
 
-Using CCTV or other tracking like GPS or real-time surveillance is still very much a concern **for all privacy focused and non-privacy focused coins. **Some of that we can do nothing about. Preventing blockchain transaction analysis is an important step to providing anonymous transactions but it’s not the be all and end all. Other techniques, such as IP address obfuscation, are equally if not more important.
+Using CCTV or other tracking like GPS or real-time surveillance is still very much a concern **for all privacy focused and non-privacy focused coins.** Some of that we can do nothing about. Preventing blockchain transaction analysis is an important step to providing anonymous transactions but it’s not the be all and end all. Other techniques, such as IP address obfuscation, are equally if not more important.
 
 > Personally I’d much rather have someone see how I’m transacting than know my account balance and exactly where I live.
 
@@ -72,7 +72,7 @@ but then later on says:
 
 > Knowing the IP address of full-nodes is a security risk for those full-node operators, and not obscuring IP addresses is a security problem.
 
-Which is it? IP obfuscation is **very **important for reasons I explained above and the Verge dev team believes that Tor is the right tool for the job (maybe also I2P).
+Which is it? IP obfuscation is **very** important for reasons I explained above and the Verge dev team believes that Tor is the right tool for the job (maybe also I2P).
 
 To mine and Sunerok’s knowledge, the Tor protocol has not been broken and has been used widely outside of blockchain for quite a while now with great success. Directly from the Tor website the only known theoretical exploit remaining is an [entry and exit node attack](https://www.torproject.org/docs/faq.html.en#AttacksOnOnionRouting).
 
@@ -82,19 +82,19 @@ Let me explain this briefly:
 
 [The publication that Noah linked to](https://arxiv.org/abs/1410.6079) explains that you can inject malicious Tor nodes into the Bitcoin network and spam the network causing all the “good” ones to be kicked and thereby the malicious nodes take over the network. [This Coindesk article](https://www.coindesk.com/bitcoin-tor-anonymity-can-busted-2500-month/) explains it in a more digestible format. The key piece of this exploit is exit nodes:
 
-> They explained that, when a Tor user connects to the bitcoin network, his or her IP address is not revealed. Instead, the bitcoin server sees the address of the connected Tor ‘exit node’, a type of server. As a result, an attacker could send enough bad transactions over Tor to get all the exit nodes banned by the bitcoin network **The difference with Verge is that with the next release there won’t be any entry or exit nodes. Once upgraded, every node on the network will be transacting over Tor because when you start a network node it will also be a Tor node. **The dev team is looking at adding safeguards to ensure that a node cannot participate in the network unless it is communicating over Tor.
+> They explained that, when a Tor user connects to the bitcoin network, his or her IP address is not revealed. Instead, the bitcoin server sees the address of the connected Tor ‘exit node’, a type of server. As a result, an attacker could send enough bad transactions over Tor to get all the exit nodes banned by the bitcoin network **The difference with Verge is that with the next release there won’t be any entry or exit nodes. Once upgraded, every node on the network will be transacting over Tor because when you start a network node it will also be a Tor node.** The dev team is looking at adding safeguards to ensure that a node cannot participate in the network unless it is communicating over Tor.
 
-Verge has had wallets that communicate over Tor for a while and have had hosted blockchain nodes that can be connected via Tor but the entire Verge network is not using Tor yet. The Android and Electrum wallets already communicate over Tor. **This core blockchain node is last and key piece. **After the next release, every node on the network will be able to use Tor seamlessly. The Verge team would love to have some **constructive **peer review here. If you are inclined please come on over to [Discord](https://discord.gg/vergecurrency) and/or [Github](https://github.com/vergecurrency).
+Verge has had wallets that communicate over Tor for a while and have had hosted blockchain nodes that can be connected via Tor but the entire Verge network is not using Tor yet. The Android and Electrum wallets already communicate over Tor. **This core blockchain node is last and key piece.** After the next release, every node on the network will be able to use Tor seamlessly. The Verge team would love to have some **constructive** peer review here. If you are inclined please come on over to [Discord](https://discord.gg/vergecurrency) and/or [Github](https://github.com/vergecurrency).
 
 Noah also mentions that:
 
 > You don’t need Verge to run your cryptocurrency over Tor
 
-While this is true, in order for it be secure you would need **everyone **that is running a blockchain node in the network to also be using Tor. Otherwise you are vulnerable to entry and exit node attacks. This is impossible to ensure and coordinate without it being built into the code of the core blockchain node and hence the point of the next release.
+While this is true, in order for it be secure you would need **everyone** that is running a blockchain node in the network to also be using Tor. Otherwise you are vulnerable to entry and exit node attacks. This is impossible to ensure and coordinate without it being built into the code of the core blockchain node and hence the point of the next release.
 
 ## Stealth Addresses
 
-Stealth addresses do not provide perfect privacy of **both **the sender and the receiver. [They only completely anonymize the receiver](https://monero.stackexchange.com/questions/1500/what-is-a-stealth-address). A third party can still see that Alice sent an amount to someone. They just don’t know who that someone is.
+Stealth addresses do not provide perfect privacy of **both** the sender and the receiver. [They only completely anonymize the receiver](https://monero.stackexchange.com/questions/1500/what-is-a-stealth-address). A third party can still see that Alice sent an amount to someone. They just don’t know who that someone is.
 
 However, even though you can see that Alice sent money somewhere, with Verge it’s still way better than what we’ve currently got in the majority of cryptocurrencies. Thus far I have not seen any exploits of stealth addressing so they are a great first step.
 
