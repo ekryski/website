@@ -1,7 +1,7 @@
 'use client'
 
 import { useContext } from 'react'
-import { useRouter } from 'next/navigation'
+import { useRouter, usePathname } from 'next/navigation'
 
 import { AppContext } from '@/app/providers'
 import { Container } from '@/components/Container'
@@ -30,10 +30,29 @@ export function ArticleLayout({
   children: React.ReactNode
 }) {
   const router = useRouter()
+  const pathname = usePathname()
   const { previousPathname } = useContext(AppContext)
 
   return (
     <Container className="mt-16 lg:mt-32">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'BlogPosting',
+            headline: article.title,
+            datePublished: article.date,
+            dateModified: article.date,
+            description: article.description,
+            url: `https://erickryski.com${pathname}`,
+            author: {
+              '@type': 'Person',
+              name: article.author || 'Eric Kryski',
+            },
+          }),
+        }}
+      />
       <div className="xl:relative">
         <div className="mx-auto max-w-2xl">
           {previousPathname && (
