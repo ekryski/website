@@ -7,6 +7,7 @@ import { Layout } from '@/components/Layout'
 import '@/styles/tailwind.css'
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://erickryski.com'
+const gaId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -72,6 +73,26 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="h-full antialiased" suppressHydrationWarning>
+      <head>
+        {gaId && (
+          <>
+            <script
+              async
+              src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}
+            />
+            <script
+              dangerouslySetInnerHTML={{
+                __html: `
+                  window.dataLayer = window.dataLayer || [];
+                  function gtag(){dataLayer.push(arguments);}
+                  gtag('js', new Date());
+                  gtag('config', '${gaId}');
+                `,
+              }}
+            />
+          </>
+        )}
+      </head>
       <body className="flex h-full bg-zinc-50 dark:bg-black">
         <GoogleAnalytics />
         <Providers>
