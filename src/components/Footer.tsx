@@ -2,6 +2,8 @@ import Link from 'next/link'
 
 import { ContainerInner, ContainerOuter } from '@/components/Container'
 
+import packageJson from '../../package.json'
+
 function NavLink({
   href,
   children,
@@ -35,7 +37,7 @@ export function Footer() {
               </div>
               <p className="text-sm text-zinc-400 dark:text-zinc-500">
                 &copy; {new Date().getFullYear()} Eric Kryski. All rights
-                reserved.
+                reserved. v{packageJson.version}
               </p>
             </div>
           </ContainerInner>

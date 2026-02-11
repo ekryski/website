@@ -1,5 +1,8 @@
 'use client'
 
+import Image from 'next/image'
+import { useState } from 'react'
+
 const PLACEHOLDER_SVG =
   'data:image/svg+xml,' +
   encodeURIComponent(
@@ -11,6 +14,11 @@ const sizeClasses = {
   md: 'h-16 w-16',
 } as const
 
+const sizePixels = {
+  sm: 48,
+  md: 64,
+} as const
+
 export function DesignToolLogo({
   src,
   alt = '',
@@ -20,14 +28,27 @@ export function DesignToolLogo({
   alt?: string
   size?: keyof typeof sizeClasses
 }) {
+  const [hasError, setHasError] = useState(false)
+
+  if (hasError) {
+    return (
+      <img
+        src={PLACEHOLDER_SVG}
+        alt={alt}
+        className={`${sizeClasses[size]} rounded-lg object-contain bg-zinc-100 dark:bg-zinc-800 p-1`}
+      />
+    )
+  }
+
   return (
-    <img
+    <Image
       src={src}
       alt={alt}
+      width={sizePixels[size]}
+      height={sizePixels[size]}
       className={`${sizeClasses[size]} rounded-lg object-contain bg-zinc-100 dark:bg-zinc-800 p-1`}
-      onError={(e) => {
-        e.currentTarget.src = PLACEHOLDER_SVG
-      }}
+      onError={() => setHasError(true)}
+      unoptimized
     />
   )
 }

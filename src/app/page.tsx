@@ -21,6 +21,25 @@ import image5 from '@/images/photos/image-5.jpg'
 import { type ArticleWithSlug, getAllArticles } from '@/lib/articles'
 import { formatDate } from '@/lib/formatDate'
 
+function RssIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+      {...props}
+    >
+      <path d="M4 11a9 9 0 0 1 9 9" />
+      <path d="M4 4a16 16 0 0 1 16 16" />
+      <circle cx="5" cy="19" r="1" />
+    </svg>
+  )
+}
+
 function MailIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
   return (
     <svg
@@ -74,10 +93,7 @@ function SocialLink({
 
 function Newsletter() {
   return (
-    <form
-      action="/thank-you"
-      className="rounded-2xl border border-zinc-100 p-6 dark:border-zinc-700/40"
-    >
+    <div className="rounded-2xl border border-zinc-100 p-6 dark:border-zinc-700/40">
       <h2 className="flex text-sm font-semibold text-zinc-900 dark:text-zinc-100">
         <MailIcon className="h-6 w-6 flex-none" />
         <span className="ml-3">Stay up to date</span>
@@ -85,9 +101,14 @@ function Newsletter() {
       <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
         Get notified when I publish something new, and unsubscribe at any time.
       </p>
-      <div className="mt-6 flex">
+      <form
+        action="https://app.kit.com/forms/9075566/subscriptions"
+        method="post"
+        className="mt-6 flex"
+      >
         <input
           type="email"
+          name="email_address"
           placeholder="Email address"
           aria-label="Email address"
           required
@@ -96,8 +117,18 @@ function Newsletter() {
         <Button type="submit" className="ml-4 flex-none">
           Join
         </Button>
+      </form>
+      <div className="mt-6 border-t border-zinc-100 pt-6 dark:border-zinc-700/40">
+        <Button
+          href="/feed.xml"
+          variant="primary"
+          className="w-full py-2.5 px-4 shadow-sm"
+        >
+          <RssIcon className="h-5 w-5 shrink-0" />
+          Subscribe via RSS
+        </Button>
       </div>
-    </form>
+    </div>
   )
 }
 
@@ -142,11 +173,14 @@ export default async function Home() {
             Hi 👋
           </p>
           <p className="mt-6 text-base text-zinc-600 dark:text-zinc-400">
-            I'm Eric, a software designer and entrepreneur based in Calgary, Canada 🇨🇦. I'm the co-founder and CEO of <Link href="https://bidali.com" className="text-zinc-800 dark:text-zinc-100">Bidali</Link>, where we develop
-            technologies that empower regular people to participate in the global economy on their own terms.
+            I'm Eric, a software designer and entrepreneur based in Calgary,
+            Canada 🇨🇦. I have been making software since 2003. I'm the
+            co-founder and CEO of <Link href="https://bidali.com" className="text-zinc-800 dark:text-zinc-100">Bidali</Link>, where we develop technologies
+            that empower regular people to participate in the global economy on
+            their own terms.
           </p>
           <p className="mt-6 text-base text-zinc-600 dark:text-zinc-400">
-            I have been software since 2003 and have a passion for buiding beautiful products people love. As of late I've been exploring the intersection of programmable, cryptographically secure money, as well as the history of money, banking, macro and micro economics.
+            I have a passion for building beautiful products people love. As of late I've been exploring the intersection of programmable, cryptographically secure money, as well as the history of money, banking, macro and micro economics.
           </p>
           <div className="mt-6 flex gap-6">
             <SocialLink
