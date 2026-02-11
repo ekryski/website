@@ -30,7 +30,7 @@ We’ve rolled this release out on a few production apps without issue and it sh
 - Core modules moved to the `@feathersjs` npm scope and better module infrastructure (more about that below)
 - Universally usable and framework independent core `feathers` with separate backwards-compatible Express framework bindings. This reduced the client side build size dramatically and sets us up to use other HTTP(S) engines other than Express underneath.
 - Hooks as part of core instead of a plugin.
-- Event channels for **much **faster and more secure real-time event publishing.
+- Event channels for **much** faster and more secure real-time event publishing.
 - Better separation of client vs. server side modules.
 - No more callback support. Feathers is all Promises and fully compatible with `async/await`. Most of you have been using this style already but we had deprecated the very old callback style of hooks and services and its now been removed.
 
@@ -38,7 +38,7 @@ We’ve rolled this release out on a few production apps without issue and it sh
 
 [As mentioned previously](/september-2017-feathersjs-community-update-4bc5aeb1ca01) we had a lot of repos in the core Github org and we needed a better way to maintain them. Here are some of the challenges we were facing from having so many repos in the same Github organization:
 
-- People new to the community were a bit overwhelmed and tend to think Feathers is big and that they need every module in the FeathersJS org to build an app, which is not the case. **Almost all the modules that work with Feathers are optional. **- 100+ repos are a lot to maintain for a small part-time team. Some of the modules were only maintained by 1 person. We needed more redundancy than this for core modules and needed to continue to mature as a community. We also want to set certain maintenance expectations for core modules (more on that below).
+- People new to the community were a bit overwhelmed and tend to think Feathers is big and that they need every module in the FeathersJS org to build an app, which is not the case. **Almost all the modules that work with Feathers are optional.**- 100+ repos are a lot to maintain for a small part-time team. Some of the modules were only maintained by 1 person. We needed more redundancy than this for core modules and needed to continue to mature as a community. We also want to set certain maintenance expectations for core modules (more on that below).
 - Since all modules were under the FeathersJS org, people rightly assumed everyone on the core team knew about every little bit. This wasn’t the case and as a result made it hard for community members to know who best to talk to in order to get help.
 - It was harder for some people to innovate or experiment on Feathers modules without causing disruption for people in the community that depend on these modules or getting peppered with issues and questions. Dealing with issues on modules that aren’t even ready for prime time is time consuming and leaving them open is a bit demoralizing. We tried private repos but then that made it harder for people to collaborate. So, we’re restructuring to a tiered approach and graduating modules.
 - All modules were published outside of an NPM org which made it cumbersome to allow multiple maintainers to manage releases.
@@ -66,7 +66,7 @@ All **core** modules in the `feathersjs` Github org are now scoped under `@feath
 
 These core modules are of very high quality and receive top priority support. What does this mean?
 
-**Core Modules **- Are used in production by multiple companies
+**Core Modules**- Are used in production by multiple companies
 - Have great test coverage (> 95%). Most are at 100%. 🙌
 - Have the same familiar repo structure as all others
 - Have up to date documentation at [docs.feathersjs.com](https://docs.feathersjs.com/)
@@ -78,7 +78,7 @@ New functionality will be rare on these core modules. As a result releases on th
 
 ### New [feathersjs-ecosystem](https://github.com/feathersjs-ecosystem) Org
 
-We’ve moved non-core modules to the `feathersjs-ecosystem` Github organization. The point of this org is to have a grouping of high quality, non-core modules. What does this mean? **High Quality Modules **- Are not experimental. These modules are used in production.
+We’ve moved non-core modules to the `feathersjs-ecosystem` Github organization. The point of this org is to have a grouping of high quality, non-core modules. What does this mean? **High Quality Modules**- Are not experimental. These modules are used in production.
 - Have good test coverage (> 80%)
 - Conform to the same repo structure as other ecosystem and core modules
 - Are well documented
