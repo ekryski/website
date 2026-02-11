@@ -68,9 +68,7 @@ export default function About() {
               .
             </p>
             <p>
-              When I'm not building things, you'll find me hiking, gardening, or
-              brewing beer in the garage. I'm into cars, love traveling and
-              golfing, and hit the slopes when the snow's good—or the boxing gym
+              When I'm not building things, you'll find me spending time hiking, gardening, and watching movies with my two daughters, my dog and my lovely wife. I'm into well designed cars, brewing beer, and I love to travel and hit the slopes when the snow's good - or the boxing gym or golf course
               when it isn't.
             </p>
             <p>
@@ -94,7 +92,7 @@ export default function About() {
               I've been building software since 2003 and have a passion for creating beautiful products people love. I co-created the <Link href="https://feathersjs.com" className="text-zinc-800 dark:text-zinc-100 underline decoration-zinc-400 underline-offset-2 hover:decoration-zinc-600 dark:decoration-zinc-500 dark:hover:decoration-zinc-300">Feathers.js</Link> framework, created DeliciousDB, and founded the YYC.js meetup group in Calgary. I'm fascinated by the intersection of programmable money, the history of banking, and macroeconomics.
             </p>
             <p>
-              I served on the National FinTech Committee of the{' '}
+              I also served on the National FinTech Committee of the{' '}
               <Link
                 href="https://www.canadablockchain.ca"
                 className="text-zinc-800 dark:text-zinc-100 underline decoration-zinc-400 underline-offset-2 hover:decoration-zinc-600 dark:decoration-zinc-500 dark:hover:decoration-zinc-300"
