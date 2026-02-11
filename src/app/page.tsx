@@ -180,7 +180,7 @@ export default async function Home() {
             their own terms.
           </p>
           <p className="mt-6 text-base text-zinc-600 dark:text-zinc-400">
-            I have a passion for building beautiful products people love. As of late I've been exploring the intersection of programmable, cryptographically secure money, as well as the history of money, banking, macro and micro economics.
+            I have a passion for building beautiful products people love. As of late I've been exploring the intersection of artificial intelligence, secure programmable money, as well as the history of money, banking, macro and micro economics.
           </p>
           <div className="mt-6 flex gap-6">
             <SocialLink
