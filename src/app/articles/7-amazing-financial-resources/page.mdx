@@ -1,0 +1,51 @@
+import { ArticleLayout } from '@/components/ArticleLayout'
+import { Newsletter } from '@/components/Newsletter'
+
+import imageimage2gif from './image-2.gif'
+
+export const article = {
+ author: 'Eric Kryski',
+ date: '2015-01-18',
+ title: "7 Amazing Financial Resources",
+ description: "Get Eric Kryski’s stories in your inbox",
+}
+
+export const metadata = {
+ title: article.title,
+ description: article.description,
+ openGraph: { title: article.title, description: article.description, url: '/articles/7-amazing-financial-resources' },
+ twitter: { card: 'summary_large_image', title: article.title, description: article.description },
+}
+
+export default ({ children }) => <ArticleLayout article={article}>{children}</ArticleLayout>
+
+I started tracking and looking at my finances in my early teenage years. As soon as we were eligible, my father had my brother and I both partake in an [employee profit sharing plan](http://www.investopedia.com/terms/p/profitsharingplan.asp) (EPSP). This was a way for both of us young lads to not only “learn the value of money” but also reduce the taxes that my father had to pay. What this meant for me was that I got paid $1000 a month. An obscene amount of money for a young teenager.
+
+<figure className="flex flex-col items-center my-8">
+ <Image src={imageimage2gif} alt="" />
+ <figcaption className="mt-2 text-center text-sm italic text-zinc-600 dark:text-zinc-400">
+ I did like to play cowboys and indians, but never like this.
+ </figcaption>
+</figure>
+
+What this also meant was that we had to pay for all our education, school supplies, clothes, sports, you name it. We had to learn to budget from an early age. This was reasonably successful.
+
+However, we were young and dumb and occasionally blew my parent’s hard earned money on candy, toys or movies. When this happened my parents would scold us and bail us out, essentially giving us an interest free loan. We learned our lesson by having to pay back that loan in either extra work or by getting reduced pay the next month. Needless to say this happened way too many times than it should have before it really stuck, but I learned valuable lessons about money at a very early age. I’ve known about the power of compound interest since my early teens, been creating budgets, putting money away, and balancing my own accounts for over 15 years.
+
+> Compound interest is the eighth wonder of the world. He who understands it, earns it … he who doesn’t … pays it. — Albert Einstein
+
+Although I learned some really important lessons early on in life, I have felt dissatisfied with my lack of financial acumen. I’ve been putting money away without really understanding if the choices I have made are good or bad, or if I am saving enough so that I can retire when I’m 55. So, in addition to my resolution [to write 1 article a week for the entire year](/articles/a-year-of-learnings), another one that I started in August last year is to become more financially educated. Below is a curated list of some of my favourite resources thus far.
+
+Over the last six months I have learned a ton. I still feel like there is so much more to know so I’ll be continually adding to this list. If you have any good resources that I should take a look at, please leave a comment and I will add it to the list (giving you credit of course). Hope you find them as useful as I do!
+
+## My Favourite Financial Resources
+
+- [Investopedia](http://www.investopedia.com/)
+- [moneygeek](http://www.moneygeek.ca/)
+- [Canadian Couch Potato](http://canadiancouchpotato.com/)
+- [Mr. Money Mustache](http://www.mrmoneymustache.com/)
+- [20 Something Finance](http://20somethingfinance.com/)
+- [The College Investor](http://thecollegeinvestor.com/)
+- [Mint Blog](https://www.mint.com/blog/)
+
+<Newsletter />

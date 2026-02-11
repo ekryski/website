@@ -1,24 +1,25 @@
 import { ArticleLayout } from '@/components/ArticleLayout'
+import { Newsletter } from '@/components/Newsletter'
 
 export const dynamic = 'force-static'
 
 export const article = {
-  author: 'Eric Kryski',
-  date: '2023-01-20',
-  published: false,
-  title: 'The IMF as predator—and how DeFi could create a better system',
-  description:
-    'After reading about how the IMF has historically structured debt deals, I\'ve concluded they\'re basically a predatory payday lender for emerging markets. DeFi could create something better.',
+ author: 'Eric Kryski',
+ date: '2023-01-20',
+ published: false,
+ title: 'The IMF as predator—and how DeFi could create a better system',
+ description:
+ 'After reading about how the IMF has historically structured debt deals, I\'ve concluded they\'re basically a predatory payday lender for emerging markets. DeFi could create something better.',
 }
 
 export const metadata = {
-  title: article.title,
-  description: article.description,
-  openGraph: { title: article.title, description: article.description, url: '/articles/imf-defi-emerging-markets' },
-  twitter: { card: 'summary_large_image', title: article.title, description: article.description },
+ title: article.title,
+ description: article.description,
+ openGraph: { title: article.title, description: article.description, url: '/articles/imf-defi-emerging-markets' },
+ twitter: { card: 'summary_large_image', title: article.title, description: article.description },
 }
 
-export default (props) => <ArticleLayout article={article} {...props} />
+export default ({ children }) => <ArticleLayout article={article}>{children}</ArticleLayout>
 
 After reading about how the IMF has historically structured debt deals, I've come to the conclusion that they're basically a predatory payday lender for emerging markets and DeFi could create a better system.
 
@@ -73,3 +74,5 @@ The problem with DeFi is that people have been borrowing for speculation and not
 Extending the on-chain lending/borrowing efficiency from DeFi to real economic productivity activities will have profound effects.
 
 Enabling faster access to lower cost capital in a stable currency (USD) with more transparent technology that reduces fraud could dramatically improve global GDP, especially in the countries that rely on the IMF.
+
+<Newsletter />

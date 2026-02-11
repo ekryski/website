@@ -1,0 +1,100 @@
+import { ArticleLayout } from '@/components/ArticleLayout'
+import { Newsletter } from '@/components/Newsletter'
+
+export const article = {
+ author: 'Eric Kryski',
+ date: '2016-04-11',
+ title: "Levelup, RethinkDB, and More Docs",
+ description: "Lots of improvements",
+}
+
+export const metadata = {
+ title: article.title,
+ description: article.description,
+ openGraph: { title: article.title, description: article.description, url: '/articles/levelup-rethinkdb-and-more-docs' },
+ twitter: { card: 'summary_large_image', title: article.title, description: article.description },
+}
+
+export default ({ children }) => <ArticleLayout article={article}>{children}</ArticleLayout>
+
+Now that [a few more people](/what-happens-to-your-open-source-project-when-it-gets-hunted-c26e606398d5#.f7zb5s9l4) are paying attention to [FeathersJS](http://feathersjs.com) we wanted to make it easier for everyone to get visibility into the ongoing changes in the Feathers ecosystem.
+
+Since Feathers is so modular and [our Slack](http://slack.feathersjs.com) is like a conveyor belt we know that it can be tough to keep up with what is happening. That’s why we are going to be posting updates to Medium every 2–4 weeks in a *“What’s New With Feathers”* series. We think that Medium is the perfect platform to share these updates because it’s easy to digest at your leisure but still allows you to get your input in when you have time. That way you don’t feel like you are missing out on anything and can be heard.
+
+So without further ado, I’m happy to report that we’ve had some really big updates since [the official Feathers 2 launch](/introducing-feathers-2-0-aae8ae8e7920#.1kceps37h). In no particular order…
+
+## A New RethinkDB Adapter
+
+We have [a common test suite](https://github.com/feathersjs/feathers-service-tests) that we run against all the database adapters so we are certain that it complies with the [common query syntax](http://docs.feathersjs.com/databases/querying.html) and has the same interface as the other adapters, however since RethinkDB has this fancy real-time feature called “change feeds”, if you use this new adapter you get **real time all the way from the front to the back!**
+
+This is the first database that allows you to get real-time updates even if the database was updated directly without going through a service. This is particularly useful when you have worker jobs or a non-Feathers app talking to the same DB.
+
+I know this adapter is something that a lot of people have been waiting for so we’re excited to hear your feedback.
+
+[
+## feathersjs/feathers-rethinkdb
+
+### feathers-rethinkdb - Create an RethinkDB service for FeathersJS.
+
+github.com
+
+## A New LevelUP Adapter
+
+Our newest core team member 
+
+[
+## feathersjs/feathers-levelup
+
+### feathers-levelup - LevelUP instances as Feathers services
+
+github.com
+
+## Feathers CLI
+
+Another big effort by 
+
+The first version is out and is now the preferred method to get started with Feathers, so feel free to switch over! Simply *npm install feathers-cli.*
+
+[
+## feathersjs/feathers-cli
+
+### feathers-cli - The command line interface for Feathers applications
+
+github.com
+
+## Reactive Service Extensions
+
+But that’s not all! You can also set filters for the events that you care about. So you can do things like only receive change events for messages from a specific user or group of users.
+
+[
+## feathersjs/feathers-rx
+
+### feathers-rx - Reactive API extensions for Feathers
+
+github.com
+
+## Authentication Improvements
+
+The last couple of weeks the [Feathers authentication](https://github.com/feathersjs/feathers-authentication) plugin really got battle tested. As a result a bunch of issues were uncovered. Over a couple releases we squashed a ton of bugs, made a bunch of security fixes, finalized [the bundled hooks](http://docs.feathersjs.com/authorization/readme.html), and added over 200 tests! The additional test coverage definitely makes me sleep better at night and with a lot of these improvements, based on **your feedback **, we are getting really close to an official 1.0 release. 🎉
+
+[
+## feathersjs/feathers-authentication
+
+### feathers-authentication - Feathers REST and Websocket authentication using JSON Web Tokens (JWT) with PassportJS.
+
+github.com
+
+## Documentation Improvements
+
+Last but not least, we had a ton of feedback from the community about the [Feathers docs](http://docs.feathersjs.com). The whole team has been really blown away by how much people appreciate the time we’ve spent on the documentation. So… thank you! It makes all those arduous edits worth it. 💖
+
+However, nothing is perfect so we also found a few things that were missing, unclear or straight up wrong. Along with **a lot** of pull requests from the community we’ve made various updates, fixes and clarifications across much of the docs. Thank you to [everyone that helped](https://github.com/feathersjs/feathers-docs/graphs/contributors) and submitted a PR! There are too many of you to name but we really appreciate it and so do all of your fellow developers.
+
+[
+## Introduction | The FeathersJS Book
+
+### A minimalist real-time framework for tomorrow's apps.
+
+docs.feathersjs.com
+
+<Newsletter />

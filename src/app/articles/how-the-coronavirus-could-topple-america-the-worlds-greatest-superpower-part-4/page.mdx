@@ -1,0 +1,142 @@
+import { ArticleLayout } from '@/components/ArticleLayout'
+import { Newsletter } from '@/components/Newsletter'
+import imageimage1jpeg from './image-1.jpeg'
+
+import imageimage3png from './image-3.png'
+import imageimage4png from './image-4.png'
+import imageimage5gif from './image-5.gif'
+import imageimage6gif from './image-6.gif'
+
+export const article = {
+ author: 'Eric Kryski',
+ date: '2020-03-25',
+ title: "How the Coronavirus could topple America, the world’s greatest superpower — Part 4",
+ description: "The invisible decline of the US economy",
+}
+
+export const metadata = {
+ title: article.title,
+ description: article.description,
+ openGraph: { title: article.title, description: article.description, url: '/articles/how-the-coronavirus-could-topple-america-the-worlds-greatest-superpower-part-4' },
+ twitter: { card: 'summary_large_image', title: article.title, description: article.description },
+}
+
+export default ({ children }) => <ArticleLayout article={article}>{children}</ArticleLayout>
+
+<figure className="flex flex-col items-center my-8">
+ <Image src={imageimage1jpeg} alt="" />
+ <figcaption className="mt-2 text-center text-sm italic text-zinc-600 dark:text-zinc-400">
+ Photo by <a href="https://unsplash.com/@jontyson?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" className="text-black dark:text-white hover:underline">Jon Tyson</a> on <a href="https://unsplash.com/s/photos/homeless?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" className="text-black dark:text-white hover:underline">Unsplash</a>
+ </figcaption>
+</figure>
+
+If you’re just tuning in, welcome! I advise that you [**go back to page one **](/articles/how-the-coronavirus-could-topple-america-the-worlds-greatest-superpower-part-1) so that you have all the right context for this series.
+
+Thus far I have:
+
+- [**Provided an overview of the serious predicament we are in **;](/articles/how-the-coronavirus-could-topple-america-the-worlds-greatest-superpower-part-1)
+- [**Talked about what money is and how we arrived at the financial system we have today **](/articles/how-the-coronavirus-could-topple-america-the-worlds-greatest-superpower-part-2); and
+- [**Demystified how Quantitative Easing within the US financial system actually works **.](/articles/how-the-coronavirus-could-topple-america-the-worlds-greatest-superpower-part-3)
+
+Now we’re going to talk about the thing that no one wants to acknowledge — that the US economy is not looking quite as good as everyone thought it was.
+
+>**Disclaimer:** The following is an opinion piece backed by factual, historical information, which can be found throughout the articles in this series. I am not anti-establishment, or anti-America. I am a proud Canadian and global citizen that values transparency, is pro humanity, and is hoping for the best.
+
+This is not investment advice.
+
+## The US might be running full tilt, head first, straight into a wall
+
+Thus far, ever since World War II, the US economy has generally continued to see rapid growth. You know the old saying, “what goes up, must come down”? Well, markets are no different. The last 10 years we’ve had a lot of up.
+
+<figure className="flex flex-col items-center my-8">
+ <Image src={imageimage3png} alt="" />
+ <figcaption className="mt-2 text-center text-sm italic text-zinc-600 dark:text-zinc-400">
+ Source: <a href="https://fred.stlouisfed.org/series/GDP" className="text-black dark:text-white hover:underline">https://fred.stlouisfed.org/series/GDP</a>
+ </figcaption>
+</figure>
+
+In 2008 we had a bit of a scare. That was the worst global recession since [The Great Depression](https://en.wikipedia.org/wiki/Great_Depression). But guess what, the US Treasury came to the rescue! **They bailed out banks and other businesses with the future debt money they borrowed from the public**. Well, then I guess Americans came to the rescue of the banks… 🤔
+
+Things were a bit a rough for a year or two but the US economy recovered, thanks to those taxpayers. To quote Trump:
+
+> “It’s great. It’s the best. We have the greatest economy we’ve ever had in the history of our country.”
+
+It turns out that when he came to power, the US had some of its best years because it was in full QE mode. Additionally, [Trump relaxed some critical rules around the Dodd-Frank Act](https://www.cnbc.com/2018/05/24/trump-signs-bank-bill-rolling-back-some-dodd-frank-regulations.html) that the Obama administration put in place to prevent a 2008 financial collapse again. Specifically, rules on what types of assets banks could bundle up and sell off to investors (  **hint:**it’s the the same 💩 sub-prime mortgages that led to the 2008 crisis). [He also gave out huge corporate tax cuts that further fuelled the rapid acceleration of corporate stock buy-backs](https://www.vox.com/2018/8/2/17639762/stock-buybacks-tax-cuts-trump-republicans).
+
+This had quite the profound impact! Trump was right! The economy was doing better than ever!
+
+At least when measured by the stock market, jobs and GDP.
+
+But as it turns out, this was a fallacy, as this was artificially fuelled by the **Trillions of dollars **in money printing that the Fed was doing. This growth was also hiding some serious systemic problems. Let me explain. First, I’ll need to briefly explain how corporate stock buy-backs work.
+
+### Stock buy-backs: The worst thing to happen to the US economy.
+
+Stock buy-backs are exactly what you think they are. The company buys back stock from the shareholders with cash (which could have come from debt). Why would they do that? Well there are 4 reasons but one is more important the other:
+
+- To reward shareholders for investing in them. Awww that’s nice. ❤️
+- To retain more voting control of the company.
+- To buy back stock today so that they can sell it again in the future for more money. Maybe because they have some sweet new products in R&D.
+-**Because many executives get bonuses based on stock performance. ** Guess which one isn’t like the others? If you guessed #4, you are right! Because of the relaxed rules on executive compensation and stock buy-backs this created a perverse incentive for the company executives in charge of these decisions [to buy back as much stock as possible](https://money.cnn.com/2018/06/11/investing/stock-buybacks-sec-report/index.html). 🤔
+
+> Remember who gets money from the Fed in the repo market?
+
+Some of [the worst offenders of buy-backs have been the banks that received bailouts](https://www.bizjournals.com/charlotte/news/2019/06/28/fed-oks-bofas-plan-to-return-billions-of-dollars.html), and the airlines, [which spent 96% of free cashflows on buy-backs, while increasing luggage and seat fees](https://www.bloomberg.com/news/articles/2020-03-16/u-s-airlines-spent-96-of-free-cash-flow-on-buybacks-chart). They basically took public bail out money and/or cheap debt, ratcheted up consumer costs, and used their cash to buy stocks back, which rewarded shareholders and executives. Very few public US companies were immune to this behaviour. Even [Apple, in 1 quarter in 2018 alone, bought back $22.8 Billion dollars in stock](https://money.cnn.com/2018/06/11/investing/stock-buybacks-sec-report/index.html), more than any other company in a single quarter.
+
+What this does is artificially pump the stock price, because there is a diminishing supply of stock out there and a consistent demand (the company buying). If you remember the basics of [supply and demand](https://www.investopedia.com/terms/l/law-of-supply-demand.asp), when this happens, the stock price goes up! ⬆💰
+
+Furthermore, if shareholders are being rewarded and prices are going up, the stocks look more enticing. 🤑
+
+Turns out a huge percentage of public companies in the USA have done this, because borrowing money has been dirt cheap for the last decade. As such, we’re now in a position where the US has had an artificially inflated stock market, pumped up job and wage growth, while companies are over leveraged with poor cash reserves. A recipe for a massive correction! 😳
+
+But this capital influx, accompanied by record low interest rates, has also produced another bad side effect… too much debt.
+
+### Public debt is at record levels
+
+US public debt (ie. government debt they borrowed on behalf of tax payers), prior to COVID-19, was above 100% of GDP for the first time in the last 70 years, and only the second time post WWII. As you can see below, it has exploded since the 2008 financial crisis as [Quantitative Easing](https://www.thebalance.com/what-is-quantitative-easing-definition-and-explanation-3305881) has been in full force.
+
+<figure className="flex flex-col items-center my-8">
+ <Image src={imageimage4png} alt="" />
+ <figcaption className="mt-2 text-center text-sm italic text-zinc-600 dark:text-zinc-400">
+ US government (public) debt as a percentage of GDP. Source: <a href="https://fred.stlouisfed.org/series/GFDEGDQ188S" className="text-black dark:text-white hover:underline">https://fred.stlouisfed.org/series/GFDEGDQ188S</a>
+ </figcaption>
+</figure>
+
+Last year, [US corporate debt was $15.5 Trillion, 74% of GDP](https://www.forbes.com/sites/mayrarodriguezvalladares/2019/07/25/u-s-corporate-debt-continues-to-rise-as-do-problem-leveraged-loans/#63dbbd433596). As more cash was available, this drove [US household debt to the highest it has ever been at $14.15 Trillion dollars](https://www.reuters.com/article/us-usa-fed-household-debt/u-s-household-debt-tops-14-trillion-and-reaches-new-record-idUSKBN20521Z). That’s 69% of GDP. This number was from February, before COVID-19 really hit. That’s a lot of money!💰
+
+### Globalization, automation, and the rise of China 🇨🇳
+
+Globalization and [automation has resulted in the loss of many American jobs](https://www.forbes.com/sites/amysterling/2019/06/15/automated-future/#27f4959779d8). Furthermore, because manufacturing jobs are generally considered lower class and lower pay, over the last 2 decades much of the world’s manufacturing work was shipped overseas to China.
+
+China has a massive, generally obedient population. With a dash of political reform, some forward thinking, and a strong demand from developed countries seeking “cheap labour”, this combination has fuelled an epic amount of economic growth in China.
+
+<figure className="flex flex-col items-center my-8">
+ <Image src={imageimage5gif} alt="" />
+ <figcaption className="mt-2 text-center text-sm italic text-zinc-600 dark:text-zinc-400">
+ China’s Nominal GDP Growth. Source: <a href="https://en.wikipedia.org/wiki/Economic_history_of_China_(1949%E2%80%93present" className="text-black dark:text-white hover:underline">https://en.wikipedia.org/wiki/Economic_history_of_China_(1949%E2%80%93present)</a>)
+ </figcaption>
+</figure>
+
+**In the last 20 years, ** [**China has grown faster than any other economy in history ** ](https://www.visualcapitalist.com/china-economic-growth-history/)**. Ever. **This has quickly catapulted the entire country from a developing nation, to an economic power house with substantial influence and a burgeoning middle class. China’s “Automation Era” is not all that dissimilar from America’s profound growth during the “Industrial Era”.
+
+As a result, China has now stepped onto the stage as a formidable challenger to the US to become the economic superpower. What is even more interesting is that the USA is currently more dependent on China, than the other way around. Maybe trade tariffs weren’t actually a good idea, eh Señor Trump?
+
+<figure className="flex flex-col items-center my-8">
+ <Image src={imageimage6gif} alt="" />
+ <figcaption className="mt-2 text-center text-sm italic text-zinc-600 dark:text-zinc-400">
+ Source: <a href="https://www.constructconnect.com/blog/economy/reality-u-s-foreign-trade-6-graphs" className="text-black dark:text-white hover:underline">https://www.constructconnect.com/blog/economy/reality-u-s-foreign-trade-6-graphs</a>
+ </figcaption>
+</figure>
+
+China is now outpacing the USA’s GDP growth at an impressive rate. Given their trajectory I would not be surprised if their GDP surpassed America’s within this decade. Especially as the Chinese begin to lead the world in AI, automation, manufacturing, 5G, genetic engineering, and other emerging technologies.
+
+While China has now been on the same boat as nearly every country in the world, using taxes and debt to finance operations, the culture in China still has a strong bias towards saving and fiscal conservatism. At a [44.7% gross savings rate](https://www.ceicdata.com/en/indicator/china/gross-savings-rate) compared to the [17.3% of the United States](https://www.ceicdata.com/en/indicator/united-states/gross-savings-rate), this puts them in a much better position to weather economic downturns compared to their American counterparts.
+
+It seems that China is in the slipstream of the USA, and about ready to overtake.
+
+Okay, I know this has been long but bear with me. All the knowledge you’ve gained from the previous articles in this series is critically important. We’re nearly done.
+
+In the final article in this series, we finally get to [**how the novel Coronavirus COVID-19 pops the US credit bubble. **](/articles/how-the-coronavirus-could-topple-america-the-worlds-greatest-superpower-part-5) Carry on my wayward son (or daughter, or whatever your favourite inclusive noun is).
+
+>**About the author:** [Eric Kryski](https://www.linkedin.com/in/ekryski/) is a Canadian data & computer scientist and the CEO of [Bidali](https://www.bidali.com) — a financial infrastructure company that uses blockchain technology to provide better, cheaper and more transparent financial services. This year he spoke in Davos during the World Economic Forum on the future of money and is the chair of the Canadian Blockchain Consortium FinTech committee.
+
+<Newsletter />

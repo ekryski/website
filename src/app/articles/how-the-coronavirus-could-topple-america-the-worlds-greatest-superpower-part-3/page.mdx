@@ -1,0 +1,203 @@
+import { ArticleLayout } from '@/components/ArticleLayout'
+import { Newsletter } from '@/components/Newsletter'
+import imageimage1jpeg from './image-1.jpeg'
+
+import imageimage3png from './image-3.png'
+import imageimage4jpg from './image-4.jpg'
+import imageimage5jpg from './image-5.jpg'
+import imageimage6jpg from './image-6.jpg'
+
+export const article = {
+ author: 'Eric Kryski',
+ date: '2020-03-25',
+ title: "How the Coronavirus could topple America, the world’s greatest superpower — Part 3",
+ description: "Peeking behind the curtain of the US financial system",
+}
+
+export const metadata = {
+ title: article.title,
+ description: article.description,
+ openGraph: { title: article.title, description: article.description, url: '/articles/how-the-coronavirus-could-topple-america-the-worlds-greatest-superpower-part-3' },
+ twitter: { card: 'summary_large_image', title: article.title, description: article.description },
+}
+
+export default ({ children }) => <ArticleLayout article={article}>{children}</ArticleLayout>
+
+<figure className="flex flex-col items-center my-8">
+ <Image src={imageimage1jpeg} alt="" />
+ <figcaption className="mt-2 text-center text-sm italic text-zinc-600 dark:text-zinc-400">
+ Photo by <a href="https://unsplash.com/@aditya1702?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" className="text-black dark:text-white hover:underline">Aditya Vyas</a> on <a href="https://unsplash.com/s/photos/wall-street?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" className="text-black dark:text-white hover:underline">Unsplash</a>
+ </figcaption>
+</figure>
+
+If you’ve already read the first two articles in this series, welcome back! If you are a first time reader, you should go and read the [**first **](/articles/how-the-coronavirus-could-topple-america-the-worlds-greatest-superpower-part-1) and [**second **](/articles/how-the-coronavirus-could-topple-america-the-worlds-greatest-superpower-part-2) articles so that you have the right background information.
+
+In the first piece, we set the stage as to how the new COVID-19 virus could impact the US economy and why the US Government needs to inject a lot of money into the financial system, to prevent a collapse.
+
+In the second article, we properly defined what money is, and outlined the historical events that led to the monetary and financial systems we have today.
+
+Let’s dive deeper into that latter part. Since the US Dollar is the global reserve currency, pretty much every country in the world is impacted by the US financial system. However, I would bet $100 that if you stopped someone on the street and asked them what The Fed does, they would have no idea.
+
+>**Disclaimer:** The following is an opinion piece backed by factual, historical information, which can be found throughout the articles in this series. I am not anti-establishment, or anti-America. I am a proud Canadian and global citizen that values transparency, is pro humanity, and is hoping for the best.
+
+This is not investment advice.
+
+## So how does the US financial system work?
+
+Today, the US financial system is **very** complex. It has **many** different parts, all of which are intertwined both nationally and internationally. I’m going to focus on the key pieces where we’ve already seen issues and how money flows between them so you can wrap your head around this complex machine.
+
+###**The Key Components ** These are the main pieces involved in the core US financial system. Especially the ones that are involved in [Quantitative Easing (QE)](https://www.investopedia.com/terms/q/quantitative-easing.asp).
+
+- The US Treasury
+- The Federal Reserve (the “Fed”)
+- The Stock Markets
+- [The Repo Market](https://www.bankrate.com/banking/federal-reserve/why-the-fed-pumps-billions-into-repo-market/)
+- The Bond Market
+- Commercial banks, investment funds, and large corporations
+
+Don’t worry, I’ll explain in more detail how this works and how they are related, but take a look at the picture below to get an idea of how QE works.
+
+<figure className="flex flex-col items-center my-8">
+ <Image src={imageimage3png} alt="" />
+ <figcaption className="mt-2 text-center text-sm italic text-zinc-600 dark:text-zinc-400">
+ A simplified overview of how Quantitative Easing (QE) works and how The Fed “expands its balance sheet”.
+ </figcaption>
+</figure>
+
+Now I’m glossing over some details about intermediaries, brokers, foreign currency, etc, in the hopes of not overwhelming you, but this is pretty much how The Fed injects fiscal stimulus into the economy. Hopefully this diagram has helped you to wrap your head around this rat’s nest a little bit.
+
+You probably have some questions…
+
+### What actually is the Fed?
+
+The Federal Reserve Bank (aka. “The Fed”) is a national**independent ** bank that is “arms length” from the government. At least it’s supposed to be. However, the President and Congress approve [all members of the board](https://www.federalreserve.gov/aboutthefed/bios/board/default.htm). [The Fed is owned by 12 regional Federal Reserve Banks](https://www.thebalance.com/who-owns-the-federal-reserve-3305974), which include groups you might have heard of, such as the Federal Reserve Bank of New York and the Federal Reserve Bank of St. Louis.
+
+<figure className="flex flex-col items-center my-8">
+ <Image src={imageimage4jpg} alt="" />
+ <figcaption className="mt-2 text-center text-sm italic text-zinc-600 dark:text-zinc-400">
+ Organization structure. Source: <a href="https://www.federalreserve.gov/aboutthefed/structure-federal-reserve-system.htm" className="text-black dark:text-white hover:underline">https://www.federalreserve.gov/aboutthefed/structure-federal-reserve-system.htm</a>
+ </figcaption>
+</figure>
+
+All of these banks, including the main Federal Reserve Bank have board members and employees. They are all effectively like private businesses. There are 3 tiers of board members that make up the boards and decide the actions of these regional Federal Reserve banks:
+
+-**Class A Directors:** Elected by member banks **to represent banks **. For example, at the Federal Reserve Bank of New York, [one director is James Gorman](https://www.newyorkfed.org/aboutthefed/org_nydirectors.html), the Chairman and CEO of Morgan Stanley, [which received a $107 Billion bailout in 2008](https://www.nydailynews.com/news/money/morgan-stanley-borrowed-107-billion-banks-2008-financial-company-bailout-article-1.950274).
+-**Class B:**Elected by member banks to represent the public. Also in New York, is [Adena Friedman, the CEO of the Nasdaq Stock Exchange](https://www.newyorkfed.org/aboutthefed/org_nydirectors.html).
+-**Class C:**Appointed by [the Federal Reserve Board](https://www.federalreserve.gov/aboutthefed/bios/board/default.htm) to represent the public. Thankfully these people cannot be officers, directors, employees or stockholders of any bank or financial institution.
+
+>**Note:** I don’t know how board meetings actually work at the Federal Reserve banks. If they are like a normal board where each person casts their votes equally, then while Class C is great, if 6/9 board members are elected by banks, it seems that they will always be able to pass a majority vote. *🤔*
+
+The national Federal Reserve Bank’s board is an independent agency of the federal government but its decisions don’t have to be approved by the president, legislators, or any elected official. **This is important **, because who makes decisions about the Fed’s actions heavily influences all of Americans and the American economy.
+
+Frankly, **the Fed influences the entire world’s economy ** because the US Dollar is currently the global reserve currency. For now.
+
+Equally as important, the Fed does not receive its funding from Congress. Instead, [its funds come from its investments](https://www.federalreserve.gov/faqs/about_12799.htm). It receives interest from [U.S. Treasuries](https://www.thebalance.com/what-are-treasury-bills-notes-and-bonds-3305609) it acquires from Repo Market participants during “open market activities”. More on this below.
+
+### So what do these regional reserve banks and the Fed do?
+
+The regional reserve banks monitor inflation and economic performance in their respective region. The federal reserve bank monitors things nationally. They all meet every few months to adjust knobs (money in circulation and interest rates) to ensure unemployment is low and the economy is growing at a “healthy” 2% inflation rate per year.
+
+Why 2%? No one **really** knows.
+
+[Because a guy name John Maynard Keynes](https://www.theguardian.com/business/2015/feb/25/keynes-and-the-puzzle-of-falling-prices) said that government’s should control inflation that’s what we’ve done since World War II. [Lots of economists have written on the inflation target subject, both for and against.](https://www.google.com/search?q=why+do+we+have+a+2%25+inflation+rate+target&oq=why+do+we+have+a+2%25+inflation+rate+target) But the 2% inflation target mostly comes down to, [in 1988 a guy named Roger Douglas from New Zealand said so when put on the spot on TV](https://qz.com/2022696/where-did-the-feds-2-percent-inflation-target-come-from) and everyone else said “sounds like a good idea”. I’m not joking. 🙃
+
+*That’s right Leo… 🤷‍♂️*
+
+### Okay… so what does the Repo Market have to do with this?
+
+Well, buying treasuries from Repo Market participants (“open market activities”) is primarily how the Fed has done Quantitative Easing, which has been a fancy way to inject capital into the American economy in order to keep the inflation rate at 2%.
+
+They do this by issuing credit to banks, investors, and large companies that borrow in the “open” Repo Market in exchange for collateral in the form of US Treasuries. These borrowers then turn around and take this credit and deploy it into the economy by putting out new loans, investing in projects, and creating jobs. Kind of like how your credit card company gives you credit and you can spend it.
+
+At least that’s how it’s supposed to work.
+
+Initially it was meant for large banks to have the liquidity (ie. money in the bank) to offer short term (overnight) loans to other smaller banks so that *they* can meet their 10% cash reserve quota required for the fractional banking system, but it’s since deviated from that narrow scope.
+
+### So who are these borrowers in the the Repo Market?
+
+[Commercial banks, investors and investment funds, and large companies.](https://www.icmagroup.org/Regulatory-Policy-and-Market-Practice/repo-and-collateral-markets/icma-ercc-publications/frequently-asked-questions-on-repo/5-who-are-the-main-users-of-the-repo-market/) The exact numbers borrowed and who borrowed are kind of tough to find. But the totals tossed around the financial news are hard to fathom. Within the last year [the Fed has apparently pumped $3 Trillion in liquidity into the repo market](https://wallstreetonparade.com/2019/11/as-fed-pumps-3-trillion-into-repo-market-morgan-stanley-and-goldman-sachs-practice-borrowing-from-the-feds-discount-window/).
+
+The problem with this, is the Fed has provided so much liquidity, at such a low cost, that it has ruined the market. There is no real price discovery and the banks no longer want to lend to each other when they could just make more money dealing with the Fed!
+
+As a result, the Repo market stopped working as intended and some banks have become short on their collateralized requirements (ie. not liquid enough). This was what the whole point of the repo market was for! 🤦‍♂️
+
+*Facepalm indeed.*
+
+These “hiccups” in the Repo market over the last few years have forced the Fed to come to the rescue again and again, worsening the situation as big banks borrow more from the Fed to pad their balance sheet.
+
+### I don’t get it. How does The Fed finance the Repo Market?
+
+[They take assets (US treasuries and bonds) from repo market borrowers](https://www.thebalance.com/is-the-federal-reserve-printing-money-3305842) and tell those borrowers (banks, investors, etc.) that they can add the equivalent amount of money to their digital bank account balances so they can lend it out or use that “cash”.
+
+> I put “cash” in quotes because it’s not physical cash. It’s just numbers in a database.
+
+The process is as follows:
+
+- A bank like JP Morgan says to the Fed, “Hey! I’ve got this sweet government backed treasury, will you buy it from me?”
+- Then Fed goes, “Heck yeah! I love those! Normally you should pay me 1% interest on that, but today… best price. You only need to pay me back 0% interest on that baby. What’s better than free, amiright?!”
+- So the Fed adds this new US treasury on their own balance sheet and gives the equivalent amount of credit to JP Morgan. JP Morgan puts this credit on their balance sheet and they lend it, invest it, or spend it. This part is called “expanding the Fed’s balance sheet”. This is what [Quantitative Easing (QE)](https://www.thebalance.com/what-is-quantitative-easing-definition-and-explanation-3305881) is. The Fed is just shuffling numbers around in a database. Contrary to what some people claim The Fed isn’t making up money out of thin air. **They are buying the assets that the US Treasury made up out of thin air. **- When JP Morgan decides to repay this credit, they tell the Fed they are going to take the US treasury back. The Fed gives it back and deducts the credit from JP Morgan + their interest fee. The Fed adds that interest fee to their own bank account. Cha-ching! 💵
+
+This process is kind of like how a bank gives you a loan if you give them an asset as collateral, like a house or a car. You spend that credit and then (hopefully) pay it back, sometimes with interest.
+
+If you are JP Morgan, this is a thing of beauty. 🤩
+
+You get to buy up US treasuries that pay ~1.3%. Flip that over to the Fed for cash for 0–0.25%. Loan that money out or pump up your own stock price, further increasing your balance sheet. Then you take back the treasury from the Fed and redeem it with the US Government (aka. US tax payer) for the full amount + your 1.3%. Booya! Rinse and repeat.
+
+[Since 2008, the Fed has pumped $6.6 Trillion dollars into the repo market in this way](https://www.globalresearch.ca/repo-fiasco-feds-cash-injections-send-stocks-soaring/5702571), which banks have then lent out at higher and higher risk, or used to buy back stocks.
+
+### How do the stock & bond markets play into this?
+
+Most of the borrowers in the Repo Market have shares traded on the stock market. If they get cash for cheap they can invest in growth, loan out more money at higher risk, or buy back their own stocks. All of which would raise their own share price and get executives fat bonuses. [Turns out they’ve done all of this.](https://www.usnews.com/news/business/articles/2019-06-27/fed-approves-buyback-dividend-plans-for-all-largest-banks)
+
+> Remember, some of these same execs are on the boards of the Federal Reserve banks, who help approve the amount of credit pumped into the repo market and the rate the borrowers (their businesses) pay.
+
+Furthermore, the US treasuries, notes, and bonds are also bought up by investment funds and brokers. These are usually packaged into ETFs, mutual funds and money market funds, which are then bought by consumers and companies. So unless you’re buying directly from the US treasury, retail investors are basically buying bonds against their own future taxes for rates that are worse than the target 2% inflation rate, **before fees **. 🤔
+
+### But who issues the US treasuries, notes, and bonds that the Fed buys?
+
+The US Treasury does. [It is the executive branch of the US government](https://www.thebalance.com/u-s-department-of-treasury-what-it-does-and-its-effect-3305998) that collects taxes and funds US debt. [It is controlled by Congress.](https://www.investopedia.com/ask/answers/012715/who-sets-fiscal-policy-president-or-congress.asp) This is why Trump and Mnuchin can announce a stimulus package but Congress needs to approve it. This is to avoid people over spending. However, if the President controlled most of the power in the House of Representatives and the Senate, then they could do what they want.
+
+>**Side note:** If there is too much public debt and not enough debt ceiling, the US constitution forbids the US Treasury from selling more treasuries, notes and bonds. So if they spend A LOT then they’d also need go to Congress to raise the debt ceiling.
+
+### Okay so the US Treasury can just issue as many treasuries, bonds and notes, as it wants. What the hell are these things, really?
+
+They are promises by the US government to pay you back a % of interest in the future because you are giving them money today. The 3 types vary by how far in the future you’ll get paid (ie. maturity) and how much they’ll give you in interest. **But they’re all just intangible things that the government uses to raise debt money.** Anyone can buy these. Even Sally in engineering. However, typically they are bought by banks, investment funds, large corporations and investors. The same groups that partake in the repo market and many of which were on the receiving end of government bailouts in the 2008 financial crisis. **Remember this, it is important.**### Okay, but how does the US Treasury actually sell these bonds and stuff?
+
+Back in the olden days they used to hold physical auctions with physical pieces of paper that were your claim to a US Treasury bond, note, or treasury.
+
+Nowadays this is done via a digital auction. So really it’s just an entry in a computer. They literally enter some numbers, press a button and 💥 now we’ve got something people hopefully value and will pay USD for.  **Remember that, it’s important. **This is also a part of the Quantitative Easing process and why people call it money printing. While some argue it’s not  **really **printing money, they are being pedantic. The US Treasury is not  **physically **printing money (which they also do), but they are digitally making up value out of thin air.
+
+Last week, [there was a liquidity crunch in this market](https://finance.yahoo.com/news/nightmare-wall-street-liquidity-110000984.html) and people weren’t able to sell their treasuries, bonds, and notes because there wasn’t enough buyers. This has never happened before.  **Remember that, it’s also important **, as this signifies that the typical buyers or these treasuries lack confidence in the future of the US economy.  **Remember who these buyers are? **### But where does the US Treasury get the money to pay back this debt?
+
+This is a  **great **question. Back in the old days it use to be insured by gold reserves. While the US still has gold reserves, since it is no longer on the gold standard,  **it doesn’t have anywhere near enough gold to cover the amount of public debt. **[The US Treasury currently has $11 Billion worth of gold ($11,041,059,957.90 to be exact)](https://fiscal.treasury.gov/reports-statements/gold-report/current.html). They are planning on printing at least $2 Trillion USD (so far). Which is **~200X **more gold than they have. So where does the remaining 1,990 Billion dollars come from?
+
+<Image src={imageimage5jpg} alt="" />
+
+> US Treasury notes, bonds, treasuries, and dollars are backed by the full faith and credit of the United States Government.
+
+Nowadays, this is debt issued by the US Treasury that is “[backed by the full faith and credit of the United States Government](https://www.congress.gov/congressional-report/113th-congress/house-report/48/1)”, which is a fancy of way of saying it is paid back primarily from income, payroll, and corporate taxes from  ** future **GDP.
+
+<figure className="flex flex-col items-center my-8">
+ <Image src={imageimage6jpg} alt="" />
+ <figcaption className="mt-2 text-center text-sm italic text-zinc-600 dark:text-zinc-400">
+ Consumer taxes (payroll + income) account for the majority of the Fed’s revenue. The American people pay for the Fed!
+ </figcaption>
+</figure>
+
+Today, this $2 Trillion capital injection is  ** 9.3%**of last year’s $21.4 Trillion dollar GDP and 50% of the projected taxes for 2020. Unfortunately, this ratio is likely going to get worse, with a significantly reduced GDP than was projected this year, and a massive increase in spending. [The US government was already planning on spending ~5 Trillion dollars this year](https://www.whitehouse.gov/wp-content/uploads/2020/02/budget_fy21.pdf), before COVID-19 hit so I won’t be surprised if they spend 30–50% of GDP to recover, or more…
+
+Put simply, the US Treasury ** manufactures value out of thin air **, with the promise to pay it back plus some interest in the future, which will be paid for by future tax dollars. It’s basically [a Ponzi Scheme](https://www.investopedia.com/terms/p/ponzischeme.asp), where the government is at the top and needs more and more people, to produce more and more taxable income, to cover more and more debt. I don’t use the “P” word lightly here. It’s literally the same thing. If the US tax income declines even a moderate amount, which could happen from say a major virus, natural disaster or emigration, it won’t be able to pay its debts and will default. 🤯
+
+> The US Government borrows money from the public, in the future, to support operations today. The US government is like a junkie hooked on the high of publicly funded future debt money.
+
+So based on our definition of “sound money”, since the US Government can easily just create new money (in a roundabout confusing way) the US Dollar isn’t really sound at all. 😳
+
+This is already a scary thought. But up until the last two weeks Trump has been proclaiming:
+
+> “All is good! The US has a great economy!”
+
+Maybe not? If the value of the US Dollar today, is dependent on the future growth of the country, what happens if the US economy shrinks significantly, or worse, collapses entirely?
+
+Read on to find an answer to that question. [**In the next article we’ll cover how the US began to lose its superpower status ** ](/articles/how-the-coronavirus-could-topple-america-the-worlds-greatest-superpower-part-4)**. **>**About the author:** [Eric Kryski](https://www.linkedin.com/in/ekryski/) is a Canadian data & computer scientist and the CEO of [Bidali](https://www.bidali.com) — a financial infrastructure company that uses blockchain technology to provide better, cheaper and more transparent financial services. This year he spoke in Davos during the World Economic Forum on the future of money and is the chair of the Canadian Blockchain Consortium FinTech committee.
+
+<Newsletter />

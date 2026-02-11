@@ -1,0 +1,62 @@
+import { ArticleLayout } from '@/components/ArticleLayout'
+import { Newsletter } from '@/components/Newsletter'
+
+export const article = {
+ author: 'Eric Kryski',
+ date: '2018-01-01',
+ title: "My Take on Verge (XVG)",
+ description: "My involvement and why I’m contributing",
+}
+
+export const metadata = {
+ title: article.title,
+ description: article.description,
+ openGraph: { title: article.title, description: article.description, url: '/articles/my-take-on-verge-xvg' },
+ twitter: { card: 'summary_large_image', title: article.title, description: article.description },
+}
+
+export default ({ children }) => <ArticleLayout article={article}>{children}</ArticleLayout>
+
+> **Disclaimer**: This isn’t investment advice. I’m not an “official” member of Verge (whatever that means — it is open source and MIT licensed after all). I don’t know any of the Verge team or people that are advocates of it other than their avatars. I’ve submitted some pull requests to the code base over the last couple days to fix issues I saw and have been communicating with the lead dev on Discord to try and help push the project forward. Like many people I like to make money but I’m more interested in the tech in the crypto space because I’m a nerd, I like my job, and I’m already able to pay my bills.
+
+For those of you that are following the cryptocurrency space, 2017 was a wild ride. Many coins saw some explosive growth. One of those coins was [Verge](https://vergecurrency.com/). It grew at an absurd rate, up something like 6000% in a month. Being honest, I was excited with that because I had invested some money into it early (not early enough) after reading through their website, Black Paper, the source code, and lurking on their Discord channel. It was on the uptrend, pretty cheap and I saw (and still see) a ton of potential in the project.
+
+Verge is not the only currency I have invested in, I have a diverse cryptocurrency portfolio - and that’s how I pick my investments, I do my due diligence - but it is the only coin I have contributed to because I’m especially interested in the privacy coin area and I believe in their vision to allow people to choose whether transactions should be private or not. Privacy is important and we’re losing it every day. To my knowledge Verge is the only currency that is trying to give you the option to make transactions private or public. This is what their “Wraith” release is all about and it’s something I really want to see come to fruition because there are legitimate use cases for private and public transactions.
+
+So, two days ago I decided to take a crack at fixing the Mac OS X build because I wanted to test out the code base for myself and I never feel that comfortable leaving coins on exchanges. I hadn’t run the wallet before but I have run other coin wallets and full nodes. I managed to get the latest build working and sent some coins to my wallet. The new Wraith codebase worked! So I decided to share my excitement with a tweet and push a pull request to the official repo.
+
+After that I had asked the lead developer *vergeDEV* if I could help with anything else. I did some testing, helped debug some OS X build issues and went back to life. With this tweet, my Twitter feed blew up and people decided to take me as an authority on project status. I’ve been hounded the last couple days and to be completely honest I don’t know much more than anyone else. I don’t know how *vergeDEV* handles the incessant pestering, it’s pretty hard to stay focused. I had to turn off all notifications.
+
+However, because I value transparency I’ll share what I do know…
+
+I know that *vergeDEV* is working his ass off and really cares about the project and the tech. He hasn’t had a lot of sleep and is dealing with a ton of public pressure — dealing with it really well in my opinion.
+
+I know that [the Wraith release is up on Github](https://github.com/vergecurrency/VERGE/releases/tag/4.0). There are some things that need polish and improvement but the wallet works better than a lot of other wallets I’ve used. Transactions are pretty quick, and the Stealth addresses and Tor functionality is in the code base. I haven’t tested those parts out myself yet because I’m still learning about how they work but I’m hoping to tinker with that today or at some point this week.
+
+I also know that *vergeDEV* and I ran into some really shitty bugs last night that were hard to track down and fix but we managed to pull through. The dude is a machine for grinding it out on New Year’s Eve after already having a chaotic “holiday” season. That shows some serious dedication. Most people would have said “fuck it”.
+
+So in the last 2 days, regardless of the current state of the project **my** confidence in Verge and the team is at an all time high.
+
+For those that want to know more about the issues feel free to read on…
+
+### Incorrect Transfer Fees
+
+We were doing some final regression testing and I noticed that when you sent a transaction it would take whatever remaining balance you had in your wallet and put it towards transaction fees. When trying to send 5 XVG to test I lost 19,000 XVG and made 1 lucky miner pretty happy. We spent hours trying to fix it and finally did. You obviously cannot ship that to everyone so we wanted to take our time to make sure we had it fixed and triple checked it.
+
+This bug was introduced in what looked to be a result of a bad merge conflict in the last couple days. Some code came in from another branch by accident and flew under the radar in the flurry of activity. This would have been caught earlier with more test coverage but wasn’t until a final pass of manual regression testing. Thankfully we took our time double checking the release but obviously the delay is justified.
+
+From me, there is no blame here. As far as I know *vergeDEV* has been a one-man team so it’s hard to do everything on the dev side by yourself and there are very few cryptocurrencies out there that have good tests, let alone adequate test coverage and regression testing (surprise!). Sadly, very few crypto currencies have consistent green builds. This is partly the nature of all the moving pieces but also the new frontier and the experimental nature of this area. Having created and helping run [a widely used open source project](https://feathersjs.com/) I think I can help Verge a lot here and I will being pushing for more tests and automation. I know from experience that having decent test coverage increases stability and velocity of any code base.
+
+### OS X Build Issues
+
+The second issue I was running into last night was an OS X build issue. We actually still have the problem and it turns out [it’s pretty common](https://github.com/litecoin-project/litecoin/issues/369). For the tech folk — I’m not able to statically link Boost when compiling the Binary for Mac OS X. So in order to run the new Wraith wallet you need to [install Boost yourself](https://github.com/vergecurrency/VERGE/issues/181#issuecomment-354641764) before opening it up for the first time.
+
+This isn’t a huge issue but because I’m less familiar with C++ is not a quick fix unless I get some help. *vergeDEV* has his hands full with other stuff and I need to do more research on how to fix it. Researching late last night it appears that Apple doesn’t make it easy to include this library in standalone apps because they like to “think different”. If you are a C++ guru I’d love some help. If you manage to get it working please submit a PR to the Verge repo! In the meantime I’ll continue to work on a solution so that it’s a 1-click install process.
+
+So that’s all I know and I hope that brings some clarity for some people. To me (unofficially) Wraith is out. It works and it will be continually improved so I don’t really understand why people are hung up whether there is an “official” announcement or not. Stuff is moving forward at a rapid pace and the proof is in the code, not the tweets.
+
+As I stated before, I believe in the vision that *vergeDEV* and the rest of the team have and I’m looking forward to what’s to come in 2018 — both with Verge and crypto as a whole. I’ll be trying to lend a hand to help Verge become what I think it can be.
+
+Thanks for getting things started *vergeDEV*, I think things are just getting going! 🚀
+
+<Newsletter />

@@ -1,0 +1,107 @@
+import { ArticleLayout } from '@/components/ArticleLayout'
+import { Newsletter } from '@/components/Newsletter'
+
+import imageimage2jpeg from './image-2.jpeg'
+
+export const article = {
+ author: 'Eric Kryski',
+ date: '2016-04-13',
+ title: "What’s Next For Feathers?",
+ description: "Authentication 1.0",
+}
+
+export const metadata = {
+ title: article.title,
+ description: article.description,
+ openGraph: { title: article.title, description: article.description, url: '/articles/whats-next-for-feathers' },
+ twitter: { card: 'summary_large_image', title: article.title, description: article.description },
+}
+
+export default ({ children }) => <ArticleLayout article={article}>{children}</ArticleLayout>
+
+Since our [official release](/introducing-feathers-2-0-aae8ae8e7920) of Feathers 2 quite a few people have been asking, *“*[*Where did Feathers come from?*](/why-we-built-the-best-web-framework-you-ve-probably-never-heard-of-until-now-176afc5c6aac#.8ci3z2jxm)*”.* Even more have been asking what our plans are. We dropped a few hints on the [SpaceDojo podcast](https://www.youtube.com/watch?v=y-nyKBQJBIM) but based on your feedback so far, the core team has finalized what we want to work on through the next 3–6 months or so. We would love to hear what you think of this roadmap so feel free to leave a note here or let us know in [Slack](http://slack.feathersjs.com) or on [Twitter](https://twitter.com/feathersjs).
+
+Since Feathers is so modular it can be tricky to figure out what to bundle into discrete releases (at least from a marketing and optics perspective) and since we are following proper semantic versioning it would be confusing if we did a new “Feathers 3” release when nothing in core actually changed. Feathers core is very small after all, so that is very likely.
+
+Instead, releases will be based off of logical shifts in what Feathers offers. This could mean larger API changes, significant bug fixes, security updates, a shift in direction, or new offerings. These releases will be comprised of module versions that we think make sense to be in the same release. Sorry if that sounds a bit wishy-washy. That’s because it sort of is. This is a new process for us so we’ll be evaluating how this works in practice and would love to hear your feedback.
+
+Therefore, since version numbers are out, going forward we’re going to use codenames to identify releases. We’ve decided to name all the releases after birds and proceed in alphabetical order. The first release under this scheme is codenamed **“**[**Auk ** ](https://en.wikipedia.org/wiki/Auk)**”**.
+
+<figure className="flex flex-col items-center my-8">
+ <Image src={imageimage2jpeg} alt="" />
+ <figcaption className="mt-2 text-center text-sm italic text-zinc-600 dark:text-zinc-400">
+ This is an Auk. Gosh they are cute! Image credited to <a href="http://djupdal.org/asbjoern/" className="text-black dark:text-white hover:underline">Asbjørn Djupdal</a>
+ </figcaption>
+</figure>
+
+With that out of the way, here’s is what we are focused on for **Feathers Auk**. Things are generally in order from highest priority to lowest priority.
+
+## [Authentication 1.0](https://github.com/feathersjs/feathers-authentication)
+
+Authentication is core to almost every app so we want to get the [Feathers authentication plugin](https://github.com/feathersjs/feathers-authentication) to a stable 1.0 release as soon as possible. There really are just a few things remaining:
+
+- Supporting passwordless authentication
+- Adding support for password management
+- Supporting basic multi-factor authentication
+- OAuth1 support (this is a stretch goal)
+
+## Service Adapters and Plugins
+
+Some other really common pieces to apps are email, push, and text notifications. These also go hand-in-hand with the remaining authentication features. We also have a few things we would like to support across existing database adapters. This is what is planned:
+
+- Support *$search* query param to do regular expression-like matching of database content.
+- Getting [feathers-realm](https://github.com/feathersjs/feathers-realm) to 1.0 to support Realm on React Native
+- Getting [feathers-twilio](https://github.com/feathersjs/feathers-twilio) to 1.0
+- Getting [feathers-mailer](https://github.com/feathersjs/feathers-mailer) to 1.0
+- Getting [feathers-apple-push](https://github.com/feathersjs/feathers-apple-push) to 1.0
+- Getting [feathers-google-push](https://github.com/feathersjs/feathers-google-push) to 1.0
+
+## Android and iOS Clients
+
+A lot of mobile developers love Feathers because it is so quick to spin up an API to develop mobile applications against. So we are working on getting official [Android](https://github.com/feathersjs/feathers-android) and [iOS](https://github.com/feathersjs/feathers-ios) SDKs out to make talking to a Feathers server even easier. The goal is to get them to feature parity with the JS client. This means:
+
+- REST support
+- Socket support
+- Defining and using services
+- Creating and chaining hooks
+- Client side JWT authentication
+
+## Feathers CLI
+
+We’re looking to take the [Feathers CLI](https://github.com/feathersjs/feathers-cli) beyond just a scaffolding tool. There are 3 things on the order of business here:
+
+- The ability to quickly deploy a Feathers app
+- The ability to run database migrations
+- The ability to search and install Feathers plugins
+
+## Documentation and Examples
+
+There always seems like there is [more to document](https://github.com/feathersjs/feathers-docs). This is definitely an area where we will take any help that we can get. Below are some pretty important guides or tutorials that we feel need to happen:
+
+- How to do many-to-many relationships (especially with SQL databases)
+- How to upload files and handle multi-part form data
+- How to do OAuth with feathers-authentication
+- Improve docs on using Feathers hooks to validate and sanitize your data
+- [More guides](http://docs.feathersjs.com/frameworks/readme.html) to building the chat client using other frameworks like React Native, Vue.js, DoneJS, etc.
+- A guide on migrating the existing chat app to microservices
+- Deploying a Feathers app to Heroku, Modulus, CloudFormation, Digital Ocean, AWS, etc.
+
+## What About X?
+
+Some talk has come up in Slack and Github about admin CRUD UIs, scaffolding front-ends, generating API docs and GraphQL. With this release we are **not officially **focused on any of that and instead would love to have a dialogue with the community to get help and prioritize.
+
+Currently the team is focused on making the core of Feathers and its existing plug-ins really robust and providing all the major pieces you need to **build** apps and talk to Feathers APIs. All of these other things are important and awesome but we can’t tackle everything all at once. This is where we’re leaning on the community. We’ve already started to see some great community contributions including many boilerplate repos for your favourite front-end stack.
+
+Whoa that’s a lot of stuff! Because there is so much happening in parallel it’s going to be a challenge to keep track of it all. We’re going to try and track everything using milestones and issues in Github. It’s going to be a balance between making sure overhead and process do not inhibit or slow down releases, while also ensuring everyone has the visibility they need.
+
+Github is not perfect for this by any means but we are going to follow a convention where [we have a “release issue”](https://github.com/feathersjs/feathers/issues/299) and [milestone](https://github.com/feathersjs/feathers/milestones/Auk) in the main Feathers repo, which then links to issues or milestones in other repositories that fall under the release. The goal is that at any time anyone can see what is slated for a release, who is working on it, and how far along it is.
+
+The rest of the core team and I are really looking forward to the next 3 months! This release is definitely ambitious but as someone famous said,
+
+> “Shoot for the stars. If you miss you’ll hit the moon.”
+
+[Feathers](http://feathersjs.com) is well on it’s way to becoming the framework 
+
+[The team](https://github.com/orgs/feathersjs/people) and I are very excited to see what you build with [Feathers](http://feathersjs.com). We’re really friendly and would love to hear what you think about the roadmap so feel free to [tweet at us](https://twitter.com/feathersjs), leave a note here, or drop by our [Slack group](http://slack.feathersjs.com).
+
+<Newsletter />

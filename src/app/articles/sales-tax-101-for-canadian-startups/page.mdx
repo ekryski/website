@@ -1,0 +1,207 @@
+import { ArticleLayout } from '@/components/ArticleLayout'
+import { Newsletter } from '@/components/Newsletter'
+
+export const article = {
+ author: 'Eric Kryski',
+ date: '2016-09-07',
+ title: "Sales Tax 101 for Canadian Startups",
+ description: "How to keep the tax people happy",
+}
+
+export const metadata = {
+ title: article.title,
+ description: article.description,
+ openGraph: { title: article.title, description: article.description, url: '/articles/sales-tax-101-for-canadian-startups' },
+ twitter: { card: 'summary_large_image', title: article.title, description: article.description },
+}
+
+export default ({ children }) => <ArticleLayout article={article}>{children}</ArticleLayout>
+
+·Eric Kryski highlighted
+
+[](/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fbookmark%2Fp%2F98d1a3df0bbe&operation=register&redirect=https%3A%2F%2Fmedium.com%2Fthe-bull-pen%2Fsales-tax-101-for-canadian-startups-98d1a3df0bbe&source=---header_actions--98d1a3df0bbe---------------------bookmark_footer------------------)[Listen
+
+](/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2Fplans%3Fdimension%3Dpost_audio_button%26postId%3D98d1a3df0bbe&operation=register&redirect=https%3A%2F%2Fmedium.com%2Fthe-bull-pen%2Fsales-tax-101-for-canadian-startups-98d1a3df0bbe&source=---header_actions--98d1a3df0bbe---------------------post_audio_button------------------)Share
+
+The tax situation for Canadian startups is super confusing, especially if you have an online business that sells globally. In general, Canada follows what is called “the place of supply rule” and determining GST/HST is sort of straightforward, it’s all those darn PST provinces that really mess stuff up. Determining the “place of supply” can differ based on your business location, what you sell, and to whom but this is what determines the tax rate you should charge to your customers, withhold, and remit to the appropriate government body.
+
+I’ll break it down into the common internet business types and some exemptions to hopefully make it easier to follow.
+
+> This post assumes that you are eligible to charge GST, HST or PST. You need to be registered as a sole proprietorship, corporation, charity or nonprofit, and have a GST number to do so. If you are unsure[ you can read this](http://www.cra-arc.gc.ca/tx/bsnss/tpcs/gst-tps/rgstrng/menu-eng.html).
+
+**Disclaimer:**I am not an accountant or a lawyer. I’m not responsible for you screwing up your reporting so you can’t sue me just for reading this. If in doubt, consult an accountant or a lawyer or just send the government money. They like you when you give them money and don’t like you if you don’t and you were supposed to. If I’ve made a mistake in the article please make a comment and correct me. I will update it.
+
+## TL;DR — A Good Rule of Thumb
+
+In case you are one of those immediate gratification folks and don’t want to learn more, here is a synopsis of what you should do to cover all your bases:
+
+- You should ** always **collect appropriate billing information. Including billing address or IP address of the device that was used to make the purchase so that you can determine the purchaser’s location at least down to the state/province/territory level.
+- You should charge the appropriate tax rate based on the buyer’s location. This is a nightmare to do yourself so use something like [Shopify](https://www.shopify.ca/), [Taxjar](http://www.taxjar.com/), [Taxamo](https://www.taxamo.com/), or [Avalara](https://www.avalara.com) to make it at least a bit easier.
+- You should withhold and remit this tax to the appropriate province/state/territory and/or the federal government. This means remitting taxes withheld everywhere your customers are. Sounds crazy? It is! But it’s what you are supposed to do otherwise you could be hit with steep penalties and back taxes.
+- You do not need to charge GST, HST or PST if your customer is outside of Canada. However, you likely need to charge sales tax based on your customer’s location.
+- If you are doing < $30,000 in revenue you don’t need to charge and remit GST or HST to the Canadian government but you still need to charge and remit PST.
+- For provinces that require PST you need to register with each one and remit to them if you are selling to customers in that province, regardless of where you are based.
+- If you do < $1.5M in revenue you can remit annually. If you do > $6M remit monthly. If you are in between $1.5M and $6M you remit quarterly.
+- If your customers are in the USA you generally do not need to charge state sales tax unless you have a [Sales Tax “Nexus](http://blog.taxjar.com/sales-tax-nexus-definition/)” (ie. an office, branch, employee or warehouse based in the US). If you do, you need to charge and remit state sales tax based on your customer’s location. There is no official federal sales tax like in Canada but if you do enough business in the US you may need to file a federal income tax return.
+- If your customers are from the EU or UK you may need to charge VAT. So long as you don’t have a “permanent establishment” (“PE”) in Europe (ie. an office, branch, warehouse) if you are selling to consumers (B2C) you need to calculate and remit VAT based on the purchaser’s location and you should use the MOSS system to remit VAT. If you are selling to businesses (B2B) you do not need to charge and remit VAT, you simply use the “reverse charge mechanism” whereby you simply put that on your invoice and you are good to go.
+
+In some cases it is very hard for foreign bodies to track down how much you sold and to whom and it’s just not worth their time if you are small, however this is not an excuse to ignore charging and remitting the appropriate taxes. Governments are getting more aggressive in coming after tax avoidance and the penalties for not filing and remitting, even to foreign bodies can be pretty steep. It is also much easier to start off on the right foot than try and remit sales tax retroactively.
+
+To learn more about sales tax for specific types of businesses read on…
+
+## I Sell Physical Things Online
+
+If you are an e-commerce company selling tangible goods (ie. clothes, do-hickies, electronics, PDFs, etc.) the rule is pretty clear. ** You need to charge GST across the board if the destination is in Canada **. What makes it trickier is depending on the destination you may charge GST only, GST + PST, or HST.
+
+If you send your products to somewhere outside of Canada in most cases you **do not ** need to charge GST, HST or PST. If you are selling into the USA you typically **do not ** need to charge state sales tax unless you have a [Sales Tax Nexus](http://blog.taxjar.com/sales-tax-nexus-definition/). You can [read more about that here](https://www.quora.com/Do-Canadian-online-businesses-selling-to-US-customers-have-to-pay-US-taxes). If you are shipping physical goods your customers will likely pay sales and import taxes so you should be covered.
+
+If your customers are in Europe and the goods are actually physical (ie. not digital) you likely do **not ** need to charge VAT as import duties will be paid by your customer.
+
+However, if you are selling digital goods (pdfs, books, courses, etc.) then **you will have to charge VAT based on the consumer’s location ** and you can [read more about that here](https://ec.europa.eu/taxation_customs/business/vat/telecommunications-broadcasting-electronic-services_en#new_rules). If you are selling to businesses **you do not ** need to charge and remit VAT and instead put “reverse charge mechanism” on the invoice/receipt.
+
+If your customers are located in Canada you need to charge HST or GST + PST (where applicable) **based on the buyer’s location or your primary business location ** and [potentially other rules](http://www.canadabusiness.ca/eng/page/2651/#toc-_charging_sales_tax_to_out-of-province_territory_customers_and_to_foreign_customers) based on your province **. **In general the amount of HST or GST + PST you charge depends on the delivery address of your customer.
+
+For the most part physical goods are **not **what the Canadian government considers “zero-rated” (ie. tax exempt) so you need to charge and remit tax. However, there are some special items that are exempt:
+
+- basic groceries such as milk, bread, and vegetables
+- agricultural products such as grain, raw wool, and dried tobacco leaves
+- most farm livestock
+- most fishery products such as fish for human consumption
+- prescription drugs and drug-dispensing services
+- certain medical devices such as hearing aids and artificial teeth
+- feminine hygiene products
+- exports (most goods and services for which you charge and collect the GST/HST in Canada, are zero-rated when exported)
+
+and some other exemptions on a per province/state/territory basis. Companies like [Shopify](https://www.shopify.ca/) and other e-commerce platforms are your best buddy here because they should do all the tax calculation and information gathering for you so that you only need to worry about remitting the withheld sales tax.
+
+## I am a SaaS, PaaS, BaaS Company
+
+What makes software a bit complex is that in this day and age when we no longer ship CDs or DVDs no physical good may ever change hands and it may not be a “service” in the traditional sense where a person did work for pay. What makes it even more complex is that certain provinces have exemptions for “custom software” and the Canadian Government’s [official information on e-commerce GST/HST](http://www.cra-arc.gc.ca/E/pub/gm/b-090/b-090-e.pdf) is from 2002 before some of these platform plays existed! Many foreign bodies have very unclear laws about “software/platform as a service” companies as well. So, depending on how you want to twist it your service could be considered “zero-rated”. Not worth it in my opinion but I thought I’d put that out there.
+
+If you want to stay on the straight and narrow and you are providing “software as a service” or some sort of “platform as a service” then in general your service is not considered “zero-rated”. If your customer is in Canada **you should charge HST or GST + applicable PST based on your customer’s location **. If your customer is outside of Canada then you don’t need to charge Canadian sales tax.
+
+If your customers are in the US you likely do not need to charge US sales tax unless you have a “Nexus” (ie. a branch, office or employee) in the US. If you do have a sales tax nexus it becomes super complicated on which states you need to charge and remit taxes to because each state treats software differently. You can [read more about that here](http://blog.taxjar.com/saas-sales-tax/). Since the definition of a nexus is super loose and varies from state to state, it could be deemed that you have a nexus in a state even if you don’t have a physical presence. You could have inadvertently established one in some states by:
+
+- actively soliciting sales in the US (not sure if online ads qualify);
+- shipping goods to the US where title is exchanged;
+- employees regularly travelling to the US for sales calls or to attend US trade shows where they conduct marketing activities; and
+- employees travelling to the US to install or service company products or to consult or provide training.
+
+So to play it safe you likely should charge and remit sales tax to the states that your customers are in. This means registering for a state tax permit and in most cases remitting quarterly. Ridiculous, but true!
+
+If your customers are in Europe you likely do need to charge VAT. You can [read more about that here](https://ec.europa.eu/taxation_customs/business/vat/telecommunications-broadcasting-electronic-services_en#new_rules), but **if you are selling to consumers you need to charge and remit VAT ** based on the purchaser’s location. If you are selling to businesses **you do not** need to charge and remit VAT and instead put “reverse charge mechanism” on the invoice/receipt.
+
+Now… as if that wasn’t complicated enough, in Canada , most provinces do not have a provision for accessing services remotely as is the case with SaaS, PaaS, etc. The software isn’t shipped to you in any way. It doesn’t come on CD, you don’t download it, and it’s not emailed to you. Currently only BC has a provision for “the access of software”. So, technically you don’t need to charge PST in some provinces and may not need to charge HST. This can make things pretty complicated and likely more trouble than it’s worth to track so should just charge and remit sales tax as if you were selling a product and be done with it.
+
+### Potential Holes in the Canadian System
+
+As an aside, based on some of the wording I did notice that you could fall into a grey area whereby you wouldn’t need to deal with HST or PST (except in BC) if you met all of this criteria:
+
+- Were based in Alberta, the Yukon, Nunavut or the Northwest Territories.
+- Had no human interaction on the service inside Canada.
+- Your infrastructure is not based in Canada (ie. AWS)
+
+Let’s use a simple example where this criteria is met:
+
+*Say you have a SaaS business based in Alberta with a remote working team that is traveling abroad or foreign. You are hosting your code on Github and your platform on AWS or Digital Ocean in the US.*
+
+In this realistic scenario you only need to charge and remit GST on Canadian sales (except for BC customers you need to charge and remit PST). For US customers you do nothing. For European consumer customers you charge and remit VAT. For European business customers you do nothing.
+
+Another issue I noticed is that the federal government and most provincial governments don’t say that you need to capture a buyer’s billing information. So far as I can tell only the BC provincial government does.
+
+If you don’t know a purchaser’s location and you are not sending any goods, then you cannot determine the appropriate sales tax. Therefore, you could argue that you would not need to charge GST, PST or HST if you weren’t capturing this info. However, the fallback method of determining “the place of supply” by using your primary business address may come into play, which may require you to remit GST/HST and PST regardless.
+
+Given that the verbiage is unclear and you may just end up in a mess later on down the road if you were audited, I would just play it safe and capture all information and remit appropriately. **I would also recommend that the government make it a bit more explicit about what billing information you are required to capture. **So if there is anyone on that side reading this, let’s talk!
+
+## I am a Marketplace Company
+
+If you are a marketplace company (ie. Uber for dog sitters) then it’s also a little different, depending on who you claim to be selling to. In general, **your business is only responsible for charging and remitting sales tax on your transaction/platform fee **. Who you are charging the transaction/platform fee to is up to you. It could be the dog sitter or it could be the person hiring the dog sitter to watch precious little Lulu. In either case **you should know the location of your customer **, in order to calculate sales tax appropriately.
+
+If your customers are in Canada **you should charge HST or GST + applicable PST based on your customer’s location **. If your customers are outside of Canada then you don’t need to charge Canadian sales tax.
+
+If your customers are in the US you likely do not need to charge US sales tax unless you have a “Nexus” (ie. a branch, office or employee) in the US. If you do have a sales tax nexus it’s the same as the SaaS business model outlined above.
+
+If your customers are in Europe you likely do need to charge VAT. You can [read more about that here](https://ec.europa.eu/taxation_customs/business/vat/telecommunications-broadcasting-electronic-services_en#new_rules), but **if you are selling to consumers you need to charge and remit VAT ** based on the purchaser’s location. If you are selling to businesses **you do not ** need to charge and remit VAT and instead put “reverse charge mechanism” on the invoice/receipt.
+
+If you are only collecting and remitting the sales tax on your platform fee, the remaining sales tax is on the person getting paid (ie. in our example the contract dog sitter). However, if your dog sitters are employees or you want to provide a nice marketplace that is friendly to dog sitters you would charge the appropriate sales tax **on the entire transaction, minus payment processing fees, and remit it **.
+
+## I am a Consulting Company
+
+If you are doing some sort of consulting this applies to you. Whether you are a marketing wizard, social media media guru, branding specialist, software development shop, etc. If your customer is in Canada **you need to charge HST or GST + applicable PST based on their location **. There are some exemptions which y[ou can find here.](http://www.cra-arc.gc.ca/tx/bsnss/tpcs/gst-tps/gnrl/txbl/xmptgds-eng.html) If your customers are not in Canada you do not need to charge and remit Canadian sales tax.
+
+If your customers are in the US you likely do not need to charge US state sales tax unless you have a “Nexus” (ie. a branch, office or employee) in the US. However, if you are frequently visiting the US for business then you may be deemed to have a nexus and then would need to collect and remit state sales tax and potentially even file US federal income tax.
+
+If your customers are in Europe you likely do need to charge VAT. You can [read more about that here](https://ec.europa.eu/taxation_customs/business/vat/telecommunications-broadcasting-electronic-services_en#new_rules), but **if you are selling to consumers you need to charge and remit VAT ** based on the purchaser’s location. If you are selling to businesses **you do not ** need to charge and remit VAT and instead put “reverse charge mechanism” on the invoice/receipt. To make it even more complicated some countries have exemptions for certain services. You are on your own here, it’s complicated…
+
+## I am a Charity Donation Platform
+
+Charities and nonprofits are not created equal in the tax realm. If you are a charity you generally do not charge and remit GST, HST or PST. So things like event tickets, goods sold for fundraising, etc are tax exempt. **The one exception is recurring sales**. This definition is a bit loose but basically if you are charging a subscription service in exchange for a good (not just recurring donations) then you need to charge and remit sales tax as a good or service.
+
+If you are charging a platform fee then you need to treat it like a marketplace business above.
+
+I don’t know the rules around charities outside of Canada.
+
+## I am a Nonprofit Donation Platform
+
+You are not a charity. You basically need to operate like one of the regular businesses above, with regards to charging, collecting and remitting GST, HST and PST.
+
+If you are charging a platform fee then you need to treat it like a marketplace business above.
+
+I don’t know the rules around nonprofits outside of Canada.
+
+Navigating sales tax is, quite frankly, a God damn nightmare. However, it’s a necessary evil and something you need to know about when running a business, especially a global one. Unfortunately, ignorance is not an option so you need to understand the tax implications of your business and remit appropriately. I hope this post made the muddy water just a bit clearer. I’ve included links to references and tools/services that I have personally used or read.
+
+### Things to Make Your Life Easier
+
+I am in no way affiliated with these companies but they are services we use every day at [Bullish](http://bullish.io). They make your information gathering, payment/checkout, and reporting much simpler, whether you are selling physical goods or have a service company.
+
+[
+## Ecommerce Software, Online Store Builder, POS - Free 14-day Trial by Shopify
+
+### Everything you need to sell. Build your online store with Shopify's ecommerce software and easily sell in person with…
+
+www.shopify.ca
+
+## TaxJar: Automated Sales Tax Reporting & Filing
+
+### TaxJar makes sales tax filing easier for online sellers and merchants. See local jurisdictional tax reports, get…
+
+www.taxjar.com
+
+## Stripe
+
+### Stripe is a suite of APIs that powers commerce for businesses of all sizes.
+
+stripe.com
+
+### References
+
+I’ve included a list of references to back up this article.
+
+- [Canada Sales Tax Overview](http://www.canadabusiness.ca/eng/page/2651/)
+- [Canada Revenue GST/HST Overview](http://www.cra-arc.gc.ca/tx/bsnss/tpcs/gst-tps/gnrl/menu-eng.html#P104_d)
+- [Taxtips.ca website](http://www.taxtips.ca/pst/outofprovincesellers.htm)
+- [A Very dated Canada Revenue E-Commerce Bulletin](http://www.cra-arc.gc.ca/E/pub/gm/b-090/b-090-e.pdf)
+- [BC Small Business Guide](http://www.sbr.gov.bc.ca/documents_library/brochures/smallbusinessguide.pdf)
+- [BC Software PST Information](http://www.sbr.gov.bc.ca/documents_library/bulletins/pst_105.pdf)
+- [BC Software PST by Grant Thorton](https://www.google.ca/url?sa=t&rct=j&q=&esrc=s&cd=4&cad=rja&uact=8&ved=0ahUKEwin4JDfrf7OAhWFtxoKHcvYA4kQFgguMAM&url=https%3A%2F%2Fwww.grantthornton.ca%2Fresources%2Finsights%2Farticles%2FSoftware_new_PST_rules_BC_Final.pdf&usg=AFQjCNHfTlso2rjPZJjMDvMXST0_wcHGbw&sig2=8Nom95vDp2WgA0leIPViZg&bvm=bv.131783435%2Cd.dmo)
+- [Ontario HST Taxable Good Summary](http://www.cpa.ca/cpasite/UserFiles/Documents/Practice_Page/HST.pdf)
+- [CPA Magazine Article](http://www.cga-canada.org/en-ca/AboutCGACanada/CGAMagazine/2006/Mar-Apr/Pages/ca_2006_03-04_dp_taxfocus.aspx)
+- [Saskatchewan Sales Tax](http://finance.gov.sk.ca/Default.aspx?DN=e5f80742-9ab3-416c-88c4-f9aa1da73998&Anc=e5f80742-9ab3-416c-88c4-f9aa1da73998&Pa=fb1c459c-2e24-46a9-9c2d-b4937c2bb571)
+- [Quora post on selling into the USA](https://www.quora.com/Do-Canadian-online-businesses-selling-to-US-customers-have-to-pay-US-taxes)
+- [European VAT demystified](http://blog.taxjar.com/digital-services-european-vat/)
+- [European VAT for e-commerce](http://blog.taxjar.com/european-vat-us-ecommerce-sellers/)
+- [European VAT explained](http://blog.taxjar.com/european-vat-explained/)
+- [US SaaS Sales Tax](http://blog.taxjar.com/saas-sales-tax/)
+- [What you must know about VAT — Quaderno](https://quaderno.io/blog/what-you-must-know-about-vat-if-you-have-customers-in-europe/)
+- [Charging Sales Tax online in Canada](https://www.thebalance.com/charging-provincial-sales-taxes-on-online-sales-2948448)
+- [Is your SaaS taxed south of the border](http://www.numbercrunch.ca/single-post/2016/03/07/Is-your-SaaS-company-taxed-out-south-of-the-border)
+- [Operating as a Canadian Startup](https://www.marsdd.com/mars-library/operating-us-canadian-startups-nexus-taxes/)
+- [Beware America’s Taxing State of Mind](http://www.mnp.ca/en/posts/selling-into-the-us-be-aware-of-americas-taxing-state-of-mind)
+- Other various government links
+
+*Sharing is caring! If you found this useful please hit the “heart” button to recommend it to others. This lets other people know about the article and that you found it useful too.*
+
+*I am a partner at *[*Bullish Ventures*](http://bullish.io)*. We are a boutique development and consulting firm that gets quality products to market faster by using cutting edge tech. If you have an idea you want to validate *[*come say hi*](http://bullish.io/hire)*.*
+
+<Newsletter />

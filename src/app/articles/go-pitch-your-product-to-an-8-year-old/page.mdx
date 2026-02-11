@@ -1,0 +1,45 @@
+import { ArticleLayout } from '@/components/ArticleLayout'
+import { Newsletter } from '@/components/Newsletter'
+import imageimage1jpeg from './image-1.jpeg'
+
+import imageimage3jpeg from './image-3.jpeg'
+
+export const article = {
+ author: 'Eric Kryski',
+ date: '2014-04-14',
+ title: "Go Pitch Your Product to an 8 Year Old",
+ description: "Get Eric Kryski’s stories in your inbox",
+}
+
+export const metadata = {
+ title: article.title,
+ description: article.description,
+ openGraph: { title: article.title, description: article.description, url: '/articles/go-pitch-your-product-to-an-8-year-old' },
+ twitter: { card: 'summary_large_image', title: article.title, description: article.description },
+}
+
+export default ({ children }) => <ArticleLayout article={article}>{children}</ArticleLayout>
+
+<Image src={imageimage1jpeg} alt="" />
+
+Kids are freakin’ smart! Even more so than ever before. With the power of the internet a child’s mind is being moulded in ways that I never experienced when I was wetting the bed. With the internet at their fingertips, kids are able to get answers to questions and learn things from anyone around the world in just a few clicks. If you can’t explain your startup to an 8 year old, you are doing it wrong (ie. you probably don’t have a great [elevator pitch](http://www.forbes.com/sites/chicceo/2013/02/05/how-to-create-an-elevator-pitch/)).
+
+> 8 year olds and investors have the same attention span
+
+If you’re sitting there telling yourself, “That’s ridiculous, they won’t understand”, you’re earth-shattering idea has a flaw. It’s not that the kids aren’t going to get it, in fact they probably will understand it more than most adults because they are devoid of pre-existing assumptions. Beyond that, 8 year olds and investors have the same attention span, so if you can’t get your idea out in a succinct manner you have no hope of raising money and probably marginally better chances at selling it. So here’s what you do:
+
+Find your friendly neighbourhood 8 year old and explain your product to them. If the 8 year old doesn’t get it, they ask you a ton of questions, or they cut through your bullshit with a soul crushing “that sounds stupid”. You are doing something wrong. The beauty of the 8 year old brain is that they can grok what you are talking about fairly easily if you are explaining relatively simple ideas, but they haven’t developed the social norms and niceties to inhibit them from destroying your beautiful world changing idea. This is a great thing! Use this to your advantage. If an 8 year old tells you your idea is stupid, it probably is and you should move on to your next Instagram but only for cats. Okay you may not be building another photo sharing app but more than likely your product is too complex, is just a terrible idea, and/or you’re just not doing a good job of explaining it.
+
+“Great products are ones that even 8 year olds can understand and see value in.”
+
+Don’t get discouraged if you run into a bunch of:
+
+“Why? Why? Why? How Come? Why do they do that?”
+
+This is actually a really great thing and these [5 Why’s](https://hbr.org/2010/04/the-five-whys-for-startups) will force you to **think deeply about all facets of the problem you are solving**. Having to explain some background information about the industry or the problems that your customers have, will also give you a chance to formulate a pitch that is tailored to an audience that knows nothing about what you are doing.
+
+<Image src={imageimage3jpeg} alt="" />
+
+Those are all really great reasons to go out and nab an 8 year old (not in the creepy puppy-dog-in-van sort of way), but the most important reason why pitching to your 8 year old is so valuable is because even if you totally bomb they won’t ridicule you. Like important VCs, a kid’s life is busy, filled with dodgeball, bike riding, soccer and homework. You can feel safe delivering a terrible pitch because they’ll probably have forgotten all about it. So go ahead, grab your 8 year old nephew or niece and rehearse again and again.
+
+<Newsletter />

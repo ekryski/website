@@ -1,0 +1,145 @@
+import { ArticleLayout } from '@/components/ArticleLayout'
+import { Newsletter } from '@/components/Newsletter'
+
+import imageimage2jpeg from './image-2.jpeg'
+
+export const article = {
+ author: 'Eric Kryski',
+ date: '2017-11-13',
+ title: "October 2017 FeathersJS Community Update",
+ description: "Feathers v3 (Buzzard) prerelease",
+}
+
+export const metadata = {
+ title: article.title,
+ description: article.description,
+ openGraph: { title: article.title, description: article.description, url: '/articles/october-2017-feathersjs-community-update' },
+ twitter: { card: 'summary_large_image', title: article.title, description: article.description },
+}
+
+export default ({ children }) => <ArticleLayout article={article}>{children}</ArticleLayout>
+
+Apologies up front for the length of this post. A lot of important changes have been happening the last few months and we’re announcing them now! 🎉
+
+We are almost there! With the final release planned around the end of November, you can already beta test the next version of Feathers v3 — code name *Buzzard*.
+
+We’ve rolled this release out on a few production apps without issue and it should be a pretty quick upgrade for most apps. The `feathers upgrade` command from the latest CLI version will automatically get your Feathers plugin, server side app and client side app upgraded almost all the way. You can find the [full migration guide here](http://buzzard.docs.feathersjs.com/migrating.html) with details on all the changes, and the work-in-progress documentation at [buzzard.docs.feathersjs.com](http://buzzard.docs.feathersjs.com/).
+
+### TL;DR of this release
+
+- Core modules moved to the `@feathersjs` npm scope and better module infrastructure (more about that below)
+- Universally usable and framework independent core `feathers` with separate backwards-compatible Express framework bindings. This reduced the client side build size dramatically and sets us up to use other HTTP(S) engines other than Express underneath.
+- Hooks as part of core instead of a plugin.
+- Event channels for **much **faster and more secure real-time event publishing.
+- Better separation of client vs. server side modules.
+- No more callback support. Feathers is all Promises and fully compatible with `async/await`. Most of you have been using this style already but we had deprecated the very old callback style of hooks and services and its now been removed.
+
+## Organization and repository changes
+
+[As mentioned previously](/september-2017-feathersjs-community-update-4bc5aeb1ca01) we had a lot of repos in the core Github org and we needed a better way to maintain them. Here are some of the challenges we were facing from having so many repos in the same Github organization:
+
+- People new to the community were a bit overwhelmed and tend to think Feathers is big and that they need every module in the FeathersJS org to build an app, which is not the case. **Almost all the modules that work with Feathers are optional. **- 100+ repos are a lot to maintain for a small part-time team. Some of the modules were only maintained by 1 person. We needed more redundancy than this for core modules and needed to continue to mature as a community. We also want to set certain maintenance expectations for core modules (more on that below).
+- Since all modules were under the FeathersJS org, people rightly assumed everyone on the core team knew about every little bit. This wasn’t the case and as a result made it hard for community members to know who best to talk to in order to get help.
+- It was harder for some people to innovate or experiment on Feathers modules without causing disruption for people in the community that depend on these modules or getting peppered with issues and questions. Dealing with issues on modules that aren’t even ready for prime time is time consuming and leaving them open is a bit demoralizing. We tried private repos but then that made it harder for people to collaborate. So, we’re restructuring to a tiered approach and graduating modules.
+- All modules were published outside of an NPM org which made it cumbersome to allow multiple maintainers to manage releases.
+
+Many companies are now relying on Feathers in production and new people are discovering it every day. We’ve realized that we need to mature a bit more as an organization. More than ever before, we need to continue to ensure that Feathers is solid and well maintained and make the support expectations for each module much clearer.
+
+To allow us to continue to do this and still empower community members to make cool 💩 without the necessary maintenance burden, we’ve done a few things.
+
+<figure className="flex flex-col items-center my-8">
+ <Image src={imageimage2jpeg} alt="" />
+ <figcaption className="mt-2 text-center text-sm italic text-zinc-600 dark:text-zinc-400">
+ Originally from <a href="https://laurenashleybernal.wordpress.com/" className="text-black dark:text-white hover:underline">https://laurenashleybernal.wordpress.com/</a>
+ </figcaption>
+</figure>
+
+### An Updated [feathersjs](https://github.com/feathersjs) Org
+
+All **core** modules in the `feathersjs` Github org are now scoped under `@feathersjs` in NPM so that we can better manage maintainer permissions across all repos and make it clearer as to what is officially supported by the FeathersJS org maintainers. For example:
+
+> `*feathers*` will now be available as `*@feathersjs/feathers*`
+
+`*feathers-authentication*` will now be available as `*@feathersjs/authentication*`
+
+`*feathers-rethinkdb*` will still be available as `*feathers-rethinkdb*`
+
+These core modules are of very high quality and receive top priority support. What does this mean?
+
+**Core Modules **- Are used in production by multiple companies
+- Have great test coverage (> 95%). Most are at 100%. 🙌
+- Have the same familiar repo structure as all others
+- Have up to date documentation at [docs.feathersjs.com](https://docs.feathersjs.com/)
+- Have active, redundant maintainers from multiple companies in case one company drops support or goes out of business. (If you want to help out here let us know! ❤️)
+- Get priority support for bug fixes, security updates and new functionality.
+- Have an adequate pre-release period for major changes to allow people using these modules in production a chance to battle test before they are official.
+
+New functionality will be rare on these core modules. As a result releases on these modules will likely become less frequent, except for general maintenance releases, bug fixes and security releases.
+
+### New [feathersjs-ecosystem](https://github.com/feathersjs-ecosystem) Org
+
+We’ve moved non-core modules to the `feathersjs-ecosystem` Github organization. The point of this org is to have a grouping of high quality, non-core modules. What does this mean? **High Quality Modules **- Are not experimental. These modules are used in production.
+- Have good test coverage (> 80%)
+- Conform to the same repo structure as other ecosystem and core modules
+- Are well documented
+- Have fairly active, redundant maintainers **Non-Core Modules**
+
+In general, anything that isn’t required by the Feathers CLI + generator and isn’t required in order to run a full stack feathers application.
+
+### What happened to other modules?
+
+The `feathersjs` and `feathersjs-ecosystem` organizations account for most of the modules that used to be in the core org. All other remaining ones have been moved to the individual creators or companies that are going to continue to support them.
+
+We think this will help with all of the problems outlined above — allowing the core to stay stable and the community to push things further, faster. 🎉
+
+## Articles
+
+Here are some awesome new articles that were shipped out this past month! Check ’em out if you have minute.
+
+[
+## Back-end Basics with Node.js, PostgreSQL, Sequelize, and FeathersJS
+
+### As the one in charge of the back-end of my team’s latest app, I decided to take the opportunity to use some tech I hadn…
+
+blog.cloudboost.io
+
+## FeathersJS OAuth authentication with cordova
+
+### Using OAuth with cordova can be complicated because the process implies some url redirections. So when using FeathersJS…
+
+ellipticaldoor.com
+
+## FeathersJS:My Painless Addiction with building API’s.
+
+### Hey! Few minutes of your time will be spent on reading my personal findings on my recent addiction,FeathersJS.
+
+medium.com
+
+## Community Releases
+
+We also had a couple new community additions! Check out the repos and feel free to submit a PR to the `awesome-feathers` repo with your sweet new project, module, guide, tutorial, etc.
+
+[
+## feathersjs-ecosystem/awesome-feathersjs
+
+### awesome-feathersjs - A curated list of awesome things related to FeathersJS
+
+github.com
+
+## arve0/feathers-custom-methods
+
+### feathers-custom-methods - add custom methods to your feathersjs services
+
+github.com
+
+## Join the Feathers Community
+
+The Feathers Slack group continues to be very active and supportive. Join the #announcements channel in the [Feathers Slack group](http://slack.feathersjs.com) to get more frequent updates as they happen.
+
+Thanks, everyone, for all the great contributions this last month! ❤️
+
+*If we’ve missed anything, feel free to contact a FeathersJS maintainer in our *[*Slack*](http://feathersjs.slack.com)* group. (Just look for the Feathers logo next to the name.)*
+
+*If you are new to Feathers and looking to create your first app head on over to *[*the docs*](https://docs.feathersjs.com)* and get your geek on!*
+
+<Newsletter />

@@ -1,0 +1,84 @@
+import { ArticleLayout } from '@/components/ArticleLayout'
+import { Newsletter } from '@/components/Newsletter'
+
+import imageimage2gif from './image-2.gif'
+import imageimage3png from './image-3.png'
+import imageimage4png from './image-4.png'
+import imageimage5png from './image-5.png'
+
+export const article = {
+ author: 'Eric Kryski',
+ date: '2015-01-20',
+ title: "The Real Cost of Starting a Startup",
+ description: "The True Costs of Building a Product",
+}
+
+export const metadata = {
+ title: article.title,
+ description: article.description,
+ openGraph: { title: article.title, description: article.description, url: '/articles/the-real-cost-of-starting-a-startup' },
+ twitter: { card: 'summary_large_image', title: article.title, description: article.description },
+}
+
+export default ({ children }) => <ArticleLayout article={article}>{children}</ArticleLayout>
+
+Starting a startup, or as I like to call it, “running a business”, is hard. Really fucking hard! You’ve probably heard that before. However, the idea of starting a technology company is [so glorified](http://onstartups.com/tabid/3339/bid/24525/14-Reasons-Why-You-Need-To-Start-A-Startup.aspx) that people usually just disregard my previous statement. Moreover, you see numbers like [Buffer’s](https://buffer.baremetrics.io/dashboard) or see articles on [insert favourite tech news site] about who just raised a [few](http://www.forbes.com/sites/alexkonrad/2014/09/12/square-to-raise-100-million-at-a-6-billion-valuation/) [hundred](http://techcrunch.com/2014/12/05/instacart-2b-kleiner/) [million](http://techcrunch.com/2014/12/31/snapchat-485m/) or (even [billion](http://techcrunch.com/2014/12/04/uber-confirms-new-1-2b-funding-round-looks-to-asia-for-expansion/)) and you start dreaming that you’re going to end up like this:
+
+<Image src={imageimage2gif} alt="" />
+
+> Back to reality with a cold, Canadian, slap in the face.
+
+**Startups should not be looked at as some get rich quick scheme! **[Most fail miserably](http://fortune.com/2014/09/25/why-startups-fail-according-to-their-founders/). Furthermore, nearly all of the successful ones that you have heard of were grinding for 2–3 years before you even knew about them. Even if you happen to be part of the minority that succeed, you will most likely [be running your business for 7 years](http://dcinno.streetwise.co/2013/12/17/by-the-numbers-the-sweet-spot-for-successful-startup-fundings-and-exits/) before you see a large return. There is a lot more to the startup dream when you actually crunch the numbers.
+
+[Buffer](https://bufferapp.com/) does an astounding job of [breaking down how their revenue is spent](https://open.bufferapp.com/transparent-pricing-buffer). Surprisingly to some, their profit isn’t millions of dollars! Their annual net profit is roughly $188,000 before tax. Assuming they are a Delaware corporation like most tech companies, this income shrinks to just $131,430 after tax. Compared to most SaaS companies (who are losing money), Buffer is doing exceptionally well! But they’re not getting rich quick.
+
+Now that you’ve seen what it costs to run a fairly successful startup, how much does it cost to **start ** a startup? I wanted to do a similar breakdown and give myself (and you) some more insight into the true costs associated with building a product and getting a very simple business off the ground from scratch.
+
+[Inspired by the creator of Dash](http://blog.kapeli.com/my-year-in-review-2014), I’m building the world’s most beautiful database client. In addition to that, [I am also writing 52 articles this year](/articles/a-year-of-learnings). With those bold goals in mind, I decided to kill two birds with one stone and outline the financial analysis I performed to figure out whether this craziness is actually worth it (ie. I created a business plan). Because I was inspired by Dash I’m going to use the same 1 time $20 payment as my price point and basis for my model. I have no idea if that will actually be what I charge for my product. [I need to talk to potential customers](http://venturehacks.com/articles/pricing-experiments) and I will update my forecasting model accordingly. With that said, since I would never pay for Dash but a bunch of other people have, it seems like a reasonable starting point.
+
+So I’m building a sexy database client. It’s an unsexy problem and could very well be a financial flop. Now that I am unemployed, I’ve been debating whether I should take a full time job, work part time, or simply stay unemployed. Each comes with their pros and cons. [This spreadsheet I put together](https://docs.google.com/spreadsheets/d/1_R1D3Xwl_VMMKvgBuctEhYCfw8ceOxDoIzkzvPavgRw/edit?usp=sharing) brought some much needed clarity to which option I should choose, how I should be building this product, and what I should be charging.
+
+To provide a little background information; I’m a full-on grown up now. At the time of this article I’m 29. I have a wife, a kid, a house, a dog, and 2 cars. The only debt we have is our mortgage, and we have enough runway for 6 months of me being unemployed. My local market value as a product oriented software developer is $96,000 per year. If I were to contract or do remote work, it is about $120,000 per year.
+
+>**Wow! That’s a lot of money! Why would you bother to risk building a product? ** Well that is a very good question. There are 2 pretty simple reasons:
+
+-**I want this product myself. ** I’m tired of having a different database client for every different database I use. Most of the existing ones are buggy and their UI is stuck in the 90's.
+-**I want to be my own boss. ** I’ve done it before and it is both rewarding and incredibly demanding at the same time. At the moment I’m tired of building other people’s dreams. I want to build my own and be self reliant!
+
+So with that out there, let’s look at my options.
+
+> The key here is not only how much money I need to provide for my family, but also opportunity cost.
+
+>**I’m making a few assumptions:** I’m going to front load my marketing dollars and decrease spending by $50 every month. I’m going to model my second year revenue using the same numbers as Dash. I only expect my customers to pay me $20 one time. I already have the tools and skills needed to develop my product. I’m modelling the cost over a two year period. Opportunity cost and time when product is released are the only two manipulated variables. [See the spreadsheet for details of costs.](https://docs.google.com/spreadsheets/d/1_R1D3Xwl_VMMKvgBuctEhYCfw8ceOxDoIzkzvPavgRw/edit?usp=sharing)**Should I get a full time job? ** Well, the glaring issue here is that obviously I would only have evenings and weekends to work on my new product. Between spending time with the fam jam, taking the dog for a walk, exercising, cleaning the house, etc; there isn’t much time in the day. Thus, it will take considerably longer to get the product out the door. Although I have no [opportunity cost](http://www.investopedia.com/terms/o/opportunitycost.asp) here, I’ll assume that working full time, it will take me 9 months to get the product out.
+
+<Image src={imageimage3png} alt="" />
+
+As you can see above, this growth looks great and I’m never in the negative! Although I am in the black as soon I release the product, we’ll see later that if I’m tolerant of some risk I can start generating more revenue sooner, which could allow me to grow the business even faster. Another thing to consider is the issue that by waiting so long to release my product I may miss my market opportunity altogether. On the positive side, from a product perspective this time constraint could force me to focus on only the work that is most important. In theory, producing a truly [**Minimum ** Viable Product](http://practicetrumpstheory.com/minimum-viable-product/).**Should I stay unemployed? ** Obviously this would mean that I have no income. On the plus side I would have much more time to dedicate to building the product, hopefully allowing me to build a better product and ship it sooner. However, when looking at this I need to factor in the opportunity cost of me not working,**not just how much money I need to live on or break even**. Based on a $96k/yr salary, this is $8,000 per month. Since I am employable, that is the money I am losing by not working. So, at some point my new business should make up for that lost cash in addition to the money I need to live on plus any expenses from the business. I’ll assume that since I am working on the product full time I am able to ship a polished product in 3 months.
+
+<Image src={imageimage4png} alt="" />
+
+As you have seen from the previous two charts, even after you launch a product it’s still going to take some time to ramp up sales. *IF *everything goes according to plan (which it doesn’t), it would still take almost a year before I am bringing in enough cash every month to support my family. Furthermore, since we are factoring in opportunity cost, it would take about 15 months to make up for the cash lost by not working. Startups are risky so there is a good chance I won’t even see this sort of growth. With that notion and the fact that I only have 6 months of runway, this model just isn’t feasible.
+
+**Should I work part time?**
+
+If I were to work 3 days a week, based on the same prorated $96,000/yr salary I would make $4,800 a month. Thus my opportunity cost would be $3,200/mo. I feel that, with a part time gig I would be able to get the product out in 6 months.
+
+Looking at the chart below, not only do I end up with a higher gross revenue, but I start making more money earlier compared to if I was working full time. This may allow me to further accelerate the business growth sooner. Another thing to note is that, unlike not working, if I removed opportunity cost from the equation I would also stay in the black.
+
+<Image src={imageimage5png} alt="" />
+
+In reality, after the two year period, working full time yields $20,000 more net revenue than if I was working part-time, but I also need to consider my happiness. At this point I feel that I would be more fulfilled working on my own self directed project (in at least a part time capacity), and this model strikes a good balance. There is also a social benefit here. Getting out of the house and interacting with other humans can, at times, be deeply rewarding. I feel confident that having another 3 days a week (1 day left for family) plus some evenings to work will give me enough time to get the product out the door relatively quickly, while also constraining me enough to stay focused.
+
+> There is a saying that if you are given a million dollars to complete a project it will take a million and one. [Mr. Parkinson and I think the same goes for time](http://en.wikipedia.org/wiki/Parkinson%27s_law).
+
+Looking at the numbers it makes a lot of sense as to why many people flock to raising capital to start a company or simply continue to work for someone else. It’s probably very rare that you have saved enough money in order to bootstrap a company without working at the same time, and when you do factor in opportunity cost and the probability of failure, going out on your own might not be worth it.
+
+Looking at the quote above, if you are to take the plunge, I can’t help but think that it’s better to have the constraints of bootstrapping. Every startup I have been part of never seems to get as far as we expected with our initial capital.
+
+This is only a financial look at the problem. There are additional costs that I have not mentioned here. The biggest one being the fact that I will have less time to do other things besides work; exercise, spend time with family and friends, etc. There is also inevitably going to be additional stress, especially once I have bugs that need fixing and customers that need replying to. However, those are things I am aware of and willing to sacrifice for a chance to challenge myself and build a product that scratches my own itch.
+
+If you are thinking of starting a startup, look beyond the glitz and glamour. Most of the time [only a tiny percentage](http://www.businessinsider.com/why-its-better-to-sell-a-startup-for-20-million-instead-of-200-million-2013-7) of those multi-million dollar financings make it into the founder’s pockets and making real money takes longer than you think. Don’t be naive and think that you can just turn on the money tap whenever you want.
+
+> Note that these calculations are still pretty simplistic. You could take it a step further and also factor in taxes, inflation, any accumulating interest on debts, internet fees, paying for healthcare out of pocket*, *whether you could go on employment insurance and whether you are giving up potential stock options in another company. Due to our lack of debt, and the fact that my wife has benefits, most of these don’t really apply to me.
+
+<Newsletter />

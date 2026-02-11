@@ -1,24 +1,25 @@
 import { ArticleLayout } from '@/components/ArticleLayout'
+import { Newsletter } from '@/components/Newsletter'
 
 export const dynamic = 'force-static'
 
 export const article = {
-  author: 'Eric Kryski',
-  date: '2021-11-10',
-  published: false,
-  title: 'Thoughts on the long term goal of crypto',
-  description:
-    'Why permissionless, incorruptible money on a common ledger is a precursor to human progress—and how token economics can incentivize the greater good.',
+ author: 'Eric Kryski',
+ date: '2021-11-10',
+ published: false,
+ title: 'Thoughts on the long term goal of crypto',
+ description:
+ 'Why permissionless, incorruptible money on a common ledger is a precursor to human progress—and how token economics can incentivize the greater good.',
 }
 
 export const metadata = {
-  title: article.title,
-  description: article.description,
-  openGraph: { title: article.title, description: article.description, url: '/articles/thoughts-long-term-goal-crypto' },
-  twitter: { card: 'summary_large_image', title: article.title, description: article.description },
+ title: article.title,
+ description: article.description,
+ openGraph: { title: article.title, description: article.description, url: '/articles/thoughts-long-term-goal-crypto' },
+ twitter: { card: 'summary_large_image', title: article.title, description: article.description },
 }
 
-export default (props) => <ArticleLayout article={article} {...props} />
+export default ({ children }) => <ArticleLayout article={article}>{children}</ArticleLayout>
 
 I truly believe in and want to see permissionless and open global commerce exist. Bitcoin started this idea, but it's not the solution.
 
@@ -28,7 +29,7 @@ It is the tool for incentivizing community behaviour for the greater good. Nothi
 
 If the economic model is done well, with a positive feedback loop, it will naturally accrue in value (both in purchasing power and fiat terms) and it will play a critical role in raising the productive output of humanity.
 
-This may sound a little "hippy dippy and futuristic" but I'm deadly serious. All the signs are there (both in and out of crypto) that we **need** a different incorruptible monetary system that will enable **everyone** to participate in the global economy. No matter where they were born, their skin colour, who they worship, or who they love.
+This may sound a little "hippy dippy and futuristic" but I'm deadly serious. All the signs are there (both in and out of crypto) that we **need **a different incorruptible monetary system that will enable **everyone** to participate in the global economy. No matter where they were born, their skin colour, who they worship, or who they love.
 
 The only way to align parties that wouldn't normally do so is through economic incentives. We've seen this over and over throughout history. People don't get along because of our tribal nature and different values, but by pandering to the human nature of greed and wanting to be part of a productive group, people will work together. This is acutely present within the tribalism that exists in crypto itself.
 
@@ -44,3 +45,5 @@ In my mind the core optimization goals should be:
 Then let the invisible hand of the network, work.
 
 This is the ultimate long term potential of crypto. An entirely new, incorruptible monetary system that enables a fair playing field for all.
+
+<Newsletter />

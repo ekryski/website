@@ -1,0 +1,39 @@
+import { ArticleLayout } from '@/components/ArticleLayout'
+import { Newsletter } from '@/components/Newsletter'
+
+export const article = {
+ author: 'Eric Kryski',
+ date: '2016-02-27',
+ title: "How to actually use Socket.io in React Native",
+ description: "Get Eric Kryski’s stories in your inbox",
+}
+
+export const metadata = {
+ title: article.title,
+ description: article.description,
+ openGraph: { title: article.title, description: article.description, url: '/articles/how-to-actually-use-socketio-in-react-native' },
+ twitter: { card: 'summary_large_image', title: article.title, description: article.description },
+}
+
+export default ({ children }) => <ArticleLayout article={article}>{children}</ArticleLayout>
+
+Top highlight
+
+[](/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fbookmark%2Fp%2F39082d8d6172&operation=register&redirect=https%3A%2F%2Fmedium.com%2Fthe-bull-pen%2Fhow-to-actually-use-socket-io-in-react-native-39082d8d6172&source=---header_actions--39082d8d6172---------------------bookmark_footer------------------)[Listen
+
+](/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2Fplans%3Fdimension%3Dpost_audio_button%26postId%3D39082d8d6172&operation=register&redirect=https%3A%2F%2Fmedium.com%2Fthe-bull-pen%2Fhow-to-actually-use-socket-io-in-react-native-39082d8d6172&source=---header_actions--39082d8d6172---------------------post_audio_button------------------)Share
+
+Official [websocket support](https://facebook.github.io/react-native/docs/network.html) landed in React Native core in October. If you want to use socket.io with React Native you need to hack around socket.io a bit because the client was originally built for the browser, and since the React Native runtime isn’t a browser, it won’t work right out of the box.
+
+Previously you might have run into [this guide](http://browniefed.com/blog/2015/05/16/react-native-and-socket-dot-io/) which outlined a couple of the gotchya’s. However, there are two problem with the method proposed in that guide:
+
+- You can’t use the debugger. WTF! This turns developing a React Native app from fun to a nightmare really quick.
+- You aren’t actually using websockets! You’re using the ajax long-polling fallback built in to Socket.io.
+
+Here’s how we are **actually **using socket.io in React Native to communicate over websockets with [Feathers](http://feathersjs.com/). **Edit #1:**A [PR to engine.io](https://github.com/socketio/engine.io-parser/pull/55) that fixes this was merged a while ago but we’re still waiting on a socket.io release. ** Edit #2:** Socket.io v1.5.1 has been released and has the fix to engineio-parser, so you don’t need to set `window.navigator` anymore. You should also be able to `import io from 'socket.io-client/socket.io'` now.
+
+Now you can actually have speedy real-time React Native apps using socket.io. Happy coding! Big thanks to 
+
+I’m one of the creators of Feathers — a minimalist real-time JavaScript framework. With [Feathers](http://feathersjs.com/) we’ve made it easy to build real-time apps in both the browser and React Native. It’s kind of like Meteor but much more flexible and works seamlessly with React Native. If you’re interested in learning more you can check out our [Medium publication](https://blog.feathersjs.com) or [the docs](http://docs.feathersjs.com/).
+
+<Newsletter />

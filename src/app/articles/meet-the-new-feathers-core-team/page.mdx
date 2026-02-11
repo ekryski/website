@@ -1,0 +1,73 @@
+import { ArticleLayout } from '@/components/ArticleLayout'
+import { Newsletter } from '@/components/Newsletter'
+import imageimage1jpeg from './image-1.jpeg'
+
+export const article = {
+ author: 'Eric Kryski',
+ date: '2016-10-24',
+ title: "Meet The New Feathers Core Team",
+ description: "One step back and two steps forward.",
+}
+
+export const metadata = {
+ title: article.title,
+ description: article.description,
+ openGraph: { title: article.title, description: article.description, url: '/articles/meet-the-new-feathers-core-team' },
+ twitter: { card: 'summary_large_image', title: article.title, description: article.description },
+}
+
+export default ({ children }) => <ArticleLayout article={article}>{children}</ArticleLayout>
+
+<Image src={imageimage1jpeg} alt="" />
+
+It’s been a while since we’ve given a community update and for that I apologize. We’re going to be posting a lot more consistently from here on out. However, it’s not for lack of activity. So much has happened since our post about [what’s next for Feathers](/what-s-next-for-feathers-f608f5c5e673#.jjwhjdlnw) in April!
+
+## New Core Team Members 🎉
+
+We lost 1 great core team member 
+
+It’s always hard losing people, whatever the reason, but since Derek’s departure we’ve added 2 new amazing team members! 
+
+## The Auk is landing… soon
+
+As I said in the last post, we knew the [Feathers Auk release](https://github.com/feathersjs/feathers/issues/299) was ambitious. As with anything ambitious you don’t always hit the mark. As a result we’ve pushed a few things out to future releases but also snuck in some nuggets that we’ll be covering in more detail in future posts. I’ll give you a bird’s eye view of what has happened in the last 6 months (see what I did there).
+
+### Reactive Query Streams
+
+We’ve been pretty quiet about it but I can assure you…**It. Is. Awesome **! With the help of [Jack Guy](http://www.thatguyjackguy.com/), the entirely optional [feathers-reactive](https://github.com/feathersjs/feathers-reactive) module allows you to supercharge your client side Feathers services by turning them into real-time query streams. What that means without the buzzwords is that you can easily get real-time event notifications in your browser, React Native, or Node.js client for only the things you care about. Think of it sort of like Meteor’s Livequery but better. It’s more flexible than most solutions we’ve seen and can be included in just 3 lines. Pretty slick!
+
+### Hook Consolidation
+
+Courtesy of 
+
+### RethinkDB Improvements
+
+We’ve been continually improving the [feathers-rethinkdb](https://github.com/feathersjs/feathers-rethinkdb) adapter. It is coming along nicely and people are now using it in production. With the sad news that RethinkDB (the company) has shut down, and consequently their real-time JavaScript backend [Horizon](http://horizon.io/), we’d like to humbly offer what we think is a natural transition path if you are looking for an alternative. As far as we know Feathers is the only framework that officially supports this amazing database and coupled with `feathers-reactive `makes your entire stack real-time without complex op-log tailing. We want to help RethinkDB live on as an open source project and would be humbled to have 
+
+### Revamped Authentication, CLI & Generator
+
+Now that all of these things have been battle tested by a bunch people on **real world projects ** we have found some limitations with our implementations. We’re currently wrapping up a complete overhaul of `feathers-authentication` that will make it much more flexible to extend including support for passwordless auth, password management, api key authentication, complex permissions, token blacklisting and more. In addition, the new CLI and Metalsmith based generator are nearly complete thanks to massive help from 
+
+### Various Other Improvements
+
+Outside of these major highlights, a lot of other things have kept us busy:
+
+- We’ve closed almost [**600 issues **](https://github.com/issues?utf8=%E2%9C%93&q=is%3Aissue+org%3Afeathersjs+is%3Aclosed+closed%3A%3E%3D2016-03-15) and landed almost [**1,000 pull requests **](https://github.com/issues?utf8=%E2%9C%93&q=is%3Apr+org%3Afeathersjs+is%3Aclosed+closed%3A%3E%3D2016-03-15+) since the Feathers 2 release announcement! That’s an average of 125 issues and 250 PRs submitted or reviewed for the previous 4 core team members. Those numbers are staggering for such a small team that has a life outside of Feathers. I actually can’t believe they are real.
+- [The Slack group](http://slack.feathersjs.com) has grown from 40 people to over **800 members ** and we’ve so far managed to keep up with support. Better yet, people are supporting each other and everyone is very friendly! 😃
+- Feathers is now the **4th most popular real-time web framework** based on Github stars and monthly downloads. 🚀
+- We’ve added a bunch more [examples](https://github.com/feathersjs/feathers-demos) and guides.
+- We’ve added a [feathers-stripe](https://github.com/feathersjs/feathers-stripe) plugin
+- We’ve polished up the [feathers-sendgrid](https://github.com/feathersjs/feathers-sendgrid) plugin
+- We’ve created [feathers-bootstrap](https://github.com/feathersjs/feathers-bootstrap) to be able to declare your app structure in JSON format and support initializing asynchronous services.
+
+You’re probably wondering when you can get your hands on this stuff. Well… a lot of it you already can! Since Feathers is so modular we are continually pushing out releases. We’ll officially close out the Auk release in this last quarter of 2016 and will be putting out individual posts highlighting each piece over the coming weeks.
+
+Going forward we’ve decided to stay away from putting specific dates on releases and instead are going to be announcing major releases on a quarterly basis. In a future post 
+
+That’s all for now!
+
+*If you haven’t tried *[*FeathersJS*](http://feathersjs.com)* yet, take it for a spin and let us know what you think in *[*Slack*](http://slack.feathersjs.com)* or on *[*Twitter*](https://twitter.com/feathersjs)*. We’re really friendly.*
+
+*If you found this useful, interesting or exciting please hit the heart button below and recommend this article so that others can see it as well.*
+
+<Newsletter />

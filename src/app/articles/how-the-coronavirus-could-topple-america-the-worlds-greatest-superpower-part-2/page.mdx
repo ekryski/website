@@ -1,0 +1,110 @@
+import { ArticleLayout } from '@/components/ArticleLayout'
+import { Newsletter } from '@/components/Newsletter'
+import imageimage1jpeg from './image-1.jpeg'
+
+export const article = {
+ author: 'Eric Kryski',
+ date: '2020-03-24',
+ title: "How the Coronavirus could topple America, the world’s greatest superpower — Part 2",
+ description: "A brief history of money",
+}
+
+export const metadata = {
+ title: article.title,
+ description: article.description,
+ openGraph: { title: article.title, description: article.description, url: '/articles/how-the-coronavirus-could-topple-america-the-worlds-greatest-superpower-part-2' },
+ twitter: { card: 'summary_large_image', title: article.title, description: article.description },
+}
+
+export default ({ children }) => <ArticleLayout article={article}>{children}</ArticleLayout>
+
+<figure className="flex flex-col items-center my-8">
+ <Image src={imageimage1jpeg} alt="" />
+ <figcaption className="mt-2 text-center text-sm italic text-zinc-600 dark:text-zinc-400">
+ Photo by <a href="https://unsplash.com/@agent_illustrateur?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" className="text-black dark:text-white hover:underline">Christine Roy</a> on <a href="https://unsplash.com/s/photos/money?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" className="text-black dark:text-white hover:underline">Unsplash</a>
+ </figcaption>
+</figure>
+
+If you missed [**the first article in this series **](/articles/how-the-coronavirus-could-topple-america-the-worlds-greatest-superpower-part-1), go back and check it out. It sets the stage for this one, and the other 3 articles that follow.
+
+In this piece we’ll cover what money is and how we ended up with the US Dollar and the financial system we have today. Let’s dive in.
+
+>**Disclaimer:** The following is an opinion piece backed by factual, historical information, which can be found throughout the articles in this series. I am not anti-establishment, or anti-America. I am a proud Canadian and global citizen that values transparency, is pro humanity, and is hoping for the best.
+
+This is not investment advice.
+
+## What is money?
+
+First let’s start off by defining what money actually is.
+
+>**Money is essentially an IOU you trust. That is all. ** To expand, [it is a store of value, unit of account, and medium of exchange](https://www.stlouisfed.org/education/economic-lowdown-podcast-series/episode-9-functions-of-money) that enables people to easily keep a record of the exchange of goods and/or services over time. Money is only as good as people trust it to fulfill this function. As such, “good” or “sound” money typically has the following properties: durability, portability, divisibility, uniformity, limited supply (ie. you can’t easily make more), and acceptability.
+
+That may have left you scratching your head. It certainly did for me when I first**really** learned about money. Don’t fret. Read on and I’m sure it will become clear. With that, let’s jump into a brief history lesson.
+
+Money has a complex history. It’s been around for thousands of years. It’s important that you understand this history, at least at a high level, because, as you will see, humans have done a terrible job with managing money. But it has also gone through some incredible innovation phases, which will lead you to how we got to where we are today.
+
+*History of Money. Created by Open University.*
+
+### A short summary
+
+In case you didn’t want to watch the video (you should), let’s summarize. Humanity’s history of money went something like this:
+
+- We bartered. **For thousands of years. **Turns out trading bananas for a cow doesn’t work well. You’d need a lot of bananas to buy a cow, not everyone wants that many bananas, and a cow can outlast a banana. So we needed **a record of account **.
+- Next we progressed to writing stuff down as IOUs and keeping a tally. This still wasn’t ideal because as communities grew and had more goods, this became complex and it was hard to figure out how many bananas were worth a cow, chicken, wood, or tools, and so on. It was also hard to verify the authenticity of these IOUs. So we needed a **medium of exchange ** that everyone would **accept **.
+- Then we invented the first physical money. People have tried beads, feathers, shells, teeth, rocks, all sorts of things. Some lasted hundreds of years, but eventually every one of them failed because some clever guy figured out how to easily get more of them (it was mostly men that ruined stuff back then #feminism). This increased the supply and reduced their value because of [the laws of supply and demand](https://www.investopedia.com/terms/l/law-of-supply-demand.asp). **This is called debasement **. So we needed something with **limited supply **(ie. hard to reproduce). We also needed something that would last a long time because shells and feathers could break or decompose.
+- This is about the time we started using metal money. Metal money was much more durable and easier to transport. It also enabled **uniformity ** because coins could be made the same size and weight. The problem here is people, once again, figured out to make more coins by mixing in less valuable metal with the good stuff (more debasement). [This is what caused the fall of the Roman Empire](https://www.stlouisfed.org/~/media/education/lessons/pdf/inflation_and_the_fall_of_the_roman_empire.pdf?la=en), which was kind of like the USA of its day. The Roman Empire ruled for over 100 years but the major reason for its downfall was that the government created more coins with less valuable metal content, flooding the market with less valuable money. This created severe **inflation ** because one coin couldn’t buy as much stuff as it could before and they couldn’t pay people to fight for them anymore.
+- This is where solid gold coins came in. This worked really well for **hundreds and hundreds of years **. Gold is a scarce element and not possible to reproduce. We also figured out how to determine a “coin’s weight in gold” with math and some basic chemistry. This allowed people to check whether a coin had been devalued. The problem here, is gold coins are not easily **divisible **. So we needed something that could do that. Also, as people spread out, gold coins started to become harder to move around so we needed something more **portable. **- In the 9th century, paper money, whose value was linked to gold stored in reserves, was invented in China. **This paper money was an IOU, ** sometimes called a note, from the person or bank that was holding your gold whom you **trusted ** to hold it. This enabled people to pass around paper money that represented as much or as little gold as you wanted, making money easily **divisible ** and **portable **. Turns out, people figured out how to game this system (surprise!), such that someone could give another person an IOU for gold they didn’t have. So long as everyone they gave these IOUs to wouldn’t claim their gold at the same time, it was deemed to be a get nius system. This is called **fractional reserve banking ** and is the basis for our banking system **today **.
+
+This was our financial system for quite some time. Everyone traded with each other relatively happily using IOUs tethered to the value of gold.
+
+> If any of this☝️ is confusing, **watch the video **. I’m glossing over some history and finer details here but I’m trying to hit on the main points in time where we gained and lost our **core properties ** of “sound money”: durability, portability, divisibility, uniformity, limited supply, and acceptability.
+
+### Global War Money
+
+For your frame of reference we’re now sitting at the 18th and 19th century. At this point the gold backed monetary system has been the best we’ve ever had. However, even though we have all of our core properties of **sound money **: durability, portability, divisibility, uniformity, limited supply (ie. you can’t easily make more), and acceptability, we still have **trust ** issues. Specifically around proof of reserves, rather, whether the gold that is claimed to be backing these paper IOUs, actually is there.
+
+More on this later.
+
+By now, people started to explore new lands and cross oceans. Because of the distance traveled, and the time it took to sail across oceans, gold became even less **portable ** and paper notes were less than ideal, in part because they can get ruined when they get wet.
+
+Nonetheless, society stuck with gold for a while, up until around WWII. Before then, nearly every country’s currency was based off [the gold standard](https://en.wikipedia.org/wiki/Gold_standard), which meant that central banks had gold in vaults as collateral for trade, and paid for things using paper notes. You could send paper notes by mail, whereas gold was expensive and very hard to move in large quantities.
+
+For centuries countries had settled their trade deficits in gold on a regular basis. This meant they would physically ship over gold at regular intervals. However, this became particularly problematic during war time, especially WWI, when Germany decided to print more paper IOU notes (ie. paper money) than it had gold, in order to fund its war efforts. This obviously led to severe inflation and eventually the collapse of Germany, much like the Roman Empire. **This only took ~10 years **. **A lot can change in a decade. ** Since gold is scarce, and there was demand, the value of gold increased over time. This created a scenario where countries with lots of gold could impose their financial will over other countries with less gold. Between this imbalance of power, the inability to easily verify another country’s gold reserves, and having to physically ship gold to settle trade deficits — gold stopped working well for global trade. Also, because of this imbalance of power and the rise of Hitler, Germany started to get grumpy about its impoverished position.
+
+As such, [In 1933 the USA effectively went off the gold standard](https://www.mentalfloss.com/article/12715/why-did-us-abandon-gold-standard) with the main catalyst being that [the public were selling off their dollars for gold during the Great Depression](https://www.thebalance.com/what-is-the-history-of-the-gold-standard-3306136), even as the government aggressively raised interest rates to make the dollars more valuable. This devalued the US coins and paper notes, because people were hoarding the collateral that was supposed to back them. This led to further drops in value and sparked a downward spiral, pushing the US economy into an even deeper depression. Clearly the US government had to do something!
+
+Furthermore, Germany pulled the same stunt in WWII that they did in WWI and the world was pissed. Everyone needed to print more money to fund the war effort to fight Ze Germans. It was the last straw, and made it impossible for every country to have their money pegged to gold anymore, because they had printed too much money to fund the war effort and there wasn’t enough gold in reserves to back the outstanding money. If they went back to the gold standard this would have caused a global depression. **Remember this. It’s important. ** So in 1944, a bunch of countries met and signed [the Breton Woods Agreement](https://www.thebalance.com/bretton-woods-system-and-1944-agreement-3306133), which effectively solidified the US Dollar as the global reserve currency. Since the US had the most gold and a super fast growing economy after they rapidly industrialized during WWII, it only made sense at the time.
+
+Finally, in 1971 the USA dropped the gold standard officially and **the US Dollar became based off of GDP and debt entirely **. This can be credited to Richard Nixon because he decided the US government “needed” to print money to stimulate the economy during the same time as, you guessed it, the Vietnam war. Turns out [being limited in how much money you can print stinks](https://www.mentalfloss.com/article/12715/why-did-us-abandon-gold-standard), especially when you are going to war. They’re pretty expensive!
+
+### Modern Money
+
+These were the events that lead to the system we have today, where:
+
+- US Dollars are the global reserve currency.
+- Banks practice fractional reserve banking and only need $1 for every $9 they loan out. [**Last week the Fed reduced this to $0 for banks for 90 days **](https://www.washingtonpost.com/business/2020/03/15/federal-reserve-slashes-interest-rates-zero-part-wide-ranging-emergency-intervention/)**. **- The government can raise and lower interest rates and put money in circulation to tweak the inflation rate. If you remember from before, **inflation is caused by debasement and erodes the purchasing power of your money **. Meaning that as every day goes by, your money is worth less and less.
+
+Today, the **value of a US dollar is what people are willing to pay for it **. This value is typically derived from the Gross Domestic Product (GDP) and the Consumer Price Index (CPI) — the strength of the United States Economy and how much it costs to buy common things like milk, bread and coffee, respectively. This is why pretty much everything is priced in US dollars for international trade and why other country’s exchange rates are compared to USD first.
+
+>**Note:** Every country in the world generally operates this way today. This is why currency exchange rates fluctuate and why every country’s economy reacts when the US economy slows.
+
+Since WWII, humans have developed more and more complex financial products such as, stocks, bonds, notes, treasuries and mortgages. With the rise of the Internet and the proliferation of computers, more and more money started to go digital, and even more complex financial products emerged — swaps, ETFs, derivatives, futures, options, FX trading, etc.
+
+But we still hadn’t solved that elusive **trust** problem. We generally just had to trust that people were doing what they said they would with money or these new financial products and assets. And unfortunately, history tells us that some people are greedy and can be corrupted. Best case scenario, two untrusted parties would have some trusted third party verify reserves and transactions. This is what banks, regulators and rating agencies are supposed to do. However, during the 2008 Financial Crisis it turns out a lot of people didn’t do their job right and the US economy collapsed. Long story short, greedy bankers sold mortgages to people that couldn’t afford them, and repackaged them up as A+ mortgages (really as mortgage backed securities) so that people could speculate on them. **Remember this. This is important.** This whole “needing a trusted third party to verify things” situation didn’t really change until 2008, when Bitcoin was invented. The creator of Bitcoin, Satoshi Nakamoto, developed a rather elegant solution to one key problem -**trust. ** Bitcoin enables you to**trust a transaction is valid without needing to trust the person you are transacting with, or rely on a known trusted third party. ** This works by combining very hard to fake math (cryptography) and economic incentives (game theory) so transactions can be mathematically proven to not be fake and anyone in the world can run a computer is economically punished if they try to fake a transaction.
+
+While Bitcoin is still maturing, and by no means perfect, by using a combination of cryptography, economic theory, game theory, software, and distributed systems, Satoshi added 2 new key properties to our previous definition of “sound money”:
+
+-**Trusted **— whereby trust is implied and you don’t need to trust your counter-party or rely on a trusted third party; and
+-**Programmable **— where the money can be more easily programmed with software.
+
+This has sparked an explosion in experimentation in monetary theory, computer science, and cryptography. The likes of which, we have never seen before.
+
+> I would like to propose an updated definition of “sound money”, in that it now has the following properties: durability, portability, divisibility, uniformity, limited supply, acceptability, programmability and it is trusted.
+
+Ok great! You made it! Now that you have received a crash course in money and hopefully understand how we arrived at the good old greenback as the global standard, let’s move on.
+
+[**In the next article in this series **](/articles/how-the-coronavirus-could-topple-america-the-worlds-greatest-superpower-part-3), we’re going to cover how the core US Financial system works today. Including how the Fed stimulates the economy, how the Repo, stock, and bond markets work, and what actually is this thing called Quantitative Easing (QE).
+
+>**About the author:** [Eric Kryski](https://www.linkedin.com/in/ekryski/) is a Canadian data & computer scientist and the CEO of [Bidali](https://www.bidali.com) — a financial infrastructure company that uses blockchain technology to provide better, cheaper and more transparent financial services. This year he spoke in Davos during the World Economic Forum on the future of money and is the chair of the Canadian Blockchain Consortium FinTech committee.
+
+<Newsletter />

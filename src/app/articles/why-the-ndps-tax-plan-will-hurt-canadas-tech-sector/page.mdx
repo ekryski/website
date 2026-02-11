@@ -1,0 +1,89 @@
+import { ArticleLayout } from '@/components/ArticleLayout'
+import { Newsletter } from '@/components/Newsletter'
+
+import imageimage2gif from './image-2.gif'
+
+export const article = {
+ author: 'Eric Kryski',
+ date: '2015-09-25',
+ title: "Why The NDP’s Tax Plan Will Hurt Canada’s Tech Sector",
+ description: "This is how your taxes are calculated today",
+}
+
+export const metadata = {
+ title: article.title,
+ description: article.description,
+ openGraph: { title: article.title, description: article.description, url: '/articles/why-the-ndps-tax-plan-will-hurt-canadas-tech-sector' },
+ twitter: { card: 'summary_large_image', title: article.title, description: article.description },
+}
+
+export default ({ children }) => <ArticleLayout article={article}>{children}</ArticleLayout>
+
+[](/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fbookmark%2Fp%2F5941541425b6&operation=register&redirect=https%3A%2F%2Fmedium.com%2Fthe-bull-pen%2Fwhy-the-ndp-s-tax-plan-will-hurt-canada-s-tech-sector-5941541425b6&source=---header_actions--5941541425b6---------------------bookmark_footer------------------)[Listen
+
+](/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2Fplans%3Fdimension%3Dpost_audio_button%26postId%3D5941541425b6&operation=register&redirect=https%3A%2F%2Fmedium.com%2Fthe-bull-pen%2Fwhy-the-ndp-s-tax-plan-will-hurt-canada-s-tech-sector-5941541425b6&source=---header_actions--5941541425b6---------------------post_audio_button------------------)Share
+
+Canada is in an interesting political and economic period at the moment. With the recent change to an NDP government in Alberta and a federal election looming there is a lot of uncertainty about Canada’s economy; especially given the value of oil and the current value of the good old Loonie vs. the American greenback. In my opinion, in order for Canada to succeed on the global stage we need to diversify beyond being a resource driven economy; and quickly. I think that technology is the most natural and promising sector to concentrate our efforts.
+
+Being a founder of a tech company I’m slightly biased in thinking that this is the right avenue but believe my reason is sound. Technology is an export that doesn’t require nearly as much capital as petroleum and can still produce great returns. Environmental benefits aside, just look at Apple, Google, Microsoft, Cisco, etc. Furthermore, investing in technology has benefits across every other sector, as there really isn’t an industry that doesn’t involve hardware or software anymore. If Canadian tech is being used to make other sectors more efficient and more competitive then there will be a compounding effect on the Canadian economy.
+
+So with that said I want to pick on one specific area of the NDP’s proposed tax plan that I think ([along](http://betakit.com/how-will-the-ndps-tax-plan-affect-startups/) [with](http://www.theglobeandmail.com/report-on-business/small-business/starting-out/ndps-stock-option-plan-would-kill-canadian-startup-ecosystem-tech-leaders-say/article26526506/) [others](http://www.bloomberg.com/news/articles/2015-09-24/ndp-plan-to-boost-tax-on-stock-options-seen-stunting-canada-tech)) would have a very negative impact on Canada’s ability to attract and retain talent for a tech company or “startup”. This is something we already have trouble with due to the massive brain drain to companies based in the US.
+
+***Update: No less than 24 hours after I wrote this, the NDP sent a letter to Tobias (CEO of Shopify) and Ryan (CEO of Hootsuite), stipulating they would make sure that there is a provision so that early stage employees aren’t penalized. The official letter can be found *[*here*](https://www.dropbox.com/s/86ptxs608he78wn/2015-09-24%20letter%20-%20mulcair-tech%20sector%20startups-en%201.pdf?dl=0)*.*
+
+Tom Mulcair and the NDP are proposing to eliminate the existing [offsetting stock option deduction](http://www.cra-arc.gc.ca/tx/bsnss/tpcs/pyrll/bnfts/fnncl/scrty/stckpt01-eng.html) so that any of your gains on stock options are taxed at 100% instead of the current 50%.
+
+The media has done a good job of reporting that **this would net the government an estimated $500 million a year over 4 years**. What hasn’t really been clear is how this affects you as an individual and how it can impact the tech sector. So let’s do some simple math on a realistic example.
+
+*Let’s say you started working for a super hot company, Airchick (Airbnb for chickens) in 2013 and as part of your employment package you have 100,000 options at an exercise price of $1. Fast forward to 2015. You are getting acquired by Airbnb (they also believe chickens need comfort)! You decide to exercise your option (of course you would) and sell your shares as part of the company exit. The share price is now $4.*
+
+<figure className="flex flex-col items-center my-8">
+ <Image src={imageimage2gif} alt="" />
+ <figcaption className="mt-2 text-center text-sm italic text-zinc-600 dark:text-zinc-400">
+ Wooooo! Big exit! Make it rain!
+ </figcaption>
+</figure>
+
+So, in 2015 you shelled out $100,000 (on paper) to convert your options to stock. The stock’s fair market value (FMV) is $4, so you had a “benefit of being an employee”, formally called an **employee benefit **, of $300,000. When your company was acquired by Airbnb they paid $4/share. So when you sold out in 2015 you also have a $300,000 **realized capital gain. **## This is how your taxes are calculated today
+
+- In 2013 and 2014 you are only taxed on your startup salary.
+- In 2015 you had an employee benefit of $300,000. So you get taxed on your salary + $300,000 minus the employee benefit deduction of 50% ($150,000). To complicate things a bit, if you got your options when the company was a private company (like most startups) you can defer this extra tax until you sell your stock, but in a typical startup exit that is usually right away (or at least a portion is). There is a catch here; you would have had to hold the **stock **(not the options) for at least 2 years to qualify for this deferral. If the company was public when you got your options you don’t get a deduction and so you pay income tax on your salary + $300,000.
+- In 2015 because you sold your stock right away you have a realized capital gain of $300,000 as well. However, because you sold your stock at the same price when you exercised your options, the employee benefit tax above cancels out your gains, so you won’t have any tax on capital gains to pay. If you sold your stock at a later date for more money than the fair market value at the time you exercised your option, you’ll have additional capital gains to pay tax on. Once again if you held the **stock ** for at least 2 years you can get the 1 time deal of not being taxed on your first $750,000 of capital gains. Since, in this example, this isn’t the case, this year your tax bill would be the taxes on your salary + $150,000 (taxed at the highest rate because you are also including the $150,000 employee benefit).
+
+## This is how your taxes are calculated if the NDP get their way
+
+- In 2013 and 2014 it’s the same. You are only taxed on your startup salary.
+- In 2015 you had an employee benefit of $300,000. So you get taxed on your salary + $300,000. Straight up. **Now the employee benefit deduction of 50% is gone **. So you pay income tax on your salary + $300,000. Putting you in the highest tax bracket. Getting taxed on the extra $150,000 at the highest tax bracket equates to about an extra $50,000 to $75,000 in tax (depending on where you live). [Todd Smith](https://twitter.com/toddsmithdesign) did a really nice job of breaking things down in [this spreadsheet](https://docs.google.com/spreadsheets/d/1d8Ok9ojNMOZChkTbCjP3mpfUoTaqqFznWHumm4ffD0I/edit#gid=0).
+- In 2015 it’s the same as before as far as your capital gains are concerned. You have a realized capital gain of $300,000 from selling your stock but your employee benefit cancels out the gains assuming you sold your stock at the same price.
+
+All in all, you’re paying a pretty hefty tax bill if you exercise your options and sell your stock in the same year, unless you held your **stock ** for at least 2 years and took advantage of the 1 time $750,000 capital gains exemption. The tax on the employee benefit is still pretty hefty no matter which way you slice it, considering it is more than double the tax you pay on your capital gains without the exemption.
+
+## Alright, so why does this really matter?
+
+The major reason is that in tech, startup stock options are used as an incentive to attract employees, keep them invested in the success of the company, and potentially accept a lower salary (personally I rarely do this). If now all of a sudden we lose this tax benefit a company will have to either:
+
+a) Offer more options to employees to compensate. This will further dilute everyone else’s position in the company, potentially significantly altering the capitalization table so that investors (especially foreign) are scared off. Remember that they have a lot places that they can put their money.
+
+b) Offer a higher salary to compensate for the tax hit eating into your most precious resource in a startup, capital.
+
+c) Cover the tax cost as a bonus per employee when the options are exercised by the employee.
+
+d) Not offer options at all and do bonuses or profit sharing. This is practically impossible to do in a startup. Especially in a high growth one, as you require all the capital you can get your hands on to fuel that rocket ship. Investor’s would scold you for dishing out bonuses to everyone. **None of these options are ideal and they aren’t mutually exclusive either.**
+
+Furthermore, raising taxes on stock options robs regular Canadians of their hard earned returns, in the typical case, after a successful exit. This could be the difference between that exit spawning more startups or not. Capital flowing back into tech from successful exits is another issue we struggle with in Canada. I believe that is a major part of why Silicon Valley has been so successful.
+
+Another important thing to note is that if you exercise your option and at some point in the future you have to liquidate them at a lower price than the strike price (in the event the company goes out of business) then you’ll still have to pay the tax on your employee benefit from when you exercised your options. Since this would be 50% higher, its like giving a person two kicks while they are down and out.
+
+I get where the NDP is coming from. They want to evenly distribute wealth. In some ways I’m all for that. But with this tax proposal they are attempting to play Robin Hood by politicizing the chasing CEOs of large corporations (a very small number of people), when in fact it really impacts the average employees of tech startups and those smaller companies themselves on a much greater level.
+
+*If you are in tech or just generally care about political transparency please share this in your network, hit the recommend button below, and share with your local constituent.*
+
+**Notes**
+
+*I’ve done my best to be factually accurate but I’m not an accountant. You should get an accountant to help you plan for taxes and not rely on this advice entirely. If I’ve made any errors or you think this could be improved please drop a comment.*
+
+*John Ruffolo, Boris Mann and many others pointed out that the example should be more realistic wherein people exercise their option at an exit event rather than paying cash so I updated the example to reflect that. This actually hurts startup employees even more.*
+
+*After editing I did some additional fact checking against this really awesome article: *[http://mikevolker.com/shares-vs-stock-options/](http://mikevolker.com/shares-vs-stock-options/). *I also want to thank some of the other people that pointed out the errors in my initial calculations, which have now been corrected.*
+
+<Newsletter />
