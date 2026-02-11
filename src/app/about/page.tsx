@@ -64,6 +64,18 @@ export const metadata: Metadata = {
   title: 'About',
   description:
     'I\'m Eric Kryski. I live in Calgary, where I design, build and invest in the future.',
+  openGraph: {
+    title: 'About - Eric Kryski',
+    description:
+      'I\'m Eric Kryski. I live in Calgary, where I design, build and invest in the future.',
+    url: '/about',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'About - Eric Kryski',
+    description:
+      'I\'m Eric Kryski. I live in Calgary, where I design, build and invest in the future.',
+  },
 }
 
 export default function About() {

@@ -126,7 +126,20 @@ function WorkstationTool({
 
 export const metadata = {
   title: 'Tools',
-  description: 'Software I use, gadgets I love, and other things I recommend.',
+  description:
+    'Software I use, gadgets I love, and other things I recommend.',
+  openGraph: {
+    title: 'Tools - Eric Kryski',
+    description:
+      'Software I use, gadgets I love, and other things I recommend.',
+    url: '/tools',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Tools - Eric Kryski',
+    description:
+      'Software I use, gadgets I love, and other things I recommend.',
+  },
 }
 
 export default function Tools() {

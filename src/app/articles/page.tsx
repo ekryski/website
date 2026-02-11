@@ -38,6 +38,18 @@ export const metadata: Metadata = {
   title: 'Articles',
   description:
     'Long-form thoughts on crypto, startups, finance, Canada, and the intersection of technology with money and society.',
+  openGraph: {
+    title: 'Articles - Eric Kryski',
+    description:
+      'Long-form thoughts on crypto, startups, finance, Canada, and the intersection of technology with money and society.',
+    url: '/articles',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Articles - Eric Kryski',
+    description:
+      'Long-form thoughts on crypto, startups, finance, Canada, and the intersection of technology with money and society.',
+  },
 }
 
 export default async function ArticlesIndex() {

@@ -44,6 +44,18 @@ export const metadata: Metadata = {
   title: 'Speaking',
   description:
     "I've spoken at events all around the world and been interviewed for many podcasts.",
+  openGraph: {
+    title: 'Speaking - Eric Kryski',
+    description:
+      "I've spoken at events all around the world and been interviewed for many podcasts.",
+    url: '/speaking',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Speaking - Eric Kryski',
+    description:
+      "I've spoken at events all around the world and been interviewed for many podcasts.",
+  },
 }
 
 export default function Speaking() {
