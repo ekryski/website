@@ -14,6 +14,8 @@ export const article = {
 export const metadata = {
   title: article.title,
   description: article.description,
+  openGraph: { title: article.title, description: article.description, url: '/articles/taxation-employee-stock-options' },
+  twitter: { card: 'summary_large_image', title: article.title, description: article.description },
 }
 
 export default (props) => <ArticleLayout article={article} {...props} />
