@@ -149,6 +149,13 @@ export default function Speaking() {
 
         <SpeakingSection title="Podcasts">
           <Appearance
+            href="https://www.collisionsyyc.com/episodes/e59-eric-kryski"
+            title="E59 - Eric Kryski, CEO & Co-Founder of Bidali"
+            description="Discussion with Tyler Chisholm on cryptocurrencies—how they've evolved from a niche concept to being seen by many as the future of money, and what that means for Calgary's economic transformation."
+            event="Collisions YYC"
+            cta="Listen to podcast"
+          />
+          <Appearance
             href="https://www.youtube.com/watch?v=GPDut8ls46c"
             title="Thin Air Labs Interview"
             description="Conversation with Thin Air Labs on building Bidali, crypto payments, and the Calgary tech ecosystem."
