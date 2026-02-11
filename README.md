@@ -40,6 +40,25 @@ The production build includes feed generation, CV PDF generation, and static exp
 - `npm run release:patch` / `release:minor` / `release:major` - bump specific version
 - Push with `git push --follow-tags` to create GitHub Release
 
+## Home page photos
+
+The five photos on the home page are sourced from `planning/resources/` (eric-*.jpeg). To regenerate optimized versions after adding or replacing source images, run:
+
+```bash
+npm run optimize-home-photos
+```
+
+This resizes images to 600px max width and outputs JPEG at 80% quality to `src/images/photos/`. Current photos: hiking, golf, mountain, Ray Dalio, snowboarding (image-1 through image-5).
+
+## Newsletter
+    
+The newsletter subscription form is integrated with [Kit](https://kit.com) (formerly ConvertKit). It uses a standard HTML form submission to the Kit API.
+
+To update the form configuration:
+1. Go to `src/app/page.tsx`
+2. Update the `action` attribute in the `<form>` tag with your Kit form URL (e.g., `https://app.kit.com/forms/YOUR_FORM_ID/subscriptions`)
+3. Ensure the input name is `email_address`
+
 ## Customizing
 
 You can edit the website by modifying the files in the `/src` folder. The site will auto-update as you edit these files.

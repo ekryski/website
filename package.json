@@ -7,6 +7,7 @@
     "build": "npm run build:feed && npm run build:cv && npm run build:og-image && next build --webpack",
     "build:feed": "node scripts/generate-feed.js",
     "build:og-image": "node scripts/generate-og-image.js",
+    "optimize-home-photos": "node scripts/optimize-home-photos.js",
     "build:cv": "npx md-to-pdf public/cv.md --config-file md-to-pdf-config.js",
     "start": "next start",
     "lint": "eslint .",

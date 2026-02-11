@@ -16,25 +16,6 @@ function ToolsSection({
   )
 }
 
-function Tool({
-  title,
-  href,
-  children,
-}: {
-  title: string
-  href?: string
-  children: React.ReactNode
-}) {
-  return (
-    <Card as="li">
-      <Card.Title as="h3" href={href}>
-        {title}
-      </Card.Title>
-      <Card.Description>{children}</Card.Description>
-    </Card>
-  )
-}
-
 function DesignTool({
   title,
   href,
@@ -146,7 +127,7 @@ export default function Tools() {
   return (
     <SimpleLayout
       title="Software I use, gadgets I love, and other things I recommend."
-      intro="I get asked a lot about the things I use to build software, stay productive, or buy to fool myself into thinking I'm being productive when I'm really just procrastinating. Here's a big list of all of my favorite stuff."
+      intro="I get asked about how I'm so productive. Here is a list of the things I'm using to build things people love, be more productive, and have fun doing it."
     >
       <div className="space-y-0">
         <ToolsSection title="Workstation">
@@ -162,10 +143,10 @@ export default function Tools() {
             title='16" MacBook Pro, M1 Max, 64GB RAM (2021)'
             image="https://www.google.com/s2/favicons?domain=apple.com&sz=128"
           >
-            I was using an Intel-based 16" MacBook Pro prior to this and the
-            difference is night and day. I've never heard the fans turn on a
-            single time, even under the incredibly heavy loads I put it through
-            with our various launch simulations.
+            Everything I love about Apple—the build quality, the display, the
+            trackpad—fits in one machine. The M1 Max with 64GB lets me run local
+            AI models, code, design, and everything else in parallel without
+            breaking a sweat.
           </WorkstationTool>
           <WorkstationTool
             title='Dual Samsung 27" Curved Gaming Monitors (CJG52)'
@@ -210,16 +191,6 @@ export default function Tools() {
             as well do it in a well-designed chair.
           </WorkstationTool>
           <WorkstationTool
-            title="Audio-Technica AT2020 Condenser Microphone"
-            href="https://www.amazon.ca/audio-technica-AT2020-Condenser-Microphone-Applications/dp/B0006H92QK"
-            image="https://www.google.com/s2/favicons?domain=audio-technica.com&sz=128"
-          >
-            Cardioid condenser studio mic—the price/performance standard for
-            project and home studio use. Great for podcasts, video calls, and
-            voiceover. Requires phantom power (48V), which the Yamaha mixer
-            provides.
-          </WorkstationTool>
-          <WorkstationTool
             title="Yamaha AG06 6-Channel Mixer"
             href="https://www.amazon.ca/Yamaha-AG06-6-Channel-Mixer-Microphone/dp/B00TY8JFSC"
             image="https://www.google.com/s2/favicons?domain=yamaha.com&sz=128"
@@ -229,6 +200,16 @@ export default function Tools() {
             the loopback function is perfect for mixing mic input with system
             audio. Clean D-PRE preamps and 1-touch DSP for compression, EQ, and
             reverb.
+          </WorkstationTool>
+          <WorkstationTool
+            title="Audio-Technica AT2020 Condenser Microphone"
+            href="https://www.amazon.ca/audio-technica-AT2020-Condenser-Microphone-Applications/dp/B0006H92QK"
+            image="https://www.google.com/s2/favicons?domain=audio-technica.com&sz=128"
+          >
+            Cardioid condenser studio mic—the price/performance standard for
+            project and home studio use. Great for podcasts, video calls, and
+            voiceover. Requires phantom power (48V), which the Yamaha mixer
+            provides.
           </WorkstationTool>
         </ToolsSection>
         <hr className="my-20 border-0 border-t border-zinc-200 dark:border-zinc-700/40" />

@@ -5,7 +5,7 @@
  */
 
 const sharp = require('sharp')
-const { mkdir, writeFile } = require('fs/promises')
+const { mkdir } = require('fs/promises')
 const { join } = require('path')
 const https = require('https')
 
