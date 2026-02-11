@@ -1,0 +1,318 @@
+import { ArticleLayout } from '@/components/ArticleLayout'
+import { Newsletter } from '@/components/Newsletter'
+import imageimage1jpeg from './image-1.jpeg'
+
+import imageimage3jpeg from './image-3.jpeg'
+import imageimage4png from './image-4.png'
+import imageimage5png from './image-5.png'
+import imageimage6png from './image-6.png'
+import imageimage7png from './image-7.png'
+import imageimage8png from './image-8.png'
+import imageimage9png from './image-9.png'
+import imageimage10png from './image-10.png'
+
+export const article = {
+ author: 'Eric Kryski',
+ date: '2020-03-14',
+ title: "Your Essential Coronavirus Guide",
+ description: "From a traveled Canadian no longer in quarantine",
+}
+
+export const metadata = {
+ title: article.title,
+ description: article.description,
+ openGraph: { title: article.title, description: article.description, url: '/articles/your-essential-coronavirus-guide' },
+ twitter: { card: 'summary_large_image', title: article.title, description: article.description },
+}
+
+export default ({ children }) => <ArticleLayout article={article}>{children}</ArticleLayout>
+
+<figure className="flex flex-col items-center my-8">
+ <Image src={imageimage1jpeg} alt="" />
+ <figcaption className="mt-2 text-center text-sm italic text-zinc-600 dark:text-zinc-400">
+ Photo by <a href="https://unsplash.com/@kellysikkema?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" className="text-black dark:text-white hover:underline">Kelly Sikkema</a> on <a href="https://unsplash.com/s/photos/coronavirus?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" className="text-black dark:text-white hover:underline">Unsplash</a>
+ </figcaption>
+</figure>
+
+The last 6 months I’ve been traveling a lot and dealing with people in every part of the world. As a result, over the last 2 months I’ve been paying close attention to the Coronavirus. It’s been both fascinating and alarming to see the varied responses among people and governments.
+
+I have noticed a lot of misinformation out there around COVID-19. Seeing people ask the same questions on social media, incorrect information in some mainstream media, and even some incorrect information on government websites. 😱
+
+Given how new this disease is, how fast it is moving, and the fact that I’ve got more time on my hands than usual, I compiled answers to some common questions I’ve seen on social media and links to reputable resources to hopefully address some of the confusion I’ve seen online and help combat the spread of the virus.
+
+I feel like I should have written this earlier. Maybe the thought of infecting my family and being in self-quarantine was what put me over the edge. Hopefully this isn’t too late.
+
+If you want to skip my personal pre-amble I won’t be offended. It’s mainly meant as an update to friends, family and co-workers anyway.
+
+> **Disclaimer:**I’m not a doctor. I’m a computer & data scientist. More importantly I’m a concerned citizen that wants to do my part in helping spread ** accurate **information. If you have questions or concerns refer to the resources I have linked below and/or your local government and medical organizations websites.
+
+If I’ve made any mistakes please highlight so and I will update. I’ve tried to link to all relevant sources for things that may be contrary to what is posted on public health websites right now.
+
+## Some personal back story
+
+>**Edit:**I was tested for COVID-19 and it came back negative. There is a high likelihood I had already contracted it after coming back from the World Economic Forum in Davos as I was exhibiting similar symptoms. This time around it appears it was just a common with a lingering cough. Feeling better and have been incredibly productive! Thanks for all the well wishes!
+
+I’m writing here from my second day in self-quarantine after returning home from the USA early Thursday and developing a chest cough while I was away. I’m currently awaiting testing for the Novel Coronavirus COVID-19 (SARS-CoV-2) and until I receive test results I am remaining in my basement office with only access to our basement bathroom a few steps from the office door.
+
+<figure className="flex flex-col items-center my-8">
+ <Image src={imageimage3jpeg} alt="" />
+ <figcaption className="mt-2 text-center text-sm italic text-zinc-600 dark:text-zinc-400">
+ My quarantine zone
+ </figcaption>
+</figure>
+
+It’s really not so bad. I work from home, I have a bed in my office, and my loving wife (aka. jail guard 😘) is bringing me everything I need. Self-quarantine is definitely a transition, and I realize not everyone is as lucky as I am to have a space that works well, but this is a small sacrifice for protecting loved ones and others where this virus could be deadly.
+
+Honestly, with all the traveling I’ve been doing over the last 6 months this is a nice break to slow down and reflect. The toughest part is not being able to hug my kids and my wife, but we’re making do with dinner dates over FaceTime and periodic check-ins. Sadly, this sort of feels “normal” given how much I’ve been working and traveling as of late, which pains me a little, and reminds me just how amazing my wife is. ❤️
+
+Overall I feel fine, so my quarantine is more of a precaution given my symptoms and my recent travel history, particularly having passed through [the San Jose airport where TSA staff were working that have since tested positive](https://www.tsa.gov/coronavirus).
+
+I was careful to avoid sick people, I wiped down my airplane seat and washed my hands regularly. However, it was surprising just how often you touch your face. Even just a rub of the chin or getting something out of your eyes is a seemingly automatic action. I most definitely touched things and then touched my face before disinfecting. Hard habit to break, even when trying to be aware…
+
+In any case, I expect test results to be negative but I likely won’t hear back for another 5–7 days so I’ve got some time on my hands and will be trying to catch up on some work, reading, taxes, etc.
+
+In general, I’ve been quite impressed with the response and information put out by [Alberta Health Services](https://alberta.ca/coronavirus-info-for-albertans.aspx.) thus far. While there were delays getting through to their telephone to set up an appointment for testing, they quickly responded to this overload, introducing an [online self-assessment tool](https://myhealth.alberta.ca/Journey/COVID-19/Pages/COVID-Self-Assessment.aspx) to help alleviate the call-in volume. This allowed me to get through last night to schedule a test!
+
+I think when compared to other jurisdictions they’ve definitely been one of the most proactive. 👏
+
+>**Note:**If I have been in physical contact with you ** in the last 14 days **then you should watch for symptoms of fever (temp. ≥ 38ºC or 100.4ºF), dry cough, unusual fatigue and/or difficulty breathing or shortness of breath. This ** does not **necessarily mean you have COVID-19, but if you develop these symptoms you should also self-quarantine and seek out guidance from your local medical representatives. Particularly if you are having difficulty breathing.
+
+## Common Questions & Fears
+
+Given my frequent travels I’ve been tracking the COVID-19 disease for 2 months now and as a result of being locked in my office the last 2 days, I have recently done an exceptional amount of additional reading about it. Maybe a little too much.
+
+As such, I wanted to share information and some good resources that I have found along the way in hopes of dispelling some misinformation, of which I’ve even found on government websites. 😧
+
+Due to how quickly things are evolving much of the data I’ve referenced has recently been published and as a result may not have undergone as rigorous a peer review process as usual. Such is the the times we are living in right now, but I prefer scientific studies and data over [click-bait articles](https://twitter.com/balajis/status/1228447944287932416?s=20) any day.
+
+> Social distancing and good hygiene are essential to reduce any viral spread. Early, frequent testing and quarantine procedures seem to be the most effective for COVID-19.
+
+Unfortunately, given how contagious the virus is it’s likely that things will get worse before they get better, but social distancing (≥ 2m or 6ft) and good hygiene are essential in order to reduce ** any **viral spread, and is a good practice regardless of COVID-19. Combining this best practice with early, frequent testing and quarantine procedures seem to be the most effective response to COVID-19 thus far.
+
+<figure className="flex flex-col items-center my-8">
+ <Image src={imageimage4png} alt="" />
+ <figcaption className="mt-2 text-center text-sm italic text-zinc-600 dark:text-zinc-400">
+ China and South Korea seeing slowing growth curves. Korea started testing early and China had a rapid, coordinated response.
+ </figcaption>
+</figure>
+
+<figure className="flex flex-col items-center my-8">
+ <Image src={imageimage5png} alt="" />
+ <figcaption className="mt-2 text-center text-sm italic text-zinc-600 dark:text-zinc-400">
+ Italy has done lots of tests now but delayed their testing and has seen a larger outbreak and continued growth. Source: <a href="https://www.vox.com/future-perfect/2020/3/12/21172040/coronavirus-covid-19-virus-charts" className="text-black dark:text-white hover:underline">https://www.vox.com/future-perfect/2020/3/12/21172040/coronavirus-covid-19-virus-charts</a>
+ </figcaption>
+</figure>
+
+Honestly, given the data I’m a bit shocked at [the UK government’s approach to use “herd immunity”](https://www.theguardian.com/world/2020/mar/13/herd-immunity-will-the-uks-coronavirus-strategy-work) (ie. let everyone get infected or hope a vaccine is ready and works). At this stage I believe that to be not only irresponsible, but immoral and I urge them to reconsider this approach.
+
+There is a lot we don’t know about the disease yet as it is still evolving rapidly but here is some good information that I have fact checked with physicians, medical journals, and public data sets.
+
+### How do I know if I have COVID-19?
+
+<Image src={imageimage6png} alt="" />
+
+You can read more detail [here](https://www.alberta.ca/coronavirus-info-for-albertans.aspx), [here](https://www.cdc.gov/coronavirus/2019-ncov/symptoms-testing/share-facts.html), and [here](https://www.who.int/news-room/q-a-detail/q-a-coronaviruses). But generally look for the following symptoms:
+
+- fever (temperature ≥ 38ºC or 100.4ºF)
+- dry cough
+- unusual fatigue; and/or
+- difficulty breathing or shortness of breath.
+
+### I have one or more of these symptoms what do I do? ** Don’t panic. **Data has suggested that > 80% of people with reported cases have recovered without medical intervention. However, if you have any of these you should:
+
+- Immediately isolate yourself (even from family, friends and roommates);
+- Have anyone you are living with wash their hands and then they should disinfect everything you touched, sneezed, spit, or breathed on. 😅
+- Contact your local medical representatives to see if you need testing or additional medical care; and
+-**Relax. **Sleep, drink plenty of fluids, watch some Netflix, read a book, do some work, or play some music in your new isolation area. 🙂
+
+### How do I get tested?
+
+Contact your regional medical representative or website. Things are different in each city, state, province, and country. Some regions are more prepared than others. I have added links to many common ones at the very bottom of the page.
+
+Hopefully [we will begin to see faster tests](https://www.reuters.com/article/us-health-coronavirus-roche/new-roche-coronavirus-test-wins-emergency-us-approval-idUSKBN2100MB) or “home tests” developed to help alleviate the healthcare system burden. **Currently there aren’t any authorized home tests. Testing is done via authorized clinics and medical professionals and any home tests are likely fake. 🚨🚨**### If you have COVID-19 symptoms are you contagious?
+
+Yes. If you exhibit symptoms and have COVID-19 you are contagious. The science is clear on this. You **may **also be contagious even if you’re not currently exhibiting symptoms.
+
+Furthermore, even if it’s not COVID-19, your symptoms are likely attributed to another flu strain and as such, you should follow the same precautions above since this is generally a good best practice. 👆**⚠️ This is why current official recommendations for most of Canada are that if you exhibit any of the symptoms above, or have traveled abroad, you should self-quarantine for at least 14 days and disinfect things you were in contact with. **### How does COVID-19 spread?
+
+Currently, it appears to spread primarily via small droplets from the nose and mouth. This can happen when you breath, sneeze or cough. It doesn’t appear to remain in the air over long distances (≥ 2 metres, 6.5 ft.).
+
+This is why coughing or sneezing into your **elbow ** is important, as it reduces the distances the droplets can fly. Make sure that if you cough into your hands you wash them for 20s seconds or more before touching anything. If you don’t wash them and then you touch something you can transfer the virus from your hands to the object, making it so that for a period of time, anyone that touches that object and then touches their face (or any other orifice) or eats without first washing their hands thoroughly can contract the virus.
+
+So far [we have not seen COVID-19 spread via water or fecal matter](https://www.cdc.gov/coronavirus/2019-ncov/php/water.html) (💩) like the SARS and MERS viruses did. This does not mean it can’t happen but so far has not been recorded and is considered a low risk means of transmission based on the data right now.
+
+### I heard the virus can live on things. Is this true?
+
+[Yes, but so we don’t have enough data to be 100% certain how that impacts the spread.](https://wwwnc.cdc.gov/eid/article/26/6/20-0412_article)
+
+Many viruses generally have a period of time where they can still be live even when outside the human body. COVID-19 is no different, but requires human cells to continue to thrive. [Based on one recent study](https://www.medrxiv.org/content/10.1101/2020.03.09.20033217v2), the amount of the amount of time that the virus can be present on an uncleaned object can range from **hours to up to 3 days ** on plastic and stainless steel and [another study showed it could last **up to 9 days **](https://www.sciencedirect.com/science/article/pii/S0195670120300463)! It is unclear as to whether it can still be infectious for this long but it appears so. **Thankfully disinfectant can fix this **, and this is why it is particularly important to practice good hygiene and self-isolation if you have symptoms.
+
+### I heard this only affects old people or is a “boomer disease”?
+
+Not true. COVID-19 has been detected in toddlers all the way to the elderly. All ages have exhibited symptoms, however the death rate and severity has been more pronounced in “high risk” people, which includes people over 60.
+
+<Image src={imageimage7png} alt="" />
+
+### I heard lots of people are dying?
+
+> Some of this will be sobering. No one wants to see a loved one die so I’m sensitive to that but I’m going to use data and math here to show today’s real and potential impacts. This is **not ** to induce panic but for people to realize that **they do need to take this seriously ** and should follow protocol listed above.
+
+The short answer. Yes and no.
+
+<figure className="flex flex-col items-center my-8">
+ <Image src={imageimage8png} alt="" />
+ <figcaption className="mt-2 text-center text-sm italic text-zinc-600 dark:text-zinc-400">
+ Chart from Our World in Data. Source data from WHO.
+ </figcaption>
+</figure>
+
+Compared to the global population not a lot of people have died thus far. As of the date this was published, there have been **5,393 reported ** deaths from COVID-19. Which is only 0.0000694% of the population. More people die from car accidents (1.4 million), diabetes (1.6 million), and the flu (290,000 to 650,000) every year. [Elon Musk recently sent an email](https://www.theverge.com/2020/3/13/21179291/elon-musk-coronavirus-tesla-memo-car-accident-deaths-comparison) to his employees about this and he’s not wrong. But…**… and this is a BIG BUT…**What matters more is the growth rate, which is currently exponential, and the effects this could have on the health care systems and society. If things continue at the pace they are on, given that 20% of COVID-19 cases thus far have required some medical treatment, this will quickly overwhelm hospitals and COVID-19 deaths as well as deaths from other circumstances (second order effects) will drastically increase due to constrained resources. This is why people are talking about “flattening the curve”.
+
+<figure className="flex flex-col items-center my-8">
+ <Image src={imageimage9png} alt="" />
+ <figcaption className="mt-2 text-center text-sm italic text-zinc-600 dark:text-zinc-400">
+ Credit Vox: <a href="https://www.vox.com/future-perfect/2020/3/12/21172040/coronavirus-covid-19-virus-charts" className="text-black dark:text-white hover:underline">https://www.vox.com/future-perfect/2020/3/12/21172040/coronavirus-covid-19-virus-charts</a>
+ </figcaption>
+</figure>
+
+> “Flattening the curve” is reducing how quickly the virus is transmitted so that health systems can cope with already existing needs + COVID-19.
+
+Currently, the global death rate from COVID-19, as reported by World Health Organization data, is 3.78% of ** reported infections **and for persons in the “high risk” categories has been reported as high as 18% within certain sub-groups.
+
+<figure className="flex flex-col items-center my-8">
+ <Image src={imageimage10png} alt="" />
+ <figcaption className="mt-2 text-center text-sm italic text-zinc-600 dark:text-zinc-400">
+ Credit Vox: Credit Vox: <a href="https://www.vox.com/future-perfect/2020/3/12/21172040/coronavirus-covid-19-virus-charts" className="text-black dark:text-white hover:underline">https://www.vox.com/future-perfect/2020/3/12/21172040/coronavirus-covid-19-virus-charts</a>
+ </figcaption>
+</figure>
+
+However, due to lack of reporting and testing, especially of low risk patients or people with mild symptoms that are unlikely to be tested, we don’t know how accurate the death percentage actually is. It ** could **go up, especially if health systems are overloaded and second order effects come into play, but it also could go down as more people are confirmed with the disease but do not die.
+
+In any case, let’s assume today’s 3.78% rate is accurate. If everyone on the planet were to get infected that would mean approximately ** 294,643,392 **deaths. This does not include re-infection, mutations, or second order effects.
+
+It’s highly unlikely we will see 100% infection rate but forecasts range wildly, [estimating that between 30% and 70% will be infected](https://www.theglobeandmail.com/canada/article-between-30-and-70-per-cent-of-canadians-could-be-infected-with/), **especially without decisive and timely intervention **. Based on current data this would still put global death rates in the 10s to 100s of millions just from the virus alone. Far worse than what Mr. Musk eludes to.
+
+By now [we have recorded cases in almost every country on the planet](https://www.cdc.gov/coronavirus/2019-ncov/cases-updates/world-map.html) with new cases growing quickly and only a handful of countries that have managed to slow the infection rate.
+
+So we’re not out of the woods yet and more deaths should be expected, especially for people in the “high risk” category. **☣️ This is why reducing spread and increasing testing and quarantine NOW is vital. **### So who is considered high risk?
+
+- People with a suppressed or already weak immune system (including cancer patients and people with other existing infections)
+- Smokers (including marijuana) and possibly people who vape (impact of vaping on lung health is still unclear)
+- People with a history of asthma, bronchitis, or pneumonia
+- People who have serious chronic medical conditions like: heart disease, hypertension (high blood pressure), diabetes and lung disease
+- People age 60 or older
+
+The following groups are considered moderate to high risk, due to how other viruses affect these people. However, data is still unclear as to how COVID-19 will affect the following:
+
+- People diagnosed with clinical obesity
+- Pregnant women
+- Newborns and children < 1 year old **⚠️ If you are in one or more of these categories you should take extra precautions to avoid exposure to sick people, practice social distancing and practice good hygiene. **### Are you contagious if you don’t have symptoms of COVID-19?
+
+It is less likely but this is currently unclear. [Based on the data available today](https://annals.org/aim/fullarticle/2762808/incubation-period-coronavirus-disease-2019-covid-19-from-publicly-reported) it can take anywhere **from 2 to 18 days to show symptoms ** from the time of infection. There have been [a handful of cases reported thus far](https://wwwnc.cdc.gov/eid/article/26/6/20-0412_article) where [a person tested positive for COVID-19 but was asymptomatic](https://www.ecdc.europa.eu/sites/default/files/documents/COVID-19-Discharge-criteria.pdf), and infected others in contact with them. But [other data suggests that presence of the virus does not mean you are necessarily contagious](https://www.cdc.gov/coronavirus/2019-ncov/hcp/faq.html). Inconclusive so far and more data appears to be needed.
+
+There is also an issue with the data integrity here because we don’t know whether people exhibited “minor” symptoms that were missed and passed on the disease before they were tested, or whether it truly went undetectable. It has also been unclear as to what has been considered “minor symptoms” because there have been inconsistencies across governments and medical organizations in their categorizations. Some “minor” symptoms have included everything from minor cough to pneumonia.
+
+The vast majority of cases recorded so far have been transmitted by being in contact with a person that has exhibited **any ** of the following symptoms:
+
+- fever
+- dry cough
+- chest pain or pain when breathing
+- unusual fatigue; and/or
+- difficulty breathing or shortness of breath.
+
+So that is the primary focus today and hopefully new data will come out that confirms or denies asymptomatic spread.
+
+### How long are you contagious for after you have had COVID-19?
+
+This is also unclear. However, [a recent study](https://annals.org/aim/fullarticle/2762808/incubation-period-coronavirus-disease-2019-covid-19-from-publicly-reported) suggests that the current median incubation period is 5.8 days and 97.5% of those who develop symptoms will do so within 11.5 days. Meaning that for the majority of people it will take anywhere from **2 to 18 days from initial infection to show symptoms **. Which means you **could ** be contagious during that entire period and even a bit after.
+
+Furthermore, it is currently unclear how long the virus remains infectious and in your system (viral shedding). A [study out of China reported seeing the virus present as late as 5 weeks](https://www.ecdc.europa.eu/sites/default/files/documents/COVID-19-Discharge-criteria.pdf) after initially recording symptoms in moderate to severe cases. It is unclear at this time whether these people were reinfected or this was from the original infection.
+
+> As a result, an initial 14 day quarantine is currently recommended by governments to see if symptoms develop. **In my opinion, based on this data, this initial quarantine period should be extended to 18 days and if symptoms have developed, the data suggests that a quarantine of up to 40 days could be required. ** As far as I’m aware no health organization has officially made a recommendation of having quarantine periods this long.
+
+### If I get COVID-19 and recover, am I immune?
+
+So far we don’t have enough data to know if people can get it again or know how frequently, so you should **not ** assume that you will be immune.
+
+With viruses, generally people can build up anti-bodies that make it easier for your body to fight off the same virus in the future. **This is why vaccines are important in helping prevent the spread of disease. ** Becoming infected and recovering (or eventually vaccinated) may prevent you from getting it again but we don’t know yet.
+
+Additionally, sometimes after an infection, depending on the severity and the disease, your immune system can be temporarily weakened which can increase your risk of further infections.
+
+We don’t yet know what will happen to people that have recovered from COVID-19 and there is growing concern from health professionals in China that people which had a severe impact on their respiratory system as a result of COVID-19 may be more susceptible to future illness, especially if the virus has a mutation.
+
+### Is there a cure or vaccine for COVID-19?
+
+No. Most patients recover with little to no medical assistance. Some people do require medical assistance, and these tend to be people in the high risk categories. For these people there are emerging treatments that are beginning to show promise in aiding recovery.
+
+[There are vaccines in development right now](https://globalnews.ca/news/6671901/coronavirus-canadian-company-covid-19-vaccine-candidate/) and some may be fast tracked to market based on the urgency of the situation but it is still unclear how effective these will be.
+
+### Should I travel?
+
+No. Not unless it is absolutely essential and even then you should make every effort to try and reschedule or attempt to solve things virtually. While not the solution to stopping the virus on its own, travel has been the #1 way of cross border and national transmission and reducing travel and non-essential public gatherings can play an important role in reducing transmission, especially non-local transmission, therefore reducing healthcare burden and viral spread.
+
+> It’s important to stay tuned to your local government and news to be aware of any changes here.
+
+### Is it the end of the world?
+
+No. But you should **gradually ** build up supplies such that, if required, you can sustain yourself during a 18 day self-quarantine period. Furthermore, depending on how effective the containment of the virus is, there could be further disruptions to public services.
+
+In addition, it’s clear that depending on how long this pandemic lasts there will be a significant financial impact to many industries. Some worse than others. So anything you can do to prepare yourself for this would be prudent.
+
+### I heard hot or cold weather kills the virus. Is this true?
+
+No. There is no evidence to suggest this.
+
+### Will warm weather slow or stop the virus from spreading?
+
+We don’t know. It’s too early to tell how temperature affects the transmission rate because there are just too many variables right now and not enough data.
+
+However, so far transmission is still happening in warm and cold climates so it is very unlikely extreme temperatures will stop transmission entirely.
+
+### I heard a hot bath or sauna kills the virus. Is this true?
+
+No. There is no evidence to suggest this.
+
+### Can I get the virus from a mosquito bite?
+
+There is no evidence to suggest this is possible right now. COVID-19 is transmitted via droplets or saliva when people cough or sneeze. While mutations in viruses can occur, to date humans have only transmitted COVID-19 to other humans via these droplets.
+
+### Are antibiotics effective in preventing and treating the new coronavirus?
+
+No, antibiotics do not work against viruses, only bacteria.
+
+### Other Myths & Common Questions
+
+- [https://www.who.int/emergencies/diseases/novel-coronavirus-2019/advice-for-public/myth-busters](https://www.who.int/emergencies/diseases/novel-coronavirus-2019/advice-for-public/myth-busters)
+- [https://www.who.int/news-room/q-a-detail/q-a-coronaviruses](https://www.who.int/news-room/q-a-detail/q-a-coronaviruses)
+- [https://www.alberta.ca/coronavirus-info-for-albertans.aspx](https://www.alberta.ca/coronavirus-info-for-albertans.aspx)
+- [https://www.cdc.gov/coronavirus/2019-ncov/faq.html](https://www.cdc.gov/coronavirus/2019-ncov/faq.html)
+
+I hope that helps to alleviate some concerns for people, while also raises the awareness around how you can help prevent the spread of the disease. This is definitely a tumultuous time, but the best thing to do is to be vigilant, reduce contact with others (including travel and non-essential public spaces), and practice good hygiene. We’re all in this together! ❤️
+
+>**Disclaimer (again):** I’m not a doctor. I know lots of them but I’m a data scientist and a concerned citizen that wants to do my part in helping share **accurate** information. If you have questions or concerns refer to the resources I have linked below and/or your local government and medical organizations.
+
+## Resources
+
+Please refer to these resources to keep up to date as the situation develops:
+
+- [https://www.who.int/health-topics/coronavirus](https://www.who.int/health-topics/coronavirus)
+- [https://www.who.int/emergencies/diseases/novel-coronavirus-2019](https://www.who.int/emergencies/diseases/novel-coronavirus-2019)
+- [https://ourworldindata.org/coronavirus](https://ourworldindata.org/coronavirus)
+- [https://www.canada.ca/en/public-health/services/diseases/2019-novel-coronavirus-infection.html](https://www.canada.ca/en/public-health/services/diseases/2019-novel-coronavirus-infection.html)
+- [https://www.cdc.gov/coronavirus/2019-ncov/index.html](https://www.cdc.gov/coronavirus/2019-ncov/index.html)
+- [https://www.who.int/emergencies/diseases/novel-coronavirus-2019/global-research-on-novel-coronavirus-2019-ncov](https://www.who.int/emergencies/diseases/novel-coronavirus-2019/global-research-on-novel-coronavirus-2019-ncov)
+- [https://www.nejm.org/coronavirus](https://www.nejm.org/coronavirus)
+- [https://www.ama-assn.org/delivering-care/public-health/covid-19-2019-novel-coronavirus-resource-center-physicians](https://www.ama-assn.org/delivering-care/public-health/covid-19-2019-novel-coronavirus-resource-center-physicians)
+- [https://www.albertahealthservices.ca/topics/Page16944.aspx](https://www.albertahealthservices.ca/topics/Page16944.aspx)
+- [https://www.alberta.ca/coronavirus-info-for-albertans.aspx](https://www.alberta.ca/coronavirus-info-for-albertans.aspx)
+- [http://www.bccdc.ca/health-info/diseases-conditions/covid-19](http://www.bccdc.ca/health-info/diseases-conditions/covid-19)
+- [https://www.ecdc.europa.eu/sites/default/files/documents/COVID-19-Discharge-criteria.pdf](https://www.ecdc.europa.eu/sites/default/files/documents/COVID-19-Discharge-criteria.pdf)
+- A super list of US links: [https://docs.google.com/spreadsheets/d/1WtlvoK5UBKmJGE3FgvRC7agacaDRybB2BxUAKOQ3_lo/edit#gid=1212462172](https://docs.google.com/spreadsheets/d/1WtlvoK5UBKmJGE3FgvRC7agacaDRybB2BxUAKOQ3_lo/edit#gid=1212462172)
+
+For updated information in **Alberta**, including a great summary on the disease and advice on hygiene, stats, monitoring and how to self-quarantine go here: [https://alberta.ca/coronavirus-info-for-albertans.aspx](https://alberta.ca/coronavirus-info-for-albertans.aspx).
+
+If you are concerned you have COVID-19 you can pre-screen here: [https://myhealth.alberta.ca/Journey/COVID-19/Pages/COVID-Self-Assessment.aspx](https://myhealth.alberta.ca/Journey/COVID-19/Pages/COVID-Self-Assessment.aspx) before calling 811 (Health Link).
+
+> Even if you’re not from Alberta these resources are one of the best references I’ve seen around that are easy to navigate and digest important information. Obviously you should contact your local province or federal organization if you have questions or concerns.
+
+<Newsletter />

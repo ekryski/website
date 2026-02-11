@@ -1,0 +1,168 @@
+import { ArticleLayout } from '@/components/ArticleLayout'
+import { Newsletter } from '@/components/Newsletter'
+
+import imageimage2png from './image-2.png'
+import imageimage3png from './image-3.png'
+import imageimage4png from './image-4.png'
+import imageimage5png from './image-5.png'
+import imageimage6png from './image-6.png'
+import imageimage7png from './image-7.png'
+import imageimage8png from './image-8.png'
+import imageimage9png from './image-9.png'
+import imageimage10png from './image-10.png'
+
+export const article = {
+ author: 'Eric Kryski',
+ date: '2016-04-04',
+ title: "What happens to your open source project when it gets “Hunted”?",
+ description: "What were the results?",
+}
+
+export const metadata = {
+ title: article.title,
+ description: article.description,
+ openGraph: { title: article.title, description: article.description, url: '/articles/what-happens-to-your-open-source-project-when-it-gets-hunted' },
+ twitter: { card: 'summary_large_image', title: article.title, description: article.description },
+}
+
+export default ({ children }) => <ArticleLayout article={article}>{children}</ArticleLayout>
+
+In some cases almost nothing. In the case of [FeathersJS](http://feathersjs.com), quite a lot. I believe that you should treat your open source projects like a product (more on that in another post) so when we decided to submit Feathers to [Product Hunt](https://www.producthunt.com/tech/feathersjs) we went through things pretty systematically and intentionally and I think in a lot of ways we were surprised at how well it paid off. We weren’t really expecting anyone to give a shit about another JavaScript framework.
+
+A lot of the tactics we used [have been said before](https://medium.com/startups-venture-capital/how-we-got-1-000-up-votes-on-product-hunt-90aa955ee6d9#.32trle9xg) but I’ll repeat them quickly:
+
+- We submitted at midnight Pacific time to get an early advantage.
+- We frantically added some Google Analytics tracking calls and a [Product Hunt banner](http://feathersjs.com/?ref=producthunt) to the website.
+
+<Image src={imageimage2png} alt="" />
+
+- We put out a post on the React Facebook group mentioning Feathers and gently nudging people towards Product Hunt. Feathers is relevant to that group because it plays really well with React and React Native. I think that posting in this group right away was the real key to getting a good head start on Product Hunt because they have a lot of members in Asia who were in the middle of their day right when we posted. The one time timezones have helped us developers ;-)
+- We engaged with some people for a couple hours and then went to bed to get 4–5 hours of sleep.
+- In the morning we also posted to [Hacker News](http://Hacker News) and reddit but those pretty much fell into an abyss that day.
+- We posted a [release article](/introducing-feathers-2-0-aae8ae8e7920#.jmgqf3kow) to Medium.
+- We asked the ~30 people in our [Feathers Slack group](http://slack.feathersjs.com) to upvote and recommend the release article.
+- Later in the day we told few people in some smaller developer/startup communities and sent an email out to our [local JavaScript meetup group](http://www.meetup.com/yyc-js/).
+
+We don’t have a very large developer network and aren’t internet famous so we were quite surprised that this seemed to work out. Keep reading to see if it actually did…
+
+Since we are treating Feathers like a product (one we just happen to give away for free) it is important for us to track metrics. There is no denying that we were hoping a PR push would result in more consulting revenue but the **primary **reason we decided to publicize Feathers was to get more contributions from the community. Since we currently don’t have revenue tied directly to Feathers, figuring out which are good metrics to track for an open source project is difficult.
+
+The first step is figuring out what you want to learn. The questions that we have decided we need to use to drive decisions are:
+
+- Is this good for the community?
+- Who is using Feathers?
+- How does this affect the number of contributions?
+- Are we getting more contributors and therefore more diversity of ideas and help?
+- Has this translated into more opportunities for work?
+
+Since we now have questions that need answering, we can derive metrics that can help us get these answers. Things like:
+
+- What was the overall sentiment?
+- How many new contributions did we have outside of the core team?
+- How many installs is Feathers getting?
+- How many opportunities for consulting work or training has this generated?
+
+You’ll notice I didn’t put down Github Stargazers. I only equate those to a virtual hi-five. Some people star things because they want to keep tabs, some people just do it to show support.
+
+However, because people do want to hear about them I’ll share some of what I would consider our “vanity metrics”. Then I’ll dive into some of our more meaningful ones.
+
+## Vanity Metrics
+
+- Feathers finished 4th in tech for the day on [Product Hunt](https://www.producthunt.com/tech/feathersjs) with 376 upvotes and 21 comments. Way better than we expected.
+- Feathers somehow made it to the top 5 on the [Hacker News](https://news.ycombinator.com/item?id=11290577) home page a couple days after posting to Product Hunt. It sat around there for 16 hours with 202 points and 81 comments, totally catching us by surprise. I have no idea how the Hacker News algorithm works. I’ve never had any luck on there before and we just figured they boycott Canadian submissions. 😛 🇨🇦
+- The [release article](/introducing-feathers-2-0-aae8ae8e7920#.jmgqf3kow) got 166 recommends on Medium, ~45,000 views and ~16,000 reads. Pretty decent exposure. A lot of this traffic came from Hacker News because we linked the website to Product Hunt, not our release article.
+
+<Image src={imageimage3png} alt="" />
+
+- Feathers was in the top 3 trending repos on all of Github for 4 days and went from ~800 Github stars to over 3300.
+- The [FeathersJS Twitter account](https://twitter.com/feathersjs) went from 30 followers to over 280.
+- The website has had~149,000 page views and ~23,000 unique visits with an average time on site of almost 5 minutes.
+
+<Image src={imageimage4png} alt="" />
+
+So posting to Product Hunt and Hacker News definitely got some people looking at Feathers but what did it meaningfully deliver? Did we get what we wanted out of “launching”?
+
+## Meaningful Metrics
+
+- We had contributions from 40 new contributors. Everything from typo fixes in the docs, to issues reported, to whole new plugins written.
+- We accepted 4 new community modules to the core Feathers organization on Github and dozens more were created.
+- We had as many pull requests from people outside the core team in the last couple weeks than we had in 2 years! Now, 32% of all pull requests to repos in the Feathers org have come from outside the core team. Woot!
+- 182 people clicked “Hire Us”.
+- 150 people clicked “Training”.
+- We had 4 actual inquiries for contracting work as a result of the push.
+- 1 actual contract awarded and we have another 2 in contention.
+- We were approached by a book publisher to create an official guide.
+- Our slack group went from 30 to 256 members and is bustling. It has also stayed very, very supportive which is really important to us. People are helping each other out with Feathers and it’s not just the core team. 😄
+- Feathers has had ~6,600 installs from npm since launch. This, surprisingly, stayed pretty much the same.
+- A guy named [Chris](https://twitter.com/dev_coffee) took time out of his life to shoot and edit [a video about Feathers](https://www.youtube.com/watch?v=CuM4vLkBaik) completely unsolicited.
+- Dave and I sat down with 2 other guys, [Josh](https://twitter.com/joshowens) and [Ben](https://twitter.com/_benstr) and did a podcast.
+
+Beyond the numbers we had an overwhelming show of support. 
+
+<Image src={imageimage5png} alt="" />
+
+Based on those metrics I think we can say that so far launching Feathers to the world has had a positive impact on the community, the project, and us.
+
+## Now For Some Insights
+
+We are very happy and also overwhelmed by the support of Feathers so far. However, you can always do better! So what are some of the things that we learned or were surprised by?
+
+- People click footer links! Which means they made it to the bottom of the page. I was actually really surprised at that because I almost never do it.
+- People actually had the intention or were curious about hiring us. We’re going to actually link to our consulting site so people have a better idea what we offer and who we are.
+- A lot more people were already using Feathers than we even knew about. Quite a few people came out the woodwork and mentioned they had seen Feathers before or were already using it and loved it. We had no idea…
+- People overwhelmingly want examples. It made up of over 1/3 of the clicks on site. Even though our docs are pretty comprehensive and we have examples, we’re going to be beefing up the [examples repo](https://github.com/feathersjs/feathers-demos) a lot more.
+
+<Image src={imageimage6png} alt="" />
+
+- Product Hunt drives traffic for open source projects. However, for Feathers it wasn’t even close to hitting the front page of Hacker News. It’s a bit harder to compare because Hacker News went to Medium but we even had quite a bit of referral traffic to the docs and the main site from Hacker News and people had to go through an extra click. But when you combine the impressions from Medium and page views on the website from Hacker News there were waaay more.
+
+<figure className="flex flex-col items-center my-8">
+ <Image src={imageimage7png} alt="" />
+ <figcaption className="mt-2 text-center text-sm italic text-zinc-600 dark:text-zinc-400">
+ Top pages. Notice the product hunt referral link.
+ </figcaption>
+</figure>
+
+<figure className="flex flex-col items-center my-8">
+ <Image src={imageimage8png} alt="" />
+ <figcaption className="mt-2 text-center text-sm italic text-zinc-600 dark:text-zinc-400">
+ Top referrers. Not sure why product hunt doesn’t show up here. It’s getting bundled into “direct”.
+ </figcaption>
+</figure>
+
+- People really appreciate when you are responsive to questions, tweets, comments, github issues, etc. Just like good customer support, we work hard to provide a good response time but I wasn’t expecting people to **really** care that much for something they aren’t paying for.
+- We know from talking to people that the number of installs has gone up but if the numbers from npm are correct they haven’t gone up all that much really. This means that we are getting a lot of good contributions from a small group (sweet) but from all that hype not that many people actually gave Feathers a try (not sweet).
+
+<Image src={imageimage9png} alt="" />
+
+- People ❤ good docs. We feel that they are the lifeblood of an open source project but this is another thing we were surprised that people appreciated. We had lots of complements on the docs and a lot of pageviews. We certainly put a lot of effort into them but because we are so close to the project the core team really didn’t know without shipping if they were any good or not.
+
+<figure className="flex flex-col items-center my-8">
+ <Image src={imageimage10png} alt="" />
+ <figcaption className="mt-2 text-center text-sm italic text-zinc-600 dark:text-zinc-400">
+ Traffic to our documentation <a href="http://docs.feathersjs.com/" className="text-black dark:text-white hover:underline">on Gitbook</a>.
+ </figcaption>
+</figure>
+
+- Haters gonna hate. You better have thick skin. No matter what you do, and even if you aren’t trying to coax trolls out of hiding, they’ll find you! Especially if you hit the home page of Hacker News.
+
+The Product Hunt effect is very real. If you hit the front page early be prepared for a very busy 24–48 hours; answering questions, engaging with your audience, responding to tweets, responding to Github issues, closing pull requests and pushing fixes.
+
+For me, I’ve never had anything get that much attention all at once so I was quite overwhelmed with my phone going off constantly. My wife was a bit annoyed because she doesn’t really get what I do. I honestly have no idea how anyone remotely famous handles it on a regular basis. They must have their phones on silent.
+
+If you are looking to promote your open source project Product Hunt is definitely an important channel. I hope you found this useful (or at least interesting). Feel free post questions or comments on here or hit me up on [Twitter](https://twitter.com/ekryski).
+
+*Over the past few years Feathers has grown from a small library into a mature framework that, with an *[*ecosystem of plugins*](https://www.npmjs.com/search?q=feathers-plugin)*, makes it really fun to build impressive real-time apps and APIs.*
+
+[*The team*](https://github.com/orgs/feathersjs/people)* and I are incredibly excited to see what you build with *[*Feathers*](http://feathersjs.com)*. We’re really friendly and would love to hear what you think about Feathers so feel free to *[*tweet at us*](https://twitter.com/feathersjs)* or drop by our *[*Slack group*](http://slack.feathersjs.com)*, even just to say hello.*
+
+If you want to learn more about Feathers check out some of our other articles in our Medium publication.
+
+[
+## All about FeathersJS
+
+### A real-time, service oriented JavaScript application framework.
+
+medium.com
+
+<Newsletter />

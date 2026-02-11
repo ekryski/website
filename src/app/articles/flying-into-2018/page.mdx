@@ -1,0 +1,124 @@
+import { ArticleLayout } from '@/components/ArticleLayout'
+import { Newsletter } from '@/components/Newsletter'
+
+import imageimage2png from './image-2.png'
+import imageimage3png from './image-3.png'
+import imageimage4png from './image-4.png'
+import imageimage5png from './image-5.png'
+import imageimage6png from './image-6.png'
+import imageimage7jpeg from './image-7.jpeg'
+
+export const article = {
+ author: 'Eric Kryski',
+ date: '2018-01-03',
+ title: "Flying into 2018",
+ description: "Quick Recap",
+}
+
+export const metadata = {
+ title: article.title,
+ description: article.description,
+ openGraph: { title: article.title, description: article.description, url: '/articles/flying-into-2018' },
+ twitter: { card: 'summary_large_image', title: article.title, description: article.description },
+}
+
+export default ({ children }) => <ArticleLayout article={article}>{children}</ArticleLayout>
+
+From the entire Feathers team I wanted to wish you a happy New Year! 🥂
+
+We’ve had this post queued up for a while but decided to save it to kick off the new year in style.
+
+2017 was a pretty great year for Feathers and the community.
+
+- Our [Slack](https://slack.feathersjs.com/) community doubled in size and is at almost **2400 **members. ❤️
+- Feathers was downloaded [**426,913**](https://npm-stat.com/charts.html?package=feathers&from=2017-01-01&to=2017-12-31) times last year. 🚀
+- Developers from almost every country in the world use Feathers. 🌍
+
+<figure className="flex flex-col items-center my-8">
+ <Image src={imageimage2png} alt="" />
+ <figcaption className="mt-2 text-center text-sm italic text-zinc-600 dark:text-zinc-400">
+ Taken from Google Analytics for 2017.
+ </figcaption>
+</figure>
+
+Feathers adoption is continuing to grow organically and is now used everywhere from classrooms, to hackathons, to startups, to Fortune 100 enterprises, and everywhere in between.
+
+<figure className="flex flex-col items-center my-8">
+ <Image src={imageimage3png} alt="" />
+ <figcaption className="mt-2 text-center text-sm italic text-zinc-600 dark:text-zinc-400">
+ Web traffic for 2017.
+ </figcaption>
+</figure>
+
+And, to my surprise, 5 years after starting Feathers and 2 years after we [publicly announced it](/introducing-feathers-2-0-aae8ae8e7920) we continue to get feedback like this.
+
+<Image src={imageimage4png} alt="" />
+
+And this.
+
+<Image src={imageimage5png} alt="" />
+
+And this.
+
+<Image src={imageimage6png} alt="" />
+
+It feels amazing that so many people are seeing value in Feathers. But…
+
+I’d be remiss if I didn’t say that there are some things I wish we did better. To me, 2017 felt like a grind. As a result of our success we had encountered some growing pains. We learned a lot and I think we’ve come out better for it. At the end of last year [we made some significant changes](/october-2017-feathersjs-community-update-7608e60f06d) to the codebase and our organization so that we can continue to grow, mature, and iterate quickly while also providing stability.
+
+After a much needed holiday, 
+
+## We’re on Open Collective
+
+Even though many people have offered we’ve always been hesitant to accept donations for Feathers because;
+
+- we’re not doing this to monetize on open source
+- we wanted to come up with a way to fairly distributing funds
+- we wanted to ensure we’re setting expectations we can meet
+- we wanted to ensure we are being responsible with and transparently managing any funds received
+
+Over the last year we’ve been thinking about this a lot and being realistic we felt that there isn’t any way that we could raise enough money to pay for a maintainer’s full time salary (I’d love to be proven wrong). However, we do feel that we need to raise some funds to take Feathers to the next level.
+
+With that in mind, after talking it over with the entire team we’ve decided to join [Open Collective](https://opencollective.com/feathers) so that you can support the project and see how funds are used in a transparent way. We’ll be using sponsorship money for a different purpose that is both beneficial to the sponsors and the entire Feathers community.
+
+One of the biggest questions we’ve been asked is *“why haven’t I heard of Feathers before” *and that was clearly evident in the latest [State of JS survey* *results](https://stateofjs.com/2017/back-end/results/)*. *Our answer has always been that people in the community need to tell everyone, and you definitely are. The community is still growing strong without any advertising, but now that Feathers has matured and is very stable we want to put more effort into helping get the word out. A bigger, more robust community helps to share knowledge, make the code more bullet proof, and creates a large talent pool for companies to hire from and introduces more companies that people want to work at.
+
+As a result any funds raised will be used for:
+
+- Feathers swag 🎒 — We’ll be launching an online store soon where you get awesome stuff to rep Feathers and we’ll be giving some away to fans. We’d love to see some community submissions as well, so [Tweet us](https://twitter.com/feathersjs) some designs!
+- Speaking engagements and travel ✈️ — We’d like to have community members speak at 2 or more conferences a year. We’ll be announcing a list of conferences we would like to have Feathers represented at and if your talk about Feathers is selected **we’ll use community funds to pay for you to travel and speak.**
+- Campaigns 🎉 — We may run some social media, advertising campaigns, do a traveling educational campaign or pay for people to develop educational content.
+
+Our company ([Bullish Ventures](https://bullish.io)), employs 4 people that contribute code to Feathers, and is committed to sponsoring Feathers as well. We’d love to have other companies join us. We’re very proud of how supportive the Feathers community has stayed and how it has continued to evolve and mature.
+
+Pretty awesome right?!
+
+There’s just one more thing…
+
+<Image src={imageimage7jpeg} alt="" />
+
+## Feathers v3 (Buzzard) is out!
+
+The code has been available and tested in the wild for a few months, but now it’s official! The Feathers “Buzzard” release is out! 🙌
+
+In case you missed it, here are the major highlights:
+
+- `feathers`core is now universally usable and framework independent. We’ve decoupled with Express and now Feathers can be compatible with any Node.js framework simply by creating an adapter. This reduced the client side build size dramatically and sets us up to use other HTTP(S) engines other than Express underneath.
+- Better separation of client vs. server side modules.
+- Feathers is all Promises and fully compatible with `async/await`. Most of you have been using this style already but we had deprecated the very old callback style of hooks and services and it has now been removed.
+
+This should be a pretty quick upgrade for most apps. The `feathers upgrade`command from the latest CLI version will automatically get your Feathers plugin, server side app and client side app upgraded almost all the way.
+
+You can find the [full migration guide here](http://buzzard.docs.feathersjs.com/migrating.html) with details on all the changes, and updated documentation at [docs.feathersjs.com.](https://docs.feathersjs.com)
+
+That’s it for now. I’m super excited for 2018 because I believe it’s going to be a big breakout year for Feathers. I know I speak for the rest of the team when I say that we are humbled and extremely grateful for your support. You are the best! ❤️
+
+Onward and upward! ✊
+
+## Join the Feathers Community
+
+The Feathers Slack group continues to be very active and supportive. Join the #announcements channel in the [Feathers Slack group](http://slack.feathersjs.com) to get more frequent updates as they happen.
+
+*If you are new to Feathers and looking to create your first app head on over to *[*the docs*](https://docs.feathersjs.com)* and get your geek on!*
+
+<Newsletter />

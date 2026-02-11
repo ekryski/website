@@ -1,0 +1,276 @@
+import { ArticleLayout } from '@/components/ArticleLayout'
+import { Newsletter } from '@/components/Newsletter'
+import imageimage1jpeg from './image-1.jpeg'
+
+export const article = {
+ author: 'Eric Kryski',
+ date: '2020-12-06',
+ title: "How to hire great software developers for your startup",
+ description: "Hint, it’s not whiteboard coding tests and random LinkedIn messages 😉",
+}
+
+export const metadata = {
+ title: article.title,
+ description: article.description,
+ openGraph: { title: article.title, description: article.description, url: '/articles/how-to-hire-great-software-developers-for-your-startup' },
+ twitter: { card: 'summary_large_image', title: article.title, description: article.description },
+}
+
+export default ({ children }) => <ArticleLayout article={article}>{children}</ArticleLayout>
+
+<figure className="flex flex-col items-center my-8">
+ <Image src={imageimage1jpeg} alt="" />
+ <figcaption className="mt-2 text-center text-sm italic text-zinc-600 dark:text-zinc-400">
+ Photo by <a href="https://unsplash.com/@jefflssantos?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" className="text-black dark:text-white hover:underline">Jefferson Santos</a> on <a href="https://unsplash.com/s/photos/coder?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" className="text-black dark:text-white hover:underline">Unsplash</a> ❤️
+ </figcaption>
+</figure>
+
+Hiring all stars for any role is generally pretty hard and requires a lot of work. The perfect fit for your growing company doesn’t just come along every day. This doesn’t just apply to software developer roles, but really **every role **in your company. Especially in the early days.
+
+Just like when you are raising capital or getting your first customers, in order to hire the right people **you need to put in the work **and you need to find people that care about your vision, align with the culture you’re trying to build, and resonate with your story.
+
+There aren’t any short cuts.
+
+Hiring good software developers is hard. Hiring great ones is even harder. The elusive “[10X engineer](https://www.7pace.com/blog/10x-engineers)” is bullshit! Building great products is almost always a team effort.
+
+After getting turned down by (and later on in life turning down) Google, Facebook, Uber, Segment, Amazon and a ton of other startups to scratch my own masochistic startup tendencies, as a slightly grizzled software developer now masquerading as a CEO, with over 15 years experience on both sides of the table I feel like I can provide a decent perspective.
+
+## 10 Steps To Hiring A Great Software Developer
+
+>**Disclaimer:**I’m not going to pretend I know every trick in the book and that what I’m about to explain will work for every business. However, I’m going to share our hiring process at [Bidali](https://www.bidali.com) and ** why **we do things this way. This is based on my own experience on what seems to work well and what doesn’t. This process is similar when we hire for other non-technical roles as well. ** The TL;DR version **- Determine if you really**need **to hire and whether you can **afford **it. I hate that I have to say this but so many times I’ve heard of people being hired at a startup and up-rooting their life, only to have to look for another job a couple months down the line.
+- Pinpoint the skillset you’re looking for and actively seek out candidates **yourself **based on this skillset. Less ideal: have someone on your team or a recruiter do it (if you must) with **your **outreach template and guidance. However, reply emails should go back to the new hire’s direct boss.
+- Pitch the person you want to hire similar to pitching an investor. After all, you are trying to get them to invest their life’s work in your venture. They should be excited about what you want to achieve or it’s not going to be a good fit during inevitable rough patches.
+- Get to know them. What makes them tick? What do they want it life? How do they deal with adversity? Are they a good culture fit?
+- Extend a **fun **, self-guided take home project and let them dictate their timeline and end goal. No on-the-spot brain teasers, trick questions, or pressure cooker whiteboard coding sessions.
+- Have an odd number of their potential team members review their project. We use an odd number in case there is a vote split on whether to hire the person.
+- Have a team member pair up with the potential new hire to improve their project and see if there is team chemistry.
+- Extend an offer with a range of options for the person to choose from based on fair market value and what you can afford. Be honest with them.
+- Onboarding with a buddy for 8 weeks with clear, achievable goals.
+- Check in on progress every 2, 4 and 8 weeks. How are they feeling? How is their buddy feeling? Is this still a good fit?
+
+Read on if you want more detail on our process and a breakdown of these steps.
+
+### 1. Determine if you NEED to hire and if you can afford it
+
+First, determine **why **you are planning on spending time, energy and money to hire another engineer. **Do you really need one? **Could you test out what you want to build in a less technical way first? Can you be more efficient or focused with your current team? Could you use an existing tool or service instead of building it in-house? Can you actually afford to hire this person for **at least a year or more **?
+
+Hiring people is expensive, time consuming, and fairly high risk compared to other things you need to do in your business, so when you aim to hire, it should be with purpose and intent. Not “just cuz” or in the name of “growth”.
+
+The growth you’re looking for is revenue and/or market share, **not **team size. #2 might be required to get #1 but it does not guarantee it. Always remember the order of importance!
+
+Far too often I see non-technical founders feel like they need to find someone technical from day one. In this day and age of “low code” and “no code” tools there is a lot you can do by learning some basic coding, [understanding how the web actually works](https://www.codecademy.com/catalog/subject/web-development), and using some of these “low code” tools. You should start here because it will help you understand the unique challenges software development presents and you’ll be able to better connect with and empathize with your technical teammates.
+
+As companies scale I also see tons of “we’re hiring 40 engineers” on LinkedIn. That’s just ridiculous. I laugh every time I see those, wondering to myself:
+
+> What the hell is your scale-up going to do with that many cooks in the kitchen on your ONE product?!
+
+In my experience, 99% of the time hiring technical people that fast ends in disaster. Both for your company and for the engineer. Unless you have really streamlined processes, almost every time, both of you end up frustrated and underwhelmed with the progress, quality, and time spent.
+
+Getting familiar with the products, release cycles, nuances of the codebase, company culture, and the development team dynamics takes time and requires **really **good onboarding processes and documentation. Without those you are destined for chaos.
+
+In my experience, depending on the person, product, and your onboarding process, it takes 4–8 weeks for people to ramp up and **really **be effective.
+
+This isn’t to say that you can’t scale up an engineering team quickly or move faster than what I’ve seen. Just that you need to be prepared and most of the times I’ve been involved in such hyper growth, it usually ends up being an absolute gong show and huge waste of resources.
+
+With all that out of the way, you think you still definitely need an engineer? If the answer is “yes”….
+
+### 2. Determine the type of role you are hiring for
+
+What type of developer are you looking for?
+
+Front-end (user facing web), back-end (server side), data science, mobile, data/database, security, infrastructure, 3rd party integrations, blockchain, or are you looking for the incredibly rare 🦄***Unicorn Developer *that has experience doing all of the above?
+
+Not all developers are the same!
+
+> I’m lucky to have 3 Unicorn Developers on my team. I also do okay. 🦄 🦄 🦄
+
+### 3. Actively seek out people that you think might be a good fit for the role you are looking to fill
+
+For us, this predominantly involves [searching Github](https://github.com/search/advanced) by our tech stack (Node, React, React Native, Docker, Kubernetes), programming language (JS, SQL), prominent projects.
+
+We also look through our own developer network of people familiar with the open source web framework my co-founder 
+
+We’ve been a remote team since before it was cool, so we also look for people all over the world and don’t limit ourselves to just developers in Canada.
+
+We’ll analyze their code, pull requests, issue creation, etc. We’ll then create a short list of candidates and cross-reference this against LinkedIn and Twitter to see where they are located and how they portray themselves (ie. make sure they’re not an asshole).
+
+We start with the the quality of their work and work backwards to evaluating their experience, what we think they’ll cost, whether we *think* they may be a good culture fit, and their availability. By doing it this way and relying on an avatar to evaluate the quality of their work first we’re trying to (hopefully) avoid bias’ for age, race, gender pronoun, or experience.
+
+If we think their code and development process is good and they don’t seem like an asshole, we’ve already essentially confirmed that we’d like to hire them unless something goes awry during the interview process. And even if they may not be signalling that they’re actively available, we still give them the pitch!
+
+> You miss 100% of the shots you don’t take — The Great One
+
+> I realize that not all great developers are active on Github, but many are, so there is a law of large numbers here. Also, we use Github and git at Bidali so if you’re active on there, there will be less ramp up time.
+
+### 4. Pitch them to book a meeting
+
+Most great engineers are employed already and generally are not actively looking for jobs. This is still an engineers job market and, after all, you are trying to convince them to invest part of **their **life’s work into **your **idea.
+
+Even if you are looking for junior developers fresh out of school that you can mentor, to find the best, you need to actively seek out candidates and pitch them on why they should care about your business. This is more similar to pitching investors than you might think.
+
+Try and get warm intros. If you can’t and you’re reaching out cold, keep your emails short and personalize them. Respect your next hire’s time! (this is a running theme in our process)
+
+You should have researched this person a bit already so **briefly **:
+
+- tell them about your mission and why you’re passionate about it;
+- explain why and how you would love to have them help;
+- ask if they would be open to a short call; and
+- share a bit about you or your culture (optional but recommended)**Here is a template I use:**> Hey &lt;First Name&gt; 👋
+>
+> I’m the CEO of [Bidali](https://www.bidali.com). I value your time so I’ll cut to the chase. We’ve been on the hunt to add a new &lt;role&gt; to our team and I came across your Github profile and was really impressed with &lt;project&gt;.
+>
+> At Bidali we’re on a mission to democratize financial access and enable anyone to contribute to global GDP. Our vision is to create the world’s first global bank and payments network that is owned by its users. Think, a global debit system and credit union that pays the people that use it. It’s a big vision so we could use some help.
+>
+> We started Bidali because we experienced first hand the inequality that is keeping 3 billion people around the world from reaching their full potential and creating financial security for their family’s future, simply because they lack access to **trusted **and **fair **banking services. To us, the ability to have adequate financial access is a fundamental human right.
+>
+> I’m sure you get a lot of these emails, but would you be up for a short call? I’d love to learn more about you and what your goals are, tell you a bit about myself, and see if what you’re looking for in life aligns with what we’re trying to achieve and the opportunities available.
+>
+> We think you could really help us take &lt;initiative/product&gt; to the next level.
+>
+> We offer a competitive startup salary and equity compensation but I’m not going to pretend that we might be able to compete with &lt;their current company or Google&gt;. That’s not why people join startups. People join them because they are fun, exciting, rewarding and have the potential to change the world!
+>
+> We are an experienced remote-first team that values autonomy and doing things right. While I am biased, I’m also an engineer, and I think that this is a great opportunity to solve some interesting problems and build tech that can have a huge positive impact on the world.
+>
+> After looking at your background, I think you could be a great fit. 🙂
+>
+> Let me know if you’re interested and we can schedule a call that fits with your schedule.
+
+It’s fine to follow up, but if you don’t hear back after your initial email and a gentle follow up, politely thank them for their time and tell them that if anything changes they should reach out. **Do not send repeated emails with the same crap! **This is a quick way to turn people off. Developers read their email. They also get a lot. There’s a chance they may have missed one but if you sent 2 emails a week apart and didn’t hear back they’re not interested.
+
+Try to avoid cold outreach via LinkedIn. Good devs get **tons **of recruiter SPAM via LinkedIn. Twitter is probably better but most devs that are available for hire have their email connected to their Github profile or you can usually find their email somewhere. Often you can also send them a DM on Twitter and have more success.
+
+Doing all this shows you care. ❤️
+
+### 4. In-Person or Video Meeting
+
+If we can (before the pandemic started) we try and meet 1-on-1 in person, in a casual setting over coffee, tea, a beer, a hike, playing video games, whatever. If that’s not possible, then it’s a video call but we still try and create a less formal atmosphere.
+
+When meeting in real life, this is an opportunity to showcase your culture so we give the person an opportunity to choose from a variety of activities that the interviewer and/or many teammates like to do. This helps temp check culture fit and whether they have a more assertive/direct demeanor or a more passive one.
+
+The nature of the chat is simply to get to know the person on a human level and it’s a back and forth conversation where I’ll share personal information, answer any questions, and ask them questions. **Some things that I typically ask:**- What do you like to do for fun?
+- What are your hobbies?
+- What are you passionate about?
+- What are your goals and ambitions? (assume money is not a concern)
+- Do you have a family?
+- What’s one of the hardest thing you’ve ever had to do in your life? (I’ll usually lead with something of my own to open up)
+- What are you most proud of? (I’ll also lead and share first here)
+
+If they seem like they might be a good culture fit and would gel with the other existing teammates we ask whether they would be open to doing a fun project to see how they solve problems. If so, we continue on.
+
+### 5. Take Home Project
+
+Next, we give people a **fun **take home project that allows them to be creative and show off their skills. They can complete it on their own time over the course of 7–14 days which **must**span 2 weekends in order to give them enough “outside of normal life” time.
+
+For developers it’s called “Cat Herder App” where, depending on the challenge you choose, you need to create a component of a system that allows a cat daycare to keep track of its cats! 😻
+
+*Herdin’ Cats*
+
+We have projects that would be better suited for developers focused on front-end, back-end, mobile, etc. While we are hiring for a specific skillset, the software developer we’re interviewing can choose whichever project they want and the complementary pieces for their component(s) to work are provided.
+
+> For example, if a developer chooses the backend project, they’ll be given a fully built web app. If they choose the mobile or front-end projects, they’ll be given a functioning API and database that is already hosted for them.
+
+When we identified this person as someone we might want to hire we’ve clearly identified their skillset for a specific role, but this is really the first test — do they try something new, stick with what they are most proficient at, or try and do more than one project?
+
+There is no wrong answer. We’re trying to evaluate their tendencies and this also gives us an opportunity to see if they have other surprising skills that don’t necessarily show up on their Github activity.
+
+We also let people choose their own dates and set their own deadline within the 7–14 day window. This is important for many reasons.
+
+It allows us to assess how eager the person is to work on the project, how they are with time management and how aggressive they are with setting deadlines. It also gives them the opportunity to be in control, work on their own terms, and (hopefully) it feels less stressful and more like our regular work environment.
+
+Once again, there is no wrong answer here.
+
+We know that people have other jobs, kids, and other parts of their life that they need to do so this is factored in when we evaluate their decision and their project. However, in order to best compare apples to apples, unless there are extraneous circumstances we try and keep the allowed time within the 7–14 days and don’t allow extensions.
+
+Our take home projects can be completed in as little as 2 hours but we’ve had people spend much more than that because they were having fun. 😀
+
+The project descriptions are fairly open ended, at times with vague directions. This is intentional as you’ll see in the next section when we discuss how we evaluate the submission.
+
+Once the take home project is complete we move on to evaluating.
+
+> We’ve toyed with the idea of compensating people for this time but thus far have not because we scope the project so it can be done in a few hours, the project should be fun and allows for creative expression, it in no way is related to the business, and we are allowing people to set their own timelines and choose whether they want to participate. This may change in the future.
+
+### 6. Peer Evaluation
+
+Once the project is submitted 3 team members get together and evaluate the submission on the merits of:
+
+- **Technical execution **— How good is the code? What frameworks and modules did they use? Why? Is the folder structure organized? Is there documentation? Tests?
+-**Time management **— How long did it take them to complete? How often did they commit code (bursty or consistent)? Did start strong and slow down or did they start slow and rush to complete? Did they meet or beat their projected timeline? Did they put in extra time after completing the criteria?
+-**Work style **— Did they ask questions or make assumptions and plow away? Did they use 3rd party modules or home roll things? Did they prioritize certain things over others?
+-**Fortitude **— You can tell a lot from the way people solve problems. Did they seem to get flustered or frustrated? How did they handle unknowns and difficulties?
+-**Creativity **— Did they follow instructions or do something different? Do they have design or copywriting skills? Did they flex their creative muscle and stretch themselves?
+-**Bonus skills** — Did they surprise us with anything?
+
+There aren’t any right or wrong answers here really. It all depends on the type of person we’re looking for in order to round out the team. Just like with sports, if you have too many “Type A’s” on a team it won’t have as good a chemistry and performance as a well balanced team with a mix of people that like to lead and people that like to assist.
+
+### 7. Pair Programming & Review
+
+Next, someone on our team (who hasn’t met the person already) pairs up with the developer to ask the them about their decisions, how they felt about their execution, and what they would like to improve.
+
+If the person doesn’t have improvements they want to make, then for each project, we have some suggested improvements based on curveballs we intentionally put in the project descriptions. We look to see if they picked up on those because it demonstrates awareness.
+
+The new hire and the developer work together to complete it. This happens during a normal work day and we ask them to block off half a day. Since this could mean taking vacation time we compensate the developer for their time regardless of whether they are hired.
+
+The existing teammate that pairs up with the developer gives the rest of us feedback on how they were to work with. Mainly looking for any red flags like:
+
+- whether they cheated on the project and got someone else to do it;
+- how receptive they are to feedback;
+- if they have any bad work/code habits;
+- are they an asshole to someone that is their peer and not be their boss?
+
+Generally, if the submission was solid and we’ve reached the end of this stage we’re very likely to extend an offer.
+
+### 8. Offer Letter With Options
+
+If the majority of the people involved in the hiring process vote to hire the new developer then we extend them an offer letter. We do this democratically because we’re a team, and the person that is going to work with them day in and day out has just as much of a say as the CEO (or HR manager).
+
+This offer is pretty standard. We give them 1 week to consider the offer and 3 different options for compensation that range from more salary and less equity, to more equity and less salary.
+
+We try and get as close to a fair market offer as we can — based on what we can afford, the person’s skill level, and the cost of living for them. We follow a similar process to [what the team at Buffer does](https://buffer.com/salary/) in that regard.
+
+At the end of the day people do their best work when they don’t have to worry about money, feel fairly compensated, like their team, and are excited about what they are working on. So, we strive to deliver all this and hire less, push people out of their comfort zone, and provide better compensation.
+
+### 9. Onboarding
+
+Once the person starts, they’re paired up with a “buddy” for up to 8 weeks. This buddy’s #1 job is to ensure the new hire is supported, successful, and is able to be effective as quickly as possible. We have milestones we like to see hit, such as:
+
+- Account set up and access to everything they need on day 1;
+- 1st code contribution in 2 days;
+- 1st product or process improvement suggestion within 4 weeks; and
+- 1st lead on a feature in 8 weeks
+
+The evaluation of success rides just as much on the new hire’s buddy as it does the new hire and the goal is to get them feeling like part of the team, that they are making a difference, and enjoying their job.
+
+### 10. Reviews at 2, 4, and 8 weeks
+
+One of the Bidali founders checks in with the new hire and their “buddy” at the 2, 4, and 8 week marks to see how everyone is feeling. This is where, before the 3 month probation period is over, we:
+
+- determine whether this is the right fit for both the company and the new hire;
+- discuss where they feel they still need help; and
+- get suggestions from a person with fresh eyes on what could be improved with the onboarding process and the product
+
+And that’s it!
+
+Like I said, this may not work for everyone but it has for us at [Bidali](https://www.bidali.com). We follow a very similar process for non-technical hires as well, but the projects and *some* of the evaluation criteria are a bit different.
+
+I’ve been on the other side of the table having been rejected by the big tech co’s after nervously bumbling my way through white-boarding a linked list or failing to complete a take-home code challenge in time because of poor time management and unexpected personal circumstances.
+
+So, I totally understand that interviewing can be stressful and sometimes people have “off days”. This is normal.
+
+While there can be pressure at work, I find that most tech interviews are not really indicative of how work happens in the real world. When you’re building products it’s almost always in a team environment, with work happening over multiple days, where you can utilize as many resources as are available.
+
+We’ve designed our evaluation process to try and strike that balance and be as fun and fair as we can. Our goal is to simulate a real world work environment in order to quickly assess whether we should hire someone. Never in real life work have I had to hand draw a linked-list in C code on a whiteboard. 🙄
+
+As a CEO I also heed the advice of “hire slow” and to make sure we’re finding the **right** people. Not just bodies in a chair.
+
+At the end of the day when you are evaluating someone to hire you’re trying to figure out:
+
+- Are they good at their job or do you *think* they can be with some guidance?
+- Do you think you and your team will enjoy working with them?
+- Will they add value to your company and help you achieve your mission?
+- Can you help them get better and achieve some of their goals?
+
+If you’re looking to hire people for your technical team, I hope that sharing what works for us and what I value as a software developer, helps you find the best match for your company.
+
+Developers are people. Not just talent. They should be treated as such. Happy hunting! 🙂
+
+<Newsletter />

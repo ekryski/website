@@ -1,0 +1,97 @@
+import { ArticleLayout } from '@/components/ArticleLayout'
+import { Newsletter } from '@/components/Newsletter'
+import imageimage1jpeg from './image-1.jpeg'
+
+import imageimage3png from './image-3.png'
+
+export const article = {
+ author: 'Eric Kryski',
+ date: '2020-04-14',
+ title: "Canada’s Fiscal Response Package To COVID-19 Still Needs Improvement",
+ description: "An open letter to our Prime Minister and Canada’s Ministers responsible for our economic recovery",
+}
+
+export const metadata = {
+ title: article.title,
+ description: article.description,
+ openGraph: { title: article.title, description: article.description, url: '/articles/canadas-fiscal-response-package-to-covid-19-still-needs-improvement' },
+ twitter: { card: 'summary_large_image', title: article.title, description: article.description },
+}
+
+export default ({ children }) => <ArticleLayout article={article}>{children}</ArticleLayout>
+
+<figure className="flex flex-col items-center my-8">
+ <Image src={imageimage1jpeg} alt="" />
+ <figcaption className="mt-2 text-center text-sm italic text-zinc-600 dark:text-zinc-400">
+ Photo by <a href="https://unsplash.com/@pinamessina?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" className="text-black dark:text-white hover:underline">pina messina</a> on <a href="https://unsplash.com/s/photos/canada-money?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" className="text-black dark:text-white hover:underline">Unsplash</a>
+ </figcaption>
+</figure>
+
+Dear Prime Minister Trudeau and his Honourable Ministers,
+
+First, I want to thank you and your team for working so tirelessly to ensure that Canadians are both safe and supported during this time of crisis. The country has called on you and your cabinet, and in a time of great need, you are answering. Thank you!
+
+Your Honourable Ministers Bill Morneau, Navdeep Bains, Mary Ng, whom I had the pleasure of meeting in Davos this year, along with Mr. Stephen Poloz, and the rest of the team at the Bank of Canada, have already been doing a great job in responding to the fiscal shocks. However, while being sensitive to your need to balance extreme deficits and preventing severe economic decline, I fear that the stimulus put forward to date is still lacking.
+
+Thus far, [Canada’s Emergency Response Benefit (CERB)](https://www.canada.ca/en/services/benefits/ei/cerb-application.html), [Canada’s Emergency Wage Subsidy (CEWS)](https://www.canada.ca/en/services/benefits/ei/cerb-application.html), the $40,000 [Canada Emergency Business Account (CEBA)](https://ceba-cuec.ca/) and the $25 Billion [Business Credit Availability Program (BCAP)](https://www.canada.ca/en/department-finance/programs/financial-sector-policy/business-credit-availability-program.html), while great moves in such short order, still fall short of what is required to support many businesses in the coming weeks and months.
+
+Recently, the [Council of Canadian Innovators (CCI)](https://www.canadianinnovators.org/) did [a survey of 651 technology CEOs from across Canada.](https://betakit.com/survey-finds-82-percent-of-tech-ceos-plan-to-make-layoffs-after-being-left-out-of-federal-wage-subsidy/) Of those,
+
+- **40% of Canadian tech CEOs surveyed have already laid off employees since the beginning of the pandemic. **-**82% of Canadian tech CEOs are planning layoffs for the coming weeks. **-**609 CEOs (94%) said they would be ineligible for CEWS based on the previous 30% reduction in wages year-over-year. **-**Based off of the findings of CCI’s surveys, CCI estimates that around 39,000 Canadian ICT companies are ineligible for the CEWS because of how they evaluate a reduction in business activity ** Since the survey, the CEWS eligibility criteria has been amended to be:
+
+> “Those that see a drop of at least 15% of their revenue in March 2020 and 30% for the following months (see Eligible Periods).”
+
+<figure className="flex flex-col items-center my-8">
+ <Image src={imageimage3png} alt="" />
+ <figcaption className="mt-2 text-center text-sm italic text-zinc-600 dark:text-zinc-400">
+ Source: <a href="https://www.canada.ca/en/department-finance/economic-response-plan/wage-subsidy.html" className="text-black dark:text-white hover:underline">https://www.canada.ca/en/department-finance/economic-response-plan/wage-subsidy.html</a>
+ </figcaption>
+</figure>
+
+While this was a welcome improvement, unfortunately, this is still going to be of little benefit for many of these technology companies, as well as many other businesses that are saddled with fixed costs outside of payroll, such as rent and utilities.
+
+Tech startups, in particular are unlikely to benefit because direct month-over-month or year-over-year revenue comparisons are not always a great indicator of growth (or losses). Loss or delays related to securing capital investment, assets, purchase orders and other deals (accounts receivable), as well as reduced product or service demand that may not directly translate to revenue, can all be meaningful metrics for determining the health of startups.
+
+There is a lot of nuance and many startup founders would admit that this is hard to quantify on a go-forward basis with such uncertainty about the economy. One thing is for certain, many businesses, including technology companies, have been hit hard.
+
+As a result, layoffs will continue, and likely, many of Canada’s SMBs, including [the rapidly growing technology businesses that would result in significant GDP growth](https://www.theglobeandmail.com/business/commentary/article-canadas-economic-future-depends-on-its-startups/), may be forced to shut their doors.
+
+## So what is the solution?
+
+In my opinion, our fiscal response should be structured similarly to [the USA’s Payroll Protection Program (PPP)](https://www.sba.gov/funding-programs/loans/coronavirus-relief-options/paycheck-protection-program-ppp) — less restrictive criteria and easier to obtain government backed credit by leveraging existing programs and distribution channels.
+
+I propose that you build off the initial work you have done and combine the [CERB](https://www.canada.ca/en/services/benefits/ei/cerb-application.html), [CEWS](https://www.canada.ca/en/services/benefits/ei/cerb-application.html), [CEBA](https://ceba-cuec.ca/), and [BCAP](https://www.canada.ca/en/department-finance/programs/financial-sector-policy/business-credit-availability-program.html) programs into a single program where:
+
+-**Businesses can be eligible to get government backed credit at 0% to 2% interest over a fixed term. ** Current BDC interest rates are far above most bank’s prime interest rates and require a personal guarantee, so the BCAP makes very little sense given the current conditions, unless changes are made to that process.
+-**The maximum credit amount would be a percentage of the business’ expenses on the tax return for their most recent fiscal year end and should be capped up to a maximum per company. ** This cap needs to be much more than the $40,000 currently available via CEBA. If we look at the USA it is $10 million. Financing requirements could be validated by recent CRA filings or the administering bank.
+-**Businesses can choose to get money directly from their bank (similar to CEBA or BCAP) or as a credit or grant from the Canadian Government directly. ** This could be administered as a tax credit on earnings (similar to deferring tax), retaining payroll contributions and passing them on to employees to keep them on payroll (similar to CERB and CEWS), retain GST (similar to the GST deferral), or request the credit be administered as an increased grant via existing R&D programs like FedDev, IRAP, SR&ED or Western Economic Diversification Canada.
+-**Business owners should not be required to provide a personal guarantee as is currently required by BDC. ** This limits many younger business owners and delays the process significantly due to the requirement to value the collateral. Future wages, grants, and taxes on both the business and its beneficial owners could be used as collateral assurance.
+-**There shouldn’t be a strict revenue reduction qualifier. ** This introduces complex accounting overhead which has already caused confusion for both the CRA employees and businesses. Additionally, this criteria will exclude growing businesses, which should be supported because they could pick up the slack in unemployment with more certainty, effectively doubling down on what **is ** working. Unfortunately with the current plan, businesses that were already failing before COVID-19 will likely benefit the most. This is quite literally throwing good tax payer money after bad.
+-**We need incentives for any business to make new hires. ** Not just preventing layoffs. Many growing or stable businesses have reduced or frozen hiring due to the economic uncertainty having government support here would encourage companies that are stable to hire and reduce unemployment.
+-**There shouldn’t be a strict requirement for it to be used for payroll or even credited against payroll accounts. ** Many businesses have significant costs outside of payroll, including rent and utilities. For many businesses, it may not make sense to take on debt to keep employees on payroll when sales have dried up and demand is likely to be sluggish in the coming months. The wage subsidy doesn’t benefit businesses that have laid off employees. Depending on an employee’s annual salary, based on current criteria, in some cases EI is a better option for the employee and employer. Furthermore, many businesses are at risk of failing due to rent costs and many landlords also can’t afford to lose this income.
+-**Special non-repayment incentives should be put in place when businesses use this credit to hire back or retain existing employees, hire new employees, or invest in R&D efforts. ** An easy way to create this incentive may be to apply a 2% interest rate to this credit if a business chooses to get cash from an administering bank. This interest could be split by the government and the administering bank to compensate for costs. If tax, payroll, or R&D credits are used, then 0% interest applies and additional debt forgiveness or more lenient repayment terms could apply as well, potentially based on early payment or credit being used for employment or R&D.
+-**Punishment should be extreme for abuse and fraud. ** Administering banks and grant administrators should be required to inform the CRA of any misuse. The CRA and grant auditors should audit in 2021, once companies complete their 2020 tax return, which should include information on how the business took advantage of the credit program, and the amount that was used.
+-**Have government matching for angel investors and family offices. ** Many VC firms are delaying or putting off investment due to the uncertainty. Giving matching dollars or a federal tax credit for other investors would help keep investment dollars flowing.
+- These credits should be administered through existing programs that businesses are already tapped into in order to increase efficiency, reduce costs, and get the capital that businesses themselves deem necessary in order to survive and reduce unemployment.
+
+>**Update #1:**[NACO](https://www.nacocanada.com/cpages/home) and some other angels and funds have proposed matching for angel investments and apparently there is something “in the works” likely via BDC. [BDC already offers matching of VC investment](https://betakit.com/bdc-launches-matching-investment-program-for-canadian-vc-backed-companies/)s but the process is still a bit unclear and this seems to be very sluggish compared to other programs, especially since the deployment of capital by VCs has slowed and due diligence is required. **Update #2:**the Federal government’s well targeted [financial support via IRAP and regional R&D organizations](https://betakit.com/as-applications-open-here-are-the-details-of-the-new-250-million-covid-19-irap-subsidy-program/) was a very strong move and well received amongst my peers.
+
+### In Summary
+
+The Federal Government needs to be less prescriptive about how a business allocates funds and who qualifies, because all businesses have different factors that effect costs and growth.
+
+One exception might be to consider limiting this credit program to small and medium sized businesses (SMBs). While large enterprises will likely also suffer revenue reductions and layoffs, much of their revenue comes from SMBs and individuals. As such, supporting SMBs directly seems to be the most prudent. In this regard, criteria for consideration may include limiting applicants to any business with less than 25 million dollars in revenue in their last fiscal year.
+
+By combining these programs into one singular program that allows for flexibility in how a business wishes to access and use this credit, this will reduce overhead and the chance of people double dipping into programs.
+
+Furthermore, for the few businesses like ours that are fortunate enough to be growing during this crisis, we would have the option to take on more capital to continue to fuel this growth and invest in both R&D and reducing the unemployment rate. Unless this changes, due to the uncertainty of COVID-19, businesses that are weathering this storm thus far, have generally elected to take a conservative approach and have reduced hiring and spending, or frozen it entirely.
+
+A well structured credit program could remove this uncertainty, encouraging businesses that are on a good footing to continue to grow, and businesses that are struggling to stay afloat to thrive as the economy begins to come back to life.
+
+I hope you take this into consideration and, once again, I would like to thank you for your effort during the turbulent times.
+
+Sincerely,
+
+Eric Kryski***About the author: *[*Eric Kryski*](https://www.linkedin.com/in/ekryski/)* is a Canadian data & computer scientist, entrepreneur, and the CEO of *[*Bidali*](https://www.bidali.com/)* — a financial infrastructure company that uses blockchain technology to provide better, cheaper and more transparent financial services. This year he spoke in Davos during the World Economic Forum on the future of money and is the chair of the Canadian Blockchain Consortium FinTech committee.*
+
+<Newsletter />

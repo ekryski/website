@@ -1,0 +1,77 @@
+import { ArticleLayout } from '@/components/ArticleLayout'
+import { Newsletter } from '@/components/Newsletter'
+
+export const article = {
+ author: 'Eric Kryski',
+ date: '2016-04-06',
+ title: "Why we built the best web framework you’ve probably never heard of (until now).",
+ description: "How FeathersJS came to be and why we built it.",
+}
+
+export const metadata = {
+ title: article.title,
+ description: article.description,
+ openGraph: { title: article.title, description: article.description, url: '/articles/why-we-built-the-best-web-framework-youve-probably-never-heard-of-until-now' },
+ twitter: { card: 'summary_large_image', title: article.title, description: article.description },
+}
+
+export default ({ children }) => <ArticleLayout article={article}>{children}</ArticleLayout>
+
+I know! You’re probably screaming *“Not another JavaScript framework!”*. I’ve also suffered from [Framework Fatigue](http://www.allenpike.com/2015/javascript-framework-fatigue/) (probably more than most) so I won’t blame you for not reading on. But… if you choose to suck in your gut and press on, by the end of this article you might just have the energy to put a new web framework in your back pocket.
+
+A few years ago 
+
+> As a result of this experience we wanted to build a framework that can grow with you as your product grows. One that is flexible enough to rapidly adapt to changing business needs, powerful enough to build modern apps, and simple enough to get up and running quickly.
+
+We have tried nearly every other framework out there (not just in JavaScript) and felt that it was either too hard to get up and running, it took too long, or once you started to scale, it was painful to step outside of the framework’s comfortable little sandbox.
+
+We found that many of the apps we built using MVC frameworks quickly became bloated with fat models or overly complex controllers and, when all we care about is our data; setting up routes, doing CRUD, and dealing with the request-response cycle feels tedious. As a result, we started to explore a different approach to building web applications.
+
+## A little history
+
+The initial seed of Feathers began in 2010. Dave was working on his university thesis in Germany and implemented a Service Oriented Architecture in Java — not Dave’s favourite language but it was academia …*shrug*. Instead of the typical MVC paradigm, he took aspect oriented programming patterns and settled on using services and [cross cutting concerns](https://en.wikipedia.org/wiki/Cross-cutting_concern), or “hooks”.
+
+Fast forward a few years later. Dave met the love of his life (no not me, and not JavaScript) and moved to Calgary, Canada. That’s where him and I met at a [local JS meetup](http://www.meetup.com/yyc-js/). It’s also where we started working on various projects together, Feathers being one of them. We were both doing a lot of stuff with NodeJS and Express at the time, so we decided to extend them. JavaScript is not our favourite language but we are very familiar with it, and being able to use the same language through your whole stack is really nice. It reduces cognitive overhead and allows for affordances, like sharing code, that you just can’t achieve when mixing frontend and backend languages.
+
+After implementing things like authentication, CRUD, permissions and validations over and over again we took the concepts from Dave’s thesis work and put Feathers on Github in 2013. It was very experimental at first and really only meant for the two of us. We worked on Feathers in our spare time through to a 1.0 release in 2014. Some people were starring the project on Github and it was featured on DailyJS so we built a webpage and made some, in hindsight, very crappy docs. At this point Feathers really was still just a hobby project.
+
+We kept working on Feathers sporadically in 2015. It was getting used by some people just enough to be a nagging concern but at the time, Feathers really wasn’t what we envisioned it becoming and we weren’t giving it enough attention to get it there. Something had to change, either kill it or start giving Feathers the attention it needed.
+
+In December 2015 Dave and I had a discussion about whether to continue working on Feathers. We asked ourselves 3 pretty critical questions:
+
+- *Are we really doing anything better or different?*
+- *Do we really need or want to build and maintain our own framework? It’s a lot of work!*
+- *Can we just get by with an existing solution?*
+
+Our answers to all those questions are what compelled us to continue to work on Feathers and really put in a consistent effort in order to make it the framework we know it can be. This decision did not come lightly and we both made a commitment to work our asses off to fulfill our vision of what a web application framework should be. We [proudly launched 2.0](/introducing-feathers-2-0-aae8ae8e7920) in March 2016, which is very much on the right track.
+
+## The Feathers Philosophy
+
+Over the past few years Feathers has grown from a small library into a mature framework that, with an [ecosystem of plugins](https://github.com/feathersjs/awesome-feathersjs#plugins), makes it really fun to build impressive real-time apps and APIs. The core of just a few hundred lines of code hasn’t changed much and neither has our philosophy. It still guides the direction of Feathers today:
+
+> “Monolithic apps tend to fall apart at scale, either because of performance or because there are too many people in the code. What if we could make it easy to build applications that can naturally become service oriented from day one, rather than having to start with a large application and painfully tease it apart?
+
+What if we could make a framework that grows with you and your business and makes it easy for you to transition to a series of microservices, or easily change databases without ripping our code apart?
+
+What if we could make real-time less intimidating rather than a hacky, complex after thought? What if we could remove the boilerplate needed for building REST APIs? Could we build a framework that provides enough structure to get going easily and add all the common pieces that modern apps need, but still keep everything flexible and optional?
+
+A framework itself should not be opinionated. It should be made up of small, reusable, optional components that do one thing well but are combined in an opinionated way. By keeping the components of your application small, flexible and optional you eliminate much of the engineering obstacles that prevent moving fast and scaling.”
+
+We’ve applied this philosophy to Feathers and built an incredibly flexible and powerful framework. We value simplicity and flexibility above all else and, we’re not venture backed, we continue to be careful not to reinvent the wheel. Instead we try to leverage as much of the amazing JavaScript ecosystem as possible.
+
+We strongly believe that your UI, data, and business logic are the core of any web or mobile application. Your framework should take care of the rest so you can focus on the things that matter. Instead of writing boilerplate, worrying about routing, controller logic, error handling, or authentication you should spend time talking to customers, hanging out with your friends and family, playing foosball, and actually building your app. **The things that really matter. **We believe that you **can** easily transition from a “monolithic” app to micro-services without pulling your hair out. We believe that you should be able to make your app real-time with very little effort. We believe that you should be able to easily create incredible applications that delight your users.
+
+If this philosophy resonates with you, then [Feathers](http://feathersjs.com) might be for you as well. If not, that’s totally fine too. We just want to share Feathers with others in the hopes that it is your remedy for Framework Fatigue. If you choose to [give it a try](http://docs.feathersjs.com/getting-started/quick-start.html) I’m fairly confident you’ll be pleasantly surprised.
+
+Either way Dave, myself, and the rest of the core team would love to hear what you think in [Slack](http://slack.feathersjs.com) or [Twitter](https://twitter.com/feathersjs).
+
+If you want to learn more about Feathers check out some of our other articles in our Medium publication.
+
+[
+## The Feathers Flightpath
+
+### An open source REST and real-time API layer for modern applications. Build production ready APIs in hours not weeks.
+
+blog.feathersjs.com
+
+<Newsletter />

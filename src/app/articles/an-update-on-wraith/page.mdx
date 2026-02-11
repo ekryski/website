@@ -1,0 +1,99 @@
+import { ArticleLayout } from '@/components/ArticleLayout'
+import { Newsletter } from '@/components/Newsletter'
+import imageimage1png from './image-1.png'
+
+import imageimage3png from './image-3.png'
+
+export const article = {
+ author: 'Eric Kryski',
+ date: '2018-01-03',
+ title: "An Update on Wraith",
+ description: "The release of Verge Core wallet 4.0",
+}
+
+export const metadata = {
+ title: article.title,
+ description: article.description,
+ openGraph: { title: article.title, description: article.description, url: '/articles/an-update-on-wraith' },
+ twitter: { card: 'summary_large_image', title: article.title, description: article.description },
+}
+
+export default ({ children }) => <ArticleLayout article={article}>{children}</ArticleLayout>
+
+<Image src={imageimage1png} alt="" />
+
+I [recently got involved](/articles/my-take-on-verge-xvg) in the development effort with Verge (XVG). There seems to be a lot of confusion around what Wraith is, what it is not, when it’s launching, etc. There is already a great blog post that outlines [what the Wraith Protocol is](https://medium.com/verge-currency-xvg/what-is-the-wraith-protocol-bd1dfb289cda) that’s worth a quick read but I think some of what’s in there got misconstrued.
+
+In order to hopefully bring some clarity, after talking with the lead developer Sunerok and some of the other Verge developers, I’m going to provide a high level technical update on Wraith.
+
+It’s important to know that it constitutes 4 main phases.
+
+Here is the TL;DR version:
+
+<figure className="flex flex-col items-center my-8">
+ <Image src={imageimage3png} alt="" />
+ <figcaption className="mt-2 text-center text-sm italic text-zinc-600 dark:text-zinc-400">
+ Nice summary of what Wraith Protocol is courtesy of Verge fans on Twitter
+ </figcaption>
+</figure>
+
+First off, Wraith is not just one wallet or one codebase. It is a **protocol **that is implemented across many of the Verge code bases. Second, it’s important to know that Verge (like many other coins) has many different pieces:
+
+- [Multiple wallets](https://vergecurrency.com/#wallets)
+- Core node daemon (basically your copy of the blockchain and an API to interact with it)
+- SDKs to interact with the core node
+- Other various code bases for shared utility functions, dependencies, etc.
+
+In short, there is a lot of code that is very dependent on one another so it can make coordinating releases a little tricky, especially when modifying the core API.
+
+## But, When Wraith?!!!
+
+To that I say…
+
+Because Wraith is a** protocol **it’s ALREADY implemented in various phases across all the different Verge wallets and the Verge core node codebase. It has been for many months! Almost all the wallets have had IP obfuscation for some time now. Somehow I think this got missed when everyone took off on the hype train. Choo choo! 🚂
+
+It is pretty fucking awesome and very hype worthy, but let me clarify what it actually is. If you remember the nice table above:** Phase 1** is par for the course in crypto land. Every blockchain uses fairly non-identifiable addresses so that you don’t know whether the address is Will Ferrell’s or mine just by looking at the random characters. However, this isn’t *really* anonymous because you can watch all the transactions go in and out of an address and use other information like IP addresses and KYC (Know Your Customer) info that an exchange is required to keep to build a profile about who owns that address and what they are doing.
+
+**Phase 2 **involves using either Tor or I2P protocols to make it hard to trace your IP address. I’m not aware of any other cryptocurrencies that have this implemented yet, so technically you’re not all that anonymous when transacting on blockchains these days. This is already in the Verge Android Tor wallet (the first of it’s kind), the Electrum Tor wallet, the Electrum I2P wallet, and the core node and Verge-Qt wallet.** Phase 3 **is the introduction of Stealth addresses. These are being worked on as we speak and are nearing completion in the core wallet. They will be added to the Electrum and Android wallets in the near future.** Phase 4** really isn’t major work and will be going hand-in-hand with Phase 3, so that table is a bit misleading because you won’t ever lose the ability to transact on the public blockchain. Once stealth addresses are complete you already get to choose whether you want to receive funds at a stealth address (making them private) or not (making them public).
+
+Without getting too technical I’ll briefly explain stealth addresses:
+
+> Stealth address transactions still occur on the same blockchain as the normal public transactions you are used to. It’s not two separate blockchains. The difference is that because of some fancy cryptography, only the sender and receiver can see transactions that have been sent to a stealth address, not everyone else. A good use case for this is if you want to have a donation link on your website but don’t want everyone in the world to see how much is actually in the account balance and where funds are spent.
+
+Neat! Hey? 🤓
+
+## But if it’s ready then why hasn’t it been announced?
+
+To this I say, it actually already was. Maybe you just missed it in the drunk (or hungover) moment of crypto-hysteria around New Years. 😉
+
+*You on New Year’s Eve*
+
+*Verge team on New Year’s Eve*
+
+We had the OS X and Linux builds tested and up on Github just after midnight as well. This wasn’t made as clear as it should have been. So the next release we’ll be more clear. However… welcome to the world of open source, globally distributed teams, finding last minute bugs, and sleep deprivation! Hooray! 🎉
+
+Now you might be asking yourself, *“why didn’t someone say this sooner?”.* Well, we’re all exhausted from staying up so late working through the night the last few days to ensure that Verge is the first coin to pull this off. And guess what, it is! And it fucking works! 🙌
+
+## So what’s next?
+
+Sunerok and the team were pushing to get all the way to Phase 3/4 by the end of 2017 with the core wallet. We almost made it! When doing final regression testing we realized that sending to a stealth address was failing on the final confirmation. With [the other hiccups we ran into that night](https://twitter.com/vergecurrency/status/947714564287815681) resolved, we decided to push the release with everything else working. Since then the team has been working tirelessly to continue to resolve the issue with stealth addresses and polish up the Verge-Qt wallet. We feel that we’re close to having it resolved.
+
+Another thing that is happening is we’re upgrading the Tor dependency to make it a proper git submodule so that we’re always using the latest and greatest Tor version and don’t need to be continually updating it manually.
+
+After that is complete a new release (4.1) will be out and Phase 3/4 will be complete on the core node and Verge-Qt wallet.
+
+Sometimes with programming it’s hard to put a definitive timeline on things because you don’t know what you don’t know (especially when exploring a new frontier), but rest assured the Verge crew will let everyone know when the release is up. 😃
+
+Then we’ll take a much needed break and pick back up with:
+
+- Adding stealth address support to the Electrum and Android wallets so that they have functionality from Phase 3/4 as well.
+- Doing some roadmap planning and updating.
+- Improving build tooling and cleaning up minor defects and tech debt.
+
+I hope that helps to alleviate some of the FUD that seems to have appeared.
+
+In my opinion the Wraith protocol is exactly what cryptocurrencies need. You need the option to be able to transact anonymously or not. That choice needs to be ours. Not developers, not banks, not governments.
+
+Banks are not pumped about cryptocurrencies, it cuts into their revenue and they lose control. Same with governments. They may like the idea of the blockchain but it’s not all that practical for them because they are slower than proprietary systems (for now), and by the very nature of blockchains being public and decentralized, they give up control. Once people have control, rarely do they like relinquishing it. Anonymity and true decentralization are going to be really important (potentially in the fairly near future) as governments and banks become more threatened by cryptocurrencies.
+
+<Newsletter />

@@ -1,0 +1,42 @@
+import { ArticleLayout } from '@/components/ArticleLayout'
+import { Newsletter } from '@/components/Newsletter'
+
+export const article = {
+ author: 'Eric Kryski',
+ date: '2016-01-30',
+ title: "How to maintain an open source project and shut the fuck up at the same time",
+ description: "Get Eric Kryski’s stories in your inbox",
+}
+
+export const metadata = {
+ title: article.title,
+ description: article.description,
+ openGraph: { title: article.title, description: article.description, url: '/articles/how-to-maintain-an-open-source-project-and-shut-the-fuck-up-at-the-same-time' },
+ twitter: { card: 'summary_large_image', title: article.title, description: article.description },
+}
+
+export default ({ children }) => <ArticleLayout article={article}>{children}</ArticleLayout>
+
+I’ll admit that I used to look up to Eran Hammer a bit and respect him as an engineer but I’ve lost some of that respect over his [recent post](http://hueniverse.com/2016/01/26/how-to-use-open-source-and-shut-the-fuck-up-at-the-same-time/). I absolutely get where he is coming from. **Many people have become too entitled with open source **. The popularity of Github has made open source software incredibly easy to access, distribute, and contribute to. This has had both positive and negative side effects.
+
+You can become famous and sky rocket your career because you created a popular open source project. Millions of people could be using software you wrote. You can even get millions in VC funding now. The overall quality bar for open source has gone up dramatically and for a project to become successful (and stay successful) now requires thousands of human hours.
+
+The down side of such prolific work is that some people have become complacent and have unreasonable expectations about the quality or time commitment that project maintainers should carry. There is also a ton of noise. It is really easy for the trolls to come out from under their internet bridges.
+
+With far fewer fucks, I agree with the root of Eran’s rant. **The public shaming for somebody contributing to open source in any fashion needs to stop. It’s harmful and counter productive. If you’re not happy with an open source project either fork, contribute, or don’t use it. Simple. ** However, I think the language he chose does this argument a disservice. I understand wanting to draw attention to this issue and throwing the F word around can do it, but now I’m talking to you directly, Eran.
+
+You’re coming across very entitled and ego-centric, man. Don’t let a few ungrateful people bother you. Speaking up this way on such an important issue makes yourself come across as entitled and discourages people to start or contribute to open source because the “leading” voices come across rude and condescending. I know it probably doesn’t matter to you but I’ve lost some respect because of it.
+
+You’re forgetting about the thousands of people that you’ve positively helped (me included). They may be silent but there are definitely way more people that appreciate open source contributors than condemn them. Sure, there are assholes in open source. There are assholes everywhere! Just ignore them, thank them for their contribution, tell them that the project might not be for them and move on. In my experience, throwing around a “Fuck Youuuu” rarely does any good. It’s hard to build empathy with that kind of language and responses like that usually beget more trolling.
+
+Either directly or indirectly people benefit if their project becomes famous, and whether you’ll admit it or not Eran, you have benefitted. I too have a few open source projects. I’m primarily writing [Feathers](http://feathersjs.com) for myself because I can build apps faster and more robust, but I’ll admit that I also hope that people want to use it. It feels good when people find value in your work. There’s no shame in that. However, I also fully understand the risks that come along with that and fully intend to support people that choose to use my software.
+
+The main issue here is the risk that entitlement by **anyone ** in the community will dissuade people from creating open source and that would be a real shame. This also goes for maintainers. You are not entitled to pull requests or good contributions. If you put your code out there, promote it for people to use, and give the perception that you intend to support your project, you owe it to the community to give them support and an adequate migration plan if you plan to stop.
+
+A lot of people have bet their livelihood on open source work now and if you give the impression that people should be so confident to use your code then the onus is partly on you too. Especially if a project is company sponsored. Otherwise, just put a disclaimer at the top of your projects that it shouldn’t be used and don’t promote it. You can still contribute to open source without having to worry about supporting your code. Hell, a lot of the work that my friends and I do barely gets noticed at all.
+
+Unfortunately we live in a world where if you put yourself out there you’re probably going to see scrutiny. This isn’t my attempt to sanction bullying. **That’s not okay for any reason. ** I wish people wouldn’t act this way and I want it to change. I try to do my part by leading by example, however I have much less influence than Eran. People need to be aware that scrutiny is a risk **whenever ** you put something in public, whether that’s on Github or not. In the end, haters gonna hate so just remember that it’s not your fault if someone’s mommy or daddy didn’t love them. Most of the time people bully because they are jealous or have their own internal demons to deal with.
+
+In the end I agree with Eran and I still respect him as an engineer. He has written some awesome code. I hope I’ve added some support to his **very valid** argument. Just maybe next time we can avoid some of the fuckity fuck, fuck fuck fuck?
+
+<Newsletter />

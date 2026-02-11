@@ -1,0 +1,137 @@
+import { ArticleLayout } from '@/components/ArticleLayout'
+import { Newsletter } from '@/components/Newsletter'
+import imageimage1jpeg from './image-1.jpeg'
+
+import imageimage3png from './image-3.png'
+
+export const article = {
+ author: 'Eric Kryski',
+ date: '2020-03-16',
+ title: "Testing. Testing. This is not a drill.",
+ description: "COVID-19 is real. Alberta is preparing well but you need to take this seriously.",
+}
+
+export const metadata = {
+ title: article.title,
+ description: article.description,
+ openGraph: { title: article.title, description: article.description, url: '/articles/testing-testing-this-is-not-a-drill' },
+ twitter: { card: 'summary_large_image', title: article.title, description: article.description },
+}
+
+export default ({ children }) => <ArticleLayout article={article}>{children}</ArticleLayout>
+
+<figure className="flex flex-col items-center my-8">
+ <Image src={imageimage1jpeg} alt="" />
+ <figcaption className="mt-2 text-center text-sm italic text-zinc-600 dark:text-zinc-400">
+ Photo by <a href="https://unsplash.com/@anikolleshi?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" className="text-black dark:text-white hover:underline">Ani Kolleshi</a> on <a href="https://unsplash.com/s/photos/nurse?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" className="text-black dark:text-white hover:underline">Unsplash</a>
+ </figcaption>
+</figure>
+
+As I went to the hospital to get tested for COVID-19, here in Calgary, Canada it seemed a little too normal. Like a lot of people still aren’t taking this seriously enough.
+
+With one of the largest global spikes so far in both deaths and confirmed cases today, while people in some countries are still trying to figure out what the symptoms are, we are in full on global pandemic mode.
+
+<figure className="flex flex-col items-center my-8">
+ <Image src={imageimage3png} alt="" />
+ <figcaption className="mt-2 text-center text-sm italic text-zinc-600 dark:text-zinc-400">
+ Source: <a href="https://ourworldindata.org/coronavirus" className="text-black dark:text-white hover:underline">https://ourworldindata.org/coronavirus</a>
+ </figcaption>
+</figure>
+
+[Italy’s health care system is already seeing massive strain](https://www.nytimes.com/2020/03/16/world/europe/italy-coronavirus-funerals.html) with no sign of slowing down just yet. [While major steps were announced](https://www.canada.ca/en/public-health/services/diseases/2019-novel-coronavirus-infection.html) over the last 48 hours here in Canada it still feels like we’re in the calm before the storm in North America.
+
+> It is critical that people start to take COVID-19 seriously. That doesn’t mean panic. That means giving each other ample space and washing hands.
+
+Here in Calgary, after 4.5 days in isolation I was able to get in and get tested for COVID-19 today. This is longer than I had hoped. Not for myself but more for the others that would have a tough time coping with 5 days without working, let alone what’s looking like at least 10 days of self-isolation before results come back. More, if my test is positive.
+
+If you [read my previous post](/articles/your-essential-coronavirus-guide), while I’m high risk enough to be tested, I don’t feel like I’m a high risk case. Furthermore, I feel like Canada, and Alberta in particular, is preparing well and rapidly ramping up resources and imposing important protocols. 🙂 🇨🇦
+
+However, given we are still very early and there are already delays this long, **it is critical that people start to take this seriously **and begin to:
+
+- Distance yourself from others. At **least **arms length. Better if you are 2 meters. Even if the other person doesn’t have symptoms.
+- If you are sick stay home and isolate yourself from others. Completely. Separate bathroom and closed room if you can. Then use [the online assessment tool](https://myhealth.alberta.ca/Journey/COVID-19/Pages/COVID-Self-Assessment.aspx) to determine next steps.
+- If you can, stay home and avoid any non-essential travel. Especially if it includes being within 2 meters of other people or touching things in public spaces.
+- Wash or disinfect your hands regularly, especially before eating or touching your face.
+- Wear a mask to prevent the spread of the virus when you talk, cough or sneeze and reduce the likelihood that you inhale it while near others.
+
+As one of the first few thousand people here in Alberta to go through quarantine and testing I’m trying to document the process and share information so others can be prepared, help prevent the spread and ease the healthcare burden.
+
+## The Screening & Testing Process
+
+If you feel you have symptoms of COVID-19, have been in contact with someone who has been confirmed with COVID-19 or is exhibiting symptoms themselves, you should follow these steps, **in this order **:
+
+### 1. Self assess online
+
+In Alberta first [use the online self-assessment tool](https://myhealth.alberta.ca/Journey/COVID-19/Pages/COVID-Self-Assessment.aspx). For other provinces and territories search online or go to your local government website for information. [In my previous post](/articles/your-essential-coronavirus-guide) I included helpful links at the very bottom.
+
+Follow the instructions in the self assessment tool and it will tell you what to do next. **If you are having trouble breathing or chest pain call 911 **. After completing the self health assessment, if you are still unclear on what you should do, call 811.
+
+### 2. Calling 811
+
+If you were instructed to call 811 based on your online health assessment you may experience some delays. **Don’t panic. ** Try calling again periodically. You don’t need to call every 10 seconds! This clogs up the lines unnecessarily.
+
+Once you get through to a health professional they will ask you some questions similar to the online self-assessment. Answer them honestly and briefly. They don’t need your life story but you don’t want to leave out important information that could determine your risk level. Such as, if you or your family members have traveled and where you came from, where and when you feel you got sick, what you were doing, and what symptoms you have. Regardless of the situation don’t feel ashamed or embarrassed.
+
+The health professional will determine your risk level for COVID-19 infection and give you instructions on what to do next.
+
+### 3. So you need a test…
+
+If the healthcare professional on the phone thinks you should be tested they will tell you and you will get a call back to book a testing appointment. Once you receive that call (which took 2 days for me) you will receive instructions to go to a testing facility. For me it was within an hour of receiving the call.
+
+Alberta has set up drive through facilities and walk-in ones in certain locations. You should bring photo ID and your healthcare card. I didn’t need it but you should bring it anyway.
+
+### 4. You’re Almost Done
+
+You will wait in line, either in your car or in person (at a good distance from others). Once it is your turn the health care team will make sure they have your paperwork to ensure your sample doesn’t get mismatched. They will gently put a stick with a cotton swab at the end (3x the length of a Q-tip) up your nose, seal it up, and 💥 your done.
+
+Easy peasy, 🍋 squeezy. It wasn’t stressful. It wasn’t pandemonium. Everyone was polite and friendly and orderly.
+
+Make sure you thank everyone for their hard work each step of the way. They are putting themselves and their loved ones at risk to save you and yours. ❤️
+
+## 5 Important Takeaways
+
+After getting through phase 2 of this journey (achievement unlocked?), there are 5 things that struck me:
+
+### 1. Alberta Health Services is implementing some of the most effective tactics in other countries
+
+They have begun to dedicate a specific hospital for COVID patients like they did in China and they implemented drive through testing like in South Korea. Both were very effective measures in dealing with the virus so we’re ahead of the game there. 👏
+
+### 2. A fair amount of people are being tested and quite quickly
+
+We’d obviously like to shorten the wait times for bookings and test results (which currently can take 4–5 days), but overall the process is **very ** efficient and so are the teams. By the time it’s your turn you blink and it’s over.
+
+### 3. The front-line staff are amazing
+
+Everyone is working so hard but are still sooo nice and positive. Keeping this morale up would be incredibly difficult given the never-ending conveyer belt of tests, most of which will likely be negative. Give all your healthcare providers a sincere thank you. 🙏
+
+### 4. Things are pretty normal, maybe too normal
+
+After being in quarantine for 5 days and finally being outside, I was surprised by how normal everything felt in Calgary. Especially compared to how extreme things have been on the Internet, which has been my lense to the outside world for the last while.
+
+This felt both calming — that people don’t seem to be panicking (which you shouldn’t) — but also scary, because I saw lots of people hanging out much closer than recommended to each other (ie. not social distancing).
+
+> You need to do social distancing, and it’s so easy. Just stick your arms out and if you can touch each other you’re too close.
+
+It doesn’t mean you don’t love the other person. Quite the contrary, this simple gesture could just save their life.
+
+### 5. Cars don’t give adequate social distancing.
+
+Given that we’re looking for 2 meters of distance between people, having a healthy person and a sick person in the front seat is not enough distance.
+
+Given the speed and ease of transmission initially it seemed odd to me that not everyone in the car was getting tested. But I do understand that if you’re not exhibiting symptoms, then at best, you’ve wasted a test that someone else could use. At worst, this might produce a false negative by being too early, leaving you thinking you’re good when you’re not.
+
+However, if you’re rolling on dubs with someone else to get tested maybe get the sick people to hang out in the back seat if possible and/or wear masks if you have them. If you’re sitting next to each other and one of you is sick, you’re too close!
+
+Pretend like you have a private chauffeur rolling to your test, posh you! 🎩
+
+In summary, I’m very impressed with Alberta’s response so far. Due to data lag we won’t really know how effective it is for another few weeks but we’re definitely doing a lot of the right stuff that has worked well in other countries, which is very encouraging. You should be proud of the entire team we have behind us.
+
+The good thing is, **you ** can help make this easier on them by just giving each other space, staying by yourself if you’re sick, and washing your damn hands!
+
+That’s it! It’s easy. 🙂
+
+That is all for now. I’ll report back when I find out results. For now I’ll be in my man cave (ie. quarantine room).
+
+>**EDIT:** Test results came back negative. Although after coming back from Davos in January I had sworn I had gotten COVID-19 because I was so sick. And I had very similar symptoms to what people have now described. I also got confirmation that I had come in contact with some people in Davos that had tested positive shortly after. Crazy times! In any case, I appreciate all the well wishes everyone sent me and my heart goes out to everyone struggling with the disease. I hope you get better soon!
+
+<Newsletter />

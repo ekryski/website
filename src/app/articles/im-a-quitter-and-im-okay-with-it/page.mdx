@@ -1,0 +1,50 @@
+import { ArticleLayout } from '@/components/ArticleLayout'
+import { Newsletter } from '@/components/Newsletter'
+
+export const article = {
+ author: 'Eric Kryski',
+ date: '2016-01-30',
+ title: "I’m a quitter and I’m okay with it",
+ description: "I over estimated my ability and time",
+}
+
+export const metadata = {
+ title: article.title,
+ description: article.description,
+ openGraph: { title: article.title, description: article.description, url: '/articles/im-a-quitter-and-im-okay-with-it' },
+ twitter: { card: 'summary_large_image', title: article.title, description: article.description },
+}
+
+export default ({ children }) => <ArticleLayout article={article}>{children}</ArticleLayout>
+
+Top highlight
+
+Last year at the beginning of the year I made a commitment to myself that I was going to [**write one article a week for the entire year **](https://medium.com/@ekryski/a-year-of-learnings-d57bb7f428f3#.iqb11i7ny)**. **I didn’t even come close. I started off strong. Pounding out some [solid](https://medium.com/@ekryski/the-future-of-analytics-part-1-357ae2fb358e#.rundw7sag) [articles](https://medium.com/@ekryski/the-future-of-analytics-part-2-4280d3a5fccb#.qahkngve4) and I also have about 20 drafts at various levels of completion but I only actually shipped only about 4 or 5.
+
+I could throw out the various reasons why I haven’t published them to try and save face but that would be dishonest. I could also pretend that I’m completely okay with this but there is a small part of me that is disappointed in myself. However, when I reflect there are two primary reasons why I didn’t accomplish this goal and why I am (almost) completely okay with it.
+
+I put out a lofty goal. I knew this from the beginning but at the time I didn’t fully comprehend how much time it would take to write a solid piece each week. I also continued to try and do everything I was already doing and just threw this goal on the pile. Between building a new house, [starting my own consulting business](http://bullishventures.com), having 2 kids, trying to [launch a product](http://deliciousdb.com), growing our [local JS community](http://www.meetup.com/yyc-js/), and working on [open source](http://feathersjs.com). I was completely insane to think that in addition to all that I could also write 52 articles in a year. Big mistake!
+
+> Doing something well takes sacrifice. You need to be **cognisant **of what is important and be okay with letting some things slip because most of the time priorities change.
+
+It only took 3 weeks to realize how stupid this was. I tried to plow through it but the things that were more important took priority and then I simply became stressed about writing articles. I was now writing them for the sake of the goal rather than for the reason I started in the first place.
+
+## I was writing for the wrong reasons
+
+I really enjoy writing. What initially started out as a goal to establish a habit and give me more time to reflect very quickly became stress inducing rather than stress relieving. Obviously, this is not what I had intended. I realize that pressure and stress can be a good thing, and for me I perform much better under deadlines that without, but even if I had begrudgingly written 52 articles last year I know I would have been dissatisfied because other more important parts of my life would have suffered.
+
+I also have a dirty little secret to admit. I was writing to try and show off. Trying to get a following and demonstrate how smart I could be and that I could be a “thought leader”. This is absurd and it didn’t take me long to realize (1 article in fact) that almost no one gives a shit about what I think.
+
+I half expected to put out my two articles about the [analytics](https://medium.com/@ekryski/the-future-of-analytics-part-1-357ae2fb358e#.hjqcfd2s9) [ecosystem](https://medium.com/@ekryski/the-future-of-analytics-part-2-4280d3a5fccb#.59t6rx9k4) and my twitter feed would explode with tweets like “my God Eric, you must have crystal ball. You’re a God damn genius”. Even admitting that makes me feel guilty and ashamed but it’s true. Instead they vanished into the ether and a couple people in the analytics space hit the heart icon. I was pretty disappointed.
+
+I’m actually really proud of those 2 pieces, and all the others that I’ve written, but after publishing them and not getting thousands of recommendations I thought to myself, “I put in all this effort for all the wrong reasons”. So it was after just 2 more medium posts that I decided to quit writing for the sake of my goal and to simply write for me. To reflect, to act like a journal, to sometimes just bitch and wine to myself about my first-world, white male problems. Hence, why I have way more unpublished posts than published ones. I imagine most of those won’t get published because they are for my eyes only and shouldn’t be public at all.
+
+I think a lot of people out there fall in the same camp I was trying to be a part of. They have ulterior motives for their writing. It could be for content marketing, self promotion or promotion of a product. It could also be because they are paid to write. This isn’t necessarily bad and usually there is great information that gets shared because of it but from now on I’m no longer doing the same. I’m primarily writing for me and I’ll share some things to help others learn. No other reason. If something comes out of that great. If not, also fine.
+
+So with that, my take away wisdom for today is:
+
+> Choose to do things because you **want** to do them otherwise just quit. You only live one life so you might as well be doing things you enjoy rather than begrudgingly doing shit for the sake of it.
+
+*Feel free to share this or also don’t. I don’t care. I wrote this to get this off my chest.*
+
+<Newsletter />

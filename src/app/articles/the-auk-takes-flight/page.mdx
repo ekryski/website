@@ -1,0 +1,130 @@
+import { ArticleLayout } from '@/components/ArticleLayout'
+import { Newsletter } from '@/components/Newsletter'
+import imageimage1jpeg from './image-1.jpeg'
+
+import imageimage3png from './image-3.png'
+import imageimage4gif from './image-4.gif'
+
+export const article = {
+ author: 'Eric Kryski',
+ date: '2017-04-28',
+ title: "The Auk Takes Flight!",
+ description: "A new FeathersJS release and a year in review",
+}
+
+export const metadata = {
+ title: article.title,
+ description: article.description,
+ openGraph: { title: article.title, description: article.description, url: '/articles/the-auk-takes-flight' },
+ twitter: { card: 'summary_large_image', title: article.title, description: article.description },
+}
+
+export default ({ children }) => <ArticleLayout article={article}>{children}</ArticleLayout>
+
+<figure className="flex flex-col items-center my-8">
+ <Image src={imageimage1jpeg} alt="" />
+ <figcaption className="mt-2 text-center text-sm italic text-zinc-600 dark:text-zinc-400">
+ Photo by Bruce J Robinson. <a href="https://fineartamerica.com/featured/razorbill-in-flight-bruce-j-robinson.html" className="text-black dark:text-white hover:underline">You can buy a print of it here</a>.
+ </figcaption>
+</figure>
+
+## A new [FeathersJS](https://feathersjs.com) release and a year in review
+
+A whole year has passed since we began talking about what the next Feathers release (code named *Auk*) entails. My how time flies! In that year; Feathers, the ecosystem, the community and [the core team](/feathers-flightpath-issue-2-11ae674b1e1e) has grown a lot. Here are some highlights:
+
+- We’ve closed over [**1,200 issues **](https://github.com/issues?utf8=%E2%9C%93&q=is%3Aissue+org%3Afeathersjs+is%3Aclosed+closed%3A%3E%3D2016-03-15) and landed almost [**2,000 pull requests **](https://github.com/issues?utf8=%E2%9C%93&q=is%3Apr+org%3Afeathersjs+is%3Aclosed+closed%3A%3E%3D2016-03-15+)! Not bad for a part time team of 6.
+- [The Slack group](http://slack.feathersjs.com) has grown from 40 people to over **1,500 members ** and is still going strong. Most importantly, it is still very friendly and supportive! 😃
+- Feathers was named [the 3rd fastest growing NodeJS framework](https://risingstars2016.js.org/#nodejs-framework) last year.
+- Feathers is now used in almost every country in the world, everywhere from side projects, to startups, to the most valuable companies in the world. If you have a project to add, please [**submit a PR **](https://docs.feathersjs.com/ecosystem/readme.html#)**! **- We’ve had **130,000** different people *flock* to the Feathers docs this year (you see what I did there 😉) and 60% of them keep coming back.
+
+<figure className="flex flex-col items-center my-8">
+ <Image src={imageimage3png} alt="" />
+ <figcaption className="mt-2 text-center text-sm italic text-zinc-600 dark:text-zinc-400">
+ Almost every country has seen FeathersJS
+ </figcaption>
+</figure>
+
+Since Feathers is so modular **a lot of the components that fall under this release have been out and used in production for months, already**. However, because of this modularization there was also some confusion around what was available and ready for use. This release post is an attempt to bring some clarity to those of you that are new to Feathers and our friends that have been around for some time.
+
+[When we announced the *Auk* release](/what-s-next-for-feathers-f608f5c5e673), the intent was to give people insight into all the changes across all the modules on a regular basis and to group things logically so that we could do succinct release announcements. This has been easier said than done and as a result we have learned a ton about how best to release and maintain all these modules and accept new modules from the community.
+
+Going forward we’re going to be shipping and announcing updates more frequently. In order to do this we’ve have come up with a process to determine the readiness of a module. This is what that looks like:
+
+- The module has been tested, tests are run through Travis CI, and have > 80% test code coverage
+- The repo is hooked up to Slack and CodeClimate
+- Any other dependent modules are updated, tested and documented
+- The module and its dependent modules have been released as a pre-release and tested in production by a small group of users
+- Modules have been properly documented
+- If all is good, we release it to main line NPM under the proper semantic version (*we treat 0.x versions as subject to change*) and tell you about it! 🎉
+
+We’ve also decided that the code named releases (*Buzzard* is the next one) will only be for **core **modules — modules that, when they have breaking changes, impact many others:
+
+- [feathers](https://github.com/feathersjs/feathers)
+- [feathers-hooks](https://github.com/feathersjs/feathers-hooks), [feathers-hooks-common](https://github.com/feathersjs/feathers-hooks-common), [feathers-query-filters](https://github.com/feathersjs/feathers-query-filters)
+- [feathers-rest](https://github.com/feathersjs/feathers-rest), [feathers-socketio](https://github.com/feathersjs/feathers-socketio), [feathers-primus](https://github.com/feathersjs/feathers-primus)
+- [feathers-authentication](https://github.com/feathersjs/feathers-authentication)
+- [feathers-cli](https://github.com/feathersjs/feathers-cli)
+
+We think that these changes are going to allow us to ship faster, while still maintaining high quality. So, with that out the way. Let me tell you what we did ship! 🚢
+
+## Authentication 1.0
+
+After 6 months of real-world battle testing we completely overhauled [feathers-authentication](https://github.com/feathersjs/feathers-authentication) to be more flexible and future forward. Unlike other frameworks, we didn’t reinvent our own auth layer and instead managed to create a small adapter to [Passport](http://passportjs.org/) — the defacto NodeJS authentication layer. As a result you now get:
+
+- More flexible JWT authentication tokens
+- The ability to hook into when users login and logout so that you can run custom logic when those events occur.
+- Compatibility with ANY of the 300+ passport authentication strategies so that you can authenticate over HTTP(S)**and **Websockets with just a few lines of code.
+- Better warnings and debugging; and
+- A ton of bug fixes and improved code coverage
+
+This is the **only** major breaking change in the Auk release. To help you out we’ve created [a migration guide](https://github.com/feathersjs/feathers-authentication/blob/master/docs/migrating.md) and all apps generated with the new CLI v2.x use this new authentication version.
+
+## Better documentation
+
+We also gave the docs a nice little overhaul to make them a little prettier 💄, easier to navigate and more beginner friendly. This was a huge team effort so huge props especially to John Szwaronek (aka. 
+
+- Split the docs into 2 sections — [Guides](https://docs.feathersjs.com/guides/readme.html) and [API](https://docs.feathersjs.com/api/readme.html) — to make it easier to get started and to find info once you’ve started building.
+- Added a new beginner guide to explain [the basics of Feathers](https://docs.feathersjs.com/guides/step-by-step/readme.html)
+- Improved our [*Guide to Building A Chat App*](https://docs.feathersjs.com/guides/chat/readme.html) to focus more on the core Feathers use case: building great APIs
+- Added an [Ecosystem section](https://docs.feathersjs.com/ecosystem/readme.html) to highlight all the amazing work happening in the community.
+- Moved our hosting to [Netlify](https://www.netlify.com/) to make the docs lightening fast. ⚡️
+- Updated the [FAQ](https://docs.feathersjs.com/faq/readme.html)
+
+## Updated CLI and Generators
+
+<figure className="flex flex-col items-center my-8">
+ <Image src={imageimage4gif} alt="" />
+ <figcaption className="mt-2 text-center text-sm italic text-zinc-600 dark:text-zinc-400">
+ Getting started with Feathers is easy!
+ </figcaption>
+</figure>
+
+We completely overhauled the CLI and generators to make them more flexible and easier to maintain going forward. This involved:
+
+- Fixing a bunch of bugs
+- Adding support for all official database adapters
+- Simplifying the generated folder structure to make it easier to search in your editor of choice
+- Reducing amount of generated code even further
+- Adding support for authentication 1.x
+
+To get started generating your first app, [**check out the guide**](https://docs.feathersjs.com/guides/step-by-step/generators/readme.html).
+
+## And more
+
+There were a bunch of other things that crept in but we can’t highlight them all as this is already long enough. However, some other notable updates include:
+
+- [feathers-hooks-common](https://github.com/feathersjs/feathers-hooks-common) — a collection of common utility hooks
+- [feathers-rethinkdb](https://github.com/feathersjs/feathers-rethinkdb) — a RethinkDB database adapter
+- [feathers-elasticsearch](https://github.com/feathersjs/feathers-elasticsearch) — an Elasticsearch database adapter. Shout out to [Jacek Ciolek](https://github.com/jciolek) who totally killed that! 👊
+- [A plugin to subscribe to data feeds](https://github.com/feathersjs/feathers-reactive)
+- [Application and error hooks](/feathers-application-and-error-hooks-7a5982e70024)
+
+Looking back at the last year. I’m really proud of what the whole Feathers Core Team and community has accomplished. We still have more to do but 
+
+I’m looking forward to seeing what we can accomplish in the next year. We have some big plans for [Feathers](https://feathersjs.com)! 🚀
+
+*If you haven’t tried *[*FeathersJS*](http://feathersjs.com)* yet, take it for a spin and let us know what you think in *[*Slack*](http://slack.feathersjs.com)* or on *[*Twitter*](https://twitter.com/feathersjs)*. We’re really friendly.*
+
+*If you found this useful, interesting or exciting please hit the heart button below and recommend this article so that others can see it as well.*
+
+<Newsletter />

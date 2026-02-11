@@ -1,0 +1,103 @@
+import { ArticleLayout } from '@/components/ArticleLayout'
+import { Newsletter } from '@/components/Newsletter'
+import imageimage1jpeg from './image-1.jpeg'
+
+export const article = {
+ author: 'Eric Kryski',
+ date: '2015-02-18',
+ title: "A Recipe for Building Successful Products",
+ description: "The Process",
+}
+
+export const metadata = {
+ title: article.title,
+ description: article.description,
+ openGraph: { title: article.title, description: article.description, url: '/articles/a-recipe-for-building-successful-products' },
+ twitter: { card: 'summary_large_image', title: article.title, description: article.description },
+}
+
+export default ({ children }) => <ArticleLayout article={article}>{children}</ArticleLayout>
+
+<Image src={imageimage1jpeg} alt="" />
+
+> Building products people love is what I strive to do every time I set to work.
+
+It’s one thing to state this and quite another to be able to execute on that vision. Have you ever found yourself building features on a whim? How about building stuff that you were sure was going to take your product to the next level only to fall flat? Did you even know it fell flat? I’ve made all these mistakes, including not even knowing I made them. That is, until I started to be more methodical and a bit more data driven about how I decide what to build.
+
+I started thinking more deeply about my product development process after reading Steve Blank’s [Startup Owners Manual](http://www.amazon.com/The-Startup-Owners-Manual-Step-By-Step/dp/0984999302) and Ash Maurya’s [Running Lean](http://runninglean.co/). As I was reading those books, we were also trying to find our groove at [PetroFeed](https://www.petrofeed.com), so [Eric Anderson](https://twitter.com/theericanderson) and I developed the following methodology to try and overcome needless feature bloat. I recently came across it again and after making a few updates thought I should share it.
+
+> Building a successful product is all about running tons of little experiments as quickly as possible and adjusting to the found results.
+
+The goal of this process is to be lightweight and is primarily focused on startups. Since, as a startup, you are trying to maximize learnings; the process is similar to designing a scientific experiment like you did in chemistry class. Here are the 5 simple steps I’ve found to be successful:
+
+- Choose & Challenge
+- Understand
+- Create
+- Ship!
+- Review
+
+> In order to be successful you need to [say NO more than you say YES](http://www.inc.com/jessica-stillman/4-steps-to-say-no-like-the-super-successful.html).
+
+## 1. Choose & Challenge
+
+**The goal of this step is to identify the right target for your constrained resources **. This should take you and your product team/stakeholders 5 minutes and be accomplished by following these steps:
+
+- Decide what the next product improvement is. Usually from a pre-prioritized list. This could be a feature, stability or performance improvement, dealing with [tech debt](http://en.wikipedia.org/wiki/Technical_debt), setting up an external meeting, etc.
+- Verify that this product improvement provides value for the people who use your product. Especially if this is a feature focused on a specific target audience. This could come from talking to your customers, a hunch, data you have analyzed already, or, in the case of tech debt, complaints from your development team.
+- Challenge the reason to put scarce resources into this improvement. Why should you even work on this?
+- Challenge the reason to put scarce resources into this improvement **right NOW **. Why should you work on this thing right now instead of something else? You’ll be sacrificing something else, so it better make sense to work on this right now.
+
+> Any fool can know. The point is to understand. — Albert Einstein
+
+## 2. Understand
+
+The goal of this step is to **truly understand what needs to be done. ** How best to accomplish the task at hand. If the improvement is a feature, what should it look like? If it is meeting a potential investor, how do you introduce yourself? Basically figure out what they hell you are doing and if there are any problems or blockers with getting your task done. Depending on what you are tackling this step can take anywhere from 15 minutes to a few days.
+
+To get everyone on the same page, have the whole team responsible for the improvement collaboratively produce the following items:
+
+-**A sketch. ** If it’s a feature, a rough sketch of the feature's full interface. If it is meeting a key person or dealing with tech debt, come up with a high level plan of attack.
+-**High level technical requirements. ** What do you need in place to be successful? Do you need something done first in order to implement this feature? Do you need a warm intro from someone in order to meet a key investor?
+-**An estimated deadline. ** This could be one sprint if your team is using Agile Methodology. You basically need to time box your improvements and set a date you can hold yourself accountable to, so you don’t let the task eat up more time than it should.
+-**A hypothesis for what this improvement will do**. The idea is to have a statement that can be quantitatively proved or disproved, as opposed to having subjective definitions of success. For example, *“this new feature will increase signups by 10%”, “this new architecture will reduce load time down to 100ms”, “this refactoring will reduce the time to add notifications by half”, “this key partnership will increase revenue by $100k”.*
+- **The measurables for this product enhancement.** These should be related to the hypothesis that you have laid out. For example, *“Measure the amount of people that signup before and after the new feature release”*, *“Measure the time to load all assets on the home page, before and after the improvement”*,* “how long did it take to handle a new notification type prior to refactoring and afterward”, “look at the revenue contributed via the key partnership”*.
+
+Post these items somewhere for the whole team (and ideally the company) to see easily. Don't bury them in some obscure spot in your product management tool. This allows other people to have visibility into what is happening typically reducing the infamous “what are you working on?” question, and also helps to keep your team accountable.
+
+> You can build a great product but if you don’t tell anyone, it doesn’t matter.
+
+## 3. Create
+
+**Do your thang! **Just remember to document things so you can maximize your learnings and report on what went well and what didn’t. This step typically takes up the bulk of your iteration cycle. Some key things to consider:
+
+- Determine how best to fit this new feature into your current product's architecture or how this business meeting fits into your company image. **Don't rush and just hack it in unless it is actually warranted. **Be aware of, and document, the tradeoffs.
+- Consider anything that may be impeding the progress of the improvement. This could be technical debt, bugs, lack of knowledge, lack of resources, etc.
+- Be sure to build in a way to track progress against your measurables from step 2.
+- As a team go on and crush your enhancement using whatever strategies you like best. Kick ass and take names!
+- If the improvement is of a technical nature, write automated tests for it and make sure they all pass.
+- Ensure that you don't skip over the creation of engagement material. You can build a great product but if you don't tell anyone, it doesn't matter. Engagement material comes in many forms: email campaigns, social media campaigns, push notifications, website updates, blog posts, explanatory videos, walkthrough tutorials, and help docs are just some examples.
+- As you build things out; write down the major challenges your team faced, what you had to sacrifice, what you might have done differently, what went well.
+
+> It’s not done until it ships. — [Startup Vitamins](http://www.startupvitamins.com/products/startup-poster-its-not-done-until-it-ships)
+
+## 4. Ship!
+
+The goal here is to **get your new feature live **and verify that it deployed successfully, it should take very little actual time.
+
+- Launch the feature into production. This should be quick and easy.
+- If it’s a technical improvement, it should be fully tested and your build should be green before being deployed.
+- Push out any supplementary engagement material (blog posts, tweets, etc.)
+- Write a (very) small post-mortem report containing everything you've tracked for this feature from steps 1 through 3.
+
+> To learn is to grow
+
+## 5. Review
+
+The goal here is to **celebrate what you have accomplished and derive learnings from your experiment**. This should take anywhere from 15 minutes to 1 hour.
+
+- After 2–4 weeks, measure the enhancement's performance. How did your hypothesis fair? How do your measurables stack up? Based on actual feedback did it provide worthwhile value to people using your product? How did it hold up against the company's quality standards? What other things are worth noting about this feature?
+- Update your post-mortem report with the answers to the above questions.
+- Present your post-mortem to a group of people outside of your immediate feature team in order to spread knowledge and get feedback.
+
+Hopefully you’ve found this guide useful. It may seem lengthy when you first read it but in practice the time that you spend outside of building, creating, or networking is actually only a few hours. I’ve found that following this process not only helps maintain visibility for those who need it, but also helps to share knowledge, keep people accountable, and really stay laser focused on only the most important tasks.
+
+<Newsletter />

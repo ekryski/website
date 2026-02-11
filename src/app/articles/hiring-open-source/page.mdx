@@ -1,0 +1,147 @@
+import { ArticleLayout } from '@/components/ArticleLayout'
+import { Newsletter } from '@/components/Newsletter'
+
+import imageimage2png from './image-2.png'
+import imageimage3png from './image-3.png'
+import imageimage4gif from './image-4.gif'
+import imageimage5png from './image-5.png'
+import imageimage6png from './image-6.png'
+
+export const article = {
+ author: 'Eric Kryski',
+ date: '2016-11-16',
+ title: "“Hiring” Open Source",
+ description: "Part 2: How we onboard and support Feathers core team members",
+}
+
+export const metadata = {
+ title: article.title,
+ description: article.description,
+ openGraph: { title: article.title, description: article.description, url: '/articles/hiring-open-source' },
+ twitter: { card: 'summary_large_image', title: article.title, description: article.description },
+}
+
+export default ({ children }) => <ArticleLayout article={article}>{children}</ArticleLayout>
+
+[](/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fbookmark%2Fp%2F92d69aa8fbba&operation=register&redirect=https%3A%2F%2Fmedium.com%2F42hire-don-t-panic-just-hire%2Fhiring-open-source-92d69aa8fbba&source=---header_actions--92d69aa8fbba---------------------bookmark_footer------------------)[Listen
+
+](/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2Fplans%3Fdimension%3Dpost_audio_button%26postId%3D92d69aa8fbba&operation=register&redirect=https%3A%2F%2Fmedium.com%2F42hire-don-t-panic-just-hire%2Fhiring-open-source-92d69aa8fbba&source=---header_actions--92d69aa8fbba---------------------post_audio_button------------------)Share
+
+Open source is such an interesting phenomenon.
+
+People devoting days, months or even years of their lives without direct monetary gain.
+
+I talked a bit about this [in my previous article](/@ekryski/your-open-source-is-a-product-start-treating-it-like-one-48cd6e15b2c2#.k6qcs9xpl). That there are other motivators at work, but in the most altruistic sense, the people that maintain open source projects really are volunteers. Some may get paid or see a bit of fame but rarely does that translate into an industry standard wage when measured against the hours put in.
+
+> Open source maintainers are volunteers. Unfortunately they’re not always respected in the same way.
+
+Now that high quality open source software has become so prevalent and is increasingly backed by companies like Google and Facebook, people forget how much of their life open source maintainers give to help others. Fortunately, [Feathers](http://feathersjs.com) has a very appreciative user base and we frequently see comments like this:
+
+<Image src={imageimage2png} alt="" />
+
+Since committing to Feathers in March, I have a much deeper respect for every open source maintainer. To do it right, it’s like a second job.
+
+Which, is why we treat all of our core team members as if they are employees and also respect any time that people outside of the core team take to make contributions (even if they aren’t accepted).
+
+[In my previous article](/@ekryski/your-open-source-is-a-product-start-treating-it-like-one-48cd6e15b2c2#.k6qcs9xpl) I talked about 3 things:
+
+- Why you might open source something.
+- That you should treat the development process like a normal product.
+- High level tactics we use to treat [Feathers](http://feathersjs.com) like a product.
+
+In the next few articles I’m going to dig a bit deeper. Starting with how we recruit, onboard, engage and support core team members. This is important in any company but is critical to Feathers’ success because we don’t have a payroll and our core team is spread across 4 different companies and graciously volunteers **a lot **of time.
+
+This isn’t really open source specific but recruiting, on-boarding and retaining talented people that want your product to succeed is the beating heart behind any product. Without people there is no product. A product doesn’t just build itself (yet).
+
+> Teamwork is just as important for open source as it is for a business, maybe even more so.
+
+A team that communicates well and supports each other is more often than not, greater than the sum of its parts. So it’s in everyone’s best interest to have the entire team operating at full capacity. I’ve always believed that a person has **3 core needs that must be met **in order for them to be at their optimum level. No matter what they do or where they work.
+
+<Image src={imageimage3png} alt="" />
+
+-**Stability **. They must be compensated well enough that their lifestyle needs are met and not be worrying about whether they will have a job tomorrow. This is the most important need. Even if a person likes their work and their team, if they are worried about paying bills they’ll look elsewhere and they’ll be preoccupied rather than focused on doing great work.
+-**Appreciation. ** They must feel appreciated and respected and get along with their immediate team. There needs to be a sense of belonging or camaraderie. Even if someone is collecting a good pay check they’ll likely look elsewhere if they are not feeling appreciated or fulfilled.
+-**Fulfillment. ** They must feel fulfilled with both their personal work and their team’s work as a whole. They must feel challenged and as if they are progressing. If a person can pay their bills and they get along with their team but are not feeling challenged they’ll likely eventually move on.
+
+If any one of these needs are not fulfilled it is likely you will lose your teammate. They will either become disengaged, demotivated, or leave.
+
+So how do we make sure we satisfy those needs for all of the core team members (and even community contributors)?
+
+## How we create a stable work environment
+
+Since we don’t have a budget for payroll yet, some of this is out of our control. We are currently dependent on the core team members ensuring that they are able to bring in enough money through other means. Thankfully, the tech industry pays pretty well and all of our core team members would be sought after employees.
+
+To create stability in the community we have enough people to share the load so that if a team member or two got hit by a bus Feathers won’t be going anywhere. We have also committed to supporting Feathers until 2019, and because people donate their time we don’t need to worry about firing or laying off people. Things may not happen as quickly but as long as there is passion and commitment Feathers will live on. In fact, now that more people are joining the community, it’s rapidly becoming even more stable.
+
+We also provide some structure, much like a regular job. We use [Zenhub](https://www.zenhub.com/) for Kan-ban style issue triage, we chat almost every day in Slack and give at least of high level update on anything new, and we hold bi-weekly hangouts.
+
+## How do we ensure people are appreciated?
+
+<figure className="flex flex-col items-center my-8">
+ <Image src={imageimage4gif} alt="" />
+ <figcaption className="mt-2 text-center text-sm italic text-zinc-600 dark:text-zinc-400">
+ Lots of virtual high fives.
+ </figcaption>
+</figure>
+
+We tell them.
+
+It’s really that simple.
+
+We regularly give praise to each other among the core team and people in the community and they reciprocate. When you lead with positivity it’s very hard for people to be negative. Seeing things like this in our Slack group is proof we are doing the right thing and also immensely rewarding. Everyone on the core team feels the ❤️ and appreciation for all their hard work.
+
+<Image src={imageimage5png} alt="" />
+
+<Image src={imageimage6png} alt="" />
+
+We are respectful of people’s time and treat any work like volunteer work. When people are taking time away from their friends and family to work on something for free how can you not appreciate that?
+
+Even if we get a PR or suggestion that doesn’t quite fit, or we are asked the same question for the 10th time, we still appreciate it. It means people care enough about what you are doing to put in effort. So we always treat people with respect and thank them for their contribution, and when somebody does something awesome we make sure to tell them and everyone else. 🎉
+
+## How do we ensure people are fulfilled and engaged?
+
+This is very connected to feeling appreciated. If you feel appreciated you are more likely to stick around and put in a solid consistent effort, but people also need to feel challenged. Like they are making a difference!
+
+So, we ask.
+
+We do mini one-on-ones in Slack and anonymous surveys. I’ve been primarily owning that right now.
+
+When we are looking to bring a core team member on board we ask them what they want to get out of working on Feathers. Why do they do it? What’s in it for them? And we try and make that happen.
+
+> For some, it’s a chance to work on something they can be proud of and be challenged. For others it’s because they see the power Feathers offers and want to help improve it to make their business more efficient or more profitable.
+
+So here are a few of the things we do to help make sure that happens:
+
+- We trust by default. Core team members have already made significant contributions so they have already gained trust and we’ve seen how they behave in the community.
+- We empower people to make decisions and own specific PRs and specific parts of the stack. Because Feathers is modular this works out well.
+- We have bi-weekly hangouts every Friday. We keep them as close to an hour as possible and make sure everyone has a chance to show off what they have been working on.
+- We keep each other up to date in Slack pretty often.
+- We are respectful of people’s time and communicate asynchronously. Almost nothing is critically urgent and people have lives.
+- We try and be as transparent as possible. Allowing people to opt-out of discussions as opposed to needing to ask to be included (especially core team members)
+
+## How do you recruit if you can’t pay?
+
+Okay, now that we’ve talked about how we keep the good people. Let’s come full circle to how you attract these great people in the first place.
+
+This is actually pretty simple, and unsurprisingly is no different than building up a founding team for a startup. Contributors need to love what you are doing.
+
+This is the essence of the long journey to finding product market fit. Find 100 people that love your product and they will be the best evangelists of it. These are also the people that make the best contributors.
+
+They get your product. They use it themselves. They are emotionally (and sometimes financially) invested in seeing it succeed.
+
+We look for these people in the community, start building a relationship, approach them about being a core team member and get them up to speed with [**our welcome letter **](https://docs.google.com/document/d/1Vb4519Q1wcUlXIdko7IX1yy8d72CEEj7bhEZZlw_fEg/edit?usp=sharing). As far as I know we are the only open source project that does this and we look at recruiting like a typical hiring funnel. Of the ~1,000 people we have in our [Slack](http://slack.feathersjs.com) group about 5–7% will be regular contributors. Of those 50-7o people about 10–20% of them will make a good core team member.
+
+All of the core team members fell in love with Feathers after they used it. Since they use it themselves **and** they have the ability to contribute on a regular basis, they have intimate knowledge of the product. They know its strengths and also its weaknesses, but unlike a product they use they also get to put their stamp on it and help guide its direction. This is something they may not even have at their day jobs, which is a real shame. So we try to be their surrogate that gives them stability, appreciation, and fulfillment.
+
+*If you are looking for part 1 of this series where I talk about why you might open source something, look no further. The link is below.*
+
+[
+## Your open source is a product. Start treating it like one.
+
+### Part 1: What’s your vision?
+
+medium.com
+
+*If you found this useful, interesting or exciting please hit the heart button below and recommend this article so that others can see it as well.*
+
+<Newsletter />

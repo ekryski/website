@@ -1,24 +1,25 @@
 import { ArticleLayout } from '@/components/ArticleLayout'
+import { Newsletter } from '@/components/Newsletter'
 
 export const dynamic = 'force-static'
 
 export const article = {
-  author: 'Eric Kryski',
-  date: '2023-01-21',
-  published: false,
-  title: 'Social Media, Social Incentives & Money',
-  description:
-    'How a formative trip to South Korea taught me we\'re all fundamentally the same—and why that shapes how I think about money, social media, and the forces that drive human behaviour.',
+ author: 'Eric Kryski',
+ date: '2023-01-21',
+ published: false,
+ title: 'Social Media, Social Incentives & Money',
+ description:
+ 'How a formative trip to South Korea taught me we\'re all fundamentally the same—and why that shapes how I think about money, social media, and the forces that drive human behaviour.',
 }
 
 export const metadata = {
-  title: article.title,
-  description: article.description,
-  openGraph: { title: article.title, description: article.description, url: '/articles/social-media-social-incentives-money' },
-  twitter: { card: 'summary_large_image', title: article.title, description: article.description },
+ title: article.title,
+ description: article.description,
+ openGraph: { title: article.title, description: article.description, url: '/articles/social-media-social-incentives-money' },
+ twitter: { card: 'summary_large_image', title: article.title, description: article.description },
 }
 
-export default (props) => <ArticleLayout article={article} {...props} />
+export default ({ children }) => <ArticleLayout article={article}>{children}</ArticleLayout>
 
 I've been fortunate to travel to many places. Recently I visited the top of the Mauna Kea volcano in Hawaii and watched the sun set into the clouds.
 
@@ -34,7 +35,7 @@ When I was fifteen years old I had the fortune of travelling to South Korea. It 
 
 When we arrived in Seoul I remember being blown away by the size of the city—both in density and also the height of the buildings. I had never seen a city so large, densely populated and as advanced as Seoul.
 
-Despite the density I didn't look like **anyone** there. I didn't see one other caucasian person over our two week trip, let alone a white awkward teenager. On the plus side, this afforded me my first night club experience.
+Despite the density I didn't look like **anyone **there. I didn't see one other caucasian person over our two week trip, let alone a white awkward teenager. On the plus side, this afforded me my first night club experience.
 
 Everything was so foreign to me. The food, language, culture, customs, people, buildings, roads… everything. Hell, I couldn't even use chopsticks when we landed!
 
@@ -60,7 +61,7 @@ All of us watching simultaneously let out a collective groan and then burst out 
 
 It was at that moment that it hit me.
 
-> **We're all fundamentally the same.**
+>**We're all fundamentally the same.**
 
 Despite not being able to speak to these people. Not looking like them. Not living in the same location, sharing the same culture and customs, being the same gender or age, and not having met before or having a shared past or education that has shaped our world views, we were participating in a shared experience and all feeling the same emotions. Communicating perfectly with our eyes, facial expressions and body language, we all felt the pain of the men on TV and, a bit sadistically, took joy in their pain knowing they weren't seriously hurt.
 
@@ -101,3 +102,5 @@ This is a superpower that still seems to be wildly under appreciated.
 Given that we know these forces drive human behaviour, the challenge becomes designing systems—whether technological, economic, or social—that channel these instincts toward outcomes that benefit the collective rather than just the few. Money and the platforms that move it have never been more influential. The question is whether we'll use that influence wisely.
 
 Had I not had this trip to South Korea and experienced this extreme culture shock at such a formative age, my life and world view would be very different. I have my parents to thank for that experience.
+
+<Newsletter />

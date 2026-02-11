@@ -1,24 +1,25 @@
 import { ArticleLayout } from '@/components/ArticleLayout'
+import { Newsletter } from '@/components/Newsletter'
 
 export const dynamic = 'force-static'
 
 export const article = {
-  author: 'Eric Kryski',
-  date: '2022-12-22',
-  published: true,
-  title: 'Taxation of Employee Stock Options',
-  description:
-    'A practical guide to how stock options are taxed in Canada—when you pay, what you owe, and key differences for employees vs. contractors.',
+ author: 'Eric Kryski',
+ date: '2022-12-22',
+ published: true,
+ title: 'Taxation of Employee Stock Options',
+ description:
+ 'A practical guide to how stock options are taxed in Canada—when you pay, what you owe, and key differences for employees vs. contractors.',
 }
 
 export const metadata = {
-  title: article.title,
-  description: article.description,
-  openGraph: { title: article.title, description: article.description, url: '/articles/taxation-employee-stock-options' },
-  twitter: { card: 'summary_large_image', title: article.title, description: article.description },
+ title: article.title,
+ description: article.description,
+ openGraph: { title: article.title, description: article.description, url: '/articles/taxation-employee-stock-options' },
+ twitter: { card: 'summary_large_image', title: article.title, description: article.description },
 }
 
-export default (props) => <ArticleLayout article={article} {...props} />
+export default ({ children }) => <ArticleLayout article={article}>{children}</ArticleLayout>
 
 ## How are stock options taxed?
 
@@ -28,13 +29,13 @@ export default (props) => <ArticleLayout article={article} {...props} />
 
 ## Longer form
 
-* If you are **granted** stock (security) options you **do not** need to claim them as income (capital gains) on your taxes until you exercise them **if** the company is Canadian **and** you are a Canadian **employee**. So you don't pay taxes when they are granted nor when they vest. Only when exercised. As of June 29, 2021 if you work for a non CCPC with revenue > $500MM, the max that can vest per employee per year is $200k CAD.
-* If you **exercise** your option to purchase stock **you owe taxes on the difference between the fair market value (FMV) and your option strike price (cost basis)** so long as it is positive (in the money). If it's negative then you can declare a capital loss but often people don't exercise options below their strike price because you likely are just losing money.
+* If you are **granted **stock (security) options you **do not **need to claim them as income (capital gains) on your taxes until you exercise them **if **the company is Canadian **and **you are a Canadian **employee**. So you don't pay taxes when they are granted nor when they vest. Only when exercised. As of June 29, 2021 if you work for a non CCPC with revenue > $500MM, the max that can vest per employee per year is $200k CAD.
+* If you **exercise **your option to purchase stock **you owe taxes on the difference between the fair market value (FMV) and your option strike price (cost basis)** so long as it is positive (in the money). If it's negative then you can declare a capital loss but often people don't exercise options below their strike price because you likely are just losing money.
 * Getting to an FMV should be declared via board resolution using comps and a valuation rubric, papered acquisition, 3rd party valuation (409A in the US), a recent financing round or an acquisition of the company. Your strike price should be in line with FMV at the time options are granted.
 * When you exercise your option you can deduct 50% of the taxable benefit (ie. the gains you are going to be taxed on) when you exercise it. **The company is required to withhold these taxes and remit them on your behalf as part of payroll or corporate year end**.
 * **Lifetime capital gains do not apply to exercising employee stock options** (which is bullshit and worth us tech folk fighting for politically)
 * If the company is a US company (or any foreign one for that matter) and you are an employee of a Canadian sub but getting parent corp stock then you should have a 409A valuation and the same applies and you pay taxes at the time of exercise the same as above;
-* If you are a **contractor** of a Canadian or foreign company and you receive options as compensation then **you are supposed to pay taxes on the option strike price** (which *should* be the FMV) **at the time your options are granted**. This was a surprise to me!
+* If you are a **contractor **of a Canadian or foreign company and you receive options as compensation then **you are supposed to pay taxes on the option strike price**(which *should* be the FMV) **at the time your options are granted**. This was a surprise to me!
 * If you exercise your options and sell your stock then you could end up getting double taxed on both the delta between FMV and strike price at exercise time and the delta between the FMV at exercise time and at sale (if sell price is higher).
 * Once you have the stock, if it is a CCPC when you sell (personally, not your contracting company) and you are a resident of Canada, then you are eligible to offset any tax liability **from the sale** (not from exercising your option) with your $892,218 CAD lifetime capital gains exemption. You will have to declare this sale on your year end taxes. If the company goes public and you don't sell until it's public (you'd need to sell before) then I don't believe you can use the LTCGE. This is why during an acquisition or going public the good lawyers usually structure things so that the company buys the stock back from employees as a CCPC so they don't get caught offside with a big tax liability.
 
@@ -45,3 +46,5 @@ export default (props) => <ArticleLayout article={article} {...props} />
 * [Canada Revenue Agency - Employee Security Options](https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/about-your-tax-return/tax-return/completing-a-tax-return/personal-income/line-12700-capital-gains/completing-schedule-3/publicly-traded-shares-mutual-fund-units-deferral-eligible-small-business-shares-other-shares/employee-security-options.html)
 * [Taxpage - Employee Stock Options](https://taxpage.com/articles-and-tips/employee-stock-options-tax-implications/)
 * [PwC - New Rules Taxation Employee Stock Options 2021](https://www.pwc.com/ca/en/services/tax/publications/tax-insights/new-rules-taxation-employee-stock-options-2021.html)
+
+<Newsletter />

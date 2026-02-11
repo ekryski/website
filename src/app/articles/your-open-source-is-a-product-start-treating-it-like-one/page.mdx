@@ -1,0 +1,130 @@
+import { ArticleLayout } from '@/components/ArticleLayout'
+import { Newsletter } from '@/components/Newsletter'
+import imageimage1jpeg from './image-1.jpeg'
+
+import imageimage3png from './image-3.png'
+
+export const article = {
+ author: 'Eric Kryski',
+ date: '2016-11-01',
+ title: "Your open source is a product. Start treating it like one.",
+ description: "Part 1: What’s your vision?",
+}
+
+export const metadata = {
+ title: article.title,
+ description: article.description,
+ openGraph: { title: article.title, description: article.description, url: '/articles/your-open-source-is-a-product-start-treating-it-like-one' },
+ twitter: { card: 'summary_large_image', title: article.title, description: article.description },
+}
+
+export default ({ children }) => <ArticleLayout article={article}>{children}</ArticleLayout>
+
+<figure className="flex flex-col items-center my-8">
+ <Image src={imageimage1jpeg} alt="" />
+ <figcaption className="mt-2 text-center text-sm italic text-zinc-600 dark:text-zinc-400">
+ My command centre.
+ </figcaption>
+</figure>
+
+The explosion of open source software has been nothing short of staggering over the last few years. Platforms like [Github](https://github.com) and [Bitbucket](https://bitbucket.org/) have no doubt been the catalyst for this insane growth as they allow people to share and collaborate faster than ever before.
+
+Take this hockey stick chart for example. This is already 2 years old but in 2013 Github announced that it had **10 million repositories **. Today, it’s looking like [they have over 70 million](https://api.github.com/repositories?since=71000000)! That’s 70 million projects created in just 7 years by a pretty small percentage of the population and there is no sign of slowing down! It’s mind blowing.
+
+<figure className="flex flex-col items-center my-8">
+ <Image src={imageimage3png} alt="" />
+ <figcaption className="mt-2 text-center text-sm italic text-zinc-600 dark:text-zinc-400">
+ Github Repository Growth. <a href="https://github.com/blog/1724-10-million-repositories" className="text-black dark:text-white hover:underline">Source Github</a>
+ </figcaption>
+</figure>
+
+Most notably pioneered by Linux, there has been open source software for decades already. However, it hasn’t been until we had a better **distribution platform** that things really took off. That’s what Github is; it’s a distribution and collaboration platform for code (and now other things). Because it allows people to collaborate and distribute software with ease it makes adoption cycles on software orders of magnitude faster than before.
+
+I joined Github in 2010. If you look at the chart above, things were just starting to pick up. Just like publishing to the Apple app store, getting adoption for your product early on was a lot easier than it is today. In 2010 there were about 1 million projects on Github. Today it’s 70 times that.
+
+Because of this increase in competition it’s now much harder to get adoption and stand out. The level of quality for open source projects has increased significantly just like apps on the app store. Back in the day it was rare to find documentation or a website for an open source project. Most of the time it lived in a series of posts in a Google group or wiki (if you were lucky).
+
+Nowadays, it’s rare to find an open source project without a sexy landing page. Just look at Stripe’s open source page. It’s gorgeous and obviously a lot of time went into it. Do you think they did that just for fun? No. They might have had fun building it, but it’s not just a “make work” project.
+
+[
+## Open Source at Stripe
+
+### Stripe is a suite of APIs that powers commerce for businesses of all sizes.
+
+stripe.com
+
+## So why would you open source?
+
+If there is all this energy and effort involved in launching an open source project, why bother?
+
+I get asked all the time by my friends and family outside of tech why I open source stuff as valuable as [FeathersJS](http://feathersjs.com). It’s become so natural for me to publish things on Github that it has become habitual. It seems as if this is just what you do as a developer now. However, giving away your valuable work to the entire world is still such a foreign concept outside of tech and I frequently hear, *“Why would you put in so much time and give something away for free?”.*
+
+That question has been nagging at me for the better part of this year.
+
+So why *would* you open source? I think there are 7 common reasons why people or companies open source things:
+
+- To make money.
+- To get eyeballs or fame. Fuel your ego, get free marketing or both.
+- To build a personal portfolio or brand.
+- To attract talent.
+- To build something of value, fill a need or solve a problem.
+- To get help or collaborate, ultimately to improve quality or move faster.
+- And the most noble… to share with others.
+
+A lot of these motivators are interrelated and all of them, except for the last one or two, are selfish in nature. Typically people’s motivations fall on a spectrum that include more than one of them. Call me a cynic, but I think it’s **extremely **rare that people open source purely for the sake of sharing and out of the goodness of their heart.
+
+I’ll get a bit vulnerable for a second. For me, open sourcing started off as a way to build a portfolio and to learn, which worked well. Then, it was to try to get notoriety and make money, which totally failed and is a terrible primary reason to contribute to open source. Now, with Feathers it’s a combination of all of these reasons. However motivation factors 1 and 2 have a much lower priority as they generally have a very poor ROI (more on that in another post).
+
+In fact, I think all these reasons are actually the exact same motivators behind why you would choose to launch a new product or start a new company. Therefore, why should the process and rationale for releasing something open source be any different? When open sourcing your work you should be cognizant of your motivation, the costs associated with working on your project (because opportunity cost is a thing), and if your project is actually creating any value.
+
+I’m not saying you can’t build something if it doesn’t benefit others but if you want to release and promote your open source project, really think about **why** you are doing it so that it doesn’t just end up being wasted effort and vanish into the *Open Source Ocean*. You only have one life and no one **really** needs another jQuery typewriter plugin or template rendering engine.
+
+So if you’re doing open source to get rich and famous, you’re likely doing it wrong. Unless you are just looking to build up your portfolio and experiment you should think about whether putting all the effort into publishing and promoting a new open source project is really in yours and the world’s best interest.
+
+These are precisely[ the questions we asked ourselves](https://blog.feathersjs.com/why-we-built-the-best-web-framework-you-ve-probably-never-heard-of-until-now-176afc5c6aac#.whsco7obw) when we decided to really push on promoting Feathers earlier this year. 
+
+- Why should we build another web framework? What problem exists?
+- What are we doing differently and what we are trying to achieve?
+- What is the goal? How do we define success?
+- Who are our competitors?
+- Who is our target market? Who is underserved?
+- How are we going to get adoption?
+- How do we sustain this? How do we make money?
+
+We wouldn’t have proceeded without having good answers and I’ll look to get into those answers in more detail in the future, but ultimately our goal is to allow people to ship value faster while staying flexible enough to adapt to inevitable changes in requirements. Something I don’t think any framework has done well yet. 12 years ago Rails changed how people write software and accelerated building products. We’re taking that core tenet and building for the future world of real-time APIs, AI, and IoT.
+
+We still feel that coding is really tedious, tends to be repetitive, and isn’t as approachable as it should be. With the “Learn to Code” movement any tooling that can accelerate getting products to market is a win for everyone.
+
+Since we treat Feathers like a product, we do a lot of the same things that have become the common prescription to success when building products:
+
+- We listen to our users’ feedback and prioritize it against the roadmap set by internal vision.
+- We don’t accept every single pull request or suggestion.
+- We try to communicate our value clearly and concisely.
+- We do feature releases and announcements
+- We think about marketing, distribution and monetization a lot
+- We put a lot of emphasis on developer support. They are our customers after all.
+- We continually update the docs and review the onboarding experience
+- We treat our core team members like employees
+
+We’ve identified a large, underserved “customer” segment that resonates with our vision and product and we are systematically going through the process of building and marketing Feathers exactly as if it were a paid product. The only difference being that currently our customers are developers and they pay us in contributions and tweets instead of money.
+
+This obviously does not put food on the table but at this stage we are more focused on getting feedback and adoption and are bootstrapping Feathers development through consulting. This is how 
+
+## Open source software is eating the world.
+
+So far I think our product based approach [is working pretty well](https://blog.feathersjs.com/what-happens-to-your-open-source-project-when-it-gets-hunted-c26e606398d5#.nsn2nfhik). There is always room for improvement but since March, Feathers has quickly been adopted by some of the world’s largest companies and coolest new startups, and [will surpass 100,000 downloads this year](https://npm-stat.com/charts.html?package=feathers&from=2016-01-01&to=2016-12-31). It’s just a baby right now but if we achieve our goal I believe we can empower people to make little dents in the world, one product at a time.
+
+That’s enough for now. I’m planning on creating a multi-part series on my adventure building open source software and will likely go into business models, how we prioritize, and how we communicate. If you have any comments or questions please leave me a note and I’ll respond to them directly or more generally in a future post.
+
+If you are looking for part 2 in this series, look no further! The link is below.
+
+[
+## “Hiring” Open Source
+
+### Part 2: How we onboard and support Feathers core team members
+
+medium.com
+
+*If you found this useful, interesting or exciting please hit the heart button below and recommend this article so that others can see it as well.*
+
+<Newsletter />

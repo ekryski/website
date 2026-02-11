@@ -1,0 +1,91 @@
+import { ArticleLayout } from '@/components/ArticleLayout'
+import { Newsletter } from '@/components/Newsletter'
+
+import imageimage2png from './image-2.png'
+import imageimage3png from './image-3.png'
+import imageimage4gif from './image-4.gif'
+
+export const article = {
+ author: 'Eric Kryski',
+ date: '2015-02-08',
+ title: "The Future of Analytics",
+ description: "Part 1 of 2",
+}
+
+export const metadata = {
+ title: article.title,
+ description: article.description,
+ openGraph: { title: article.title, description: article.description, url: '/articles/the-future-of-analytics' },
+ twitter: { card: 'summary_large_image', title: article.title, description: article.description },
+}
+
+export default ({ children }) => <ArticleLayout article={article}>{children}</ArticleLayout>
+
+<figure className="flex flex-col items-center my-8">
+ <Image src={imageimage2png} alt="" />
+ <figcaption className="mt-2 text-center text-sm italic text-zinc-600 dark:text-zinc-400">
+ Credit to Julian Renvoye and Mixpanel <a href="https://dribbble.com/shots/1684631-Mixpanel-Homepage-Trends-Design" className="text-black dark:text-white hover:underline">https://dribbble.com/shots/1684631-Mixpanel-Homepage-Trends-Design</a>
+ </figcaption>
+</figure>
+
+After working with multiple startups, [one being a pioneer of the analytics space](https://www.kissmetrics.com/), and using a bunch of the existing services over the last 3 years, I feel that I have enough insight to criticize the existing solutions and make reasonable predictions about the future of the analytics space. This two part series is my attempt. In this post I’ll give an overview of the current state of the market; highlighting some of the major players, and also some of the major market shifts that have occurred.
+
+## A Call to Action
+
+My friend [Mark](http://markhazlett.com/) wrote a short piece a while back [calling for change](https://medium.com/@markhazlett/analytics-for-startups-idea-for-change-42a1995cc4e4) in the analytics space after being frustrated with the existing solutions, specifically regarding SaaS startups. I’m biased because I helped edit it, but I think he made some really valid points about what the next generation of analytics companies should look like. Essentially he was calling for “[…] analytics providers to go more into the realm of focused business models rather than blanket solutions”.
+
+## The Current State of Affairs
+
+There is a cornucopia of analytics solutions to choose from today. The biggest player of them all still being [Google Analytics](http://www.google.ca/analytics/) (GA). It is such a powerful behemoth that GA still holds the majority of the market share, albeit with probably the most confusing user experience. There is, of course, also a solution from Microsoft but we won’t talk about that as it’s practically irrelevant in the market. Basically, all the big boys are coming to play as you’ve also got solutions from [Adobe](http://www.adobe.com/solutions/digital-analytics.html) (Omniture) & Yahoo ([Flurry](http://www.flurry.com/)). The other big names are [Mixpanel](https://mixpanel.com/), who recently [raised $65 million](http://techcrunch.com/2014/12/18/mixpanel-raises-65-million/) and [KISSmetrics](https://www.kissmetrics.com/) who was one of the pioneers in the analytics space 8 years ago. Although branded more as marketing platforms, [Marketo](http://www.marketo.com/) and [Hubspot](http://www.hubspot.com/) could be included in this mix as well. Notable new kids on the block, chomping at all these companies’ heals are [Heap](https://heapanalytics.com/) and [Keen IO](https://keen.io/).
+
+<figure className="flex flex-col items-center my-8">
+ <Image src={imageimage3png} alt="" />
+ <figcaption className="mt-2 text-center text-sm italic text-zinc-600 dark:text-zinc-400">
+ Just a small sample of the analytics companies on Product Hunt
+ </figcaption>
+</figure>
+
+As you can already see there are lots of formidable companies and today there are tons of new entrants flooding the market; with practically a new analytics startup coming out of the woodwork every month! Looking at [this Product Hunt list](http://www.producthunt.com/#!/s/posts/analytics) really highlights the phenomenon. We’re still not quite at the point that Mark was hoping for, but in the six short months since he wrote his call to action the landscape has changed a lot.
+
+There are a few companies that have started to scratch the surface of Mark’s (and my) vision by providing a product that is highly focused around specific business models. Namely; [USERCycle](https://usercycle.com/), [baremetrics](https://baremetrics.com/), and [GoSquared](https://www.gosquared.com). Although the time that they have been in the game varies, all of these companies are targeting specific business models and providing streamlined solutions for tracking the most common metrics in a given vertical. GoSquare primarily going after a streamlined e-commerce solution and baremetrics providing instant SaaS metrics if you are using [Stripe](https://stripe.com) under the hood. This is definitely a step in the right direction, especially for getting people up and running but I think that we can and will have to do much better.
+
+## My, How Things Have Changed
+
+A lot has changed even in the last few years. New entrants into the analytics market have dramatically altered the competitive landscape and shifts in technology have had a major impact. I’ve outlined a few of the major shifts that I have noticed. Not surprising, most of these changes have occurred across almost all tech verticals and thus, are not purely exclusive to the analytics market.
+
+### Your design is not unique
+
+It used to be the case that having slightly better UX than Google Analytics (still not hard to do) was a differentiator. The design upgrades, and the fact that you can actually associate data to people, were the two major factors for KISSmetrics’ initial breakout success. Then Mixpanel came along. They took the same concepts that GA and KISSmetrics were pioneering, and their fabulous design team lead by [Mason Yarnell](https://twitter.com/masonyarnell) brought the beautification bar to a whole new level. Many other companies have now followed suit and today **having a really sexy design does not make you special, it is expected. **There are also only so many ways that you can re-design bar charts before you just start making them unusable.
+
+### Being “real-time” is not special
+
+It also used to be that showing your data in real-time made you stand out. I don’t believe this is actually the case. **Having a real-time feed of data is not useful for making actual decisions. **The only thing it is good for is testing that the data that you sent from your application actually made it to your analytics service. **What is important is being able to process that data in near real-time **so that people are able to run rich queries on their data quickly; including data sent in brand spanking new events. This is where Google is still kicking everyone’s butt.
+
+### Everyone has an API
+
+Another big change has been the opening of APIs. This being the core premise that Keen IO is differentiating on. It has had such an impact on the analytics space that if you don’t have an open API you are a sitting duck. Not only has this allowed services like [Segment](https://segment.com/) to exist but it has also made it much easier for people to manage and get access to their data or easily migrate to a different service. If you are thinking of starting an analytics company **having an API is not a differentiator anymore **. Everyone is doing it!
+
+<Image src={imageimage4gif} alt="" />** Everyone is doing API’s — credited to Call of Duty: Modern Warfare 2 *[*https://www.youtube.com/watch?v=l7NgLArJidY*](https://www.youtube.com/watch?v=l7NgLArJidY)*
+
+### Mobile is a thing
+
+You’ve probably heard it before but a couple years ago [the number of people accessing the internet via their phone surpassed that of desktop usage.](http://www.smartinsights.com/mobile-marketing/mobile-marketing-analytics/mobile-marketing-statistics/) Unsurprisingly this has had a big impact in the analytics space. **If you’re not supporting mobile, you’re already dead.** Being able to track how people are using your hot new mobile app is extremely important and can give you a significant edge over your competition and insight into your users psyche. Therefore, having mobile support (like Mixpanel or [Taplytics](https://taplytics.com/)) is really becoming a key factor when choosing a service.
+
+### Startups need metrics
+
+Another shift that has happened is around investment. Tech investors have generally gotten wiser. This means that depending on the type of startup you’ve got you need to be tracking certain things, and in order to raise funds those numbers need to be going “up and to the right”. This isn’t to say that you shouldn’t have been tracking your key performance indicators (KPIs) prior to these services being around (you can still use Excel to do this), or that bigger companies don’t track KPIs. Rather, it’s simply the case that tracking KPIs has become so accessible that any sophisticated tech investor expects you to have detailed numbers and know them cold.
+
+## Where Are You Going With This?
+
+Okay, I’ve now given you a brief and very shallow history lesson on analytics, identified some of the key players, and highlighted some important trends. I’m glad you stuck with me! This sets the stage for part two of this series where I’ll talk about the future of analytics; what is probably going to happen, and what I would like to see happen.
+
+## Part 2: Peering Into a Cloudy Crystal Ball
+
+[
+## The Future of Analytics: Part 2
+
+### Peering into a cloudy crystal ball
+
+medium.com
+
+<Newsletter />
