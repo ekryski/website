@@ -93,9 +93,12 @@ export default function About() {
           </div>
         </div>
         <div className="lg:order-first lg:row-span-2">
-          <h1 className="text-4xl font-bold tracking-tight text-zinc-800 sm:text-5xl dark:text-zinc-100">
-            I'm Eric Kryski. I live in Calgary, Canada 🇨🇦 where I design, build and invest in the future.
+          <h1 className="text-4xl font-bold tracking-tight text-zinc-800 sm:text-5xl dark:text-zinc-100 mb-2">
+            I'm Eric Kryski. 👋
           </h1>
+          <h2 className="text-2xl font-bold tracking-tight text-zinc-500 sm:text-3xl dark:text-zinc-200">
+            I live in <span className="text-red-600 dark:text-red-500">Calgary, Canada</span> 🇨🇦 where I design, build and invest in the future.
+          </h2>
           <div className="mt-6 space-y-7 text-base text-zinc-600 dark:text-zinc-400">
             <p>
               I've loved making things for as long as I can remember, and I was
