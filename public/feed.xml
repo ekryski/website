@@ -4,7 +4,7 @@
         <title>Eric Kryski</title>
         <link>https://erickryski.com</link>
         <description>Read Eric Kryski's musings on design, development, finance and entrepreneurship</description>
-        <lastBuildDate>Tue, 10 Feb 2026 22:55:23 GMT</lastBuildDate>
+        <lastBuildDate>Wed, 11 Feb 2026 01:10:42 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <image>
@@ -14,31 +14,22 @@
         </image>
         <copyright>All rights reserved 2026</copyright>
         <item>
-            <title><![CDATA[Crafting a design system for a multiplanetary future]]></title>
-            <link>https://erickryski.com/articles/crafting-a-design-system-for-a-multiplanetary-future</link>
-            <guid>https://erickryski.com/articles/crafting-a-design-system-for-a-multiplanetary-future</guid>
-            <pubDate>Mon, 05 Sep 2022 00:00:00 GMT</pubDate>
-            <description><![CDATA[Most companies try to stay ahead of the curve when it comes to visual design, but for Planetaria we needed to create a brand that would still inspire us 100 years from now when humanity has spread across our entire solar system.]]></description>
-            <content:encoded><![CDATA[Most companies try to stay ahead of the curve when it comes to visual design, but for Planetaria we needed to create a brand that would still inspire us 100 years from now when humanity has spread across our entire solar system.]]></content:encoded>
-            <author>hello@erickryski.com (Adam Wathan)</author>
+            <title><![CDATA[Taxation of Employee Stock Options]]></title>
+            <link>https://erickryski.com/articles/taxation-employee-stock-options</link>
+            <guid>https://erickryski.com/articles/taxation-employee-stock-options</guid>
+            <pubDate>Thu, 22 Dec 2022 00:00:00 GMT</pubDate>
+            <description><![CDATA[A practical guide to how stock options are taxed in Canada—when you pay, what you owe, and key differences for employees vs. contractors.]]></description>
+            <content:encoded><![CDATA[A practical guide to how stock options are taxed in Canada—when you pay, what you owe, and key differences for employees vs. contractors.]]></content:encoded>
+            <author>hello@erickryski.com (Eric Kryski)</author>
         </item>
         <item>
-            <title><![CDATA[Introducing Animaginary: High performance web animations]]></title>
-            <link>https://erickryski.com/articles/introducing-animaginary</link>
-            <guid>https://erickryski.com/articles/introducing-animaginary</guid>
-            <pubDate>Fri, 02 Sep 2022 00:00:00 GMT</pubDate>
-            <description><![CDATA[When you’re building a website for a company as ambitious as Planetaria, you need to make an impression. I wanted people to visit our website and see animations that looked more realistic than reality itself.]]></description>
-            <content:encoded><![CDATA[When you’re building a website for a company as ambitious as Planetaria, you need to make an impression. I wanted people to visit our website and see animations that looked more realistic than reality itself.]]></content:encoded>
-            <author>hello@erickryski.com (Adam Wathan)</author>
-        </item>
-        <item>
-            <title><![CDATA[Rewriting the cosmOS kernel in Rust]]></title>
-            <link>https://erickryski.com/articles/rewriting-the-cosmos-kernel-in-rust</link>
-            <guid>https://erickryski.com/articles/rewriting-the-cosmos-kernel-in-rust</guid>
-            <pubDate>Thu, 14 Jul 2022 00:00:00 GMT</pubDate>
-            <description><![CDATA[When we released the first version of cosmOS last year, it was written in Go. Go is a wonderful programming language, but it’s been a while since I’ve seen an article on the front page of Hacker News about rewriting some important tool in Go and I see articles on there about rewriting things in Rust every single week.]]></description>
-            <content:encoded><![CDATA[When we released the first version of cosmOS last year, it was written in Go. Go is a wonderful programming language, but it’s been a while since I’ve seen an article on the front page of Hacker News about rewriting some important tool in Go and I see articles on there about rewriting things in Rust every single week.]]></content:encoded>
-            <author>hello@erickryski.com (Adam Wathan)</author>
+            <title><![CDATA[Sales Tax 101 for Canadian Startups]]></title>
+            <link>https://erickryski.com/articles/sales-tax-101-canadian-startups</link>
+            <guid>https://erickryski.com/articles/sales-tax-101-canadian-startups</guid>
+            <pubDate>Mon, 15 Jun 2020 00:00:00 GMT</pubDate>
+            <description><![CDATA[A practical guide to navigating GST, HST, PST, and international sales tax for Canadian startups selling online—whether physical goods, SaaS, or services.]]></description>
+            <content:encoded><![CDATA[A practical guide to navigating GST, HST, PST, and international sales tax for Canadian startups selling online—whether physical goods, SaaS, or services.]]></content:encoded>
+            <author>hello@erickryski.com (Eric Kryski)</author>
         </item>
     </channel>
 </rss>

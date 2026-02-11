@@ -1,0 +1,64 @@
+import { ArticleLayout } from '@/components/ArticleLayout'
+import sofrChart from './sofr-chart.png'
+
+export const dynamic = 'force-static'
+
+export const article = {
+  author: 'Eric Kryski',
+  date: '2023-05-22',
+  published: false,
+  title: 'US debt crisis',
+  description:
+    'If the US fumbles the ball on raising their debt ceiling, the fallout could be worse than 2008. The world economy is more dependent on the USA than ever.',
+}
+
+export const metadata = {
+  title: article.title,
+  description: article.description,
+}
+
+export default (props) => <ArticleLayout article={article} {...props} />
+
+If the US fumbles the ball on raising their debt ceiling this week, the fallout will be worse than the 2008 financial crisis.
+
+The world economy is more dependent on the USA than it has ever been.
+
+In 2008 the world economy ran on the LIBOR rate—an average of unsecured interbank lending rates as reported each day by some of the biggest banks around the world.
+
+This rate affected EVERYTHING—Eurodollar, bonds, commercial paper, derivatives, car loans, mortgages, credit cards!
+
+As it turns out, a rate manually reported by bankers that nearly everything relies on was manipulated by some of *the same big banks* in order to make more money in markets that depended on the LIBOR rate.
+
+This didn't come to light until 2012. Since then: a couple banks involved paid fines, some bankers went to jail (maybe wrongly?), some were acquitted. See the [LIBOR scandal](https://en.wikipedia.org/wiki/Libor_scandal) for more.
+
+So the US suggested a *new* rate that is more trustworthy should be used instead...
+
+Secured Overnight Financing Rate (SOFR) enters the chat.
+
+SOFR is based on the Reverse Repurchase Agreement (RRP) rates that banks use to lend each other dollars, with US Treasuries as collateral. It is published by the New York Fed by taking manually reported rates from *US banks* themselves.
+
+<Image src={sofrChart} alt="Chart showing the shift from LIBOR to SOFR and RRP volume" />
+
+At the time, SOFR seemed like a good move for stability due to the manipulation of LIBOR and the significant liquidity that moved from unsecured lending rates (LIBOR) to secured lending rates (RRP) that use US treasuries anyway.
+
+In the wake of the 2008 financial crisis and a post Basel III, USD dominated world, where banks require high quality Tier 1 capital to support their lending, a lot of volume has gone to the RRP and government borrowing (ie. AA+ sovereign debt).
+
+As a result, there are a lot of banks, both foreign and domestic, as well as governments and their economies hooked on USD and US Treasuries.
+
+If you were looking for the poster child of "too big to fail", it's literally the USA.
+
+With the US debt ceiling deadline looming in June, now that the global base rate is tied to the SOFR "for stability", ironically, it could end up becoming more volatile, not less.
+
+And instead of it reflecting multiple economies like LIBOR attempted to, it's now the USA.
+
+Interestingly, UK journalist Andy Verity, who has been researching the LIBOR scandal for quite a while, recently published some damning evidence that alleges the UK and US governments coerced some of the banks into manipulating LIBOR rates.
+
+With this new info about the LIBOR scandal, this feels uncanny:
+
+* US debt default risk in June
+* Drop dead date of LIBOR in June
+* Rapid push to the New York Fed's SOFR since COVID
+
+Was the killing of LIBOR intentional so the US could have even more global control?
+
+Regardless, the stars sure are aligning in such a way to give the US Gov and the Fed maximum leverage.

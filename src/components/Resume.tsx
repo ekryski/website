@@ -2,6 +2,14 @@ import Image, { type ImageProps } from 'next/image'
 
 import { Button } from '@/components/Button'
 
+import logoBidali from '@/images/companies/bidali.png'
+import logoBullishVentures from '@/images/companies/bullish-ventures.png'
+import logoCalgaryScientific from '@/images/companies/calgary-scientific.png'
+import logoCanadianBlockchain from '@/images/companies/canadian-blockchain-consortium.png'
+import logoKissmetrics from '@/images/companies/kissmetrics.png'
+import logoMyMobileCoverage from '@/images/companies/my-mobile-coverage.png'
+import logoPetroFeed from '@/images/companies/petro-feed.png'
+
 function BriefcaseIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
   return (
     <svg
@@ -38,12 +46,6 @@ function ArrowDownIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
   )
 }
 
-function getCompanyInitials(company: string): string {
-  const words = company.split(/\s+/)
-  if (words.length === 1) return words[0].slice(0, 2).toUpperCase()
-  return (words[0][0] + words[1][0]).toUpperCase()
-}
-
 export interface Role {
   company: string
   title: string
@@ -53,23 +55,29 @@ export interface Role {
 }
 
 function Role({ role }: { role: Role }) {
-  let startLabel =
+  const startLabel =
     typeof role.start === 'string' ? role.start : role.start.label
-  let startDate =
+  const startDate =
     typeof role.start === 'string' ? role.start : role.start.dateTime
 
-  let endLabel = typeof role.end === 'string' ? role.end : role.end.label
-  let endDate = typeof role.end === 'string' ? role.end : role.end.dateTime
+  const endLabel = typeof role.end === 'string' ? role.end : role.end.label
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars -- dateTime for end not yet in use
+  const endDate = typeof role.end === 'string' ? role.end : role.end.dateTime
 
   return (
     <li className="flex gap-4">
       <div className="relative mt-1 flex h-10 w-10 flex-none items-center justify-center rounded-full ring-1 shadow-md shadow-zinc-800/5 ring-zinc-900/5 dark:border dark:border-zinc-700/50 dark:bg-zinc-800 dark:ring-0">
         {role.logo ? (
-          <Image src={role.logo} alt="" className="h-7 w-7" unoptimized />
+          <Image
+            src={role.logo}
+            alt=""
+            width={28}
+            height={28}
+            className="h-7 w-7 overflow-hidden rounded-full"
+            unoptimized
+          />
         ) : (
-          <span className="text-xs font-semibold text-zinc-600 dark:text-zinc-300">
-            {getCompanyInitials(role.company)}
-          </span>
+          <BriefcaseIcon className="h-5 w-5 text-zinc-400 dark:text-zinc-500" />
         )}
       </div>
       <div className="flex min-w-0 flex-1 flex-col gap-0.5">
@@ -97,42 +105,49 @@ export const RESUME_DATA: Array<Role> = [
   {
     company: 'Bidali',
     title: 'Co-Founder',
+    logo: logoBidali,
     start: '2018',
     end: { label: 'Present', dateTime: new Date().getFullYear().toString() },
   },
   {
     company: 'Bullish Ventures',
     title: 'Managing Partner',
+    logo: logoBullishVentures,
     start: '2015',
     end: { label: 'Present', dateTime: new Date().getFullYear().toString() },
   },
   {
     company: 'Canadian Blockchain Consortium',
     title: 'National FinTech Committee Member',
+    logo: logoCanadianBlockchain,
     start: '2020',
     end: '2024',
   },
   {
     company: 'KISSmetrics',
     title: 'Engineering',
+    logo: logoKissmetrics,
     start: '2014',
     end: '2015',
   },
   {
     company: 'PetroFeed',
     title: 'VP of Architecture',
+    logo: logoPetroFeed,
     start: '2013',
     end: '2014',
   },
   {
     company: 'Calgary Scientific Inc',
     title: 'Software Developer',
+    logo: logoCalgaryScientific,
     start: '2012',
     end: '2013',
   },
   {
     company: 'MyMobileCoverage',
     title: 'Senior Software Developer',
+    logo: logoMyMobileCoverage,
     start: '2011',
     end: '2012',
   },

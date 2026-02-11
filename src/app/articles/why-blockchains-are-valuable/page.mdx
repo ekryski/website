@@ -1,0 +1,27 @@
+import { ArticleLayout } from '@/components/ArticleLayout'
+
+export const dynamic = 'force-static'
+
+export const article = {
+  author: 'Eric Kryski',
+  date: '2020-08-15',
+  published: false,
+  title: 'Why Blockchains Are Valuable',
+  description:
+    'A concise explanation of blockchain value from the Ethereum Wiki—how crowdfunding, tokens, and open auditable code create new possibilities.',
+}
+
+export const metadata = {
+  title: article.title,
+  description: article.description,
+}
+
+export default (props) => <ArticleLayout article={article} {...props} />
+
+A good sales pitch as to why blockchains are valuable, taken from the Ethereum Wiki:
+
+> Sometimes a good idea takes a lot of funds and collective effort. You could ask for donations, but donors prefer to give to projects they are more certain that will get traction and proper funding. This is an example where a crowdfunding would be ideal: you set up a goal and a deadline for reaching it. If you miss your goal, the donations are returned, therefore reducing the risk for donors. Since the code is open and auditable, there is no need for a centralized trusted platform and therefore the only fees everyone will pay are just the gas fees.
+
+> In a crowdfunding prizes are usually given. This would require you to get everyone's contact information and keep track of who owns what. But since you just created your own token, why not use that to keep track of the prizes? This allows donors to immediately own something after they donated. They can store it safely, but they can also sell or trade it if they realize they don't want the prize anymore. If your idea is something physical, all you have to do after the project is completed is to give the product to everyone who sends you back a token. If the project is digital the token itself can immediately be used for users to participate or get entry on your project.
+
+The key insight here is that blockchains enable trustless coordination at scale. No central authority needed—just open, auditable code and economic incentives that align participants toward a common goal. That's the magic.

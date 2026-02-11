@@ -1,0 +1,73 @@
+import { ArticleLayout } from '@/components/ArticleLayout'
+
+export const dynamic = 'force-static'
+
+export const article = {
+  author: 'Eric Kryski',
+  date: '2023-01-20',
+  published: false,
+  title: 'The IMF as predator—and how DeFi could create a better system',
+  description:
+    'After reading about how the IMF has historically structured debt deals, I\'ve concluded they\'re basically a predatory payday lender for emerging markets. DeFi could create something better.',
+}
+
+export const metadata = {
+  title: article.title,
+  description: article.description,
+}
+
+export default (props) => <ArticleLayout article={article} {...props} />
+
+After reading about how the IMF has historically structured debt deals, I've come to the conclusion that they're basically a predatory payday lender for emerging markets and DeFi could create a better system.
+
+## First, how the IMF works at a high level:
+
+1. They are mostly funded by G20 countries. Funding is based on % of those countries' GDP and then there are callable debt arrangements for more money in times of crisis (like COVID). That money comes from taxes (present or future).
+
+2. They work with governments in countries that are in a bad financial situation to loan them "low risk" capital at "fair terms" to help turn their economy around.
+
+Currently 93 countries have IMF debts totalling 108B SDRs ($82.72B USD).
+
+3. They issue loans in SDRs (a basket of 5 currencies) but the loans themselves are generally denominated in USD.
+
+This means countries that borrow from the IMF need to repay the loans in a foreign currency and assume FX risk.
+
+4. Once a deal is structured, money typically goes to the central bank, which then is spent by government and/or distributed to commercial banks. This depends on the country's political & payments systems. Corruption & lack of transparency is a significant risk in these markets.
+
+5. Hopefully the country uses the money wisely, grows their economy and repays its loans. Very often this is not the case.
+
+Only a handful of countries have been able to escape the IMF debt cycle. This was during the lowest interest rate environment we've ever had. Imagine now.
+
+Once a country *needs* the IMF as a lender of last resort it's because their economy is failing and they can't get enough foreign investment from other governments directly or the private market on reasonable terms.
+
+The signalling is the killer here. Similar to a startup that has a failing business and is trying to raise, if the country has bad management or core growth metrics, smart money is unlikely to invest, or is going to have bad terms that price in this risk unless something changes.
+
+Once a country hits up the IMF for money, it's almost like a death sentence for private investment. It signals you're desperate and unless there is radical breakthrough in the debt to GDP ratio it's hard to break that stigma.
+
+It's also very hard to repay the debt denominated in a foreign currency when your economy is struggling. Getting your currency to a favourable FX rate or enough foreign investment in strong currency (USD) is hard.
+
+It's a double whammy: debt + currency devaluation to the debt.
+
+This is only going to get worse with climate change, inflation and rising interest rates, especially when the countries that are major contributors to IMF funding are also freaking out about all these problems in their own countries.
+
+The only way to combat this is through rapid technological innovation, improved capital access and efficiency & increased transparency that reduces opportunities for corruption and misallocation of capital.
+
+## This is where I think DeFi can come in.
+
+Typically in this lending cycle it takes a long time for the money to get to the people and the businesses that really are the meant to be the drivers of economic growth. Money goes through many intermediaries, many take a cut, and there are also opportunities for corruption.
+
+With crypto we can flatten this and enable direct and rapid access to capital to the people and businesses that need it, at rates that are way more favourable than they would get elsewhere.
+
+Imagine companies & entrepreneurs can borrow money from a smart contract directly, no middlemen.
+
+The supplier of the capital are people and institutions that provide liquidity to the smart contract.
+
+This cuts out tons of existing plumbing and middlemen and improves transparency.
+
+We've actually already seen the core pieces like this happen in DeFi. Anyone with a wallet can provide capital to smart contracts in lending markets like Aave or Compound and anyone can borrow from these contracts with well defined lending rules.
+
+The problem with DeFi is that people have been borrowing for speculation and not for productive GDP producing activity.
+
+Extending the on-chain lending/borrowing efficiency from DeFi to real economic productivity activities will have profound effects.
+
+Enabling faster access to lower cost capital in a stable currency (USD) with more transparent technology that reduces fraud could dramatically improve global GDP, especially in the countries that rely on the IMF.

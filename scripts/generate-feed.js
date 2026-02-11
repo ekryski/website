@@ -9,9 +9,11 @@ const fs = require('fs')
 const path = require('path')
 const { Feed } = require('feed')
 
+require('dotenv').config({ path: path.join(process.cwd(), '.env.local') })
+
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL
 if (!siteUrl) {
-  console.error('Error: NEXT_PUBLIC_SITE_URL environment variable is required')
+  console.error('Error: NEXT_PUBLIC_SITE_URL is required. Set it in .env.local or as an environment variable.')
   process.exit(1)
 }
 
@@ -22,6 +24,8 @@ function extractArticleFromMdx(filePath) {
   const title = content.match(/title:\s*['"]([^'"]*)['"]/)?.[1]
   const date = content.match(/date:\s*['"]([^'"]*)['"]/)?.[1]
   const author = content.match(/author:\s*['"]([^'"]*)['"]/)?.[1]
+  const publishedMatch = content.match(/published:\s*(true|false)/)
+  const published = publishedMatch ? publishedMatch[1] === 'true' : false
   const descriptionMatch = content.match(
     /description:\s*['"]([\s\S]*?)['"]\s*[,}]/m,
   )
@@ -30,7 +34,7 @@ function extractArticleFromMdx(filePath) {
     : ''
 
   if (!title || !date) return null
-  return { title, date, author: author || 'Eric Kryski', description }
+  return { title, date, author: author || 'Eric Kryski', description, published }
 }
 
 function getArticleSlug(filePath) {
@@ -54,6 +58,7 @@ const articles = articleFiles
     }
   })
   .filter(Boolean)
+  .filter((a) => a.published === true)
   .sort((a, b) => new Date(b.date) - new Date(a.date))
 
 const feed = new Feed({
