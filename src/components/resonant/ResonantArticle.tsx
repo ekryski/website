@@ -716,7 +716,9 @@ export function ResonantArticle() {
           Below, everything on this page runs end to end. Pick a digit and press play: the
           clip is analyzed into mel bands, the bands are injected into the oscillator field,
           61 frames of physics are integrated, and the linear readout reports what it thinks
-          it heard — all in your browser, in about the time it takes to blink.
+          it heard — all in your browser, in about the time it takes to blink. Or press{' '}
+          <b>record</b> and say a digit yourself, and your own voice goes through the same
+          path.
         </p>
         <p>
           One thing to be clear about before you look: <strong>the physics here is not
@@ -749,7 +751,13 @@ export function ResonantArticle() {
           physics, but the readout was fitted at one setting and never refits, so moving a
           dial hands it a system it has never seen — that is what the badge means, and why
           predictions fall apart quickly. What that does <em>not</em> establish is how much
-          the coupling was contributing; the next section prices that properly.
+          the coupling was contributing; the next section prices that properly.{' '}
+          <b>On the record button:</b> your take is resampled to 16 kHz, high-passed, trimmed
+          to the word, and normalized to the corpus’s level and one-second window before it
+          is analyzed — the front end’s levels are fixed arithmetic, so a raw microphone
+          would be a different input distribution, not merely a louder one. Expect it to do
+          noticeably worse on your voice than on the clips: a different microphone, a
+          different room, and a linear readout fitted on 48 speakers who are not you.
         </figcaption>
       </figure>
 

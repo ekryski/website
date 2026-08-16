@@ -29,6 +29,18 @@ export class ClipPlayer {
     return buf;
   }
 
+  /**
+   * Register raw samples (a microphone take) under `key`, replacing whatever
+   * was there. The buffer keeps its own rate — playback resamples it.
+   */
+  prepareSamples(key, samples, sampleRate) {
+    const ctx = this._ensureContext();
+    const buf = ctx.createBuffer(1, samples.length, sampleRate);
+    buf.copyToChannel(samples, 0);
+    this.buffers.set(key, buf);
+    return buf;
+  }
+
   get playing() { return this.source !== null; }
 
   /** Play url at `rate`; calls onTick(seconds, fraction) every animation frame. */

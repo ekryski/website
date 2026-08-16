@@ -6,11 +6,16 @@
 import { runClip } from './pipeline.js';
 import { drawWaveform, drawHeatmap, drawField, drawLines, drawBars } from './plots.js';
 import { TorusView } from './torus3d.js';
+import { MicRecorder, conditionClip, micErrorMessage, micSupported } from './mic.js';
 
 const $ = (sel) => document.querySelector(sel);
 const CHANNEL_COLORS = ['#7cc4ff', '#6ee7a8', '#ffd166', '#ff8a5b'];
+const MIC_IDLE_HINT = 'or record yourself saying a digit';
+/** Below this peak-to-room ratio the readout starts guessing — see mic.js. */
+const NOISY_SNR_DB = 28;
 
-export function mountConsole(state) {
+/** api.setLiveClip(samples, sampleRate) installs a microphone take as a clip. */
+export function mountConsole(state, api = {}) {
   const model = state.model;
   const { grid: G, channels: C } = model.core;
   const view = new TorusView($('#torusCanvas'), G);
@@ -25,6 +30,7 @@ export function mountConsole(state) {
   buildReadoutBars();
   wireDials();
   wireButtons();
+  wireMic();
 
   on(document, 'resonant:clip-changed', () => recompute());
   on(document, 'resonant:figures-redrawn', () => draw(local.frame));
@@ -60,7 +66,8 @@ export function mountConsole(state) {
     // shape of the trace is visible instead of a flat line along the bottom
     local.maxR = Math.max(0.15, 1.15 * local.result.sim.R.reduce((a, b) => Math.max(a, b), 0));
     $('#rScale').textContent = `0 – ${local.maxR.toFixed(2)}`;
-    $('#mTruth').textContent = clip.digit;
+    // "source" is where the audio came from, not the answer — a live take has none
+    $('#mTruth').textContent = clip.meta.live ? 'mic' : `“${clip.digit}” sample`;
     $('#mMs').textContent = `${local.result.ms.toFixed(0)} ms`;
     const tag = $('#dialTag');
     tag.textContent = isFitted() ? 'as fitted' : 'off-nominal';
@@ -149,10 +156,17 @@ export function mountConsole(state) {
     $('#mPred').textContent = top;
     const settled = t >= T - 1;
     const tag = $('#verdictTag');
-    tag.textContent = settled
-      ? (top === truth ? `correct · “${top}”` : `wrong · said “${top}”`)
-      : 'listening…';
-    tag.style.color = settled ? (top === truth ? 'var(--good)' : 'var(--hot)') : 'var(--muted)';
+    if (!settled) {
+      tag.textContent = 'listening…';
+      tag.style.color = 'var(--muted)';
+    } else if (truth === null) {
+      // your own voice: nothing to be right or wrong about, only what it heard
+      tag.textContent = `heard “${top}”`;
+      tag.style.color = 'var(--accent)';
+    } else {
+      tag.textContent = top === truth ? `correct · “${top}”` : `wrong · said “${top}”`;
+      tag.style.color = top === truth ? 'var(--good)' : 'var(--hot)';
+    }
   }
 
   function setStrip(t, T) {
@@ -209,23 +223,124 @@ export function mountConsole(state) {
     on($('#spinBtn'), 'click', () => { view.spin = !view.spin; });
 
     on($('#livePlayBtn'), 'click', () => {
-      const clip = state.clips[state.index];
       if (state.player.playing) { state.player.stop(); return; }
-      const rate = Number($('#speedDial').value) / 100;
-      $('#livePlayBtn').textContent = '■ Stop';
-      state.player.play(clip.url, {
-        rate,
-        onTick: (seconds) => {
-          local.frame = frameForTime(seconds);
-          draw(local.frame);
-        },
-        onEnd: () => {
-          $('#livePlayBtn').textContent = '▶ Play & run';
-          local.frame = local.result.sim.T - 1;
-          draw(local.frame);
-        },
-      });
+      startPlayback();
     });
+  }
+
+  /** Play the selected clip and drive every panel off the playhead. */
+  function startPlayback() {
+    const clip = state.clips[state.index];
+    const rate = Number($('#speedDial').value) / 100;
+    $('#livePlayBtn').textContent = '■ Stop';
+    state.player.play(clip.url, {
+      rate,
+      onTick: (seconds) => {
+        local.frame = frameForTime(seconds);
+        draw(local.frame);
+      },
+      onEnd: () => {
+        $('#livePlayBtn').textContent = '▶ Play & run';
+        local.frame = local.result.sim.T - 1;
+        draw(local.frame);
+      },
+    });
+  }
+
+  // --- microphone ----------------------------------------------------------
+
+  /**
+   * Record a digit and push it through the same pipeline as the corpus clips.
+   * The take is conditioned into the corpus's shape first (see mic.js) — the
+   * front end's level and timing conventions are fixed arithmetic, not
+   * something the readout can absorb.
+   */
+  function wireMic() {
+    const btn = $('#micBtn');
+    if (!btn) return;
+    const status = $('#micStatus');
+    const meter = $('#micLevel');
+    const say = (text) => { if (status) status.textContent = text; };
+    const setLevel = (v) => { if (meter) meter.style.width = `${Math.min(100, v * 140).toFixed(0)}%`; };
+
+    if (!micSupported() || !api.setLiveClip) {
+      btn.disabled = true;
+      say('this browser cannot record audio');
+      return;
+    }
+
+    let recorder = null;
+    const chooser = $('#consoleDigit');
+    const rest = () => {
+      btn.textContent = '🎤 record';
+      btn.classList.remove('recording');
+      btn.disabled = false;
+      if (chooser) chooser.disabled = false;
+      setLevel(0);
+    };
+    say(MIC_IDLE_HINT);
+
+    /** Stop capture, condition the take, and run it. */
+    async function finish() {
+      const take = recorder?.stop();
+      recorder = null;
+      btn.disabled = true;
+      btn.classList.remove('recording');
+      btn.textContent = '🎤 record';
+      setLevel(0);
+      if (!take) { rest(); return; }
+      say('conditioning…');
+      try {
+        const clip = await conditionClip(take.samples, take.sampleRate, model.frontend);
+        if (!clip) {
+          say('nothing loud enough to be a word — try again, closer');
+          return;
+        }
+        api.setLiveClip(clip.samples, clip.sampleRate);   // recomputes and redraws
+        // the dB figure is only worth showing when it is the reason for a miss
+        const head = `${clip.seconds.toFixed(2)} s of speech`;
+        if (clip.snrDb < NOISY_SNR_DB) say(`${head} · only ${clip.snrDb.toFixed(0)} dB over the room — expect misses`);
+        else if (clip.truncated) say(`${head} · trimmed to the model’s 1.00 s window`);
+        else say(`${head} · levelled and placed like the corpus`);
+        startPlayback();
+      } catch (err) {
+        console.error('resonant: could not process the recording', err);
+        say('could not process the recording');
+      } finally {
+        rest();
+      }
+    }
+
+    on(btn, 'click', async () => {
+      if (recorder) { finish(); return; }
+      if (state.player.playing) state.player.stop();
+      btn.disabled = true;
+      // the corpus chooser is not the source while a take is being made
+      if (chooser) chooser.disabled = true;
+      say('waiting for the microphone…');
+      recorder = new MicRecorder({ sampleRate: model.frontend.sample_rate });
+      try {
+        await recorder.start({
+          onLevel: (level, seconds) => {
+            setLevel(level);
+            btn.textContent = `■ stop ${seconds.toFixed(1)}s`;
+          },
+          onLimit: finish,
+        });
+      } catch (err) {
+        recorder.dispose();
+        recorder = null;
+        say(micErrorMessage(err));
+        rest();
+        return;
+      }
+      btn.disabled = false;
+      btn.classList.add('recording');
+      btn.textContent = '■ stop 0.0s';
+      say('say a digit — zero through nine');
+    });
+
+    disposers.push(() => { recorder?.dispose(); recorder = null; });
   }
 
   /** Frame whose 32 ms window is centred on this playback time. */

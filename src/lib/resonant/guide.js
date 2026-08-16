@@ -13,6 +13,8 @@ import { mountConsole } from './console.js';
 
 const $ = (sel) => document.querySelector(sel);
 const AUDIO_URL = (digit) => `/resonant/audio/digit-${digit}.wav`;
+/** Playback key for the microphone take — a map key, never fetched. */
+const LIVE_CLIP_KEY = 'live://microphone';
 
 export async function mountGuide() {
   const state = {
@@ -48,7 +50,7 @@ export async function mountGuide() {
   buildDigitSelect();
   drawMelReference(clipMeanEnergy());
   mountToy(disposers);
-  const consoleApi = mountConsole(state, { selectClip });
+  const consoleApi = mountConsole(state, { selectClip, setLiveClip });
   disposers.push(() => consoleApi.dispose());
   wireControls();
   selectClip(state.clips.findIndex((c) => c.digit === 7));
@@ -84,7 +86,7 @@ export async function mountGuide() {
     });
   }
 
-  /** The console's own clip chooser (section 07). */
+  /** The console's own clip chooser (section 07). Corpus clips only. */
   function buildDigitSelect() {
     const sel = $('#consoleDigit');
     if (!sel) return;
@@ -98,22 +100,53 @@ export async function mountGuide() {
     on(sel, 'change', () => selectClip(Number(sel.value)));
   }
 
+  /**
+   * Install a conditioned microphone take as a clip and select it. There is one
+   * live slot, past the corpus clips: recording again replaces it rather than
+   * growing the list, and it is deliberately not an option in the chooser —
+   * the chooser keeps naming the corpus clip you would go back to.
+   */
+  function setLiveClip(samples, sampleRate) {
+    const existing = state.clips.findIndex((c) => c.meta.live);
+    const index = existing >= 0 ? existing : state.clips.length;
+    state.clips[index] = {
+      digit: null,                       // no ground truth for your own voice
+      url: LIVE_CLIP_KEY,
+      samples,
+      sampleRate,
+      arrayBuffer: null,                 // prepared from samples, not a file
+      meta: { live: true, speaker: 'you' },
+    };
+    state.player.prepareSamples(LIVE_CLIP_KEY, samples, sampleRate);
+    selectClip(index);
+    return index;
+  }
+
   function selectClip(i) {
     if (i < 0 || i >= state.clips.length) return;
     state.index = i;
     const clip = state.clips[i];
+    const live = Boolean(clip.meta.live);
     const picker = $('#clipPicker');
     if (picker) [...picker.children].forEach((b, k) => b.setAttribute('aria-pressed', String(k === i)));
+    // the chooser has no option for a live take — leave it naming the corpus
+    // clip you would return to rather than blanking it
     const sel = $('#consoleDigit');
-    if (sel) sel.value = String(i);
+    if (sel && !live) sel.value = String(i);
     const meta = $('#clipMeta');
     if (meta) {
-      meta.textContent = `spoken “${clip.digit}” · AudioMNIST speaker ${clip.meta.speaker} · held out of training`;
+      meta.textContent = live
+        ? 'your own recording · trimmed and levelled to match the corpus'
+        : `spoken “${clip.digit}” · AudioMNIST speaker ${clip.meta.speaker} · held out of training`;
     }
     state.result = runClip(clip.samples, state.model);
-    state.player.prepare(clip.url, clip.arrayBuffer);
+    if (clip.arrayBuffer) state.player.prepare(clip.url, clip.arrayBuffer);
     const melBtn = $('#melPlayBtn');
-    if (melBtn && !state.player.playing) melBtn.textContent = `▶ Play “${clip.digit}” and watch the bands`;
+    if (melBtn && !state.player.playing) {
+      melBtn.textContent = live
+        ? '▶ Play your recording and watch the bands'
+        : `▶ Play “${clip.digit}” and watch the bands`;
+    }
     redrawFigures();
     drawMelReference(clipMeanEnergy());
     document.dispatchEvent(new CustomEvent('resonant:clip-changed'));
@@ -328,7 +361,9 @@ export async function mountGuide() {
           if (status) status.textContent = `live · frame ${Math.max(1, frameForTime(seconds) + 1)}`;
         },
         onEnd: () => {
-          melBtn.textContent = `▶ Play “${clip.digit}” and watch the bands`;
+          melBtn.textContent = clip.meta.live
+            ? '▶ Play your recording and watch the bands'
+            : `▶ Play “${clip.digit}” and watch the bands`;
           if (status) status.textContent = 'showing the clip average';
           drawMelReference(clipMeanEnergy());
           drawHeatmap($('#melSpecCanvas'), state.result.mel.logMel, state.result.mel.frames,
