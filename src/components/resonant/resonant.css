@@ -1,19 +1,18 @@
-/* Styles for the Resonant guide.
+/* Instrument styling for the Resonant guide.
  *
- * Everything is scoped under .resonantGuide so nothing leaks into the rest of
- * the site. Prose colours follow the site theme; the instrument panels stay
- * dark in both themes on purpose — they are screens, and a phase field reads
- * badly on white. */
+ * Body text is NOT styled here — the article's text blocks use the site's
+ * <Prose> component (@tailwindcss/typography + typography.ts), so headings,
+ * paragraphs, lists, tables, code, and links match the rest of the site and
+ * theme correctly. What is left below is the stuff Tailwind classes cannot
+ * reach: the CSS variables the canvas code reads, the dark "instrument"
+ * chrome around the live figures, and the classes that JS creates at runtime
+ * (digit buttons, readout rows).
+ *
+ * The panels stay dark in both themes on purpose — they are screens, and a
+ * phase field reads badly on white. */
 
 .resonantGuide {
-  /* theme-aware (prose) */
-  --ink: #18181b;
-  --body: #3f3f46;
-  --soft: #52525b;
-  --rule: #e4e4e7;
-  --link: #7c3aed;
-
-  /* fixed (instrument panels and canvases live on dark) */
+  /* read by src/lib/resonant/plots.js via getComputedStyle */
   --panel: #12151d;
   --panel-2: #171b25;
   --line: #232936;
@@ -24,85 +23,24 @@
   --good: #6ee7a8;
   --warn: #ffd166;
   --mono: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, monospace;
-
-  color: var(--body);
-  font-size: 1.0625rem;
-  line-height: 1.7;
 }
 
-:global(.dark) .resonantGuide {
-  --ink: #f4f4f5;
-  --body: #d4d4d8;
-  --soft: #a1a1aa;
-  --rule: #27272a;
-  --link: #a78bfa;
-}
+/* --- section eyebrow ------------------------------------------------------ */
 
-/* --- prose ---------------------------------------------------------------- */
-
-/* text keeps the site's reading measure; figures are free to go full width */
-.resonantGuide .prose { max-width: 42rem; }
-.resonantGuide .prose > * + * { margin-top: 1.15em; }
-.resonantGuide p { margin: 0; }
-.resonantGuide strong { color: var(--ink); font-weight: 620; }
-.resonantGuide a { color: var(--link); text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
-.resonantGuide a:hover { text-decoration-thickness: 2px; }
-.resonantGuide ul, .resonantGuide ol { margin: 0; padding-left: 22px; }
-.resonantGuide li + li { margin-top: 8px; }
-.resonantGuide code {
-  font: 0.86em/1.5 var(--mono);
-  background: color-mix(in srgb, var(--rule) 65%, transparent);
-  color: var(--ink);
-  padding: 2px 5px;
-  border-radius: 4px;
-}
-
-.resonantGuide h2 {
-  margin: 4.5rem 0 0;
-  font-size: clamp(1.6rem, 3vw, 1.95rem);
-  line-height: 1.15;
-  letter-spacing: -0.02em;
-  font-weight: 680;
-  color: var(--ink);
-}
-.resonantGuide h2 .num {
+.resonantGuide .num {
   display: block;
-  font: 600 11px/1 var(--mono);
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--link);
   margin-bottom: 12px;
+  color: var(--color-violet-500);
 }
-.resonantGuide h3 { margin: 2.4rem 0 0; font-size: 1.2rem; letter-spacing: -0.01em; color: var(--ink); font-weight: 640; }
-.resonantGuide h4 {
-  margin: 1.6rem 0 0;
-  font: 600 12px/1.4 var(--mono);
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--soft);
-}
+.dark .resonantGuide .num { color: var(--color-violet-400); }
 
-.resonantGuide table { width: 100%; border-collapse: collapse; font-size: 0.94em; margin-top: 10px; }
-.resonantGuide th, .resonantGuide td { text-align: left; padding: 9px 10px; border-bottom: 1px solid var(--rule); vertical-align: top; }
-.resonantGuide th { font: 600 11px/1.4 var(--mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--soft); }
-
-.resonantGuide .note {
-  border-left: 2px solid var(--link);
-  background: color-mix(in srgb, var(--link) 7%, transparent);
-  padding: 16px 18px;
-  border-radius: 0 10px 10px 0;
-  font-size: 0.96em;
-}
-.resonantGuide .note h4 { margin-top: 0; color: var(--link); }
-.resonantGuide .note.warn { border-color: #d97706; background: color-mix(in srgb, #d97706 8%, transparent); }
-.resonantGuide .note.warn h4 { color: #b45309; }
-:global(.dark) .resonantGuide .note.warn h4 { color: var(--warn); }
-
-/* --- figures -------------------------------------------------------------- */
-
-.resonantGuide figure { margin: 2.2rem 0; }
-.resonantGuide figcaption { margin-top: 12px; max-width: 52rem; font-size: 0.86em; line-height: 1.6; color: var(--soft); }
-.resonantGuide figcaption b { color: var(--ink); font-weight: 620; }
+/* --- panels and canvases -------------------------------------------------- */
 
 .resonantGuide .panel {
   background: var(--panel);
@@ -110,22 +48,38 @@
   border-radius: 14px;
   padding: 18px;
   color: var(--panel-ink);
+  font-family: var(--font-sans, ui-sans-serif, system-ui, sans-serif);
 }
 .resonantGuide .panel a { color: var(--accent); }
 .resonantGuide canvas { display: block; width: 100%; }
 .resonantGuide canvas.fieldGrid { aspect-ratio: 1; height: auto !important; }
-.resonantGuide .canvasFrame { background: #06070a; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+.resonantGuide .canvasFrame {
+  background: #06070a;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  overflow: hidden;
+}
 .resonantGuide .panelTitle {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 8px;
   font: 600 10.5px/1.4 var(--mono);
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--muted);
-  margin-bottom: 8px;
-  display: flex;
-  justify-content: space-between;
-  gap: 10px;
 }
 .resonantGuide .panelTitle em { font-style: normal; color: var(--accent); }
+
+.resonantGuide .diagram {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 14px;
+}
+.resonantGuide .diagram svg { display: block; width: 100%; height: auto; }
+
+/* --- the equation figure -------------------------------------------------- */
 
 .resonantGuide .equation {
   background: var(--panel);
@@ -133,7 +87,7 @@
   border-radius: 12px;
   padding: 20px 16px;
   text-align: center;
-  font: 1.05rem/1.6 var(--mono);
+  font: 20px/1.5 var(--mono);
   color: var(--panel-ink);
   overflow-x: auto;
 }
@@ -141,34 +95,36 @@
 .resonantGuide .tCouple { color: var(--accent); }
 .resonantGuide .tDrive { color: var(--hot); }
 .resonantGuide .tPin { color: var(--good); }
-.resonantGuide .legend { display: grid; gap: 10px; margin-top: 16px; font-size: 0.94em; }
-.resonantGuide .legend div { display: grid; grid-template-columns: 92px 1fr; gap: 12px; align-items: start; }
-.resonantGuide .legend span:first-child { font: 600 12px/1.6 var(--mono); }
 
-.resonantGuide .grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
-
-/* --- controls ------------------------------------------------------------- */
+/* --- controls (some are created by JS, so they need real classes) ---------- */
 
 .resonantGuide .digits { display: flex; flex-wrap: wrap; gap: 8px; }
 .resonantGuide .digitBtn {
-  width: 44px; height: 44px;
+  width: 44px;
+  height: 44px;
   border-radius: 10px;
   border: 1px solid var(--line);
   background: var(--panel-2);
   color: var(--panel-ink);
-  font: 620 17px/1 inherit;
+  font-size: 17px;
+  font-weight: 620;
   cursor: pointer;
   transition: transform 0.15s ease, border-color 0.15s ease, background 0.15s ease;
 }
 .resonantGuide .digitBtn:hover { transform: translateY(-2px); border-color: var(--accent); }
-.resonantGuide .digitBtn[aria-pressed='true'] { background: var(--accent); border-color: var(--accent); color: #06263c; }
+.resonantGuide .digitBtn[aria-pressed='true'] {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #06263c;
+}
 
 .resonantGuide .action {
   border-radius: 9px;
   border: 1px solid var(--line);
   background: var(--panel-2);
   color: var(--panel-ink);
-  font: 600 14px/1 inherit;
+  font-size: 14px;
+  font-weight: 600;
   padding: 11px 15px;
   cursor: pointer;
 }
@@ -176,18 +132,23 @@
 .resonantGuide .action.primary { background: var(--accent); border-color: var(--accent); color: #06263c; }
 .resonantGuide select.action { padding-right: 28px; }
 
-.resonantGuide .dial label { display: flex; justify-content: space-between; font: 600 11.5px/1.6 var(--mono); color: var(--muted); }
+.resonantGuide .dial label {
+  display: flex;
+  justify-content: space-between;
+  font: 600 11.5px/1.6 var(--mono);
+  color: var(--muted);
+}
 .resonantGuide .dial label b { color: var(--panel-ink); }
-.resonantGuide .dial input[type='range'], .resonantGuide input.slider { width: 100%; accent-color: var(--accent); }
+.resonantGuide input.slider { width: 100%; accent-color: var(--accent); }
 
 .resonantGuide .tag {
   display: inline-block;
-  font: 600 10.5px/1 var(--mono);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
   padding: 6px 9px;
   border-radius: 999px;
   border: 1px solid var(--line);
+  font: 600 10.5px/1 var(--mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
   color: var(--muted);
 }
 .resonantGuide .tag.ok { color: var(--good); border-color: rgba(110, 231, 168, 0.4); }
@@ -197,7 +158,15 @@
 
 .resonantGuide .console { display: grid; grid-template-columns: 1.1fr 1fr; gap: 16px; align-items: start; }
 .resonantGuide .stack { display: grid; gap: 12px; align-content: start; }
-.resonantGuide .readoutRow { display: grid; grid-template-columns: 22px 1fr 42px; gap: 8px; align-items: center; font: 12px/1 var(--mono); color: var(--muted); }
+
+.resonantGuide .readoutRow {
+  display: grid;
+  grid-template-columns: 22px 1fr 42px;
+  gap: 8px;
+  align-items: center;
+  font: 12px/1 var(--mono);
+  color: var(--muted);
+}
 .resonantGuide .readoutRow .bar { height: 14px; background: var(--panel-2); border-radius: 4px; overflow: hidden; }
 .resonantGuide .readoutRow .bar i { display: block; height: 100%; background: var(--accent); border-radius: 4px; transition: width 0.08s linear; }
 .resonantGuide .readoutRow.win { color: var(--good); }
@@ -205,8 +174,14 @@
 
 .resonantGuide .metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(104px, 1fr)); gap: 10px; }
 .resonantGuide .metric { background: var(--panel-2); border-radius: 10px; padding: 10px 12px; }
-.resonantGuide .metric span { display: block; font: 600 9.5px/1.4 var(--mono); letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
-.resonantGuide .metric b { font-size: 1.15rem; font-weight: 620; color: var(--panel-ink); }
+.resonantGuide .metric span {
+  display: block;
+  font: 600 9.5px/1.4 var(--mono);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.resonantGuide .metric b { font-size: 19px; font-weight: 620; color: var(--panel-ink); }
 
 .resonantGuide .pipelineStrip { display: grid; grid-template-columns: repeat(6, 1fr); gap: 6px; margin-bottom: 8px; }
 .resonantGuide .stage {
@@ -228,12 +203,10 @@
 .resonantGuide .bxCore { fill: #16202e; stroke: #4d7fa8; }
 .resonantGuide .lb { fill: #e7eaf1; font: 600 14px var(--mono); }
 .resonantGuide .sub { fill: #8d96ab; font: 11.5px var(--mono); }
+.resonantGuide .subHot { fill: #ff8a5b; font: 11.5px var(--mono); }
 .resonantGuide .hd { fill: #7cc4ff; font: 600 11px var(--mono); letter-spacing: 0.14em; }
 .resonantGuide .ln { stroke: #67718a; stroke-width: 1.6; fill: none; }
 .resonantGuide .lnHot { stroke: #ff8a5b; stroke-width: 1.6; fill: none; stroke-dasharray: 5 4; }
-.resonantGuide .subHot { fill: #ff8a5b; font: 11.5px var(--mono); }
-.resonantGuide .diagram { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 14px; }
-.resonantGuide .diagram svg { width: 100%; height: auto; display: block; }
 
 @media (max-width: 900px) {
   .resonantGuide .console { grid-template-columns: 1fr; }
