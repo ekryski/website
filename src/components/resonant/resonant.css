@@ -128,8 +128,22 @@
   padding: 11px 15px;
   cursor: pointer;
 }
-.resonantGuide .action:hover { border-color: var(--accent); }
+.resonantGuide .action:hover {
+  border-color: var(--accent);
+  background: #1e2534;
+  transform: translateY(-1px);
+}
+.resonantGuide .action:active { transform: translateY(0); }
 .resonantGuide .action.primary { background: var(--accent); border-color: var(--accent); color: #06263c; }
+.resonantGuide .action.primary:hover {
+  background: #a5d8ff;                       /* lighter blue: unmistakably hoverable */
+  border-color: #a5d8ff;
+  box-shadow: 0 6px 18px -6px rgba(124, 196, 255, 0.65);
+}
+/* buttons that swap their label for "Stop" keep their width — a control that
+   resizes under the cursor is jarring and easy to mis-click */
+.resonantGuide .action.toggle { min-width: 15ch; text-align: center; }
+.resonantGuide .action.toggle.wide { min-width: 32ch; }
 .resonantGuide select.action { padding-right: 28px; }
 
 .resonantGuide .dial label {
@@ -139,7 +153,10 @@
   color: var(--muted);
 }
 .resonantGuide .dial label b { color: var(--panel-ink); }
-.resonantGuide input.slider { width: 100%; accent-color: var(--accent); }
+.resonantGuide input.slider { width: 100%; accent-color: var(--accent); cursor: pointer; }
+.resonantGuide input.slider::-webkit-slider-thumb { cursor: grab; }
+.resonantGuide input.slider:active::-webkit-slider-thumb { cursor: grabbing; }
+.resonantGuide input.slider::-moz-range-thumb { cursor: grab; }
 
 .resonantGuide .tag {
   display: inline-block;

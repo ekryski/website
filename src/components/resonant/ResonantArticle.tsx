@@ -9,7 +9,7 @@ const REPO = 'https://github.com/ekryski/resonant'
 const TYPE = [
   'prose-lg',
   'prose-headings:tracking-tight',
-  'prose-h2:mt-0 prose-h2:mb-6 prose-h2:text-5xl prose-h2:font-extrabold sm:prose-h2:text-6xl',
+  'prose-h2:mt-20 prose-h2:mb-6 prose-h2:text-5xl prose-h2:font-extrabold sm:prose-h2:text-6xl',
   'prose-h3:mt-10 prose-h3:mb-3 prose-h3:text-2xl prose-h3:font-bold sm:prose-h3:text-3xl',
   'prose-p:my-4 prose-ul:my-4 prose-ol:my-4 prose-li:my-1.5',
 ].join(' ')
@@ -188,7 +188,7 @@ export function ResonantArticle() {
       <figure className="my-10">
         <div className="panel" style={{ marginBottom: 16 }}>
           <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', alignItems: 'center' }}>
-            <button type="button" className="action primary" id="melPlayBtn">
+            <button type="button" className="action primary toggle wide" id="melPlayBtn">
               ▶ Play and watch the bands
             </button>
             <span className="tag" id="melPlayStatus">showing the clip average</span>
@@ -253,8 +253,10 @@ export function ResonantArticle() {
 
       <Prose className={TYPE}>
         <div className="my-6 rounded-r-xl border-l-2 border-violet-500 bg-violet-500/5 px-5 py-4 dark:border-violet-400 dark:bg-violet-400/5">
-          <h4>Sidebar: what is a “mel transcoder”?</h4>
-          <p>
+          <h4 className="!mt-0 !mb-3 !text-base !font-bold !tracking-normal !normal-case !text-zinc-800 dark:!text-zinc-100">
+            Sidebar: what is a “mel transcoder”?
+          </h4>
+          <p className="!my-0 !text-[15px] !leading-relaxed">
             A neural network that <em>manufactures</em> a mel spectrogram from something
             coarser. The motivating case is privacy: an always-on sensor in a hospital ward
             or a street can be built to record only very coarse acoustic energy — say
@@ -505,13 +507,14 @@ export function ResonantArticle() {
       </Prose>
 
       <figure className="my-10">
-        <div className="equation">
+        <div className="panel">
+          <div className="equation !border-0 !bg-transparent !p-0 !pb-1">
           dθ<sub>i</sub>/dt = <span className="tDrift">ω<sub>i</sub></span>{' + '}
           <span className="tCouple">Σ<sub>j</sub> K(i−j) · sin(θ<sub>j</sub> − θ<sub>i</sub>)</span>{' − '}
           <span className="tPin">λ · sin(θ<sub>i</sub>)</span>{' + '}
           <span className="tDrive">F<sub>i</sub>(t)</span>
-        </div>
-        <div className="mt-5 grid gap-4 text-[15px] leading-relaxed text-zinc-600 dark:text-zinc-400 [&>div]:grid [&>div]:grid-cols-[112px_1fr] [&>div]:items-start [&>div]:gap-3 [&_b]:font-semibold [&_b]:text-zinc-800 dark:[&_b]:text-zinc-100 [&_span:first-child]:font-mono [&_span:first-child]:text-base [&_span:first-child]:font-semibold">
+          </div>
+          <div className="mt-6 grid gap-4 border-t border-zinc-700/60 pt-6 text-[15px] leading-relaxed text-zinc-300 [&>div]:grid [&>div]:grid-cols-[136px_1fr] [&>div]:items-start [&>div]:gap-4 [&_b]:font-semibold [&_b]:text-white [&_span:first-child]:font-mono [&_span:first-child]:text-xl [&_span:first-child]:font-semibold">
           <div>
             <span className="tDrift">ω</span>
             <span><b>Own tempo.</b> Every oscillator has a natural frequency it would keep on its own. In this demo they are laid out deliberately: each row of the grid is tuned to one band of the speech envelope, from about 0.4 Hz at the bottom to 6 Hz at the top.</span>
@@ -527,6 +530,7 @@ export function ResonantArticle() {
           <div>
             <span className="tDrive">F(t)</span>
             <span><b>The audio.</b> Each mel band’s loudness at this instant, injected into its own row of oscillators. Loud band, hard shove.</span>
+            </div>
           </div>
         </div>
         <figcaption className="mt-4 text-justify text-[13.5px] leading-relaxed text-zinc-500 dark:text-zinc-500 [&_b]:font-semibold [&_b]:text-zinc-600 dark:[&_b]:text-zinc-400">
@@ -589,6 +593,31 @@ export function ResonantArticle() {
           than a 256 × 256 matrix. The physics of the configuration on this page is about
           2,000 numbers.
         </p>
+      </Prose>
+
+      <figure className="my-10">
+        <div className="overflow-hidden rounded-2xl border border-zinc-200 dark:border-zinc-700/50">
+          <Image
+            src="/resonant/torus.png"
+            alt="A torus drawn as a lattice of dots, each coloured by its phase, with a travelling wave wrapping around both the ring and the tube"
+            width={1200}
+            height={720}
+            className="h-auto w-full"
+            unoptimized
+          />
+        </div>
+        <figcaption>
+          <b>Figure 10 — the field on the shape it lives on.</b> The same phase colours as the
+          crowd, now wrapped onto the surface the grid actually forms. Rows run around the
+          tube — that is the frequency axis, low bands to high — and columns run around the
+          ring. Follow any row far enough and you arrive back where you started; the same is
+          true of any column. That is what “periodic in both axes” buys: no oscillator is on
+          an edge, so one small kernel describes every neighbourhood in the field, and the
+          whole coupling step collapses into a single FFT.
+        </figcaption>
+      </figure>
+
+      <Prose className={TYPE}>
 
         <h3>Reading a physical system</h3>
         <p>
@@ -662,7 +691,7 @@ export function ResonantArticle() {
           </svg>
         </div>
         <figcaption className="mt-4 text-justify text-[13.5px] leading-relaxed text-zinc-500 dark:text-zinc-500 [&_b]:font-semibold [&_b]:text-zinc-600 dark:[&_b]:text-zinc-400">
-          <b>Figure 10 — same stack, different middle.</b> The front end and the output heads
+          <b>Figure 11 — same stack, different middle.</b> The front end and the output heads
           are deliberately the most boring possible choices and are shared with the
           conventional control models, so that any difference in results is attributable to
           the core and not to the plumbing around it.
@@ -701,7 +730,7 @@ export function ResonantArticle() {
         </div>
         <ResonantConsole />
         <figcaption className="mt-4 text-justify text-[13.5px] leading-relaxed text-zinc-500 dark:text-zinc-500 [&_b]:font-semibold [&_b]:text-zinc-600 dark:[&_b]:text-zinc-400">
-          <b>Figure 11 — the live console.</b> Three things reward watching. <b>One:</b>{' '}
+          <b>Figure 12 — the live console.</b> Three things reward watching. <b>One:</b>{' '}
           during silence the field still turns, each row at its own tempo — slow at the
           bottom, quick at the top. <b>Two:</b> when the word arrives the driven rows lurch,
           the pattern reorganizes, and the order-parameter traces swing. <b>Three:</b> the

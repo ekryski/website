@@ -5,6 +5,7 @@
  *   public/resonant/og.png            1200x630 social card
  *   public/resonant/field.png         the same art without the baked-in title
  *   public/resonant/stadium.png       the crowd-wave illustration (section 06)
+ *   public/resonant/torus.png         the phase field on its torus (section 06)
  *   src/images/projects/resonant.png  256x256 project-list logo
  *
  * The picture is the guide's argument in one frame: a spoken waveform enters
@@ -156,15 +157,22 @@ function stadium({ width = 1200, height = 680 }) {
   const wallDepth = height * 0.13
   const waveCenter = Math.PI * 0.78     // the wave crest, currently at the near-left
 
-  // seating bowl: concentric rings of fans between the field and the outer wall
+  // Seating bowl: concentric rings that stay strictly between the pitch and the
+  // rim. No vertical lift — the ellipses themselves supply the perspective, so
+  // the far rows tuck under the far rim and the near rows sit against the near
+  // one instead of floating over the grass or above the wall.
   const seats = []
-  const rings = 13
+  const rings = 10
+  const seatInnerRx = innerRx * 1.09    // clear of the touchline
+  const seatInnerRy = innerRy * 1.09
+  const seatOuterRx = outerRx * 0.93    // inside the rim
+  const seatOuterRy = outerRy * 0.93
   for (let r = 0; r < rings; r++) {
     const t = r / (rings - 1)
-    const rx = innerRx + (outerRx - innerRx) * t
-    const ry = innerRy + (outerRy - innerRy) * t
-    const lift = t * height * 0.075     // outer rings sit higher in the bowl
-    const count = Math.round(90 + 90 * t)
+    const rx = seatInnerRx + (seatOuterRx - seatInnerRx) * t
+    const ry = seatInnerRy + (seatOuterRy - seatInnerRy) * t
+    const lift = 0
+    const count = Math.round(84 + 76 * t)
     for (let i = 0; i < count; i++) {
       const a = (i / count) * 2 * Math.PI
       const x = cx + rx * Math.cos(a)
@@ -179,7 +187,7 @@ function stadium({ width = 1200, height = 680 }) {
         ? `hsl(${hue.toFixed(0)}, 85%, ${(58 + 20 * crest).toFixed(0)}%)`
         : `hsl(${hue.toFixed(0)}, 38%, ${(44 + 10 * t).toFixed(0)}%)`
       seats.push(
-        `<circle cx="${x.toFixed(1)}" cy="${(y - crest * 6).toFixed(1)}" r="${rad.toFixed(2)}" fill="${color}" opacity="${(0.62 + 0.38 * crest).toFixed(2)}"/>`,
+        `<circle cx="${x.toFixed(1)}" cy="${(y - crest * 2.5).toFixed(1)}" r="${rad.toFixed(2)}" fill="${color}" opacity="${(0.62 + 0.38 * crest).toFixed(2)}"/>`,
       )
     }
   }
@@ -238,6 +246,69 @@ function stadium({ width = 1200, height = 680 }) {
 </svg>`
 }
 
+/**
+ * The torus figure for "Why a torus": the same phase colours as the stadium
+ * crowd, wrapped onto the surface the oscillators actually live on. Rows run
+ * around the tube (frequency bands), columns around the ring, and both wrap.
+ */
+function torus({ width = 1200, height = 720 }) {
+  const cx = width / 2
+  const cy = height * 0.45
+  const R = 1.0
+  const r = 0.44
+  const tilt = (62 * Math.PI) / 180
+  // the torus spans (R + r) either side, so keep a margin at that half-width
+  const scale = Math.min((width / 2 - 70) / (R + r), (height / 2 - 60) / 1.07)
+
+  const uSteps = 84        // around the ring  (columns)
+  const vSteps = 26        // around the tube  (rows = frequency bands)
+  const dots = []
+  for (let i = 0; i < uSteps; i++) {
+    for (let j = 0; j < vSteps; j++) {
+      const u = (i / uSteps) * 2 * Math.PI
+      const v = (j / vSteps) * 2 * Math.PI
+      const x = (R + r * Math.cos(v)) * Math.cos(u)
+      const y0 = (R + r * Math.cos(v)) * Math.sin(u)
+      const z0 = r * Math.sin(v)
+      const y = y0 * Math.cos(tilt) - z0 * Math.sin(tilt)
+      const depth = y0 * Math.sin(tilt) + z0 * Math.cos(tilt)
+      // a travelling wave: phase advances around the ring and around the tube,
+      // which is what a coupled field on a periodic grid actually looks like
+      const phase = 3 * u + 2 * v
+      const hue = ((((phase % (2 * Math.PI)) + 2 * Math.PI) % (2 * Math.PI)) / (2 * Math.PI)) * 360
+      const near = (depth + 1) / 2                     // 0 far, 1 near
+      dots.push({
+        x: cx + x * scale,
+        y: cy + y * scale,
+        depth,
+        rad: 2.0 + 2.8 * near,
+        color: `hsl(${hue.toFixed(0)}, 82%, ${(44 + 24 * near).toFixed(0)}%)`,
+        opacity: (0.16 + 0.74 * near).toFixed(2),
+      })
+    }
+  }
+  dots.sort((a, b) => a.depth - b.depth)               // painter's algorithm
+
+  return `
+<svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="tsky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0b1024"/>
+      <stop offset="60%" stop-color="#171233"/>
+      <stop offset="100%" stop-color="#0a0a12"/>
+    </linearGradient>
+    <filter id="tglow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="32"/>
+    </filter>
+  </defs>
+  <rect width="${width}" height="${height}" fill="url(#tsky)"/>
+  <ellipse cx="${cx}" cy="${cy}" rx="${((R + r) * scale * 0.98).toFixed(0)}" ry="${((R + r) * scale * 0.5).toFixed(0)}" fill="#5b6cff" opacity="0.16" filter="url(#tglow)"/>
+  ${dots.map((d) => `<circle cx="${d.x.toFixed(1)}" cy="${d.y.toFixed(1)}" r="${d.rad.toFixed(2)}" fill="${d.color}" opacity="${d.opacity}"/>`).join('')}
+  <text x="${cx}" y="${height - 22}" text-anchor="middle" font-family="${MONO}" font-size="19" letter-spacing="2" fill="#8d96ab">every oscillator has the same neighbourhood — no edges, no corners</text>
+</svg>`
+}
+
+
 async function main() {
   mkdirSync(join(ROOT, 'public', 'resonant'), { recursive: true })
   mkdirSync(join(ROOT, 'src', 'images', 'projects'), { recursive: true })
@@ -257,6 +328,11 @@ async function main() {
     .png()
     .toFile(join(ROOT, 'public', 'resonant', 'stadium.png'))
   console.log(`wrote ${join(ROOT, 'public', 'resonant', 'stadium.png')}`)
+
+  await sharp(Buffer.from(torus({})))
+    .png()
+    .toFile(join(ROOT, 'public', 'resonant', 'torus.png'))
+  console.log(`wrote ${join(ROOT, 'public', 'resonant', 'torus.png')}`)
 
   await sharp(Buffer.from(card({ width: 256, height: 256, compact: true })))
     .png()
