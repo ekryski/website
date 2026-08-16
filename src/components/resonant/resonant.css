@@ -1,0 +1,234 @@
+/* Instrument styling for the Resonant guide.
+ *
+ * Body text is NOT styled here — the article's text blocks use the site's
+ * <Prose> component (@tailwindcss/typography + typography.ts), so headings,
+ * paragraphs, lists, tables, code, and links match the rest of the site and
+ * theme correctly. What is left below is the stuff Tailwind classes cannot
+ * reach: the CSS variables the canvas code reads, the dark "instrument"
+ * chrome around the live figures, and the classes that JS creates at runtime
+ * (digit buttons, readout rows).
+ *
+ * The panels stay dark in both themes on purpose — they are screens, and a
+ * phase field reads badly on white. */
+
+.resonantGuide {
+  /* read by src/lib/resonant/plots.js via getComputedStyle */
+  --panel: #12151d;
+  --panel-2: #171b25;
+  --line: #232936;
+  --panel-ink: #e7eaf1;
+  --muted: #8d96ab;
+  --accent: #7cc4ff;
+  --hot: #ff8a5b;
+  --good: #6ee7a8;
+  --warn: #ffd166;
+  --mono: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, monospace;
+}
+
+/* --- section eyebrow ------------------------------------------------------ */
+
+.resonantGuide .num {
+  display: block;
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  color: var(--color-violet-500);
+}
+.dark .resonantGuide .num { color: var(--color-violet-400); }
+
+/* --- panels and canvases -------------------------------------------------- */
+
+.resonantGuide .panel {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 18px;
+  color: var(--panel-ink);
+  font-family: var(--font-sans, ui-sans-serif, system-ui, sans-serif);
+}
+.resonantGuide .panel a { color: var(--accent); }
+.resonantGuide canvas { display: block; width: 100%; }
+.resonantGuide canvas.fieldGrid { aspect-ratio: 1; height: auto !important; }
+.resonantGuide .canvasFrame {
+  background: #06070a;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  overflow: hidden;
+}
+.resonantGuide .panelTitle {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 8px;
+  font: 600 10.5px/1.4 var(--mono);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.resonantGuide .panelTitle em { font-style: normal; color: var(--accent); }
+
+.resonantGuide .diagram {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 14px;
+}
+.resonantGuide .diagram svg { display: block; width: 100%; height: auto; }
+
+/* --- the equation figure -------------------------------------------------- */
+
+.resonantGuide .equation {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 20px 16px;
+  text-align: center;
+  font: 20px/1.5 var(--mono);
+  color: var(--panel-ink);
+  overflow-x: auto;
+}
+.resonantGuide .tDrift { color: var(--warn); }
+.resonantGuide .tCouple { color: var(--accent); }
+.resonantGuide .tDrive { color: var(--hot); }
+.resonantGuide .tPin { color: var(--good); }
+
+/* --- controls (some are created by JS, so they need real classes) ---------- */
+
+.resonantGuide .digits { display: flex; flex-wrap: wrap; gap: 8px; }
+.resonantGuide .digitBtn {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  background: var(--panel-2);
+  color: var(--panel-ink);
+  font-size: 17px;
+  font-weight: 620;
+  cursor: pointer;
+  transition: transform 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+}
+.resonantGuide .digitBtn:hover { transform: translateY(-2px); border-color: var(--accent); }
+.resonantGuide .digitBtn[aria-pressed='true'] {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #06263c;
+}
+
+.resonantGuide .action {
+  border-radius: 9px;
+  border: 1px solid var(--line);
+  background: var(--panel-2);
+  color: var(--panel-ink);
+  font-size: 14px;
+  font-weight: 600;
+  padding: 11px 15px;
+  cursor: pointer;
+}
+.resonantGuide .action:hover {
+  border-color: var(--accent);
+  background: #1e2534;
+  transform: translateY(-1px);
+}
+.resonantGuide .action:active { transform: translateY(0); }
+.resonantGuide .action.primary { background: var(--accent); border-color: var(--accent); color: #06263c; }
+.resonantGuide .action.primary:hover {
+  background: #a5d8ff;                       /* lighter blue: unmistakably hoverable */
+  border-color: #a5d8ff;
+  box-shadow: 0 6px 18px -6px rgba(124, 196, 255, 0.65);
+}
+/* buttons that swap their label for "Stop" keep their width — a control that
+   resizes under the cursor is jarring and easy to mis-click */
+.resonantGuide .action.toggle { min-width: 15ch; text-align: center; }
+.resonantGuide .action.toggle.wide { min-width: 32ch; }
+.resonantGuide select.action { padding-right: 28px; }
+
+.resonantGuide .dial label {
+  display: flex;
+  justify-content: space-between;
+  font: 600 11.5px/1.6 var(--mono);
+  color: var(--muted);
+}
+.resonantGuide .dial label b { color: var(--panel-ink); }
+.resonantGuide input.slider { width: 100%; accent-color: var(--accent); cursor: pointer; }
+.resonantGuide input.slider::-webkit-slider-thumb { cursor: grab; }
+.resonantGuide input.slider:active::-webkit-slider-thumb { cursor: grabbing; }
+.resonantGuide input.slider::-moz-range-thumb { cursor: grab; }
+
+.resonantGuide .tag {
+  display: inline-block;
+  padding: 6px 9px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  font: 600 10.5px/1 var(--mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.resonantGuide .tag.ok { color: var(--good); border-color: rgba(110, 231, 168, 0.4); }
+.resonantGuide .tag.off { color: var(--warn); border-color: rgba(255, 209, 102, 0.4); }
+
+/* --- the live console ----------------------------------------------------- */
+
+.resonantGuide .console { display: grid; grid-template-columns: 1.1fr 1fr; gap: 16px; align-items: start; }
+.resonantGuide .stack { display: grid; gap: 12px; align-content: start; }
+
+.resonantGuide .readoutRow {
+  display: grid;
+  grid-template-columns: 22px 1fr 42px;
+  gap: 8px;
+  align-items: center;
+  font: 12px/1 var(--mono);
+  color: var(--muted);
+}
+.resonantGuide .readoutRow .bar { height: 14px; background: var(--panel-2); border-radius: 4px; overflow: hidden; }
+.resonantGuide .readoutRow .bar i { display: block; height: 100%; background: var(--accent); border-radius: 4px; transition: width 0.08s linear; }
+.resonantGuide .readoutRow.win { color: var(--good); }
+.resonantGuide .readoutRow.win .bar i { background: var(--good); }
+
+.resonantGuide .metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(104px, 1fr)); gap: 10px; }
+.resonantGuide .metric { background: var(--panel-2); border-radius: 10px; padding: 10px 12px; }
+.resonantGuide .metric span {
+  display: block;
+  font: 600 9.5px/1.4 var(--mono);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.resonantGuide .metric b { font-size: 19px; font-weight: 620; color: var(--panel-ink); }
+
+.resonantGuide .pipelineStrip { display: grid; grid-template-columns: repeat(6, 1fr); gap: 6px; margin-bottom: 8px; }
+.resonantGuide .stage {
+  text-align: center;
+  padding: 8px 4px;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  background: var(--panel-2);
+  font: 600 10px/1.3 var(--mono);
+  color: var(--muted);
+  transition: color 0.2s, border-color 0.2s, background 0.2s;
+}
+.resonantGuide .stage.live {
+  color: var(--panel-ink);
+  border-color: var(--accent);
+  background: #1b2a3d;   /* opaque: the strip must read on a white page too */
+}
+
+/* --- inline SVG diagrams -------------------------------------------------- */
+
+.resonantGuide .bx { fill: #171b25; stroke: #2b3242; }
+.resonantGuide .bxFront { fill: #14202b; stroke: #2d4a63; }
+.resonantGuide .bxCore { fill: #16202e; stroke: #4d7fa8; }
+.resonantGuide .lb { fill: #e7eaf1; font: 600 14px var(--mono); }
+.resonantGuide .sub { fill: #8d96ab; font: 11.5px var(--mono); }
+.resonantGuide .subHot { fill: #ff8a5b; font: 11.5px var(--mono); }
+.resonantGuide .hd { fill: #7cc4ff; font: 600 11px var(--mono); letter-spacing: 0.14em; }
+.resonantGuide .ln { stroke: #67718a; stroke-width: 1.6; fill: none; }
+.resonantGuide .lnHot { stroke: #ff8a5b; stroke-width: 1.6; fill: none; stroke-dasharray: 5 4; }
+
+@media (max-width: 900px) {
+  .resonantGuide .console { grid-template-columns: 1fr; }
+}

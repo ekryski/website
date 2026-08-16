@@ -1,0 +1,40 @@
+import { ResonantGuidePage } from '@/components/resonant/ResonantGuidePage'
+
+export const dynamic = 'force-static'
+
+export const article = {
+  author: 'Eric Kryski',
+  date: '2026-08-15',
+  published: true,
+  title: 'How a machine hears a number',
+  description:
+    'A progressive guide to speech model architectures — pressure waves, Fourier transforms, mel spectrograms, vocoders, and a coupled-oscillator core — where every figure is computed live in your browser from real recordings of spoken digits.',
+}
+
+export const metadata = {
+  title: article.title,
+  description: article.description,
+  openGraph: {
+    type: 'article',
+    title: article.title,
+    description: article.description,
+    url: '/articles/how-a-machine-hears-a-number',
+    images: [
+      {
+        url: '/resonant/og.png',
+        width: 1200,
+        height: 630,
+        alt: 'A sound wave rippling through a lattice of oscillators and resolving into the digit seven',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: article.title,
+    description: article.description,
+    images: ['/resonant/og.png'],
+  },
+  alternates: { canonical: '/articles/how-a-machine-hears-a-number' },
+}
+
+export default (props) => <ResonantGuidePage date={article.date} {...props} />

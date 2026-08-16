@@ -38,3 +38,6 @@ public/sitemap.xml
 
 # Local Netlify folder
 .netlify
+
+# typescript incremental build cache
+tsconfig.tsbuildinfo
