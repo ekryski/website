@@ -200,10 +200,14 @@ function stadium({ width = 1200, height = 680 }) {
       <stop offset="60%" stop-color="#181231"/>
       <stop offset="100%" stop-color="#0a0a12"/>
     </linearGradient>
-    <radialGradient id="pitch" cx="50%" cy="45%" r="70%">
-      <stop offset="0%" stop-color="#1f6b46"/>
-      <stop offset="100%" stop-color="#12472f"/>
+    <radialGradient id="floor" cx="50%" cy="30%" r="80%">
+      <stop offset="0%" stop-color="#2b2350"/>
+      <stop offset="100%" stop-color="#120e22"/>
     </radialGradient>
+    <linearGradient id="stageGlow" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#fff3c4" stop-opacity="0.85"/>
+      <stop offset="100%" stop-color="#ff8a5b" stop-opacity="0.15"/>
+    </linearGradient>
     <linearGradient id="wall" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0%" stop-color="#241a3a"/>
       <stop offset="100%" stop-color="#0e0a18"/>
@@ -227,17 +231,35 @@ function stadium({ width = 1200, height = 680 }) {
   <path d="M ${cx - outerRx} ${cy} a ${outerRx} ${outerRy} 0 0 0 ${outerRx * 2} 0 l 0 ${wallDepth} a ${outerRx} ${outerRy} 0 0 1 ${-outerRx * 2} 0 Z" fill="url(#wall)"/>
   <ellipse cx="${cx}" cy="${cy}" rx="${outerRx}" ry="${outerRy}" fill="none" stroke="#3b2f5c" stroke-width="3"/>
 
-  <!-- the field -->
-  <ellipse cx="${cx}" cy="${cy + 6}" rx="${innerRx}" ry="${innerRy}" fill="url(#pitch)"/>
-  <ellipse cx="${cx}" cy="${cy + 6}" rx="${innerRx * 0.98}" ry="${innerRy * 0.94}" fill="none" stroke="#d8f5e4" stroke-width="2" opacity="0.5"/>
-  <line x1="${cx}" y1="${cy + 6 - innerRy * 0.94}" x2="${cx}" y2="${cy + 6 + innerRy * 0.94}" stroke="#d8f5e4" stroke-width="2" opacity="0.45"/>
-  <ellipse cx="${cx}" cy="${cy + 6}" rx="${innerRx * 0.2}" ry="${innerRy * 0.2}" fill="none" stroke="#d8f5e4" stroke-width="2" opacity="0.45"/>
+  <!-- the floor: standing crowd, with the stage at the far end -->
+  <ellipse cx="${cx}" cy="${cy + 6}" rx="${innerRx}" ry="${innerRy}" fill="url(#floor)"/>
+  <ellipse cx="${cx}" cy="${cy + 6}" rx="${innerRx * 0.99}" ry="${innerRy * 0.96}" fill="none" stroke="#6b5ea8" stroke-width="2" opacity="0.45"/>
+  <g>
+    <ellipse cx="${cx}" cy="${cy - innerRy * 0.62}" rx="${innerRx * 0.46}" ry="${innerRy * 0.3}" fill="#fdf6d8" opacity="0.10" filter="url(#bowlGlow)"/>
+    <path d="M ${cx - innerRx * 0.34} ${cy - innerRy * 0.5} L ${cx + innerRx * 0.34} ${cy - innerRy * 0.5} L ${cx + innerRx * 0.4} ${cy - innerRy * 0.72} L ${cx - innerRx * 0.4} ${cy - innerRy * 0.72} Z" fill="url(#stageGlow)"/>
+    <path d="M ${cx - innerRx * 0.4} ${cy - innerRy * 0.72} L ${cx + innerRx * 0.4} ${cy - innerRy * 0.72} L ${cx + innerRx * 0.34} ${cy - innerRy * 0.5} L ${cx - innerRx * 0.34} ${cy - innerRy * 0.5} Z" fill="none" stroke="#fff3c4" stroke-width="2" opacity="0.7"/>
+    <circle cx="${cx}" cy="${cy - innerRy * 0.62}" r="6" fill="#ffffff" opacity="0.95"/>
+  </g>
+  ${Array.from({ length: 420 }, (_, i) => {
+    // deterministic but unpatterned scatter (a golden-angle spiral reads as a
+    // galaxy, not a crowd); sqrt keeps the density uniform across the ellipse
+    const hash = (n) => {
+      const v = Math.sin(n * 12.9898 + 78.233) * 43758.5453
+      return v - Math.floor(v)
+    }
+    const a = hash(i) * 2 * Math.PI
+    const rad = Math.sqrt(hash(i + 0.5))
+    const fx = cx + innerRx * 0.92 * rad * Math.cos(a)
+    const fy = cy + 6 + innerRy * 0.92 * rad * Math.sin(a)
+    const lit = i % 7 === 0
+    return `<circle cx="${fx.toFixed(1)}" cy="${fy.toFixed(1)}" r="${lit ? 2.4 : 1.5}" fill="${lit ? '#ffeaa7' : '#8f86c9'}" opacity="${lit ? 0.85 : 0.35}"/>`
+  }).join('')}
 
   <!-- floodlights: far rim only, so they read as standing behind the bowl -->
   ${[1.18, 1.38, 1.62, 1.82].map((f) => {
     const a = Math.PI * f
     const x = cx + outerRx * 0.99 * Math.cos(a)
-    const y = cy + outerRy * 0.99 * Math.sin(a) - height * 0.075
+    const y = cy + outerRy * 0.99 * Math.sin(a)   // base sits on the rim itself
     return `<g opacity="0.9"><line x1="${x.toFixed(0)}" y1="${y.toFixed(0)}" x2="${x.toFixed(0)}" y2="${(y - 52).toFixed(0)}" stroke="#4a3f6b" stroke-width="4"/><rect x="${(x - 17).toFixed(0)}" y="${(y - 68).toFixed(0)}" width="34" height="16" rx="4" fill="#fdf6d8"/><ellipse cx="${x.toFixed(0)}" cy="${(y - 52).toFixed(0)}" rx="46" ry="26" fill="#fdf6d8" opacity="0.10"/></g>`
   }).join('')}
 
