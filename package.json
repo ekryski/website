@@ -4,9 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "next dev --webpack",
-    "build": "npm run build:feed && npm run build:cv && npm run build:og-image && next build --webpack",
+    "build": "npm run build:feed && npm run build:cv && npm run build:og-image && npm run build:resonant-og && next build --webpack",
     "build:feed": "node scripts/generate-feed.js",
     "build:og-image": "node scripts/generate-og-image.js",
+    "build:resonant-og": "node scripts/generate-resonant-og.js",
     "optimize-home-photos": "node scripts/optimize-home-photos.js",
     "build:cv": "npx md-to-pdf public/cv.md --config-file md-to-pdf-config.js",
     "start": "next start",
@@ -42,9 +43,11 @@
     "react-markdown": "^9.1.0",
     "remark-gfm": "^4.0.0",
     "tailwindcss": "^4.1.10",
+    "three": "^0.185.1",
     "typescript": "^5.3.3"
   },
   "devDependencies": {
+    "@types/three": "^0.185.4",
     "dotenv": "^17.2.4",
     "eslint": "^9.0.0",
     "eslint-config-next": "^16.1.6",
