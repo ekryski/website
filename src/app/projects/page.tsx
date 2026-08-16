@@ -8,6 +8,7 @@ import logoBidali from '@/images/companies/bidali.png'
 import logoCaress from '@/images/projects/caress.png'
 import logoDeliciousDB from '@/images/projects/deliciousdb.png'
 import logoFeathersJS from '@/images/projects/feathersjs.png'
+import logoResonant from '@/images/projects/resonant.png'
 import logoSam from '@/images/projects/sam.png'
 
 function ProjectIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
@@ -43,6 +44,13 @@ const projects = [
       'Your personalized AI assistant on your Mac.',
     link: { href: '#', label: 'Coming soon' },
     logo: logoSam,
+  },
+  {
+    name: 'Resonant',
+    description:
+      'Speech models built on coupled-oscillator physics instead of attention. Read the interactive guide — it runs the whole pipeline live in your browser.',
+    link: { href: '/projects/resonant', label: 'Read the guide', internal: true },
+    logo: logoResonant,
   },
   {
     name: 'FeathersJS',
@@ -108,7 +116,11 @@ export default function Projects() {
       >
         {projects.map((project) => {
           const fullBleedLogo =
-            project.name === 'Sam' || project.name === 'DeliciousDB'
+            project.name === 'Sam' ||
+            project.name === 'DeliciousDB' ||
+            project.name === 'Resonant'
+          // internal pages open in this tab; everything else is an outbound link
+          const internal = 'internal' in project.link && project.link.internal
           return (
           <Card as="li" key={project.name}>
             <div
@@ -147,8 +159,7 @@ export default function Projects() {
               {project.link.href !== '#' ? (
                 <a
                   href={project.link.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  {...(internal ? {} : { target: '_blank', rel: 'noopener noreferrer' })}
                   className="flex items-center transition group-hover:text-violet-500 dark:group-hover:text-violet-400"
                 >
                   <LinkIcon className="h-6 w-6 flex-none" />
