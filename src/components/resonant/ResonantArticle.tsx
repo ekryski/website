@@ -3,6 +3,8 @@ import Image from 'next/image'
 import { Prose } from '@/components/Prose'
 import { ResonantConsole } from '@/components/resonant/ResonantConsole'
 
+// The repository is not public yet — kept for the commented-out repo links below.
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const REPO = 'https://github.com/ekryski/resonant'
 
 /** Section headings read as chapter markers; body rhythm is tighter than the site default. */
@@ -456,9 +458,11 @@ export function ResonantArticle() {
         <h2><span className="num">06 — a different core</span>What if the middle box were physics?</h2>
         <p>
           Everything above treats the encoder as a stack of matrix multiplications. Here is
-          the alternative <a href={REPO} target="_blank" rel="noopener noreferrer">Project Resonant</a>{' '}
-          is built to test: replace it with a <strong>population of coupled
-          oscillators</strong>, and let the audio drive them.
+          the alternative <strong>Project Resonant</strong> is built to test: replace it
+          with a <strong>population of coupled oscillators</strong>, and let the audio drive
+          them.
+          {/* repo is not public yet — restore when it is:
+              <a href={REPO} target="_blank" rel="noopener noreferrer">Project Resonant</a> */}
         </p>
         <p>
           The motivation is not aesthetic. Speech <em>is</em> oscillation — vocal folds
@@ -845,16 +849,18 @@ export function ResonantArticle() {
         <h2><span className="num">09 — go deeper</span>The code, and the prior art</h2>
         <p>
           Everything on this page — the front end, the oscillator core, the readout, and the
-          ten recordings — comes out of an open research repository. The hypothesis, the
+          ten recordings — comes out of a research repository that holds the hypothesis, the
           architecture, every experiment log, and the results that refuted my own
-          expectations all live there.
+          expectations. It is getting a clean-up pass before it goes public; the link will
+          land here when it does.
         </p>
+        {/* repo is not public yet — restore this button when it is:
         <p style={{ marginTop: '1.5rem' }}>
           <a className="action primary" href={REPO} target="_blank" rel="noopener noreferrer"
              style={{ textDecoration: 'none', display: 'inline-block' }}>
             Project Resonant on GitHub →
           </a>
-        </p>
+        </p> */}
 
         <h3>Prior art worth reading</h3>
         <div className="not-prose mt-6 rounded-2xl border border-zinc-200 bg-zinc-100/60 p-6 dark:border-zinc-700/50 dark:bg-zinc-800/40">
