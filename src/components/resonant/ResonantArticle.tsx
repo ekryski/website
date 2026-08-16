@@ -397,9 +397,8 @@ export function ResonantArticle() {
             something playable and famously robotic. <em>Where you have heard it:</em> the
             original <a href={'https://arxiv.org/abs/1703.10135'} target="_blank" rel="noopener noreferrer">Tacotron</a> (2017)
             shipped with Griffin–Lim, which is exactly why first-generation neural TTS
-            demos had that ringing, underwater timbre — and why{' '}
-            <a href="https://librosa.org/doc/main/generated/librosa.griffinlim.html" target="_blank" rel="noopener noreferrer">librosa’s <code>griffinlim</code></a>{' '}
-            is still the two-line baseline everyone tries first.
+            demos had that ringing, underwater timbre — and why librosa’s{' '}
+            <code>griffinlim</code> is still the two-line baseline everyone tries first.
           </li>
           <li>
             <strong>Neural vocoders (the modern default).</strong> A network trained on
@@ -417,7 +416,7 @@ export function ResonantArticle() {
             and <a href="https://arxiv.org/abs/2306.07691" target="_blank" rel="noopener noreferrer">StyleTTS 2</a>;{' '}
             <a href="https://arxiv.org/abs/2206.04658" target="_blank" rel="noopener noreferrer">BigVGAN</a>{' '}
             scaled it to universal, any-voice audio;{' '}
-            <a href="https://arxiv.org/abs/2009.00713" target="_blank" rel="noopener noreferrer">DiffWave</a> and{' '}
+            <a href="https://arxiv.org/abs/2009.09761" target="_blank" rel="noopener noreferrer">DiffWave</a> and{' '}
             <a href="https://arxiv.org/abs/2009.00713" target="_blank" rel="noopener noreferrer">WaveGrad</a>{' '}
             sculpt noise into a waveform by diffusion; and{' '}
             <a href="https://arxiv.org/abs/2306.00814" target="_blank" rel="noopener noreferrer">Vocos</a>{' '}
@@ -474,9 +473,8 @@ export function ResonantArticle() {
 
         <h3>The stadium crowd</h3>
         <p>
-          The mental picture used throughout the project: a stadium at a concert, everyone
-          holding their phone with the light on, each person swinging it in a slow windmill
-          while their favourite singer plays.
+          Imagine a stadium at a concert, everyone holding their phone with the light on,
+          each person swinging it in a slow windmill while their favourite singer plays.
         </p>
       </Prose>
 
