@@ -397,7 +397,8 @@ export function ResonantArticle() {
             something playable and famously robotic. <em>Where you have heard it:</em> the
             original <a href={'https://arxiv.org/abs/1703.10135'} target="_blank" rel="noopener noreferrer">Tacotron</a> (2017)
             shipped with Griffin–Lim, which is exactly why first-generation neural TTS
-            demos had that ringing, underwater timbre — and why librosa’s{' '}
+            demos had that ringing, underwater timbre — and why{' '}
+            <a href="https://github.com/librosa/librosa" target="_blank" rel="noopener noreferrer">librosa</a>’s{' '}
             <code>griffinlim</code> is still the two-line baseline everyone tries first.
           </li>
           <li>
