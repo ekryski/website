@@ -1,7 +1,18 @@
+import Image from 'next/image'
+
 import { Prose } from '@/components/Prose'
 import { ResonantConsole } from '@/components/resonant/ResonantConsole'
 
 const REPO = 'https://github.com/ekryski/resonant'
+
+/** Section headings read as chapter markers; body rhythm is tighter than the site default. */
+const TYPE = [
+  'prose-lg',
+  'prose-headings:tracking-tight',
+  'prose-h2:mt-0 prose-h2:mb-6 prose-h2:text-5xl prose-h2:font-extrabold sm:prose-h2:text-6xl',
+  'prose-h3:mt-10 prose-h3:mb-3 prose-h3:text-2xl prose-h3:font-bold sm:prose-h3:text-3xl',
+  'prose-p:my-4 prose-ul:my-4 prose-ol:my-4 prose-li:my-1.5',
+].join(' ')
 
 /**
  * The guide itself — markup only, no state. The canvases and controls are
@@ -11,7 +22,7 @@ export function ResonantArticle() {
   return (
     <>
       {/* ─────────────────────────────────────────────────────────── 01 ─── */}
-      <Prose className="prose-lg">
+      <Prose className={TYPE}>
         <h2><span className="num">01 — the problem</span>Sound is a terrible input format</h2>
         <p>
           Say <em>“seven”</em> out loud. Your vocal folds chop an airflow into pulses, your
@@ -38,9 +49,13 @@ export function ResonantArticle() {
             <canvas id="waveCanvas" style={{ height: 150 }} />
           </div>
         </div>
-        <figcaption className="mt-3 max-w-3xl text-[15px] leading-relaxed text-zinc-500 dark:text-zinc-400 [&_b]:font-semibold [&_b]:text-zinc-800 dark:[&_b]:text-zinc-100">
-          <b>Figure 1 — one second of speech, as recorded.</b> Amplitude over time, 16,000
-          samples. You can see <em>where</em> the energy is, and roughly how many syllables
+        <figcaption className="mt-4 text-justify text-[13.5px] leading-relaxed text-zinc-500 dark:text-zinc-500 [&_b]:font-semibold [&_b]:text-zinc-600 dark:[&_b]:text-zinc-400">
+          <b>Figure 1 — one second of speech, as recorded.</b> Every clip on this page comes
+          from{' '}
+          <a href="https://github.com/soerenab/AudioMNIST" target="_blank" rel="noopener noreferrer" className="underline">
+            AudioMNIST
+          </a>
+          , an open corpus of spoken digits. Amplitude over time, 16,000 samples. You can see <em>where</em> the energy is, and roughly how many syllables
           there are. You cannot see which word it is: the same digit spoken by two people
           produces two wildly different squiggles, and shifting the recording by 5
           milliseconds changes every single number while changing nothing a listener would
@@ -49,7 +64,7 @@ export function ResonantArticle() {
         </figcaption>
       </figure>
 
-      <Prose className="prose-lg">
+      <Prose className={TYPE}>
         <p>
           The fix is a hundred years older than deep learning: stop describing the wave and
           start describing <strong>which frequencies are present, and when</strong>. Two
@@ -60,7 +75,7 @@ export function ResonantArticle() {
       </Prose>
 
       {/* ─────────────────────────────────────────────────────────── 02 ─── */}
-      <Prose className="prose-lg">
+      <Prose className={TYPE}>
         <h2><span className="num">02 — the fourier transform</span>One slice, taken apart into pure tones</h2>
         <p>
           Fourier’s claim: any wave, however jagged, is a sum of plain sine waves at
@@ -92,7 +107,7 @@ export function ResonantArticle() {
             <div className="canvasFrame"><canvas id="fftSpecCanvas" style={{ height: 176 }} /></div>
           </div>
         </div>
-        <figcaption className="mt-3 max-w-3xl text-[15px] leading-relaxed text-zinc-500 dark:text-zinc-400 [&_b]:font-semibold [&_b]:text-zinc-800 dark:[&_b]:text-zinc-100">
+        <figcaption className="mt-4 text-justify text-[13.5px] leading-relaxed text-zinc-500 dark:text-zinc-500 [&_b]:font-semibold [&_b]:text-zinc-600 dark:[&_b]:text-zinc-400">
           <b>Figure 2 — a 32 ms window and its spectrum.</b> Left: the highlighted slice of
           the recording. Right: the FFT of that slice — energy against frequency, 0 to
           8 kHz. Slide it into a vowel and the low end fills with regularly spaced peaks
@@ -106,7 +121,7 @@ export function ResonantArticle() {
       </figure>
 
       {/* ─────────────────────────────────────────────────────────── 03 ─── */}
-      <Prose className="prose-lg">
+      <Prose className={TYPE}>
         <h2><span className="num">03 — the STFT</span>Slide the window: a picture of sound</h2>
         <p>
           The <strong>Short-Time Fourier Transform (STFT)</strong> is just the previous
@@ -140,7 +155,7 @@ export function ResonantArticle() {
           </div>
           <div className="canvasFrame"><canvas id="stftCanvas" style={{ height: 230 }} /></div>
         </div>
-        <figcaption className="mt-3 max-w-3xl text-[15px] leading-relaxed text-zinc-500 dark:text-zinc-400 [&_b]:font-semibold [&_b]:text-zinc-800 dark:[&_b]:text-zinc-100">
+        <figcaption className="mt-4 text-justify text-[13.5px] leading-relaxed text-zinc-500 dark:text-zinc-500 [&_b]:font-semibold [&_b]:text-zinc-600 dark:[&_b]:text-zinc-400">
           <b>Figure 3 — the spectrogram of the selected digit.</b> Horizontal stripes are
           the harmonics of the voice; the wavering bright bands are formants moving as the
           mouth changes shape; vertical smears are the bursts and hisses of consonants. This
@@ -151,7 +166,7 @@ export function ResonantArticle() {
       </figure>
 
       {/* ─────────────────────────────────────────────────────────── 04 ─── */}
-      <Prose className="prose-lg">
+      <Prose className={TYPE}>
         <h2><span className="num">04 — the mel scale</span>Rebuilding the axis around the ear</h2>
         <p>
           257 frequency bins, evenly spaced from 0 to 8 kHz, is not how hearing works. The
@@ -195,7 +210,7 @@ export function ResonantArticle() {
             <div className="canvasFrame"><canvas id="melFbCanvas" style={{ height: 200 }} /></div>
           </div>
         </div>
-        <figcaption className="mt-3 max-w-3xl text-[15px] leading-relaxed text-zinc-500 dark:text-zinc-400 [&_b]:font-semibold [&_b]:text-zinc-800 dark:[&_b]:text-zinc-100">
+        <figcaption className="mt-4 text-justify text-[13.5px] leading-relaxed text-zinc-500 dark:text-zinc-500 [&_b]:font-semibold [&_b]:text-zinc-600 dark:[&_b]:text-zinc-400">
           <b>Figure 4 — warping, then pooling, lit up by the actual recording.</b> Left:
           physical frequency in, perceptual frequency out — each stem marks a mel band this
           clip is using right now, planted at its frequency and rising to where the ear puts
@@ -209,7 +224,7 @@ export function ResonantArticle() {
         </figcaption>
       </figure>
 
-      <Prose className="prose-lg">
+      <Prose className={TYPE}>
         <p>
           One more step, and it matters more than it looks. Loudness is perceived
           logarithmically too, so we take the log of each band’s energy. That turns the
@@ -228,7 +243,7 @@ export function ResonantArticle() {
           </div>
           <div className="canvasFrame"><canvas id="melSpecCanvas" style={{ height: 180 }} /></div>
         </div>
-        <figcaption className="mt-3 max-w-3xl text-[15px] leading-relaxed text-zinc-500 dark:text-zinc-400 [&_b]:font-semibold [&_b]:text-zinc-800 dark:[&_b]:text-zinc-100">
+        <figcaption className="mt-4 text-justify text-[13.5px] leading-relaxed text-zinc-500 dark:text-zinc-500 [&_b]:font-semibold [&_b]:text-zinc-600 dark:[&_b]:text-zinc-400">
           <b>Figure 5 — the same second, now 976 numbers instead of 16,000.</b> Low bands at
           the bottom, high at the top. Almost everything that distinguishes one spoken digit
           from another survives this compression — which is why nearly every speech system,
@@ -236,7 +251,7 @@ export function ResonantArticle() {
         </figcaption>
       </figure>
 
-      <Prose className="prose-lg">
+      <Prose className={TYPE}>
         <div className="my-6 rounded-r-xl border-l-2 border-violet-500 bg-violet-500/5 px-5 py-4 dark:border-violet-400 dark:bg-violet-400/5">
           <h4>Sidebar: what is a “mel transcoder”?</h4>
           <p>
@@ -257,7 +272,7 @@ export function ResonantArticle() {
       </Prose>
 
       {/* ─────────────────────────────────────────────────────────── 05 ─── */}
-      <Prose className="prose-lg">
+      <Prose className={TYPE}>
         <h2><span className="num">05 — the standard stack</span>An encoder, and three ways out</h2>
         <p>
           With the front end fixed, the rest of a speech system has a common shape: an{' '}
@@ -327,14 +342,14 @@ export function ResonantArticle() {
             <text x="480" y="318" className="sub" textAnchor="middle">— only the head and the loss change</text>
           </svg>
         </div>
-        <figcaption className="mt-3 max-w-3xl text-[15px] leading-relaxed text-zinc-500 dark:text-zinc-400 [&_b]:font-semibold [&_b]:text-zinc-800 dark:[&_b]:text-zinc-100">
+        <figcaption className="mt-4 text-justify text-[13.5px] leading-relaxed text-zinc-500 dark:text-zinc-500 [&_b]:font-semibold [&_b]:text-zinc-600 dark:[&_b]:text-zinc-400">
           <b>Figure 6 — the conventional pipeline.</b> The front end is fixed arithmetic
           with no learned parameters. Everything to its right is trained, and what you train
           it on is set entirely by the decoder you attach.
         </figcaption>
       </figure>
 
-      <Prose className="prose-lg">
+      <Prose className={TYPE}>
         <h3>What the training data has to be</h3>
         <table>
           <thead>
@@ -429,7 +444,7 @@ export function ResonantArticle() {
       </Prose>
 
       {/* ─────────────────────────────────────────────────────────── 06 ─── */}
-      <Prose className="prose-lg">
+      <Prose className={TYPE}>
         <h2><span className="num">06 — a different core</span>What if the middle box were physics?</h2>
         <p>
           Everything above treats the encoder as a stack of matrix multiplications. Here is
@@ -450,6 +465,29 @@ export function ResonantArticle() {
           The mental picture used throughout the project: a stadium full of fans doing the
           wave, each windmilling one arm.
         </p>
+      </Prose>
+
+      <figure className="my-10">
+        <div className="overflow-hidden rounded-2xl border border-zinc-200 dark:border-zinc-700/50">
+          <Image
+            src="/resonant/stadium.png"
+            alt="A stadium bowl seen from outside and above, roof open, every seat drawn as a dot coloured by its phase, with a bright wave of raised arms sweeping around the near side"
+            width={1200}
+            height={680}
+            className="h-auto w-full"
+            unoptimized
+          />
+        </div>
+        <figcaption>
+          <b>Figure 7 — the whole model, in one picture.</b> Every seat is an oscillator and
+          every colour is a phase. The bright band sweeping the near side is the wave: fans
+          are not moving anywhere, and neither is the seating chart. What travels is the
+          <em> timing relationship</em> between neighbours — which is exactly what the
+          coupling term computes, and exactly what the readout measures.
+        </figcaption>
+      </figure>
+
+      <Prose className={TYPE}>
         <ul>
           <li>Each fan’s <strong>arm direction</strong> is that oscillator’s phase, θ. It goes around and around; 0 and 2π are the same position.</li>
           <li>Each fan has a preferred <strong>windmill tempo</strong>, ω — how fast they turn if nobody bothers them.</li>
@@ -473,7 +511,7 @@ export function ResonantArticle() {
           <span className="tPin">λ · sin(θ<sub>i</sub>)</span>{' + '}
           <span className="tDrive">F<sub>i</sub>(t)</span>
         </div>
-        <div className="mt-4 grid gap-3 text-[15px] leading-relaxed text-zinc-600 dark:text-zinc-400 [&>div]:grid [&>div]:grid-cols-[92px_1fr] [&>div]:items-start [&>div]:gap-3 [&_b]:font-semibold [&_b]:text-zinc-800 dark:[&_b]:text-zinc-100 [&_span:first-child]:font-mono [&_span:first-child]:text-xs [&_span:first-child]:font-semibold">
+        <div className="mt-5 grid gap-4 text-[15px] leading-relaxed text-zinc-600 dark:text-zinc-400 [&>div]:grid [&>div]:grid-cols-[112px_1fr] [&>div]:items-start [&>div]:gap-3 [&_b]:font-semibold [&_b]:text-zinc-800 dark:[&_b]:text-zinc-100 [&_span:first-child]:font-mono [&_span:first-child]:text-base [&_span:first-child]:font-semibold">
           <div>
             <span className="tDrift">ω</span>
             <span><b>Own tempo.</b> Every oscillator has a natural frequency it would keep on its own. In this demo they are laid out deliberately: each row of the grid is tuned to one band of the speech envelope, from about 0.4 Hz at the bottom to 6 Hz at the top.</span>
@@ -491,14 +529,14 @@ export function ResonantArticle() {
             <span><b>The audio.</b> Each mel band’s loudness at this instant, injected into its own row of oscillators. Loud band, hard shove.</span>
           </div>
         </div>
-        <figcaption className="mt-3 max-w-3xl text-[15px] leading-relaxed text-zinc-500 dark:text-zinc-400 [&_b]:font-semibold [&_b]:text-zinc-800 dark:[&_b]:text-zinc-100">
-          <b>Figure 7 — the whole core, in one line.</b> Compare with a transformer layer:
+        <figcaption className="mt-4 text-justify text-[13.5px] leading-relaxed text-zinc-500 dark:text-zinc-500 [&_b]:font-semibold [&_b]:text-zinc-600 dark:[&_b]:text-zinc-400">
+          <b>Figure 8 — the whole core, in one line.</b> Compare with a transformer layer:
           there is no attention matrix, no feed-forward block, no layer norm. There is a
           tempo, a neighbourhood rule, a brake, and an input.
         </figcaption>
       </figure>
 
-      <Prose className="prose-lg">
+      <Prose className={TYPE}>
         <p>
           Coupling strength is the interesting dial. Too weak and every oscillator ignores
           the others — a bag of independent filters. Too strong and the entire population
@@ -520,8 +558,8 @@ export function ResonantArticle() {
             <input className="slider" type="range" id="toyK" min="0" max="300" defaultValue="0" />
           </div>
         </div>
-        <figcaption className="mt-3 max-w-3xl text-[15px] leading-relaxed text-zinc-500 dark:text-zinc-400 [&_b]:font-semibold [&_b]:text-zinc-800 dark:[&_b]:text-zinc-100">
-          <b>Figure 8 — synchronization, from nothing to total.</b> 24 oscillators with
+        <figcaption className="mt-4 text-justify text-[13.5px] leading-relaxed text-zinc-500 dark:text-zinc-500 [&_b]:font-semibold [&_b]:text-zinc-600 dark:[&_b]:text-zinc-400">
+          <b>Figure 9 — synchronization, from nothing to total.</b> 24 oscillators with
           different natural tempos, drawn as dots on their shared circle. At K = 0 they
           smear around it forever. Push K up and they gather into a clump. The arrow is the{' '}
           <strong>order parameter R</strong>: the average of all the phases treated as unit
@@ -530,7 +568,7 @@ export function ResonantArticle() {
         </figcaption>
       </figure>
 
-      <Prose className="prose-lg">
+      <Prose className={TYPE}>
         <h3>Why a torus</h3>
         <p>
           The oscillators are not a loose bag; they sit on a 16 × 16 grid, and coupling
@@ -623,8 +661,8 @@ export function ResonantArticle() {
             <text x="500" y="306" className="subHot" textAnchor="middle">phases persist frame to frame — the recurrence</text>
           </svg>
         </div>
-        <figcaption className="mt-3 max-w-3xl text-[15px] leading-relaxed text-zinc-500 dark:text-zinc-400 [&_b]:font-semibold [&_b]:text-zinc-800 dark:[&_b]:text-zinc-100">
-          <b>Figure 9 — same stack, different middle.</b> The front end and the output heads
+        <figcaption className="mt-4 text-justify text-[13.5px] leading-relaxed text-zinc-500 dark:text-zinc-500 [&_b]:font-semibold [&_b]:text-zinc-600 dark:[&_b]:text-zinc-400">
+          <b>Figure 10 — same stack, different middle.</b> The front end and the output heads
           are deliberately the most boring possible choices and are shared with the
           conventional control models, so that any difference in results is attributable to
           the core and not to the plumbing around it.
@@ -632,7 +670,7 @@ export function ResonantArticle() {
       </figure>
 
       {/* ─────────────────────────────────────────────────────────── 07 ─── */}
-      <Prose className="prose-lg">
+      <Prose className={TYPE}>
         <h2><span className="num">07 — watch it run</span>The whole pipeline, live</h2>
         <p>
           Below, everything on this page runs end to end. Pick a digit and press play: the
@@ -662,22 +700,21 @@ export function ResonantArticle() {
           <div className="stage" data-stage="5">readout</div>
         </div>
         <ResonantConsole />
-        <figcaption className="mt-3 max-w-3xl text-[15px] leading-relaxed text-zinc-500 dark:text-zinc-400 [&_b]:font-semibold [&_b]:text-zinc-800 dark:[&_b]:text-zinc-100">
-          <b>Figure 10 — the live console.</b> Three things reward watching. <b>One:</b>{' '}
+        <figcaption className="mt-4 text-justify text-[13.5px] leading-relaxed text-zinc-500 dark:text-zinc-500 [&_b]:font-semibold [&_b]:text-zinc-600 dark:[&_b]:text-zinc-400">
+          <b>Figure 11 — the live console.</b> Three things reward watching. <b>One:</b>{' '}
           during silence the field still turns, each row at its own tempo — slow at the
           bottom, quick at the top. <b>Two:</b> when the word arrives the driven rows lurch,
           the pattern reorganizes, and the order-parameter traces swing. <b>Three:</b> the
           readout usually commits well before the clip ends, then holds. Every dial is real
           physics, but the readout was fitted at one setting and never refits, so moving a
           dial hands it a system it has never seen — that is what the badge means, and why
-          predictions fall apart quickly (severing the coupling drops the shipped readout to
-          17%). What that does <em>not</em> establish is how much the coupling was
-          contributing: see the control below.
+          predictions fall apart quickly. What that does <em>not</em> establish is how much
+          the coupling was contributing; the next section prices that properly.
         </figcaption>
       </figure>
 
       {/* ─────────────────────────────────────────────────────────── 08 ─── */}
-      <Prose className="prose-lg">
+      <Prose className={TYPE}>
         <h2><span className="num">08 — this is just the beginning</span>What this shows, and what it doesn’t</h2>
         <p>
           Spoken digits are an easy task with a long history — they are the “hello world” of
@@ -691,60 +728,68 @@ export function ResonantArticle() {
           <li><strong>The whole model is tiny.</strong> The physics is roughly 2,000 numbers, and it simulates a second of audio in a browser tab in a few dozen milliseconds.</li>
         </ul>
 
-        <h3>The control nobody wants to run</h3>
+        <h3>How much of it is the synchronization?</h3>
         <p>
-          The obvious next question is how much of that comes from the <em>coupling</em> —
-          the part that makes this a synchronization model rather than a bank of independent
-          driven oscillators. So delete it: set the kernel to zero, leaving 1,024
-          oscillators that still feel the audio but no longer feel each other, and refit the
-          readout on that field.
+          There are two different machines hiding in that description, and it is worth
+          separating them. One is a <strong>bank of independent resonators</strong>: 1,024
+          oscillators, each tuned to a frequency band, each shoved by its own slice of the
+          audio, none of them aware of any other. That is a perfectly good feature
+          extractor, and it is not a new idea — it is what a filterbank does. The other is
+          the <strong>coupled field</strong>: the same oscillators, now allowed to pull on
+          their neighbours, so what any one of them does depends on what the ones around it
+          are doing. Only the second one is a synchronization model.
+        </p>
+        <p>
+          The difference between them is a single number — the coupling kernel. Set it to
+          zero and the neighbours stop listening to each other; everything else stays
+          identical. Fit the same linear readout on each and you can price the coupling
+          directly:
         </p>
         <table>
           <thead>
             <tr><th>Field</th><th>Readout</th><th>Test accuracy</th></tr>
           </thead>
           <tbody>
-            <tr><td>coupled (as shipped)</td><td>fitted on this field</td><td><b>96.2%</b></td></tr>
-            <tr><td>coupling severed (K = 0)</td><td>refitted on this field</td><td><b>94.2%</b></td></tr>
-            <tr><td>coupling severed (K = 0)</td><td>the coupled field’s readout, unchanged</td><td>17.4%</td></tr>
+            <tr><td>coupled — neighbours interact</td><td>fitted on this field</td><td><b>96.2%</b></td></tr>
+            <tr><td>uncoupled (K = 0) — a plain resonator bank</td><td>refitted on this field</td><td><b>94.2%</b></td></tr>
+            <tr><td>uncoupled (K = 0)</td><td>the coupled field’s readout, unchanged</td><td>17.4%</td></tr>
           </tbody>
         </table>
         <p>
-          So on spoken digits the coupling is worth about two points, and the last row — the
-          one the dial in Figure 10 performs — measures nothing about the physics at all,
-          only that a linear map fitted to one system does not transfer to another. Most of
-          the work here is being done by a tonotopically tuned bank of driven nonlinear
-          oscillators plus a generous linear readout. That is a real finding about an easy
-          task, and precisely the control that has to be run before “the synchronization is
-          doing it” can be said out loud.
+          Two points. On spoken digits, letting the oscillators talk to each other is worth
+          about two points over letting them ring independently — real, repeatable across
+          seeds, and much smaller than the headline number would suggest. Most of the work
+          is being done by the resonator bank and a generous linear readout.
         </p>
-
-        <div className="my-6 rounded-r-xl border-l-2 border-amber-500 bg-amber-500/5 px-5 py-4 dark:border-amber-300 dark:bg-amber-300/5">
-          <h4>Caveats, stated plainly</h4>
-          <ul>
-            <li>
-              The accuracy quoted on this page is measured on a speaker-disjoint split, with
-              the readout fitted on the training speakers only. It is <em>not</em> a
-              registered experimental verdict, and it deliberately skips a protocol step the
-              project’s real digit experiments use — squeezing every architecture’s features
-              through a common 72-dimensional projection so that readout capacity cannot
-              masquerade as dynamics. Run this same frozen core through that stricter
-              protocol and it scores <b>67.3%</b> rather than 96.2% — a large share of the
-              headline number is the width of the readout, not the physics.
-            </li>
-            <li>
-              Classification is the easiest of the three decoder paths. Speech-to-text and
-              text-to-speech on this core are both being explored right now, with more
-              experiments to come — and whatever they return, positive or negative, gets
-              written down.
-            </li>
-            <li>
-              A demo is not a benchmark. Every claim that matters is settled by a run
-              against a parameter-matched conventional control through identical
-              scaffolding, with the decision rule written down beforehand.
-            </li>
-          </ul>
-        </div>
+        <p>
+          The third row is a different kind of statement, and it is the one most likely to
+          be misread. It is not a measurement of the coupling; it is what happens when you
+          change the machine and keep the old readout. The linear layer was fitted to one
+          physical system and handed a different one, so it fails — the way a key fails in
+          a lock it was not cut for. The physics is fine. The translation is stale.
+        </p>
+        <p>
+          Why does a two-point gap still matter? Because of <em>what</em> is being compared.
+          A resonator bank is a fixed function: each oscillator's response is decided the
+          moment you choose its frequency. A coupled field has a shape that can be changed
+          — the kernel says who listens to whom and how strongly, and that shape is what
+          makes patterns like travelling waves and partial synchronization possible at all.
+          Here that shape is a random draw that no gradient ever touched, and it still buys
+          two points. The interesting question is not whether an arbitrary coupling helps a
+          little; it is what a good one does.
+        </p>
+        <p>
+          There are two obvious ways to find out, and both are open. <strong>Train
+          it:</strong> the kernel is a small, differentiable parameter set, so gradient
+          descent can shape who couples to whom instead of leaving it to chance.{' '}
+          <strong>Change the physics:</strong> Kuramoto's <code>sin(θⱼ − θᵢ)</code> is only
+          the simplest way for two oscillators to interact. Add a phase lag and you get
+          travelling waves; add a second harmonic and the population splits into clusters
+          instead of one clump; amplitude-carrying oscillators can express loudness as well
+          as timing. Each is a different coupling law over the same field, and each is being
+          worked through with the same discipline as everything else here — a
+          parameter-matched control and a bar written down first.
+        </p>
 
         <h3>Where this goes</h3>
         <p>
@@ -759,7 +804,7 @@ export function ResonantArticle() {
       </Prose>
 
       {/* ─────────────────────────────────────────────────────────── 09 ─── */}
-      <Prose className="prose-lg">
+      <Prose className={TYPE}>
         <h2><span className="num">09 — go deeper</span>The code, and the prior art</h2>
         <p>
           Everything on this page — the front end, the oscillator core, the readout, and the
@@ -775,25 +820,68 @@ export function ResonantArticle() {
         </p>
 
         <h3>Prior art worth reading</h3>
-        <ul>
-          <li><a href="https://en.wikipedia.org/wiki/Kuramoto_model" target="_blank" rel="noopener noreferrer">The Kuramoto model</a> — the synchronization dynamics at the core</li>
-          <li><a href="https://arxiv.org/abs/2410.13821" target="_blank" rel="noopener noreferrer">AKOrN</a> — trained Kuramoto neurons for vision and reasoning</li>
-          <li><a href="https://arxiv.org/abs/2010.00951" target="_blank" rel="noopener noreferrer">coRNN</a> / <a href="https://arxiv.org/abs/2410.03943" target="_blank" rel="noopener noreferrer">LinOSS</a> — oscillator ODEs as sequence models</li>
-          <li><a href="https://proceedings.mlr.press/v202/keller23a.html" target="_blank" rel="noopener noreferrer">Neural Wave Machines</a> — traveling waves in recurrent states</li>
-          <li><a href="https://www.nature.com/articles/nature23011" target="_blank" rel="noopener noreferrer">Spintronic oscillator reservoir</a> — spoken digits on one physical oscillator</li>
-          <li><a href="https://arxiv.org/abs/2306.00814" target="_blank" rel="noopener noreferrer">Vocos</a> — the fast iSTFT-head vocoder</li>
-          <li><a href="https://unconv.ai/blog/introducing-un-0-generating-images-with-coupled-oscillators/" target="_blank" rel="noopener noreferrer">Un-0</a> — image generation from coupled oscillators</li>
-          <li><a href="https://github.com/soerenab/AudioMNIST" target="_blank" rel="noopener noreferrer">AudioMNIST</a> — the spoken-digit corpus every clip here comes from</li>
-        </ul>
-
-        <p style={{ marginTop: '2rem', fontSize: '0.9em', color: 'var(--soft)' }}>
-          Figures computed in your browser from ten AudioMNIST recordings by speakers held
-          out of the readout fit. The front end and the oscillator core are ports of the
-          Python originals, and they are checked against the reference pipeline every time
-          this page loads — open the browser console for the parity report. 3-D rendering by
-          three.js.
-        </p>
+        <div className="not-prose mt-6 rounded-2xl border border-zinc-200 bg-zinc-100/60 p-6 dark:border-zinc-700/50 dark:bg-zinc-800/40">
+          <ul className="space-y-3 text-[15px] leading-relaxed text-zinc-600 dark:text-zinc-400 [&_a]:text-violet-500 dark:[&_a]:text-violet-400">
+            <li>
+              <a href="https://en.wikipedia.org/wiki/Kuramoto_model" target="_blank" rel="noopener noreferrer" className="font-medium">The Kuramoto model</a>{' — '}the synchronization dynamics at the core
+            </li>
+            <li>
+              <a href="https://arxiv.org/abs/2410.13821" target="_blank" rel="noopener noreferrer" className="font-medium">AKOrN</a>{' — '}trained Kuramoto neurons for vision and reasoning
+            </li>
+            <li>
+              <a href="https://arxiv.org/abs/2010.00951" target="_blank" rel="noopener noreferrer" className="font-medium">coRNN</a>{' — '}oscillator ODEs as sequence models
+            </li>
+            <li>
+              <a href="https://arxiv.org/abs/2410.03943" target="_blank" rel="noopener noreferrer" className="font-medium">LinOSS</a>{' — '}oscillatory state-space models for long sequences
+            </li>
+            <li>
+              <a href="https://proceedings.mlr.press/v202/keller23a.html" target="_blank" rel="noopener noreferrer" className="font-medium">Neural Wave Machines</a>{' — '}traveling waves in recurrent states
+            </li>
+            <li>
+              <a href="https://www.nature.com/articles/nature23011" target="_blank" rel="noopener noreferrer" className="font-medium">Spintronic oscillator reservoir</a>{' — '}spoken digits on one physical oscillator
+            </li>
+            <li>
+              <a href="https://arxiv.org/abs/2306.00814" target="_blank" rel="noopener noreferrer" className="font-medium">Vocos</a>{' — '}the fast iSTFT-head vocoder
+            </li>
+            <li>
+              <a href="https://unconv.ai/blog/introducing-un-0-generating-images-with-coupled-oscillators/" target="_blank" rel="noopener noreferrer" className="font-medium">Un-0</a>{' — '}image generation from coupled oscillators
+            </li>
+            <li>
+              <a href="https://github.com/soerenab/AudioMNIST" target="_blank" rel="noopener noreferrer" className="font-medium">AudioMNIST</a>{' — '}the spoken-digit corpus every clip on this page comes from
+            </li>
+          </ul>
+        </div>
       </Prose>
+
+      {/* the fine print, last — small, tight, and unmissable for anyone who wants it */}
+      <aside className="mt-16 rounded-r-xl border-l-2 border-amber-500 bg-amber-500/5 px-5 py-4 dark:border-amber-300 dark:bg-amber-300/5">
+        <h2 className="font-mono text-[11px] font-semibold tracking-[0.14em] text-amber-700 uppercase dark:text-amber-300">
+          Caveats, stated plainly
+        </h2>
+        <ul className="mt-3 list-disc space-y-2 pl-5 text-[13.5px] leading-relaxed text-zinc-600 marker:text-amber-500/60 dark:text-zinc-400">
+          <li>
+            The accuracy quoted on this page is measured on a speaker-disjoint split, with
+            the readout fitted on the training speakers only. It is <em>not</em> a
+            registered experimental verdict, and it deliberately skips a protocol step the
+            project’s real digit experiments use — squeezing every architecture’s features
+            through a common 72-dimensional projection so that readout capacity cannot
+            masquerade as dynamics. Run this same frozen core through that stricter protocol
+            and it scores <b>67.3%</b> rather than 96.2%: a large share of the headline
+            number is the width of the readout, not the physics.
+          </li>
+          <li>
+            Classification is the easiest of the three decoder paths. Speech-to-text and
+            text-to-speech on this core are both being explored right now, with more
+            experiments to come — and whatever they return, positive or negative, gets
+            written down.
+          </li>
+          <li>
+            A demo is not a benchmark. Every claim that matters is settled by a run against
+            a parameter-matched conventional control through identical scaffolding, with the
+            decision rule written down beforehand.
+          </li>
+        </ul>
+      </aside>
     </>
   )
 }

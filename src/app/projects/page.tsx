@@ -50,7 +50,7 @@ const projects = [
   {
     name: 'Butter',
     description:
-      'Seriously fast LLM inference on Apple Silicon. No Python, no MLX, no JIT — just pre-compiled Metal kernels running real checkpoints on your Mac.',
+      'Melt away latency with ultra-smooth local inference. A dependency-light LLM inference library for Apple Silicon, built on pre-compiled Metal kernels from Iron. No Python, no MLX, no JIT.',
     link: { href: 'https://github.com/thewafflehaus/butter', label: 'github.com/thewafflehaus' },
     logo: logoButter,
   },
@@ -174,8 +174,8 @@ function ProjectCard({ project }: { project: Project }) {
         )}
       </h2>
       <Card.Description>{project.description}</Card.Description>
-      <p className="relative z-10 mt-6 flex text-sm font-medium text-zinc-400 dark:text-zinc-200">
-        {isLink ? (
+      {isLink && (
+        <p className="relative z-10 mt-6 flex text-sm font-medium text-zinc-400 dark:text-zinc-200">
           <a
             href={project.link.href}
             {...outboundProps}
@@ -184,13 +184,8 @@ function ProjectCard({ project }: { project: Project }) {
             <LinkIcon className="h-6 w-6 flex-none" />
             <span className="ml-2">{project.link.label}</span>
           </a>
-        ) : (
-          <>
-            <LinkIcon className="h-6 w-6 flex-none" />
-            <span className="ml-2">{project.link.label}</span>
-          </>
-        )}
-      </p>
+        </p>
+      )}
     </Card>
   )
 }
