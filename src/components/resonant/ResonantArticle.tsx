@@ -1,3 +1,4 @@
+import { Prose } from '@/components/Prose'
 import { ResonantConsole } from '@/components/resonant/ResonantConsole'
 
 const REPO = 'https://github.com/ekryski/resonant'
@@ -10,7 +11,7 @@ export function ResonantArticle() {
   return (
     <>
       {/* ─────────────────────────────────────────────────────────── 01 ─── */}
-      <div className="prose">
+      <Prose>
         <h2><span className="num">01 — the problem</span>Sound is a terrible input format</h2>
         <p>
           Say <em>“seven”</em> out loud. Your vocal folds chop an airflow into pulses, your
@@ -20,9 +21,9 @@ export function ResonantArticle() {
           16,000 numbers.
         </p>
         <p>Pick a digit below and look at what a model is actually handed.</p>
-      </div>
+      </Prose>
 
-      <figure>
+      <figure className="my-10">
         <div className="panel">
           <div className="panelTitle">
             <span>choose a recording</span>
@@ -37,7 +38,7 @@ export function ResonantArticle() {
             <canvas id="waveCanvas" style={{ height: 150 }} />
           </div>
         </div>
-        <figcaption>
+        <figcaption className="mt-3 max-w-3xl text-sm leading-relaxed text-zinc-500 dark:text-zinc-400 [&_b]:font-semibold [&_b]:text-zinc-800 dark:[&_b]:text-zinc-100">
           <b>Figure 1 — one second of speech, as recorded.</b> Amplitude over time, 16,000
           samples. You can see <em>where</em> the energy is, and roughly how many syllables
           there are. You cannot see which word it is: the same digit spoken by two people
@@ -48,7 +49,7 @@ export function ResonantArticle() {
         </figcaption>
       </figure>
 
-      <div className="prose">
+      <Prose>
         <p>
           The fix is a hundred years older than deep learning: stop describing the wave and
           start describing <strong>which frequencies are present, and when</strong>. Two
@@ -56,10 +57,10 @@ export function ResonantArticle() {
           once you plot them that way. Everything in the rest of this guide — every
           architecture, conventional or exotic — sits behind that same transformation.
         </p>
-      </div>
+      </Prose>
 
       {/* ─────────────────────────────────────────────────────────── 02 ─── */}
-      <div className="prose">
+      <Prose>
         <h2><span className="num">02 — the fourier transform</span>One slice, taken apart into pure tones</h2>
         <p>
           Fourier’s claim: any wave, however jagged, is a sum of plain sine waves at
@@ -74,15 +75,15 @@ export function ResonantArticle() {
           samples here, 32 milliseconds, short enough that the mouth barely moves — and
           analyze that.
         </p>
-      </div>
+      </Prose>
 
-      <figure>
+      <figure className="my-10">
         <div className="panel">
           <div className="panelTitle">
             <span>drag the window</span>
             <em id="fftPosLabel">—</em>
           </div>
-          <div className="grid2">
+          <div className="grid gap-4 sm:grid-cols-2">
             <div>
               <div className="canvasFrame"><canvas id="fftWaveCanvas" style={{ height: 130 }} /></div>
               <input className="slider" type="range" id="fftPos" min="0" max="100" defaultValue="45"
@@ -91,7 +92,7 @@ export function ResonantArticle() {
             <div className="canvasFrame"><canvas id="fftSpecCanvas" style={{ height: 176 }} /></div>
           </div>
         </div>
-        <figcaption>
+        <figcaption className="mt-3 max-w-3xl text-sm leading-relaxed text-zinc-500 dark:text-zinc-400 [&_b]:font-semibold [&_b]:text-zinc-800 dark:[&_b]:text-zinc-100">
           <b>Figure 2 — a 32 ms window and its spectrum.</b> Left: the highlighted slice of
           the recording. Right: the FFT of that slice — energy against frequency, 0 to
           8 kHz. Slide it into a vowel and the low end fills with regularly spaced peaks
@@ -105,7 +106,7 @@ export function ResonantArticle() {
       </figure>
 
       {/* ─────────────────────────────────────────────────────────── 03 ─── */}
-      <div className="prose">
+      <Prose>
         <h2><span className="num">03 — the STFT</span>Slide the window: a picture of sound</h2>
         <p>
           The <strong>Short-Time Fourier Transform (STFT)</strong> is just the previous
@@ -129,9 +130,9 @@ export function ResonantArticle() {
           dutifully reports as high-frequency energy that is not in the signal; tapering the
           edges removes it.
         </p>
-      </div>
+      </Prose>
 
-      <figure>
+      <figure className="my-10">
         <div className="panel">
           <div className="panelTitle">
             <span>STFT · 257 frequency bins × 61 frames</span>
@@ -139,7 +140,7 @@ export function ResonantArticle() {
           </div>
           <div className="canvasFrame"><canvas id="stftCanvas" style={{ height: 230 }} /></div>
         </div>
-        <figcaption>
+        <figcaption className="mt-3 max-w-3xl text-sm leading-relaxed text-zinc-500 dark:text-zinc-400 [&_b]:font-semibold [&_b]:text-zinc-800 dark:[&_b]:text-zinc-100">
           <b>Figure 3 — the spectrogram of the selected digit.</b> Horizontal stripes are
           the harmonics of the voice; the wavering bright bands are formants moving as the
           mouth changes shape; vertical smears are the bursts and hisses of consonants. This
@@ -150,7 +151,7 @@ export function ResonantArticle() {
       </figure>
 
       {/* ─────────────────────────────────────────────────────────── 04 ─── */}
-      <div className="prose">
+      <Prose>
         <h2><span className="num">04 — the mel scale</span>Rebuilding the axis around the ear</h2>
         <p>
           257 frequency bins, evenly spaced from 0 to 8 kHz, is not how hearing works. The
@@ -167,9 +168,9 @@ export function ResonantArticle() {
         <p>
           Press play below and watch which filters actually fire while the digit is spoken.
         </p>
-      </div>
+      </Prose>
 
-      <figure>
+      <figure className="my-10">
         <div className="panel" style={{ marginBottom: 16 }}>
           <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', alignItems: 'center' }}>
             <button type="button" className="action primary" id="melPlayBtn">
@@ -178,7 +179,7 @@ export function ResonantArticle() {
             <span className="tag" id="melPlayStatus">showing the clip average</span>
           </div>
         </div>
-        <div className="grid2">
+        <div className="grid gap-4 sm:grid-cols-2">
           <div className="panel">
             <div className="panelTitle">
               <span>hz → mel</span>
@@ -194,7 +195,7 @@ export function ResonantArticle() {
             <div className="canvasFrame"><canvas id="melFbCanvas" style={{ height: 200 }} /></div>
           </div>
         </div>
-        <figcaption>
+        <figcaption className="mt-3 max-w-3xl text-sm leading-relaxed text-zinc-500 dark:text-zinc-400 [&_b]:font-semibold [&_b]:text-zinc-800 dark:[&_b]:text-zinc-100">
           <b>Figure 4 — warping, then pooling, lit up by the actual recording.</b> Left:
           physical frequency in, perceptual frequency out — each stem marks a mel band this
           clip is using right now, planted at its frequency and rising to where the ear puts
@@ -208,7 +209,7 @@ export function ResonantArticle() {
         </figcaption>
       </figure>
 
-      <div className="prose">
+      <Prose>
         <p>
           One more step, and it matters more than it looks. Loudness is perceived
           logarithmically too, so we take the log of each band’s energy. That turns the
@@ -217,9 +218,9 @@ export function ResonantArticle() {
           log</strong> is the standard audio front end; the result is the <strong>log-mel
           spectrogram</strong>.
         </p>
-      </div>
+      </Prose>
 
-      <figure>
+      <figure className="my-10">
         <div className="panel">
           <div className="panelTitle">
             <span>log-mel · 16 bands × 61 frames</span>
@@ -227,7 +228,7 @@ export function ResonantArticle() {
           </div>
           <div className="canvasFrame"><canvas id="melSpecCanvas" style={{ height: 180 }} /></div>
         </div>
-        <figcaption>
+        <figcaption className="mt-3 max-w-3xl text-sm leading-relaxed text-zinc-500 dark:text-zinc-400 [&_b]:font-semibold [&_b]:text-zinc-800 dark:[&_b]:text-zinc-100">
           <b>Figure 5 — the same second, now 976 numbers instead of 16,000.</b> Low bands at
           the bottom, high at the top. Almost everything that distinguishes one spoken digit
           from another survives this compression — which is why nearly every speech system,
@@ -235,8 +236,8 @@ export function ResonantArticle() {
         </figcaption>
       </figure>
 
-      <div className="prose">
-        <div className="note">
+      <Prose>
+        <div className="my-6 rounded-r-xl border-l-2 border-violet-500 bg-violet-500/5 px-5 py-4 dark:border-violet-400 dark:bg-violet-400/5">
           <h4>Sidebar: what is a “mel transcoder”?</h4>
           <p>
             A neural network that <em>manufactures</em> a mel spectrogram from something
@@ -253,10 +254,10 @@ export function ResonantArticle() {
             an <em>interface</em>.
           </p>
         </div>
-      </div>
+      </Prose>
 
       {/* ─────────────────────────────────────────────────────────── 05 ─── */}
-      <div className="prose">
+      <Prose>
         <h2><span className="num">05 — the standard stack</span>An encoder, and three ways out</h2>
         <p>
           With the front end fixed, the rest of a speech system has a common shape: an{' '}
@@ -265,9 +266,9 @@ export function ResonantArticle() {
           you want out. Almost every well-known model is a choice of encoder (CNN, RNN/LSTM,
           Conformer, Transformer, state-space model) crossed with a choice of decoder.
         </p>
-      </div>
+      </Prose>
 
-      <figure>
+      <figure className="my-10">
         <div className="diagram">
           <svg viewBox="0 0 1000 360" role="img"
                aria-label="Standard speech architecture: front end, encoder, three decoder branches">
@@ -326,14 +327,14 @@ export function ResonantArticle() {
             <text x="480" y="318" className="sub" textAnchor="middle">— only the head and the loss change</text>
           </svg>
         </div>
-        <figcaption>
+        <figcaption className="mt-3 max-w-3xl text-sm leading-relaxed text-zinc-500 dark:text-zinc-400 [&_b]:font-semibold [&_b]:text-zinc-800 dark:[&_b]:text-zinc-100">
           <b>Figure 6 — the conventional pipeline.</b> The front end is fixed arithmetic
           with no learned parameters. Everything to its right is trained, and what you train
           it on is set entirely by the decoder you attach.
         </figcaption>
       </figure>
 
-      <div className="prose">
+      <Prose>
         <h3>What the training data has to be</h3>
         <table>
           <thead>
@@ -425,10 +426,10 @@ export function ResonantArticle() {
           readings to produce, which is why modern TTS spends its parameters on duration
           predictors, style/speaker embeddings, and generative decoders.
         </p>
-      </div>
+      </Prose>
 
       {/* ─────────────────────────────────────────────────────────── 06 ─── */}
-      <div className="prose">
+      <Prose>
         <h2><span className="num">06 — a different core</span>What if the middle box were physics?</h2>
         <p>
           Everything above treats the encoder as a stack of matrix multiplications. Here is
@@ -463,16 +464,16 @@ export function ResonantArticle() {
           metronomes on a shared board come into step. Each oscillator updates its phase
           like this:
         </p>
-      </div>
+      </Prose>
 
-      <figure>
+      <figure className="my-10">
         <div className="equation">
           dθ<sub>i</sub>/dt = <span className="tDrift">ω<sub>i</sub></span>{' + '}
           <span className="tCouple">Σ<sub>j</sub> K(i−j) · sin(θ<sub>j</sub> − θ<sub>i</sub>)</span>{' − '}
           <span className="tPin">λ · sin(θ<sub>i</sub>)</span>{' + '}
           <span className="tDrive">F<sub>i</sub>(t)</span>
         </div>
-        <div className="legend">
+        <div className="mt-4 grid gap-3 text-[15px] leading-relaxed text-zinc-600 dark:text-zinc-400 [&>div]:grid [&>div]:grid-cols-[92px_1fr] [&>div]:items-start [&>div]:gap-3 [&_b]:font-semibold [&_b]:text-zinc-800 dark:[&_b]:text-zinc-100 [&_span:first-child]:font-mono [&_span:first-child]:text-xs [&_span:first-child]:font-semibold">
           <div>
             <span className="tDrift">ω</span>
             <span><b>Own tempo.</b> Every oscillator has a natural frequency it would keep on its own. In this demo they are laid out deliberately: each row of the grid is tuned to one band of the speech envelope, from about 0.4 Hz at the bottom to 6 Hz at the top.</span>
@@ -490,14 +491,14 @@ export function ResonantArticle() {
             <span><b>The audio.</b> Each mel band’s loudness at this instant, injected into its own row of oscillators. Loud band, hard shove.</span>
           </div>
         </div>
-        <figcaption>
+        <figcaption className="mt-3 max-w-3xl text-sm leading-relaxed text-zinc-500 dark:text-zinc-400 [&_b]:font-semibold [&_b]:text-zinc-800 dark:[&_b]:text-zinc-100">
           <b>Figure 7 — the whole core, in one line.</b> Compare with a transformer layer:
           there is no attention matrix, no feed-forward block, no layer norm. There is a
           tempo, a neighbourhood rule, a brake, and an input.
         </figcaption>
       </figure>
 
-      <div className="prose">
+      <Prose>
         <p>
           Coupling strength is the interesting dial. Too weak and every oscillator ignores
           the others — a bag of independent filters. Too strong and the entire population
@@ -505,9 +506,9 @@ export function ResonantArticle() {
           is in between, where parts of the field synchronize and parts do not, and{' '}
           <em>which</em> parts depends on what it is hearing.
         </p>
-      </div>
+      </Prose>
 
-      <figure>
+      <figure className="my-10">
         <div className="panel">
           <div className="panelTitle">
             <span>toy: 24 oscillators on a ring</span>
@@ -519,7 +520,7 @@ export function ResonantArticle() {
             <input className="slider" type="range" id="toyK" min="0" max="300" defaultValue="0" />
           </div>
         </div>
-        <figcaption>
+        <figcaption className="mt-3 max-w-3xl text-sm leading-relaxed text-zinc-500 dark:text-zinc-400 [&_b]:font-semibold [&_b]:text-zinc-800 dark:[&_b]:text-zinc-100">
           <b>Figure 8 — synchronization, from nothing to total.</b> 24 oscillators with
           different natural tempos, drawn as dots on their shared circle. At K = 0 they
           smear around it forever. Push K up and they gather into a clump. The arrow is the{' '}
@@ -529,7 +530,7 @@ export function ResonantArticle() {
         </figcaption>
       </figure>
 
-      <div className="prose">
+      <Prose>
         <h3>Why a torus</h3>
         <p>
           The oscillators are not a loose bag; they sit on a 16 × 16 grid, and coupling
@@ -562,9 +563,9 @@ export function ResonantArticle() {
           free one reports its own). With 4 channels × 256 cells that is 4,096 features, and
           a plain linear layer on top.
         </p>
-      </div>
+      </Prose>
 
-      <figure>
+      <figure className="my-10">
         <div className="diagram">
           <svg viewBox="0 0 1000 320" role="img" aria-label="Oscillator core architecture">
             {/* markers are per-SVG: referencing the first diagram's marker works in
@@ -622,7 +623,7 @@ export function ResonantArticle() {
             <text x="500" y="306" className="subHot" textAnchor="middle">phases persist frame to frame — the recurrence</text>
           </svg>
         </div>
-        <figcaption>
+        <figcaption className="mt-3 max-w-3xl text-sm leading-relaxed text-zinc-500 dark:text-zinc-400 [&_b]:font-semibold [&_b]:text-zinc-800 dark:[&_b]:text-zinc-100">
           <b>Figure 9 — same stack, different middle.</b> The front end and the output heads
           are deliberately the most boring possible choices and are shared with the
           conventional control models, so that any difference in results is attributable to
@@ -631,7 +632,7 @@ export function ResonantArticle() {
       </figure>
 
       {/* ─────────────────────────────────────────────────────────── 07 ─── */}
-      <div className="prose">
+      <Prose>
         <h2><span className="num">07 — watch it run</span>The whole pipeline, live</h2>
         <p>
           Below, everything on this page runs end to end. Pick a digit and press play: the
@@ -649,9 +650,9 @@ export function ResonantArticle() {
           runs the control that says how much of it the <em>coupling</em> deserves credit
           for. It is not a claim that any of this beats a trained network.
         </p>
-      </div>
+      </Prose>
 
-      <figure>
+      <figure className="my-10">
         <div className="pipelineStrip" id="pipelineStrip">
           <div className="stage" data-stage="0">waveform</div>
           <div className="stage" data-stage="1">STFT</div>
@@ -661,7 +662,7 @@ export function ResonantArticle() {
           <div className="stage" data-stage="5">readout</div>
         </div>
         <ResonantConsole />
-        <figcaption>
+        <figcaption className="mt-3 max-w-3xl text-sm leading-relaxed text-zinc-500 dark:text-zinc-400 [&_b]:font-semibold [&_b]:text-zinc-800 dark:[&_b]:text-zinc-100">
           <b>Figure 10 — the live console.</b> Three things reward watching. <b>One:</b>{' '}
           during silence the field still turns, each row at its own tempo — slow at the
           bottom, quick at the top. <b>Two:</b> when the word arrives the driven rows lurch,
@@ -676,7 +677,7 @@ export function ResonantArticle() {
       </figure>
 
       {/* ─────────────────────────────────────────────────────────── 08 ─── */}
-      <div className="prose">
+      <Prose>
         <h2><span className="num">08 — this is just the beginning</span>What this shows, and what it doesn’t</h2>
         <p>
           Spoken digits are an easy task with a long history — they are the “hello world” of
@@ -718,7 +719,7 @@ export function ResonantArticle() {
           doing it” can be said out loud.
         </p>
 
-        <div className="note warn">
+        <div className="my-6 rounded-r-xl border-l-2 border-amber-500 bg-amber-500/5 px-5 py-4 dark:border-amber-300 dark:bg-amber-300/5">
           <h4>Caveats, stated plainly</h4>
           <ul>
             <li>
@@ -755,10 +756,10 @@ export function ResonantArticle() {
           immutable training logs, and verdicts written before the runs. That work is
           ongoing, and the interesting part is still ahead.
         </p>
-      </div>
+      </Prose>
 
       {/* ─────────────────────────────────────────────────────────── 09 ─── */}
-      <div className="prose">
+      <Prose>
         <h2><span className="num">09 — go deeper</span>The code, and the prior art</h2>
         <p>
           Everything on this page — the front end, the oscillator core, the readout, and the
@@ -792,7 +793,7 @@ export function ResonantArticle() {
           this page loads — open the browser console for the parity report. 3-D rendering by
           three.js.
         </p>
-      </div>
+      </Prose>
     </>
   )
 }
