@@ -80,7 +80,7 @@ function waveform({ x0, y0, width, height, samples }) {
   return `<polyline points="${pts.join(' ')}" fill="none" stroke="#7cc4ff" stroke-width="2.4" opacity="0.95"/>`
 }
 
-function card({ width, height, compact }) {
+function card({ width, height, compact, caption = true }) {
   const cx = compact ? width * 0.5 : 560
   const cy = height * 0.5
   const step = compact ? 18 : 30
@@ -124,12 +124,14 @@ function card({ width, height, compact }) {
     <text x="${width - 232}" y="${cy + 118}" font-family="${MONO}" font-size="19" letter-spacing="4"
           fill="#6ee7a8" opacity="0.92" text-anchor="middle">ANSWER OUT</text>
 
-    <text x="72" y="${height - 92}" font-family="${FONT}" font-size="52" font-weight="700" fill="#ffffff">
+    ${caption
+      ? `<text x="72" y="${height - 92}" font-family="${FONT}" font-size="52" font-weight="700" fill="#ffffff">
       How a machine hears a number
     </text>
     <text x="74" y="${height - 48}" font-family="${MONO}" font-size="22" fill="#8d96ab">
       speech, Fourier, and a field of coupled oscillators
-    </text>`}
+    </text>`
+      : ''}`}
   </g>
 </svg>`
 }
@@ -142,6 +144,12 @@ async function main() {
     .png()
     .toFile(OG_OUT)
   console.log(`wrote ${OG_OUT}`)
+
+  // same artwork without the baked-in title, for pages that supply their own
+  await sharp(Buffer.from(card({ width: W, height: H, compact: false, caption: false })))
+    .png()
+    .toFile(join(ROOT, 'public', 'resonant', 'field.png'))
+  console.log(`wrote ${join(ROOT, 'public', 'resonant', 'field.png')}`)
 
   await sharp(Buffer.from(card({ width: 256, height: 256, compact: true })))
     .png()

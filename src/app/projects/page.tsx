@@ -7,7 +7,9 @@ import { SimpleLayout } from '@/components/SimpleLayout'
 import logoBidali from '@/images/companies/bidali.png'
 import logoCaress from '@/images/projects/caress.png'
 import logoDeliciousDB from '@/images/projects/deliciousdb.png'
+import logoButter from '@/images/projects/butter.png'
 import logoFeathersJS from '@/images/projects/feathersjs.png'
+import logoIron from '@/images/projects/iron.png'
 import logoResonant from '@/images/projects/resonant.png'
 import logoSam from '@/images/projects/sam.png'
 
@@ -39,18 +41,25 @@ const projects = [
     logo: logoBidali,
   },
   {
-    name: 'Sam',
-    description:
-      'Your personalized AI assistant on your Mac.',
-    link: { href: '#', label: 'Coming soon' },
-    logo: logoSam,
-  },
-  {
     name: 'Resonant',
     description:
       'Research project testing whether speech models can be built on coupled-oscillator physics instead of attention — with an interactive guide that runs the whole pipeline live in your browser.',
     link: { href: '/projects/resonant', label: 'Project overview', internal: true },
     logo: logoResonant,
+  },
+  {
+    name: 'Butter',
+    description:
+      'Seriously fast LLM inference on Apple Silicon. No Python, no MLX, no JIT — just pre-compiled Metal kernels running real checkpoints on your Mac.',
+    link: { href: 'https://github.com/thewafflehaus/butter', label: 'github.com/thewafflehaus' },
+    logo: logoButter,
+  },
+  {
+    name: 'Iron',
+    description:
+      'Press raw math directly into high-performance silicon. A Rust kernel DSL that compiles one definition down to Metal, CUDA, HIP, and Vulkan.',
+    link: { href: 'https://github.com/thewafflehaus/iron', label: 'github.com/thewafflehaus' },
+    logo: logoIron,
   },
   {
     name: 'FeathersJS',
@@ -60,18 +69,27 @@ const projects = [
     logo: logoFeathersJS,
   },
   {
-    name: 'DeliciousDB',
-    description:
-      'AI-powered DBMS that runs on your local device and enables you to manage multiple DBs such as Postgres, MySQL, Redis, MongoDB, and more. (Coming soon)',
-    link: { href: '#', label: 'Coming soon' },
-    logo: logoDeliciousDB,
-  },
-  {
     name: 'Caress',
     description:
       'Realtime gesture and touch recognition library for JavaScript.',
     link: { href: 'https://github.com/ekryski/caress-client', label: 'Archived' },
     logo: logoCaress,
+  },
+]
+
+const comingSoon = [
+  {
+    name: 'Sam',
+    description: 'Your personalized AI assistant on your Mac.',
+    link: { href: '#', label: 'Coming soon' },
+    logo: logoSam,
+  },
+  {
+    name: 'DeliciousDB',
+    description:
+      'AI-powered DBMS that runs on your local device and enables you to manage multiple DBs such as Postgres, MySQL, Redis, MongoDB, and more.',
+    link: { href: '#', label: 'Coming soon' },
+    logo: logoDeliciousDB,
   },
 ]
 
@@ -104,6 +122,79 @@ export const metadata: Metadata = {
   },
 }
 
+type Project = {
+  name: string
+  description: string
+  link: { href: string; label: string; internal?: boolean }
+  logo?: typeof logoBidali
+}
+
+/** Logos that are artwork in their own right sit full-bleed; wordmarks get a plate. */
+const FULL_BLEED = new Set(['Sam', 'DeliciousDB', 'Resonant', 'Butter', 'Iron'])
+
+function ProjectCard({ project }: { project: Project }) {
+  const fullBleedLogo = FULL_BLEED.has(project.name)
+  const isLink = project.link.href !== '#'
+  // internal pages open in this tab; everything else is an outbound link
+  const outboundProps = project.link.internal
+    ? {}
+    : { target: '_blank', rel: 'noopener noreferrer' }
+
+  return (
+    <Card as="li">
+      <div
+        className={clsx(
+          'relative z-10 flex h-12 w-12 items-center justify-center overflow-hidden rounded-full',
+          fullBleedLogo
+            ? 'ring-0 dark:ring-0'
+            : 'bg-white ring-1 shadow-md shadow-zinc-800/5 ring-zinc-900/5 dark:border dark:border-zinc-700/50 dark:bg-zinc-800 dark:ring-0',
+        )}
+      >
+        {project.logo ? (
+          <Image
+            src={project.logo}
+            alt=""
+            width={fullBleedLogo ? 48 : 32}
+            height={fullBleedLogo ? 48 : 32}
+            className={clsx(
+              'overflow-hidden rounded-full',
+              fullBleedLogo ? 'h-12 w-12 object-cover' : 'h-8 w-8',
+            )}
+            unoptimized
+          />
+        ) : (
+          <ProjectIcon className="h-6 w-6 text-zinc-400 dark:text-zinc-500" />
+        )}
+      </div>
+      <h2 className="mt-6 text-base font-semibold text-zinc-800 dark:text-zinc-100">
+        {isLink ? (
+          <Card.Link href={project.link.href}>{project.name}</Card.Link>
+        ) : (
+          project.name
+        )}
+      </h2>
+      <Card.Description>{project.description}</Card.Description>
+      <p className="relative z-10 mt-6 flex text-sm font-medium text-zinc-400 dark:text-zinc-200">
+        {isLink ? (
+          <a
+            href={project.link.href}
+            {...outboundProps}
+            className="flex items-center transition group-hover:text-violet-500 dark:group-hover:text-violet-400"
+          >
+            <LinkIcon className="h-6 w-6 flex-none" />
+            <span className="ml-2">{project.link.label}</span>
+          </a>
+        ) : (
+          <>
+            <LinkIcon className="h-6 w-6 flex-none" />
+            <span className="ml-2">{project.link.label}</span>
+          </>
+        )}
+      </p>
+    </Card>
+  )
+}
+
 export default function Projects() {
   return (
     <SimpleLayout
@@ -114,68 +205,24 @@ export default function Projects() {
         role="list"
         className="grid grid-cols-1 gap-x-12 gap-y-16 sm:grid-cols-2 lg:grid-cols-3"
       >
-        {projects.map((project) => {
-          const fullBleedLogo =
-            project.name === 'Sam' ||
-            project.name === 'DeliciousDB' ||
-            project.name === 'Resonant'
-          // internal pages open in this tab; everything else is an outbound link
-          const internal = 'internal' in project.link && project.link.internal
-          return (
-          <Card as="li" key={project.name}>
-            <div
-              className={clsx(
-                'relative z-10 flex h-12 w-12 items-center justify-center overflow-hidden rounded-full',
-                fullBleedLogo
-                  ? 'ring-0 dark:ring-0'
-                  : 'bg-white ring-1 shadow-md shadow-zinc-800/5 ring-zinc-900/5 dark:border dark:border-zinc-700/50 dark:bg-zinc-800 dark:ring-0'
-              )}
-            >
-              {project.logo ? (
-                <Image
-                  src={project.logo}
-                  alt=""
-                  width={fullBleedLogo ? 48 : 32}
-                  height={fullBleedLogo ? 48 : 32}
-                  className={clsx(
-                    'overflow-hidden rounded-full',
-                    fullBleedLogo ? 'h-12 w-12 object-cover' : 'h-8 w-8'
-                  )}
-                  unoptimized
-                />
-              ) : (
-                <ProjectIcon className="h-6 w-6 text-zinc-400 dark:text-zinc-500" />
-              )}
-            </div>
-            <h2 className="mt-6 text-base font-semibold text-zinc-800 dark:text-zinc-100">
-              {project.link.href !== '#' ? (
-                <Card.Link href={project.link.href}>{project.name}</Card.Link>
-              ) : (
-                project.name
-              )}
-            </h2>
-            <Card.Description>{project.description}</Card.Description>
-            <p className="relative z-10 mt-6 flex text-sm font-medium text-zinc-400 dark:text-zinc-200">
-              {project.link.href !== '#' ? (
-                <a
-                  href={project.link.href}
-                  {...(internal ? {} : { target: '_blank', rel: 'noopener noreferrer' })}
-                  className="flex items-center transition group-hover:text-violet-500 dark:group-hover:text-violet-400"
-                >
-                  <LinkIcon className="h-6 w-6 flex-none" />
-                  <span className="ml-2">{project.link.label}</span>
-                </a>
-              ) : (
-                <>
-                  <LinkIcon className="h-6 w-6 flex-none" />
-                  <span className="ml-2">{project.link.label}</span>
-                </>
-              )}
-            </p>
-          </Card>
-          )
-        })}
+        {projects.map((project) => (
+          <ProjectCard key={project.name} project={project} />
+        ))}
       </ul>
+
+      <section className="mt-24 border-t border-zinc-100 pt-12 dark:border-zinc-700/40">
+        <h2 className="text-sm font-semibold tracking-wide text-zinc-500 uppercase dark:text-zinc-400">
+          Coming soon
+        </h2>
+        <ul
+          role="list"
+          className="mt-10 grid grid-cols-1 gap-x-12 gap-y-16 sm:grid-cols-2 lg:grid-cols-3"
+        >
+          {comingSoon.map((project) => (
+            <ProjectCard key={project.name} project={project} />
+          ))}
+        </ul>
+      </section>
     </SimpleLayout>
   )
 }
