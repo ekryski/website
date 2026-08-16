@@ -1,8 +1,10 @@
 #!/usr/bin/env node
 /**
- * Generates the share card and project logo for /projects/resonant.
+ * Generates the artwork for the Resonant guide and project page.
  *
  *   public/resonant/og.png            1200x630 social card
+ *   public/resonant/field.png         the same art without the baked-in title
+ *   public/resonant/stadium.png       the crowd-wave illustration (section 06)
  *   src/images/projects/resonant.png  256x256 project-list logo
  *
  * The picture is the guide's argument in one frame: a spoken waveform enters
@@ -136,6 +138,106 @@ function card({ width, height, compact, caption = true }) {
 </svg>`
 }
 
+/**
+ * The stadium crowd — the guide's running analogy, drawn rather than photographed.
+ *
+ * A bowl seen from outside the south-west corner, tilted down enough to show the
+ * field and the far stands, with the roof open. Every seat is a dot, and the dot's
+ * hue is that fan's phase, so the wave travelling around the bowl is literally the
+ * phase field the article is about.
+ */
+function stadium({ width = 1200, height = 680 }) {
+  const cx = width / 2
+  const cy = height * 0.52
+  const outerRx = width * 0.42
+  const outerRy = outerRx * 0.42        // squash = the downward viewing angle
+  const innerRx = outerRx * 0.55
+  const innerRy = outerRy * 0.55
+  const wallDepth = height * 0.13
+  const waveCenter = Math.PI * 0.78     // the wave crest, currently at the near-left
+
+  // seating bowl: concentric rings of fans between the field and the outer wall
+  const seats = []
+  const rings = 13
+  for (let r = 0; r < rings; r++) {
+    const t = r / (rings - 1)
+    const rx = innerRx + (outerRx - innerRx) * t
+    const ry = innerRy + (outerRy - innerRy) * t
+    const lift = t * height * 0.075     // outer rings sit higher in the bowl
+    const count = Math.round(90 + 90 * t)
+    for (let i = 0; i < count; i++) {
+      const a = (i / count) * 2 * Math.PI
+      const x = cx + rx * Math.cos(a)
+      const y = cy + ry * Math.sin(a) - lift
+      // the wave: a travelling band of raised arms, brightest at its crest
+      let d = Math.abs(((a - waveCenter + Math.PI) % (2 * Math.PI)) - Math.PI)
+      const crest = Math.max(0, 1 - d / 0.85)
+      const hue = ((a / (2 * Math.PI)) * 360 + 200) % 360
+      const raised = crest > 0.25
+      const rad = (1.9 + 2.6 * crest) * (0.75 + 0.35 * t)
+      const color = raised
+        ? `hsl(${hue.toFixed(0)}, 85%, ${(58 + 20 * crest).toFixed(0)}%)`
+        : `hsl(${hue.toFixed(0)}, 38%, ${(44 + 10 * t).toFixed(0)}%)`
+      seats.push(
+        `<circle cx="${x.toFixed(1)}" cy="${(y - crest * 6).toFixed(1)}" r="${rad.toFixed(2)}" fill="${color}" opacity="${(0.62 + 0.38 * crest).toFixed(2)}"/>`,
+      )
+    }
+  }
+
+  return `
+<svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0b1024"/>
+      <stop offset="60%" stop-color="#181231"/>
+      <stop offset="100%" stop-color="#0a0a12"/>
+    </linearGradient>
+    <radialGradient id="pitch" cx="50%" cy="45%" r="70%">
+      <stop offset="0%" stop-color="#1f6b46"/>
+      <stop offset="100%" stop-color="#12472f"/>
+    </radialGradient>
+    <linearGradient id="wall" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#241a3a"/>
+      <stop offset="100%" stop-color="#0e0a18"/>
+    </linearGradient>
+    <filter id="bowlGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="26"/>
+    </filter>
+  </defs>
+
+  <rect width="${width}" height="${height}" fill="url(#sky)"/>
+  ${Array.from({ length: 70 }, (_, i) => {
+    const x = (i * 137.5) % width
+    const y = ((i * 61.8) % (height * 0.42))
+    return `<circle cx="${x.toFixed(0)}" cy="${y.toFixed(0)}" r="${(0.7 + (i % 3) * 0.5).toFixed(1)}" fill="#cbd5ff" opacity="${(0.12 + (i % 5) * 0.05).toFixed(2)}"/>`
+  }).join('')}
+
+  <!-- light spill from the open roof -->
+  <ellipse cx="${cx}" cy="${cy - 20}" rx="${outerRx * 0.95}" ry="${outerRy * 0.95}" fill="#5b6cff" opacity="0.18" filter="url(#bowlGlow)"/>
+
+  <!-- outer wall: the near side of the bowl, seen from outside -->
+  <path d="M ${cx - outerRx} ${cy} a ${outerRx} ${outerRy} 0 0 0 ${outerRx * 2} 0 l 0 ${wallDepth} a ${outerRx} ${outerRy} 0 0 1 ${-outerRx * 2} 0 Z" fill="url(#wall)"/>
+  <ellipse cx="${cx}" cy="${cy}" rx="${outerRx}" ry="${outerRy}" fill="none" stroke="#3b2f5c" stroke-width="3"/>
+
+  <!-- the field -->
+  <ellipse cx="${cx}" cy="${cy + 6}" rx="${innerRx}" ry="${innerRy}" fill="url(#pitch)"/>
+  <ellipse cx="${cx}" cy="${cy + 6}" rx="${innerRx * 0.98}" ry="${innerRy * 0.94}" fill="none" stroke="#d8f5e4" stroke-width="2" opacity="0.5"/>
+  <line x1="${cx}" y1="${cy + 6 - innerRy * 0.94}" x2="${cx}" y2="${cy + 6 + innerRy * 0.94}" stroke="#d8f5e4" stroke-width="2" opacity="0.45"/>
+  <ellipse cx="${cx}" cy="${cy + 6}" rx="${innerRx * 0.2}" ry="${innerRy * 0.2}" fill="none" stroke="#d8f5e4" stroke-width="2" opacity="0.45"/>
+
+  <!-- floodlights: far rim only, so they read as standing behind the bowl -->
+  ${[1.18, 1.38, 1.62, 1.82].map((f) => {
+    const a = Math.PI * f
+    const x = cx + outerRx * 0.99 * Math.cos(a)
+    const y = cy + outerRy * 0.99 * Math.sin(a) - height * 0.075
+    return `<g opacity="0.9"><line x1="${x.toFixed(0)}" y1="${y.toFixed(0)}" x2="${x.toFixed(0)}" y2="${(y - 52).toFixed(0)}" stroke="#4a3f6b" stroke-width="4"/><rect x="${(x - 17).toFixed(0)}" y="${(y - 68).toFixed(0)}" width="34" height="16" rx="4" fill="#fdf6d8"/><ellipse cx="${x.toFixed(0)}" cy="${(y - 52).toFixed(0)}" rx="46" ry="26" fill="#fdf6d8" opacity="0.10"/></g>`
+  }).join('')}
+
+  <!-- the crowd -->
+  ${seats.join('')}
+</svg>`
+}
+
 async function main() {
   mkdirSync(join(ROOT, 'public', 'resonant'), { recursive: true })
   mkdirSync(join(ROOT, 'src', 'images', 'projects'), { recursive: true })
@@ -150,6 +252,11 @@ async function main() {
     .png()
     .toFile(join(ROOT, 'public', 'resonant', 'field.png'))
   console.log(`wrote ${join(ROOT, 'public', 'resonant', 'field.png')}`)
+
+  await sharp(Buffer.from(stadium({})))
+    .png()
+    .toFile(join(ROOT, 'public', 'resonant', 'stadium.png'))
+  console.log(`wrote ${join(ROOT, 'public', 'resonant', 'stadium.png')}`)
 
   await sharp(Buffer.from(card({ width: 256, height: 256, compact: true })))
     .png()

@@ -28,7 +28,7 @@ export function ResonantConsole() {
             <span>turn the dials</span>
             <em id="dialTag" className="tag ok">as fitted</em>
           </div>
-          <div className="grid2" style={{ gap: 14 }}>
+          <div className="grid gap-4 sm:grid-cols-2">
             <div className="dial">
               <label htmlFor="gainDial">drive gain <b id="gainVal">2.0</b></label>
               <input className="slider" type="range" id="gainDial" min="0" max="60" defaultValue="20" />
@@ -93,7 +93,7 @@ export function ResonantConsole() {
             <span>all four channels, flattened</span>
             <em>hue = phase</em>
           </div>
-          <div className="grid2" style={{ gridTemplateColumns: 'repeat(4, 1fr)', gap: 8 }}>
+          <div className="grid grid-cols-4 gap-2">
             {[0, 1, 2, 3].map((ch) => (
               <div className="canvasFrame" key={ch}>
                 <canvas className="fieldGrid" data-ch={ch} />
