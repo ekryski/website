@@ -47,7 +47,7 @@ export function ResonantConsole() {
             </div>
           </div>
           <div style={{ display: 'flex', gap: 8, marginTop: 14, flexWrap: 'wrap', alignItems: 'center' }}>
-            <button type="button" className="action primary" id="livePlayBtn">▶ Play &amp; run</button>
+            <button type="button" className="action primary toggle" id="livePlayBtn">▶ Play &amp; run</button>
             <button type="button" className="action" id="resetDials">reset</button>
             <select className="action" id="consoleDigit" aria-label="choose which digit to run" />
           </div>
