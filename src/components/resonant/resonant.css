@@ -145,6 +145,67 @@
 .resonantGuide .action.toggle { min-width: 15ch; text-align: center; }
 .resonantGuide .action.toggle.wide { min-width: 32ch; }
 .resonantGuide select.action { padding-right: 28px; }
+.resonantGuide .action:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none;
+  border-color: var(--line);
+  background: var(--panel-2);
+}
+
+/* --- microphone ----------------------------------------------------------- */
+
+/* the label swaps between "record" and a running timer — pin the width so the
+   control does not resize under the cursor mid-take */
+.resonantGuide .action.micBtn { min-width: 12ch; text-align: center; }
+.resonantGuide .action.recording,
+.resonantGuide .action.recording:hover {
+  background: var(--hot);
+  border-color: var(--hot);
+  color: #2b1006;
+  animation: resonantRecPulse 1.4s ease-in-out infinite;
+}
+@keyframes resonantRecPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(255, 138, 91, 0.5); }
+  50% { box-shadow: 0 0 0 6px rgba(255, 138, 91, 0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .resonantGuide .action.recording { animation: none; }
+}
+
+/* the input pair: choose a corpus clip, or record one. They stay on one line at
+   every width — the chooser gives up the space, since its text is the part that
+   can be read from context */
+.resonantGuide .sourceRow { display: flex; flex-wrap: nowrap; gap: 8px; margin-top: 14px; }
+.resonantGuide .sourceRow select.action { flex: 0 1 auto; min-width: 0; }
+.resonantGuide .sourceRow .micBtn { flex: 0 0 auto; }
+/* run controls sit last and to the right, where the eye ends up */
+.resonantGuide .runRow { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px; margin-top: 12px; }
+
+.resonantGuide .micRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+  font: 11px/1.5 var(--mono);
+  color: var(--muted);
+}
+.resonantGuide .micMeter {
+  flex: none;
+  width: 76px;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--panel-2);
+  border: 1px solid var(--line);
+  overflow: hidden;
+}
+.resonantGuide .micMeter i {
+  display: block;
+  width: 0;
+  height: 100%;
+  background: var(--hot);
+  transition: width 0.08s linear;
+}
 
 .resonantGuide .dial label {
   display: flex;

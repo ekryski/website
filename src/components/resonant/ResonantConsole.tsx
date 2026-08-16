@@ -46,10 +46,19 @@ export function ResonantConsole() {
               <input className="slider" type="range" id="speedDial" min="10" max="100" defaultValue="100" />
             </div>
           </div>
-          <div style={{ display: 'flex', gap: 8, marginTop: 14, flexWrap: 'wrap', alignItems: 'center' }}>
-            <button type="button" className="action primary toggle" id="livePlayBtn">▶ Play &amp; run</button>
-            <button type="button" className="action" id="resetDials">reset</button>
+          {/* input first — pick a recording or make one — then the run controls */}
+          <div className="sourceRow">
             <select className="action" id="consoleDigit" aria-label="choose which digit to run" />
+            <button type="button" className="action micBtn" id="micBtn"
+                    aria-label="record a digit with your microphone">🎤 record</button>
+          </div>
+          <div className="micRow">
+            <div className="micMeter" aria-hidden="true"><i id="micLevel" /></div>
+            <span id="micStatus" role="status">or record yourself saying a digit</span>
+          </div>
+          <div className="runRow">
+            <button type="button" className="action" id="resetDials">reset</button>
+            <button type="button" className="action primary toggle" id="livePlayBtn">▶ Play &amp; run</button>
           </div>
         </div>
       </div>
@@ -81,8 +90,8 @@ export function ResonantConsole() {
           </div>
           <div id="readoutBars" />
           <div className="metrics" style={{ marginTop: 12 }}>
-            <div className="metric"><span>truth</span><b id="mTruth">—</b></div>
-            <div className="metric"><span>predicted</span><b id="mPred">—</b></div>
+            <div className="metric"><span>source</span><b id="mTruth">—</b></div>
+            <div className="metric"><span>detected</span><b id="mPred">—</b></div>
             <div className="metric"><span>mean R</span><b id="mR">—</b></div>
             <div className="metric"><span>sim time</span><b id="mMs">—</b></div>
           </div>
