@@ -14,6 +14,12 @@ const TYPE = [
   'prose-p:my-4 prose-ul:my-4 prose-ol:my-4 prose-li:my-1.5',
 ].join(' ')
 
+/** One caption style for every figure: small, grey, justified, slightly inset. */
+const CAPTION =
+  'mt-4 px-2 text-justify text-[13.5px] leading-relaxed text-zinc-500 sm:px-4 dark:text-zinc-500 ' +
+  '[&_b]:font-semibold [&_b]:text-zinc-600 dark:[&_b]:text-zinc-400'
+
+
 /**
  * The guide itself — markup only, no state. The canvases and controls are
  * driven by src/lib/resonant/guide.js, which finds them by id after mount.
@@ -49,7 +55,7 @@ export function ResonantArticle() {
             <canvas id="waveCanvas" style={{ height: 150 }} />
           </div>
         </div>
-        <figcaption className="mt-4 text-justify text-[13.5px] leading-relaxed text-zinc-500 dark:text-zinc-500 [&_b]:font-semibold [&_b]:text-zinc-600 dark:[&_b]:text-zinc-400">
+        <figcaption className={CAPTION}>
           <b>Figure 1 — one second of speech, as recorded.</b> Every clip on this page comes
           from{' '}
           <a href="https://github.com/soerenab/AudioMNIST" target="_blank" rel="noopener noreferrer" className="underline">
@@ -107,7 +113,7 @@ export function ResonantArticle() {
             <div className="canvasFrame"><canvas id="fftSpecCanvas" style={{ height: 176 }} /></div>
           </div>
         </div>
-        <figcaption className="mt-4 text-justify text-[13.5px] leading-relaxed text-zinc-500 dark:text-zinc-500 [&_b]:font-semibold [&_b]:text-zinc-600 dark:[&_b]:text-zinc-400">
+        <figcaption className={CAPTION}>
           <b>Figure 2 — a 32 ms window and its spectrum.</b> Left: the highlighted slice of
           the recording. Right: the FFT of that slice — energy against frequency, 0 to
           8 kHz. Slide it into a vowel and the low end fills with regularly spaced peaks
@@ -155,7 +161,7 @@ export function ResonantArticle() {
           </div>
           <div className="canvasFrame"><canvas id="stftCanvas" style={{ height: 230 }} /></div>
         </div>
-        <figcaption className="mt-4 text-justify text-[13.5px] leading-relaxed text-zinc-500 dark:text-zinc-500 [&_b]:font-semibold [&_b]:text-zinc-600 dark:[&_b]:text-zinc-400">
+        <figcaption className={CAPTION}>
           <b>Figure 3 — the spectrogram of the selected digit.</b> Horizontal stripes are
           the harmonics of the voice; the wavering bright bands are formants moving as the
           mouth changes shape; vertical smears are the bursts and hisses of consonants. This
@@ -210,7 +216,7 @@ export function ResonantArticle() {
             <div className="canvasFrame"><canvas id="melFbCanvas" style={{ height: 200 }} /></div>
           </div>
         </div>
-        <figcaption className="mt-4 text-justify text-[13.5px] leading-relaxed text-zinc-500 dark:text-zinc-500 [&_b]:font-semibold [&_b]:text-zinc-600 dark:[&_b]:text-zinc-400">
+        <figcaption className={CAPTION}>
           <b>Figure 4 — warping, then pooling, lit up by the actual recording.</b> Left:
           physical frequency in, perceptual frequency out — each stem marks a mel band this
           clip is using right now, planted at its frequency and rising to where the ear puts
@@ -243,7 +249,7 @@ export function ResonantArticle() {
           </div>
           <div className="canvasFrame"><canvas id="melSpecCanvas" style={{ height: 180 }} /></div>
         </div>
-        <figcaption className="mt-4 text-justify text-[13.5px] leading-relaxed text-zinc-500 dark:text-zinc-500 [&_b]:font-semibold [&_b]:text-zinc-600 dark:[&_b]:text-zinc-400">
+        <figcaption className={CAPTION}>
           <b>Figure 5 — the same second, now 976 numbers instead of 16,000.</b> Low bands at
           the bottom, high at the top. Almost everything that distinguishes one spoken digit
           from another survives this compression — which is why nearly every speech system,
@@ -344,7 +350,7 @@ export function ResonantArticle() {
             <text x="480" y="318" className="sub" textAnchor="middle">— only the head and the loss change</text>
           </svg>
         </div>
-        <figcaption className="mt-4 text-justify text-[13.5px] leading-relaxed text-zinc-500 dark:text-zinc-500 [&_b]:font-semibold [&_b]:text-zinc-600 dark:[&_b]:text-zinc-400">
+        <figcaption className={CAPTION}>
           <b>Figure 6 — the conventional pipeline.</b> The front end is fixed arithmetic
           with no learned parameters. Everything to its right is trained, and what you train
           it on is set entirely by the decoder you attach.
@@ -464,8 +470,9 @@ export function ResonantArticle() {
 
         <h3>The stadium crowd</h3>
         <p>
-          The mental picture used throughout the project: a stadium full of fans doing the
-          wave, each windmilling one arm.
+          The mental picture used throughout the project: a stadium at a concert, everyone
+          holding their phone with the light on, each person swinging it in a slow windmill
+          while their favourite singer plays.
         </p>
       </Prose>
 
@@ -473,30 +480,31 @@ export function ResonantArticle() {
         <div className="overflow-hidden rounded-2xl border border-zinc-200 dark:border-zinc-700/50">
           <Image
             src="/resonant/stadium.png"
-            alt="A stadium bowl seen from outside and above, roof open, every seat drawn as a dot coloured by its phase, with a bright wave of raised arms sweeping around the near side"
+            alt="A concert stadium seen from outside and above, roof open, a lit stage at the far end, every seat drawn as a phone light coloured by its phase, with a bright wave sweeping around the near side"
             width={1200}
             height={680}
             className="h-auto w-full"
             unoptimized
           />
         </div>
-        <figcaption>
+        <figcaption className={CAPTION}>
           <b>Figure 7 — the whole model, in one picture.</b> Every seat is an oscillator and
-          every colour is a phase. The bright band sweeping the near side is the wave: fans
-          are not moving anywhere, and neither is the seating chart. What travels is the
-          <em> timing relationship</em> between neighbours — which is exactly what the
+          every colour is where that phone’s light is pointing. The bright band sweeping the
+          near side is the wave, and the stage at the far end is the audio driving it.
+          Nobody is going anywhere and the seating chart never changes: what travels is the{' '}
+          <em>timing relationship</em> between neighbours — which is exactly what the
           coupling term computes, and exactly what the readout measures.
         </figcaption>
       </figure>
 
       <Prose className={TYPE}>
         <ul>
-          <li>Each fan’s <strong>arm direction</strong> is that oscillator’s phase, θ. It goes around and around; 0 and 2π are the same position.</li>
-          <li>Each fan has a preferred <strong>windmill tempo</strong>, ω — how fast they turn if nobody bothers them.</li>
-          <li>Fans watch their neighbours and adjust: the <strong>coupling</strong>. Whether you speed up or slow down depends on whether your neighbours are ahead of or behind you.</li>
-          <li>Coaches on the field shove specific arms in a specific rhythm: the <strong>drive</strong>. This is where the audio enters.</li>
-          <li>A gentle pull toward arms-down keeps the whole thing from running away: the <strong>pinning</strong>.</li>
-          <li>The <strong>seating chart</strong> never changes. Seats do not move — only the wave moves through them.</li>
+          <li>Where each person’s <strong>light is pointing</strong> right now is that oscillator’s phase, θ. It swings around and around; straight up at 0 and at 2π is the same place in the circle.</li>
+          <li>Everyone has a preferred <strong>swing tempo</strong>, ω — the speed they would settle into if nobody else were there.</li>
+          <li>People glance at their neighbours and adjust: the <strong>coupling</strong>. You speed up or slow down depending on whether the lights beside you are ahead of yours or behind it.</li>
+          <li>The <strong>music</strong> from the stage pushes the whole section on the beat: the <strong>drive</strong>. This is where the audio enters — a loud low note leans on one part of the crowd, a bright cymbal on another.</li>
+          <li>A gentle tendency to let your arm drop keeps the whole thing from running away: the <strong>pinning</strong>.</li>
+          <li>The <strong>seating chart</strong> never changes. Nobody swaps seats — only the wave of light moves through them.</li>
         </ul>
         <p>
           Written down, that is the <strong>Kuramoto model</strong>, one of the most studied
@@ -533,7 +541,7 @@ export function ResonantArticle() {
             </div>
           </div>
         </div>
-        <figcaption className="mt-4 text-justify text-[13.5px] leading-relaxed text-zinc-500 dark:text-zinc-500 [&_b]:font-semibold [&_b]:text-zinc-600 dark:[&_b]:text-zinc-400">
+        <figcaption className={CAPTION}>
           <b>Figure 8 — the whole core, in one line.</b> Compare with a transformer layer:
           there is no attention matrix, no feed-forward block, no layer norm. There is a
           tempo, a neighbourhood rule, a brake, and an input.
@@ -562,7 +570,7 @@ export function ResonantArticle() {
             <input className="slider" type="range" id="toyK" min="0" max="300" defaultValue="0" />
           </div>
         </div>
-        <figcaption className="mt-4 text-justify text-[13.5px] leading-relaxed text-zinc-500 dark:text-zinc-500 [&_b]:font-semibold [&_b]:text-zinc-600 dark:[&_b]:text-zinc-400">
+        <figcaption className={CAPTION}>
           <b>Figure 9 — synchronization, from nothing to total.</b> 24 oscillators with
           different natural tempos, drawn as dots on their shared circle. At K = 0 they
           smear around it forever. Push K up and they gather into a clump. The arrow is the{' '}
@@ -606,7 +614,7 @@ export function ResonantArticle() {
             unoptimized
           />
         </div>
-        <figcaption>
+        <figcaption className={CAPTION}>
           <b>Figure 10 — the field on the shape it lives on.</b> The same phase colours as the
           crowd, now wrapped onto the surface the grid actually forms. Rows run around the
           tube — that is the frequency axis, low bands to high — and columns run around the
@@ -690,7 +698,7 @@ export function ResonantArticle() {
             <text x="500" y="306" className="subHot" textAnchor="middle">phases persist frame to frame — the recurrence</text>
           </svg>
         </div>
-        <figcaption className="mt-4 text-justify text-[13.5px] leading-relaxed text-zinc-500 dark:text-zinc-500 [&_b]:font-semibold [&_b]:text-zinc-600 dark:[&_b]:text-zinc-400">
+        <figcaption className={CAPTION}>
           <b>Figure 11 — same stack, different middle.</b> The front end and the output heads
           are deliberately the most boring possible choices and are shared with the
           conventional control models, so that any difference in results is attributable to
@@ -729,7 +737,7 @@ export function ResonantArticle() {
           <div className="stage" data-stage="5">readout</div>
         </div>
         <ResonantConsole />
-        <figcaption className="mt-4 text-justify text-[13.5px] leading-relaxed text-zinc-500 dark:text-zinc-500 [&_b]:font-semibold [&_b]:text-zinc-600 dark:[&_b]:text-zinc-400">
+        <figcaption className={CAPTION}>
           <b>Figure 12 — the live console.</b> Three things reward watching. <b>One:</b>{' '}
           during silence the field still turns, each row at its own tempo — slow at the
           bottom, quick at the top. <b>Two:</b> when the word arrives the driven rows lurch,
