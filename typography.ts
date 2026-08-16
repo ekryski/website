@@ -223,7 +223,9 @@ export default {
             marginBottom: theme('spacing.20'),
             borderTopWidth: '1px',
             borderColor: 'var(--tw-prose-hr)',
-            '@screen lg': {
+            // Tailwind v4 dropped `@screen`, so the lg breakpoint (64rem) is
+            // written out as a plain media query.
+            '@media (min-width: 64rem)': {
               marginLeft: `calc(${theme('spacing.12')} * -1)`,
               marginRight: `calc(${theme('spacing.12')} * -1)`,
             },
