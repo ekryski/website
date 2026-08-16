@@ -1,9 +1,12 @@
 import { type Metadata } from 'next'
+import clsx from 'clsx'
 import Image from 'next/image'
 import Link from 'next/link'
 
 import { Container } from '@/components/Container'
 
+// The repository is not public yet — kept for the commented-out repository card below.
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const REPO = 'https://github.com/ekryski/resonant'
 const GUIDE = '/articles/how-a-machine-hears-a-number'
 
@@ -46,12 +49,18 @@ const reading = [
     cta: 'Read the guide',
   },
   {
-    href: REPO,
+    // The repository is not public yet — it needs a clean-up pass first. Keep
+    // the card, drop the link: href: null renders it as a non-interactive
+    // "coming soon" tile. Restore by putting `href: REPO, internal: false`
+    // back and deleting the two lines below.
+    // href: REPO,
+    // internal: false,
+    href: null,
     internal: false,
     title: 'The repository',
     blurb:
-      'The code, the architecture, every experiment log, and the verdicts — including the ones that went against the hypothesis.',
-    cta: 'View on GitHub',
+      'The code, the architecture, every experiment log, and the verdicts — including the ones that went against the hypothesis. Going public once it has had a clean-up pass.',
+    cta: 'Coming soon',
   },
 ]
 
@@ -143,24 +152,45 @@ export default function ResonantProject() {
               const outbound = item.internal
                 ? {}
                 : { target: '_blank', rel: 'noopener noreferrer' }
-              return (
-                <li key={item.href}>
-                  <Link
-                    href={item.href}
-                    {...outbound}
-                    className="group relative flex h-full flex-col rounded-2xl border border-zinc-200 bg-zinc-100/60 p-6 transition hover:border-violet-300 hover:bg-violet-50 dark:border-zinc-700/50 dark:bg-zinc-800/50 dark:hover:border-violet-400/40 dark:hover:bg-zinc-800"
+              const body = (
+                <>
+                  <h3 className="text-lg font-semibold text-zinc-800 dark:text-zinc-100">
+                    {item.title}
+                  </h3>
+                  <p className="mt-3 text-sm text-zinc-600 dark:text-zinc-400">{item.blurb}</p>
+                  <span
+                    className={clsx(
+                      'mt-6 flex items-center text-sm font-medium',
+                      item.href
+                        ? 'text-violet-500 dark:text-violet-400'
+                        : 'text-zinc-400 dark:text-zinc-500',
+                    )}
                   >
-                    <h3 className="text-lg font-semibold text-zinc-800 dark:text-zinc-100">
-                      {item.title}
-                    </h3>
-                    <p className="mt-3 text-sm text-zinc-600 dark:text-zinc-400">
-                      {item.blurb}
-                    </p>
-                    <span className="mt-6 flex items-center text-sm font-medium text-violet-500 dark:text-violet-400">
-                      {item.cta}
+                    {item.cta}
+                    {item.href && (
                       <ArrowIcon className="ml-1 h-4 w-4 stroke-current transition group-hover:translate-x-0.5" />
-                    </span>
-                  </Link>
+                    )}
+                  </span>
+                </>
+              )
+              const shell =
+                'flex h-full flex-col rounded-2xl border p-6 transition border-zinc-200 bg-zinc-100/60 dark:border-zinc-700/50 dark:bg-zinc-800/50'
+              return (
+                <li key={item.title}>
+                  {item.href ? (
+                    <Link
+                      href={item.href}
+                      {...outbound}
+                      className={clsx(
+                        shell,
+                        'group relative hover:border-violet-300 hover:bg-violet-50 dark:hover:border-violet-400/40 dark:hover:bg-zinc-800',
+                      )}
+                    >
+                      {body}
+                    </Link>
+                  ) : (
+                    <div className={clsx(shell, 'opacity-80')}>{body}</div>
+                  )}
                 </li>
               )
             })}
