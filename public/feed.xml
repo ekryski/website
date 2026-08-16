@@ -4,7 +4,7 @@
         <title>Eric Kryski</title>
         <link>https://erickryski.com</link>
         <description>Read Eric Kryski's musings on design, development, finance and entrepreneurship</description>
-        <lastBuildDate>Wed, 11 Feb 2026 05:16:49 GMT</lastBuildDate>
+        <lastBuildDate>Sun, 16 Aug 2026 03:47:03 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <image>
@@ -13,6 +13,15 @@
             <link>https://erickryski.com</link>
         </image>
         <copyright>All rights reserved 2026</copyright>
+        <item>
+            <title><![CDATA[How a machine hears a number]]></title>
+            <link>https://erickryski.com/articles/how-a-machine-hears-a-number</link>
+            <guid>https://erickryski.com/articles/how-a-machine-hears-a-number</guid>
+            <pubDate>Sat, 15 Aug 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[A progressive guide to speech model architectures — pressure waves, Fourier transforms, mel spectrograms, vocoders, and a coupled-oscillator core — where every figure is computed live in your browser from real recordings of spoken digits.]]></description>
+            <content:encoded><![CDATA[A progressive guide to speech model architectures — pressure waves, Fourier transforms, mel spectrograms, vocoders, and a coupled-oscillator core — where every figure is computed live in your browser from real recordings of spoken digits.]]></content:encoded>
+            <author>hello@erickryski.com (Eric Kryski)</author>
+        </item>
         <item>
             <title><![CDATA[Taxation of Employee Stock Options]]></title>
             <link>https://erickryski.com/articles/taxation-employee-stock-options</link>
