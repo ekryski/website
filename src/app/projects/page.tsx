@@ -48,8 +48,8 @@ const projects = [
   {
     name: 'Resonant',
     description:
-      'Speech models built on coupled-oscillator physics instead of attention. Read the interactive guide — it runs the whole pipeline live in your browser.',
-    link: { href: '/projects/resonant', label: 'Read the guide', internal: true },
+      'Research project testing whether speech models can be built on coupled-oscillator physics instead of attention — with an interactive guide that runs the whole pipeline live in your browser.',
+    link: { href: '/projects/resonant', label: 'Project overview', internal: true },
     logo: logoResonant,
   },
   {
