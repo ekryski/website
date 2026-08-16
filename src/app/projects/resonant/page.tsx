@@ -55,21 +55,6 @@ const reading = [
   },
 ]
 
-const status = [
-  [
-    'Spoken digits',
-    'A frozen, untrained field plus a linear readout reads held-out speakers well — and a control shows most of that is the driven oscillator bank, not the coupling.',
-  ],
-  [
-    'Text to speech',
-    'A first milestone passed against a param-matched control; the harder rungs are open.',
-  ],
-  [
-    'Speech to text',
-    'Being explored. More experiments to come, and whatever they return gets recorded.',
-  ],
-]
-
 function ArrowIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
   return (
     <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" {...props}>
@@ -142,9 +127,9 @@ export default function ResonantProject() {
               the guide is roughly 2,000 numbers.
             </p>
             <p>
-              It is early, it is honest about what it has and has not shown, and the
-              results that contradict the hypothesis get written down alongside the ones
-              that support it.
+              Oscillator based models could usher in a new paradigm for AI and computing, 
+              helping us better understand intelligence and the brain. Project Resonant, 
+              is an early experiment, but is showing promise. It is a step towards that future.
             </p>
           </div>
         </section>
@@ -180,38 +165,6 @@ export default function ResonantProject() {
               )
             })}
           </ul>
-        </section>
-
-        <section>
-          <h2 className="text-base font-semibold tracking-tight text-zinc-800 dark:text-zinc-100">
-            Where it stands
-          </h2>
-          <dl className="mt-6 grid max-w-3xl grid-cols-1 gap-6 sm:grid-cols-3">
-            {status.map(([term, detail]) => (
-              <div key={term}>
-                <dt className="font-mono text-xs font-semibold tracking-[0.14em] text-violet-500 uppercase dark:text-violet-400">
-                  {term}
-                </dt>
-                <dd className="mt-2 text-sm text-zinc-600 dark:text-zinc-400">{detail}</dd>
-              </div>
-            ))}
-          </dl>
-          <p className="mt-8 text-sm text-zinc-500 dark:text-zinc-400">
-            The full picture — hypothesis, architecture, and every run —{' '}
-            <a
-              href={REPO}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-violet-500 dark:text-violet-400"
-            >
-              lives in the repository
-            </a>
-            . The concepts behind it are explained from scratch in{' '}
-            <Link href={GUIDE} className="text-violet-500 dark:text-violet-400">
-              the guide
-            </Link>
-            .
-          </p>
         </section>
       </div>
     </Container>
