@@ -3,6 +3,8 @@ import Image from 'next/image'
 import { Prose } from '@/components/Prose'
 import { ResonantConsole } from '@/components/resonant/ResonantConsole'
 
+// The repository is not public yet — kept for the commented-out repo links below.
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const REPO = 'https://github.com/ekryski/resonant'
 
 /** Section headings read as chapter markers; body rhythm is tighter than the site default. */
@@ -396,8 +398,8 @@ export function ResonantArticle() {
             original <a href={'https://arxiv.org/abs/1703.10135'} target="_blank" rel="noopener noreferrer">Tacotron</a> (2017)
             shipped with Griffin–Lim, which is exactly why first-generation neural TTS
             demos had that ringing, underwater timbre — and why{' '}
-            <a href="https://librosa.org/doc/main/generated/librosa.griffinlim.html" target="_blank" rel="noopener noreferrer">librosa’s <code>griffinlim</code></a>{' '}
-            is still the two-line baseline everyone tries first.
+            <a href="https://github.com/librosa/librosa" target="_blank" rel="noopener noreferrer">librosa</a>’s{' '}
+            <code>griffinlim</code> is still the two-line baseline everyone tries first.
           </li>
           <li>
             <strong>Neural vocoders (the modern default).</strong> A network trained on
@@ -415,7 +417,7 @@ export function ResonantArticle() {
             and <a href="https://arxiv.org/abs/2306.07691" target="_blank" rel="noopener noreferrer">StyleTTS 2</a>;{' '}
             <a href="https://arxiv.org/abs/2206.04658" target="_blank" rel="noopener noreferrer">BigVGAN</a>{' '}
             scaled it to universal, any-voice audio;{' '}
-            <a href="https://arxiv.org/abs/2009.00713" target="_blank" rel="noopener noreferrer">DiffWave</a> and{' '}
+            <a href="https://arxiv.org/abs/2009.09761" target="_blank" rel="noopener noreferrer">DiffWave</a> and{' '}
             <a href="https://arxiv.org/abs/2009.00713" target="_blank" rel="noopener noreferrer">WaveGrad</a>{' '}
             sculpt noise into a waveform by diffusion; and{' '}
             <a href="https://arxiv.org/abs/2306.00814" target="_blank" rel="noopener noreferrer">Vocos</a>{' '}
@@ -456,9 +458,11 @@ export function ResonantArticle() {
         <h2><span className="num">06 — a different core</span>What if the middle box were physics?</h2>
         <p>
           Everything above treats the encoder as a stack of matrix multiplications. Here is
-          the alternative <a href={REPO} target="_blank" rel="noopener noreferrer">Project Resonant</a>{' '}
-          is built to test: replace it with a <strong>population of coupled
-          oscillators</strong>, and let the audio drive them.
+          the alternative <strong>Project Resonant</strong> is built to test: replace it
+          with a <strong>population of coupled oscillators</strong>, and let the audio drive
+          them.
+          {/* repo is not public yet — restore when it is:
+              <a href={REPO} target="_blank" rel="noopener noreferrer">Project Resonant</a> */}
         </p>
         <p>
           The motivation is not aesthetic. Speech <em>is</em> oscillation — vocal folds
@@ -470,9 +474,8 @@ export function ResonantArticle() {
 
         <h3>The stadium crowd</h3>
         <p>
-          The mental picture used throughout the project: a stadium at a concert, everyone
-          holding their phone with the light on, each person swinging it in a slow windmill
-          while their favourite singer plays.
+          Imagine a stadium at a concert, everyone holding their phone with the light on,
+          each person swinging it in a slow windmill while their favourite singer plays.
         </p>
       </Prose>
 
@@ -845,16 +848,18 @@ export function ResonantArticle() {
         <h2><span className="num">09 — go deeper</span>The code, and the prior art</h2>
         <p>
           Everything on this page — the front end, the oscillator core, the readout, and the
-          ten recordings — comes out of an open research repository. The hypothesis, the
+          ten recordings — comes out of a research repository that holds the hypothesis, the
           architecture, every experiment log, and the results that refuted my own
-          expectations all live there.
+          expectations. It is getting a clean-up pass before it goes public; the link will
+          land here when it does.
         </p>
+        {/* repo is not public yet — restore this button when it is:
         <p style={{ marginTop: '1.5rem' }}>
           <a className="action primary" href={REPO} target="_blank" rel="noopener noreferrer"
              style={{ textDecoration: 'none', display: 'inline-block' }}>
             Project Resonant on GitHub →
           </a>
-        </p>
+        </p> */}
 
         <h3>Prior art worth reading</h3>
         <div className="not-prose mt-6 rounded-2xl border border-zinc-200 bg-zinc-100/60 p-6 dark:border-zinc-700/50 dark:bg-zinc-800/40">
