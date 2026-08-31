@@ -1,0 +1,47 @@
+import { ArticleLayout } from '@/components/ArticleLayout'
+import { Newsletter } from '@/components/Newsletter'
+import imageimage1jpeg from './image-1.jpeg'
+
+export const article = {
+ author: 'Eric Kryski',
+ date: '2015-01-13',
+ title: "A Year of Learnings",
+ description: "Get Eric Kryski’s stories in your inbox",
+}
+
+export const metadata = {
+ title: article.title,
+ description: article.description,
+ openGraph: { title: article.title, description: article.description, url: '/articles/a-year-of-learnings' },
+ twitter: { card: 'summary_large_image', title: article.title, description: article.description },
+}
+
+export default ({ children }) => <ArticleLayout article={article}>{children}</ArticleLayout>
+
+<Image src={imageimage1jpeg} alt="" />
+
+Well, it’s a new year and time for resolutions! I actually enjoy making new resolutions each year. They give me something to strive for. Being honest, come December I usually haven’t fulfilled them to the extent that I had intended when the calendar rolled over; but at least I took steps in the right direction.
+
+Starting last year I’ve become more data driven about many of my decisions and I think the biggest reason why the majority of my resolutions don’t feel “complete” is because I rarely set quantitative goals for them. Which is why this year I’ve decided to put actionable, measurable deliverables to my resolutions, so that I can more [accurately gauge success and celebrate progress](http://www.forbes.com/sites/neilpatel/2014/11/26/4-agile-startup-hacks-that-can-transform-your-business/).
+
+> **One article a week for an entire year about something that I have learned.**
+
+Over the course of the year I’m going to attempt to write 1 article a week for an entire year about something that I have learned. I’ve had the opportunity to work with some really bright people and also learned some shitty lessons the hard way. I thought I would share some of the things I learn in order to help others avoid some of the mistakes I’ve made, improve my writing skills, and, quite frankly, to keep a record of this year so that I can remember the highs and the lows.
+
+I’m a curious person and am continually learning. I currently have a keen interest in:
+
+- Political Transparency
+- Woodworking
+- Architecture & Furniture Design
+- Finance & Economics
+- Software Development & Technology
+- Machine Learning & AI
+- Startups & Startup Culture
+
+My posts throughout the year will most likely be related, but probably not limited, to these topics. So with this inaugural post, here goes nothing!
+
+If you’d like to keep up with my progress you can [follow me on twitter](https://twitter.com/ekryski) or [check out my other articles](https://medium.com/@ekryski/latest).
+
+> I have been working myself up to publicly committing to doing this so I’m already nearly 2 weeks behind. I’m giving myself some leniency on having a new post every single week (shit happens) but I’m going to strive to maintain that cadence since f[orming habits is a successful life hack](https://blog.bufferapp.com/what-the-research-on-habit-formation-reveals-about-willpower-and-overall-well-being). Regardless of my establishing a routine I will have 52 thoughtful pieces by December 31st, 2015.
+
+<Newsletter />

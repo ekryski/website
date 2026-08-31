@@ -1,25 +1,26 @@
 import { ArticleLayout } from '@/components/ArticleLayout'
+import { Newsletter } from '@/components/Newsletter'
 import experimentResults from './experiment-results.png'
 
 export const dynamic = 'force-static'
 
 export const article = {
-  author: 'Eric Kryski',
-  date: '2023-04-18',
-  published: false,
-  title: 'Can you tell which photos are AI-generated?',
-  description:
-    'An experiment testing whether humans can distinguish real photos from AI-generated ones. Spoiler: 84% of people got it wrong.',
+ author: 'Eric Kryski',
+ date: '2023-04-18',
+ published: false,
+ title: 'Can you tell which photos are AI-generated?',
+ description:
+ 'An experiment testing whether humans can distinguish real photos from AI-generated ones. Spoiler: 84% of people got it wrong.',
 }
 
 export const metadata = {
-  title: article.title,
-  description: article.description,
-  openGraph: { title: article.title, description: article.description, url: '/articles/ai-image-generation-experiment' },
-  twitter: { card: 'summary_large_image', title: article.title, description: article.description },
+ title: article.title,
+ description: article.description,
+ openGraph: { title: article.title, description: article.description, url: '/articles/ai-image-generation-experiment' },
+ twitter: { card: 'summary_large_image', title: article.title, description: article.description },
 }
 
-export default (props) => <ArticleLayout article={article} {...props} />
+export default ({ children }) => <ArticleLayout article={article}>{children}</ArticleLayout>
 
 My hypothesis: AI can now create images that humans are unable to tell are generated.
 
@@ -87,3 +88,5 @@ I would love to know what you think. Are you an AI optimist or pessimist? How do
 One thing I do know is AI is going to change the world as we know it. It's coming hard and fast whether we like it or not. In what way? I don't think we fully know yet.
 
 But those that adapt will thrive. Those that don't, well, that's something we need to decide.
+
+<Newsletter />

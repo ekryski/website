@@ -36,12 +36,14 @@ function Photos() {
 
   return (
     <div className="mt-16 sm:mt-20">
-      <div className="-my-4 flex justify-center gap-5 overflow-hidden py-4 sm:gap-8">
+      <div
+        className="-my-4 flex justify-center gap-5 overflow-x-auto overflow-y-hidden overscroll-x-contain scrollbar-hide px-4 py-4 sm:gap-8 snap-x snap-mandatory [-webkit-overflow-scrolling:touch]"
+      >
         {[image1, image2, image3, image4, image5].map((image, imageIndex) => (
           <div
             key={image.src}
             className={clsx(
-              'relative aspect-9/10 w-44 flex-none overflow-hidden rounded-xl bg-zinc-100 sm:w-72 sm:rounded-2xl dark:bg-zinc-800',
+              'relative aspect-9/10 w-44 flex-none shrink-0 overflow-hidden rounded-xl bg-zinc-100 sm:w-72 sm:rounded-2xl snap-center snap-always dark:bg-zinc-800',
               rotations[imageIndex % rotations.length],
             )}
           >

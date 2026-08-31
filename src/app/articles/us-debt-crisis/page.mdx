@@ -1,25 +1,26 @@
 import { ArticleLayout } from '@/components/ArticleLayout'
+import { Newsletter } from '@/components/Newsletter'
 import sofrChart from './sofr-chart.png'
 
 export const dynamic = 'force-static'
 
 export const article = {
-  author: 'Eric Kryski',
-  date: '2023-05-22',
-  published: false,
-  title: 'US debt crisis',
-  description:
-    'If the US fumbles the ball on raising their debt ceiling, the fallout could be worse than 2008. The world economy is more dependent on the USA than ever.',
+ author: 'Eric Kryski',
+ date: '2023-05-22',
+ published: false,
+ title: 'US debt crisis',
+ description:
+ 'If the US fumbles the ball on raising their debt ceiling, the fallout could be worse than 2008. The world economy is more dependent on the USA than ever.',
 }
 
 export const metadata = {
-  title: article.title,
-  description: article.description,
-  openGraph: { title: article.title, description: article.description, url: '/articles/us-debt-crisis' },
-  twitter: { card: 'summary_large_image', title: article.title, description: article.description },
+ title: article.title,
+ description: article.description,
+ openGraph: { title: article.title, description: article.description, url: '/articles/us-debt-crisis' },
+ twitter: { card: 'summary_large_image', title: article.title, description: article.description },
 }
 
-export default (props) => <ArticleLayout article={article} {...props} />
+export default ({ children }) => <ArticleLayout article={article}>{children}</ArticleLayout>
 
 If the US fumbles the ball on raising their debt ceiling this week, the fallout will be worse than the 2008 financial crisis.
 
@@ -64,3 +65,5 @@ With this new info about the LIBOR scandal, this feels uncanny:
 Was the killing of LIBOR intentional so the US could have even more global control?
 
 Regardless, the stars sure are aligning in such a way to give the US Gov and the Fed maximum leverage.
+
+<Newsletter />
