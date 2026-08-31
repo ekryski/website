@@ -10,7 +10,7 @@
     "build:resonant-og": "node scripts/generate-resonant-og.js",
     "build:project-logos": "node scripts/generate-project-logos.js",
     "optimize-home-photos": "node scripts/optimize-home-photos.js",
-    "build:cv": "npx md-to-pdf public/cv.md --config-file md-to-pdf-config.js",
+    "build:cv": "npx md-to-pdf public/cv.md --config-file md-to-pdf-config.js < /dev/null",
     "start": "next start",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
