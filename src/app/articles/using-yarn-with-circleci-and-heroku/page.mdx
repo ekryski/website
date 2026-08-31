@@ -7,11 +7,13 @@ import imageimage3png from './image-3.png'
 export const article = {
  author: 'Eric Kryski',
  date: '2016-10-14',
+ published: false,
  title: "Using Yarn with CircleCI and Heroku",
  description: "Get Eric Kryski’s stories in your inbox",
 }
 
 export const metadata = {
+  robots: { index: false, follow: false },
  title: article.title,
  description: article.description,
  openGraph: { title: article.title, description: article.description, url: '/articles/using-yarn-with-circleci-and-heroku' },

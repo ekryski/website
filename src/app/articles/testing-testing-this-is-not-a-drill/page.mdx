@@ -7,11 +7,13 @@ import imageimage3png from './image-3.png'
 export const article = {
  author: 'Eric Kryski',
  date: '2020-03-16',
+ published: false,
  title: "Testing. Testing. This is not a drill.",
  description: "COVID-19 is real. Alberta is preparing well but you need to take this seriously.",
 }
 
 export const metadata = {
+  robots: { index: false, follow: false },
  title: article.title,
  description: article.description,
  openGraph: { title: article.title, description: article.description, url: '/articles/testing-testing-this-is-not-a-drill' },

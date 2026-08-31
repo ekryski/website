@@ -4,8 +4,9 @@ import { Newsletter } from '@/components/Newsletter'
 export const article = {
  author: 'Eric Kryski',
  date: '2016-02-27',
+ published: true,
  title: "How to actually use Socket.io in React Native",
- description: "Get Eric Kryski’s stories in your inbox",
+ description: "Socket.io's client assumes a browser, and React Native isn't one. What you actually have to do to get the two talking.",
 }
 
 export const metadata = {
@@ -16,8 +17,6 @@ export const metadata = {
 }
 
 export default ({ children }) => <ArticleLayout article={article}>{children}</ArticleLayout>
-
-Top highlight
 
 Official [websocket support](https://facebook.github.io/react-native/docs/network.html) landed in React Native core in October. If you want to use socket.io with React Native you need to hack around socket.io a bit because the client was originally built for the browser, and since the React Native runtime isn’t a browser, it won’t work right out of the box.
 

@@ -7,11 +7,13 @@ import imageimage3jpeg from './image-3.jpeg'
 export const article = {
  author: 'Eric Kryski',
  date: '2018-01-06',
+ published: false,
  title: "Verge (XVG) is misunderstood but it’s about to change everything",
  description: "What is Wraith",
 }
 
 export const metadata = {
+  robots: { index: false, follow: false },
  title: article.title,
  description: article.description,
  openGraph: { title: article.title, description: article.description, url: '/articles/verge-xvg-is-misunderstood-but-its-about-to-change-everything' },

@@ -7,11 +7,13 @@ import imageimage3png from './image-3.png'
 export const article = {
  author: 'Eric Kryski',
  date: '2020-04-14',
+ published: false,
  title: "Canada’s Fiscal Response Package To COVID-19 Still Needs Improvement",
  description: "An open letter to our Prime Minister and Canada’s Ministers responsible for our economic recovery",
 }
 
 export const metadata = {
+  robots: { index: false, follow: false },
  title: article.title,
  description: article.description,
  openGraph: { title: article.title, description: article.description, url: '/articles/canadas-fiscal-response-package-to-covid-19-still-needs-improvement' },

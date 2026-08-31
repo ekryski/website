@@ -4,11 +4,13 @@ import { Newsletter } from '@/components/Newsletter'
 export const article = {
  author: 'Eric Kryski',
  date: '2016-01-30',
+ published: false,
  title: "I’m a quitter and I’m okay with it",
  description: "I over estimated my ability and time",
 }
 
 export const metadata = {
+  robots: { index: false, follow: false },
  title: article.title,
  description: article.description,
  openGraph: { title: article.title, description: article.description, url: '/articles/im-a-quitter-and-im-okay-with-it' },

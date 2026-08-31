@@ -1,5 +1,8 @@
 import { MetadataRoute } from 'next'
+
 import { getAllArticles } from '@/lib/articles'
+
+export const dynamic = 'force-static'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://erickryski.com'
