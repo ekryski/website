@@ -102,6 +102,23 @@ export default function About() {
               {' '}and have advised various governments on crypto, blockchain, and emerging finance technologies.
             </p>
             <p>
+              Most of my time now goes to AI. That means agentic systems and the
+              internal tooling around them, local inference on Apple Silicon, and
+              a research project asking whether speech models can be built on the
+              physics of{' '}
+              <Link
+                href="/projects/resonant"
+                className="text-zinc-800 dark:text-zinc-100 underline decoration-zinc-400 underline-offset-2 hover:decoration-zinc-600 dark:decoration-zinc-500 dark:hover:decoration-zinc-300"
+              >
+                coupled oscillators
+              </Link>
+              {' '}rather than attention. That last one has taught me more about
+              working with AI than anything else I've done. Running experiments
+              with agentic collaborators means most of the work is designing the
+              controls that stop them handing you a result that merely looks like
+              a finding.
+            </p>
+            <p>
               If you are looking for a speaker in my areas of expertise, need some
               help with something you're working on, or you just want to reach
               out to say hi, send me an email at{' '}

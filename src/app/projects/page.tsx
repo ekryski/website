@@ -77,6 +77,25 @@ const projects = [
   },
 ]
 
+/** Recent client work through Bullish Ventures. Listed rather than carded:
+ *  these are engagements, not products of mine. */
+const engagements = [
+  {
+    name: 'Uncoil (Matter)',
+    period: '2025',
+    description:
+      'An AI-driven marketing platform. Omni-channel ad generation routing prospects to landing pages written for their buyer persona, with LLM content generation and performance analysis, and business rules automated in n8n.',
+    stack: 'Node.js · React · PostgreSQL · Supabase · GCP · n8n',
+  },
+  {
+    name: 'Plume Network',
+    period: '2024 – 2025',
+    description:
+      'The first iteration of the network, plus the pre-launch and mainnet portals. Also ran static and dynamic analysis on sybil attack and usage patterns to separate bot traffic from real users.',
+    stack: 'Node.js · React · PostgreSQL · Redis · Vercel',
+  },
+]
+
 const comingSoon = [
   {
     name: 'Sam',
@@ -204,6 +223,36 @@ export default function Projects() {
           <ProjectCard key={project.name} project={project} />
         ))}
       </ul>
+
+      <section className="mt-24 border-t border-zinc-100 pt-12 dark:border-zinc-700/40">
+        <h2 className="text-sm font-semibold tracking-wide text-zinc-500 uppercase dark:text-zinc-400">
+          Recent client work
+        </h2>
+        <p className="mt-4 max-w-2xl text-base text-zinc-600 dark:text-zinc-400">
+          Consulting engagements through Bullish Ventures, where I do product
+          development and CTO-as-a-service for startups.
+        </p>
+        <ul role="list" className="mt-10 space-y-10">
+          {engagements.map((engagement) => (
+            <li key={engagement.name} className="max-w-2xl">
+              <div className="flex items-baseline justify-between gap-4">
+                <h3 className="text-base font-semibold text-zinc-800 dark:text-zinc-100">
+                  {engagement.name}
+                </h3>
+                <span className="shrink-0 text-sm text-zinc-400 dark:text-zinc-500">
+                  {engagement.period}
+                </span>
+              </div>
+              <p className="mt-2 text-base text-zinc-600 dark:text-zinc-400">
+                {engagement.description}
+              </p>
+              <p className="mt-2 text-sm text-zinc-400 dark:text-zinc-500">
+                {engagement.stack}
+              </p>
+            </li>
+          ))}
+        </ul>
+      </section>
 
       <section className="mt-24 border-t border-zinc-100 pt-12 dark:border-zinc-700/40">
         <h2 className="text-sm font-semibold tracking-wide text-zinc-500 uppercase dark:text-zinc-400">
