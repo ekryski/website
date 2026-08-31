@@ -227,8 +227,11 @@ export default function Tools() {
             href="https://claude.ai"
             image="https://www.google.com/s2/favicons?domain=anthropic.com&sz=128"
           >
-            AI assistant that helps me think through problems, draft code, and
-            iterate on ideas throughout the development process.
+            Claude and Claude Code do a lot of my day to day work now. I use
+            them for architecture I'm still arguing with myself about, for
+            agentic runs across a whole codebase, and as research collaborators
+            on the oscillator work, where the hard part is designing the
+            controls that stop an agent from handing you a false positive.
           </WorkstationTool>
           <WorkstationTool
             title="GitHub"

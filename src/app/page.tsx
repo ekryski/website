@@ -68,7 +68,8 @@ export default async function Home() {
       <Container className="mt-9">
         <div className="max-w-2xl">
           <h1 className="text-4xl font-bold tracking-tight text-zinc-800 sm:text-5xl dark:text-zinc-100">
-            Software designer, founder, investor and closet economist.
+            Software designer, founder, investor and closet economist. These
+            days I mostly build AI systems.
           </h1>
           <p className="mt-6 text-base text-zinc-600 dark:text-zinc-400">
             Hi 👋
@@ -81,7 +82,13 @@ export default async function Home() {
             their own terms.
           </p>
           <p className="mt-6 text-base text-zinc-600 dark:text-zinc-400">
-            I have a passion for building beautiful products people love. As of late I've been exploring the intersection of artificial intelligence, distributed systems,secure programmable money, as well as the history of money, banking, macro and micro economics.
+            I have a passion for building beautiful products people love. Most
+            of my time now goes to AI: agentic systems and internal tooling,
+            local inference on Apple Silicon, and{' '}
+            <Link href="/projects/resonant" className="text-zinc-800 dark:text-zinc-100">a research project</Link>{' '}
+            testing whether speech models can run on coupled-oscillator physics
+            instead of attention. The rest goes to distributed systems, secure
+            programmable money, and the history of money, banking and economics.
           </p>
           <HomeSocialLinks />
           <CalloutWithTracking />
