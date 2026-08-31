@@ -1,0 +1,87 @@
+import { ArticleLayout } from '@/components/ArticleLayout'
+import { Newsletter } from '@/components/Newsletter'
+import imageimage1jpeg from './image-1.jpeg'
+
+export const article = {
+ author: 'Eric Kryski',
+ date: '2014-04-15',
+ title: "Why We Switched From Mixpanel to KISS",
+ description: "Even great services can still be painful",
+}
+
+export const metadata = {
+ title: article.title,
+ description: article.description,
+ openGraph: { title: article.title, description: article.description, url: '/articles/why-we-switched-from-mixpanel-to-kiss' },
+ twitter: { card: 'summary_large_image', title: article.title, description: article.description },
+}
+
+export default ({ children }) => <ArticleLayout article={article}>{children}</ArticleLayout>
+
+<Image src={imageimage1jpeg} alt="" />
+
+I want to first preface this article with a little bit of background about [PetroFeed](http://petrofeed.com/) and what we specifically use our analytics services for.
+
+PetroFeed is a new age oil and gas communication platform with the goal of allowing efficient and timely communication in order to improve operational efficiency and disseminate important information within the energy sector. We are drawing inspiration from our experience as a team in consumer tech by bringing modern concepts and technology that have proven successful in consumer products and applying them to the oil and gas domain.
+
+In order to achieve this goal we need to know about our users. We need to know, not only how they came to our site and whether they perform certain actions, but we also need to know specifically what actions different groups are performing and how often. Determining the segmentation of what your customers are doing (cohorts) is important for any company, but it is especially important for us because, unlike most consumer products, our target market is much smaller and is a very tight knit group.
+
+Furthermore, we need to know what actions certain groups are performing because different groups of people in the energy industry have more influence on the flow of money and where it is spent. Simply knowing how many people are using IE9 that converted through our signup funnel is not good enough.
+
+As an example:
+
+*We might want to know how many engineers visited our maps page and filtered down more than 2 times to see vertical oil wells in the Cardium formation drilled by Savanna Drilling Corp.*
+
+Now that you know a little bit about what we are looking for with our analytics let me tell you about what we have currently and how we got there.
+
+Right now we are using:
+
+- KISS Metrics for all of our user intelligence. This includes funnels, cohorts, user acquisition and engagement, and detailed user profiling for both web and mobile.
+- Google Analytics for our overall site health. This includes browser/device/OS information, bounce rate, page views, visits, and geographic information.
+- Our own database for things that aren’t covered by the other services. We have a quick dashboard overview of our entire system at a high level. This includes, the number of users, emails sent and feedback among other things.
+
+### How Did We Arrive Here?
+
+Last year we started off with [Mixpanel](https://mixpanel.com/) and [Google Analytics](http://www.google.ca/analytics/). We chose these two because we had all used Google Analytics before and had heard good things about Mixpanel from others. On top of that Mixpanel has a really slick UI, a beautifully designed website, and a lot of other big companies like airbnb, dropbox, and kickstarter using their service.
+
+At the time our architecture was mostly a client side application with a rails API (more on that in another post) so we were using the JavaScript libraries for both these services. This seemed to work pretty well except that we also use [olark](http://www.olark.com/) and having all these different API tokens to manage for production, staging, dev, and test environments was a giant pain. In came [segment.io](http://segment.io/). Instead of managing all of these different tokens for all of our different environments we now just had to manage two and let segment deal with the rest. At the time this seemed like a great idea.
+
+### Lesson 1: Proper Aliasing
+
+Segment.io was super easy to set up but we were noticing that some of our data seemed to be getting mixed up, especially anonymous user data. We weren’t sure if this was Mixpanel or if this was segment.io. We quadruple checked the documentation on all the analytics services and found out that **you should only be aliasing once and never, ever again.** Ok, our bad.
+
+Even after we fixed our code so that we were only aliasing once, after a user signed up, we were still having issues. Back to the documentation where it says to call *mixpanel.alias(“tim@mixpanel.com”)*.
+
+It took us a while but we finally figured out that aliasing by email was a terrible idea. You should be using some other unique ID because if your user changes their email address in your system then your data gets completely mangled. Because we always test our signup code, sometimes manually on other people’s machines and also using automation, we ended up with a bunch of users all aliased to each other. It took us a long time to figure out why our user properties and events were inconsistent.
+
+### Lesson 2: Using Identify
+
+Another thing you need to do is identify your users. A good place to do this is when they log in. Now I can’t find it anymore but I initially recall that the Mixpanel docs told you to call *mixpanel.identify(“anonymous”). *Well, the problem is that we actually did exactly that and every single one of our anonymous users were all identified as the same one because we were using ‘anonymous’ as the value. Now Mixpanel has *mixpanel.identify(“tim@mixpanel.com”) *in their docs, which makes much more sense.
+
+We decided to use the session ID as our unique identifier but quickly realized that people can log in on different machines. So again this didn’t work. The user’s actions on all those different machines weren’t getting treated as coming from one user. This again screwed up our data.
+
+After having gone through all these learning lessons and a few phone calls with the support staff at Mixpanel we thought we finally had our analytics figured out. Much to our surprise we were still getting inconsistent results when looking at anonymous user data and logged in user data. The logged in user data worked flawlessly but the association of anonymous data to authenticated user data was really spotty. This effectively meant that any of our conversion funnels that involved anonymous activity were unreliable. To this day we still don’t know why this was happening.
+
+### Lesson 3: Starting From Scratch
+
+Every time that we wrecked our analytics we had to start over again. This meant losing data which is never a good thing. Now, one could argue that the data wasn’t even good so there is no value, but I’m a data hog and it still stung a little bit every time.
+
+What sucks even more is that every time we screwed up our data we had to actually create a whole new Mixpanel project. This meant juggling API tokens and setting up funnels again. Even though you can delete events in Mixpanel (it took us a bit to find batch deletion), it doesn’t really help you because your messed up web of alias and identify calls still stick around.
+
+### Lesson 4: Detailed Cohorts
+
+Another big issue for us has to do with cohorts. Remember when I said that we might want to for example,
+
+*Know how many engineers visited our maps page and filtered down more than 2 times to see vertical oil wells in the Cardium formation drilled by Savanna Drilling Corp.*
+
+Well, with Mixpanel you can’t really do this very well. After contacting them, they told us that their People database and their Events database are actually separate so the only way to achieve such fine grained cohorts is to actually set a property for every action the user performs on the user them self, and then increment that property every time the user performs that action. **Consequently, this is what KISS does for you. In my opinion managing those manually is actually pretty ridiculous and defeats the whole purpose of using an analytics service in the first place. We might as well just track that stuff in our own database.
+
+>** To be fair to Mixpanel, at the time of writing they said they are working on this issue. I hope they solve it soon.
+
+### Moving to KISS
+
+We have a friend and colleague at KISS Metrics and decided to chat with him about our problem. He suggested we try out their system. We gave it a trial run for about a week and then moved all our data over to KISS the following week. We also removed segment.io because we didn’t want to have the added complexity of having another service sitting in our analytics pipeline. In hindsight this really isn’t any fault of segment.io (in fact I would still recommend their product) but for us we were just left with a bad taste in our mouth.
+
+Although, at the time of writing, Mixpanel still has a slicker UI and more real-time reporting we really haven’t looked back. Ultimately it really doesn’t matter how good your reporting and UI are if the underlying data is unreliable or just plain wrong. That is the most important factor for us at PetroFeed. After almost a year we seemed to have finally found our analytics sweet spot.
+
+<Newsletter />

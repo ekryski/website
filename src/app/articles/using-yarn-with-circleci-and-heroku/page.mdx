@@ -1,0 +1,47 @@
+import { ArticleLayout } from '@/components/ArticleLayout'
+import { Newsletter } from '@/components/Newsletter'
+
+import imageimage2png from './image-2.png'
+import imageimage3png from './image-3.png'
+
+export const article = {
+ author: 'Eric Kryski',
+ date: '2016-10-14',
+ title: "Using Yarn with CircleCI and Heroku",
+ description: "Get Eric Kryski’s stories in your inbox",
+}
+
+export const metadata = {
+ title: article.title,
+ description: article.description,
+ openGraph: { title: article.title, description: article.description, url: '/articles/using-yarn-with-circleci-and-heroku' },
+ twitter: { card: 'summary_large_image', title: article.title, description: article.description },
+}
+
+export default ({ children }) => <ArticleLayout article={article}>{children}</ArticleLayout>
+
+[](/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fbookmark%2Fp%2F31d0d247bd59&operation=register&redirect=https%3A%2F%2Fmedium.com%2Fthe-bull-pen%2Fusing-yarn-with-circleci-and-heroku-31d0d247bd59&source=---header_actions--31d0d247bd59---------------------bookmark_footer------------------)[Listen
+
+](/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2Fplans%3Fdimension%3Dpost_audio_button%26postId%3D31d0d247bd59&operation=register&redirect=https%3A%2F%2Fmedium.com%2Fthe-bull-pen%2Fusing-yarn-with-circleci-and-heroku-31d0d247bd59&source=---header_actions--31d0d247bd59---------------------post_audio_button------------------)Share
+
+Switching over to [Yarn](https://yarnpkg.com/) has shaved minutes off our build times on even modest apps but more than that the Yarn.lock lockfile ensures that any sub-sub-sub-sub-sub-sub dependencies won’t break our builds and block our deployments.
+
+Here’s how you can quickly use Yarn with CircleCI and deploy an app to Heroku.
+
+- Create your apps on Heroku
+
+<Image src={imageimage2png} alt="" />
+
+2. Login to CircleCI and set up your repo to track the correct git branches if you haven’t already.
+
+<Image src={imageimage3png} alt="" />
+
+3. Set the yarn heroku buildpack for your app:
+
+> heroku buildpacks:set [https://github.com/heroku/heroku-buildpack-nodejs#yarn](https://github.com/heroku/heroku-buildpack-nodejs#yarn) — app your-staging-app
+
+4. Simply create your circle.yml file as below and push to Github.💥
+
+Happy deploying!
+
+<Newsletter />

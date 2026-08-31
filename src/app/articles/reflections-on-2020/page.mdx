@@ -1,24 +1,25 @@
 import { ArticleLayout } from '@/components/ArticleLayout'
+import { Newsletter } from '@/components/Newsletter'
 
 export const dynamic = 'force-static'
 
 export const article = {
-  author: 'Eric Kryski',
-  date: '2021-01-03',
-  published: false,
-  title: '2020 was the best and worst year of my life and I feel grateful for it',
-  description:
-    'A personal reflection on a year of extremes—from burnout and depression to gratitude and growth. Lessons on balance, mental health, and what really matters.',
+ author: 'Eric Kryski',
+ date: '2021-01-03',
+ published: false,
+ title: '2020 was the best and worst year of my life and I feel grateful for it',
+ description:
+ 'A personal reflection on a year of extremes—from burnout and depression to gratitude and growth. Lessons on balance, mental health, and what really matters.',
 }
 
 export const metadata = {
-  title: article.title,
-  description: article.description,
-  openGraph: { title: article.title, description: article.description, url: '/articles/reflections-on-2020' },
-  twitter: { card: 'summary_large_image', title: article.title, description: article.description },
+ title: article.title,
+ description: article.description,
+ openGraph: { title: article.title, description: article.description, url: '/articles/reflections-on-2020' },
+ twitter: { card: 'summary_large_image', title: article.title, description: article.description },
 }
 
-export default (props) => <ArticleLayout article={article} {...props} />
+export default ({ children }) => <ArticleLayout article={article}>{children}</ArticleLayout>
 
 I don't know what it is about the flip of the calendar page, but for some reason or another, it gives one a tiny moment of pause in order to gain some clarity and optimism towards the next calendar year.
 
@@ -153,3 +154,5 @@ Mainly because our small team has been punching above its weight for a while now
 As we move into 2021, I'm committed to maintaining better balance. I'll keep the ambition but dial back the self-induced pressure. I'll be more realistic with timelines and stop overcommitting. Most importantly, I'll remember that taking care of my mental and physical health isn't optional—it's the foundation that makes everything else possible.
 
 I'm grateful for the lessons of 2020, even the painful ones. And I'm grateful for the people who helped me through it.
+
+<Newsletter />
