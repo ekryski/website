@@ -10,11 +10,13 @@ import imageimage6gif from './image-6.gif'
 export const article = {
  author: 'Eric Kryski',
  date: '2020-03-25',
+ published: false,
  title: "How the Coronavirus could topple America, the world’s greatest superpower — Part 4",
  description: "The invisible decline of the US economy",
 }
 
 export const metadata = {
+  robots: { index: false, follow: false },
  title: article.title,
  description: article.description,
  openGraph: { title: article.title, description: article.description, url: '/articles/how-the-coronavirus-could-topple-america-the-worlds-greatest-superpower-part-4' },

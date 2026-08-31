@@ -6,11 +6,13 @@ import imageimage2gif from './image-2.gif'
 export const article = {
  author: 'Eric Kryski',
  date: '2015-01-18',
+ published: false,
  title: "7 Amazing Financial Resources",
  description: "Get Eric Kryski’s stories in your inbox",
 }
 
 export const metadata = {
+  robots: { index: false, follow: false },
  title: article.title,
  description: article.description,
  openGraph: { title: article.title, description: article.description, url: '/articles/7-amazing-financial-resources' },

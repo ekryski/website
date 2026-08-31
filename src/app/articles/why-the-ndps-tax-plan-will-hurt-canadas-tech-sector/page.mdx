@@ -6,11 +6,13 @@ import imageimage2gif from './image-2.gif'
 export const article = {
  author: 'Eric Kryski',
  date: '2015-09-25',
+ published: false,
  title: "Why The NDP’s Tax Plan Will Hurt Canada’s Tech Sector",
  description: "This is how your taxes are calculated today",
 }
 
 export const metadata = {
+  robots: { index: false, follow: false },
  title: article.title,
  description: article.description,
  openGraph: { title: article.title, description: article.description, url: '/articles/why-the-ndps-tax-plan-will-hurt-canadas-tech-sector' },
