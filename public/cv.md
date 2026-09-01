@@ -39,7 +39,7 @@ Payments and commerce infrastructure. Co-founding engineer and primary architect
 
 - With my co-founder, built and operated the internal tooling that runs the business: customer support, sales, marketing and compliance workflows, automated to the point that a very small team supports customers worldwide.
 - Architected the platform APIs on Feathers.js, Node.js and PostgreSQL, with Redis for queueing and caching.
-- Designed and run the production infrastructure on Google Cloud Platform and Kubernetes, with GitHub Actions for CI, GitHub Container Registry for container deploys and private NPM modules, and front-end deploys on Netlify. 99.9% uptime.
+- Designed and ran the production infrastructure on Google Cloud Platform and Kubernetes, with GitHub Actions for CI, GitHub Container Registry for container deploys and private NPM modules, and front-end deploys on Netlify. 99.9% uptime.
 - Processed over **$40M in payments volume** and grew the gift card catalogue to **4,516 brands across 154 countries**.
 - Led the integration and maintenance process for **30+ blockchain networks**, including the forensics tooling used to trace them.
 - Assisted the RCMP, US Secret Service and FBI in tracing several crypto-asset thefts, and advised the governments of Bermuda and Canada on crypto-asset regulation.
