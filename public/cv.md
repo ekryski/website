@@ -90,9 +90,9 @@ Helped lead the committee working toward Canadian regulatory standards for block
 
 **Sam** · A personal AI assistant for macOS running fully on-device on Apple Silicon through MLX, no cloud and no Python. Memory is a retrieval-augmented store over SQLite FTS5 with BM25 ranking, TTL-based decay and automatic context injection.
 
-**Feathers.js** · Co-creator and maintainer of the real-time Node.js framework. Took it from a side project to adoption in almost every country, then handed it to a core team with a real release process.
+**Feathers.js** · Co-creator and maintainer of the real-time Node.js framework. Wrote the original authentication plugin and every OAuth connector flow in it, the database adapters, and the project documentation. Took it from a side project to adoption in almost every country, then handed it to a core team with a real release process.
 
-**Iron and Butter** · A Rust kernel DSL compiling one definition to Metal, CUDA, HIP and Vulkan, plus a dependency-light LLM inference library for Apple Silicon built on it. Open sourcing shortly at [github.com/waffuruai](https://github.com/waffuruai).
+**Iron and Butter** · A Rust kernel DSL compiling one definition to Metal, CUDA, HIP and Vulkan, plus a dependency-light LLM inference library for Apple Silicon built on it. Releasing shortly at [waffuru.ai](https://waffuru.ai).
 
 ---
 
