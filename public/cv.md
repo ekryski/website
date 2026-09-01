@@ -86,13 +86,13 @@ Helped lead the committee working toward Canadian standards for blockchain in fi
 
 ## Research & Open Source
 
-**Coupled-oscillator speech models** (2025 – present) · Original research into whether speech recognition can run on oscillator physics rather than attention. Two papers. The second measures spoken-digit recognition across **1,940 pre-registered experiment runs** spanning six coupling laws, six lattice geometries, three frequency structures and three drive pathways, against GRU, TCN, CNN, transformer and S4D baselines at exact parameter parity. Python, with 182 contract tests pinning every claim the papers rest on, and negative results reported alongside positive. An interactive guide runs the whole pipeline live in the browser: [erickryski.com/articles/how-a-machine-hears-a-number](https://erickryski.com/articles/how-a-machine-hears-a-number)
+**Coupled-oscillator speech models** (2025 – present) · Original research into whether speech recognition can run on oscillator physics rather than attention. Two papers. The second measures spoken-digit recognition across **1,940 pre-registered experiment runs**, a full factorial of coupling laws, lattice geometries, frequency structures and drive pathways, against GRU, TCN, CNN, transformer and S4D baselines at exact parameter parity. Python, with 182 contract tests pinning every claim the papers rest on, and negative results reported alongside positive. An [interactive guide](https://erickryski.com/articles/how-a-machine-hears-a-number) runs the whole pipeline live in the browser.
 
-**Sam** · A personal AI assistant for macOS running fully on-device on Apple Silicon through MLX, with no cloud and no Python. Memory is a retrieval-augmented store over SQLite FTS5 with BM25 ranking, categorised memories, TTL-based decay and automatic context injection.
+**Sam** · A personal AI assistant for macOS running fully on-device on Apple Silicon through MLX, no cloud and no Python. Memory is a retrieval-augmented store over SQLite FTS5 with BM25 ranking, TTL-based decay and automatic context injection.
 
 **Feathers.js** · Co-creator and maintainer of the real-time Node.js framework. Took it from a side project to adoption in almost every country, then handed it to a core team with a real release process.
 
-**Iron and Butter** · A Rust kernel DSL compiling one definition to Metal, CUDA, HIP and Vulkan, plus a dependency-light LLM inference library for Apple Silicon built on it. [github.com/thewafflehaus](https://github.com/thewafflehaus)
+**Iron and Butter** · A Rust kernel DSL compiling one definition to Metal, CUDA, HIP and Vulkan, plus a dependency-light LLM inference library for Apple Silicon built on it. Open sourcing shortly at [github.com/waffuruai](https://github.com/waffuruai).
 
 ---
 
@@ -100,4 +100,4 @@ Helped lead the committee working toward Canadian standards for blockchain in fi
 
 **BSc, Computer Science** · University of Calgary, 2011. Published undergraduate HCI research on emotive expression through the movement of interactive robotic vehicles ([Springer](https://link.springer.com/chapter/10.1007/978-3-642-23765-2_7)).
 
-Founded and ran **Krysco Contracting Corp.**, a residential landscape construction company, from 2004 to 2012 while studying. Founder of **YYC.js**, Calgary's JavaScript meetup group ([speaking history](https://erickryski.com/speaking)).
+Founded and ran **Krysco Contracting Corp.**, a landscape construction company, from 2004 to 2012. Founder of **YYC.js**, Calgary's JavaScript meetup ([speaking history](https://erickryski.com/speaking)).
