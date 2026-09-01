@@ -234,6 +234,14 @@ export default function Tools() {
             controls that stop an agent from handing you a false positive.
           </WorkstationTool>
           <WorkstationTool
+            title="Codex"
+            href="https://openai.com/codex"
+            image="https://www.google.com/s2/favicons?domain=openai.com&sz=128"
+          >
+            The third coding agent in the rotation. Useful for a second opinion
+            on the same problem when I want a different model's read on it.
+          </WorkstationTool>
+          <WorkstationTool
             title="GitHub"
             href="https://github.com"
             image="https://www.google.com/s2/favicons?domain=github.com&sz=128"
@@ -324,6 +332,15 @@ export default function Tools() {
         <hr className="my-20 border-0 border-t border-zinc-200 dark:border-zinc-700/40" />
         <ToolsSection title="Productivity">
           <WorkstationTool
+            title="Obsidian"
+            href="https://obsidian.md"
+            image="https://www.google.com/s2/favicons?domain=obsidian.md&sz=128"
+          >
+            Where my notes, drafts and research live. Plain markdown files on
+            disk that I own, linked together, which means everything I write is
+            also something an agent can read.
+          </WorkstationTool>
+          <WorkstationTool
             title="Linear"
             href="https://linear.app"
             image="https://www.google.com/s2/favicons?domain=linear.app&sz=128"
@@ -340,12 +357,13 @@ export default function Tools() {
             keep everyone aligned without the email overload.
           </WorkstationTool>
           <WorkstationTool
-            title="Calendly"
-            href="https://calendly.com"
-            image="https://www.google.com/s2/favicons?domain=calendly.com&sz=128"
+            title="Cal.com"
+            href="https://cal.com"
+            image="https://www.google.com/s2/favicons?domain=cal.com&sz=128"
           >
             Scheduling meetings without the back-and-forth. Share availability,
-            let people pick a time, and keep my calendar under control.
+            let people pick a time, and keep my calendar under control. Open
+            source, and self-hostable if I ever want it to be.
           </WorkstationTool>
           <WorkstationTool
             title="Google Calendar"

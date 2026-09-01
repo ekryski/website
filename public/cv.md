@@ -2,7 +2,7 @@
 
 **Full-stack Engineer · AI Systems · Founder**
 
-Calgary, Canada · Available remote, open to Mountain View or Seattle
+Calgary, Canada · Available remote, open to travel and relocation to select locations
 
 [hello@erickryski.com](mailto:hello@erickryski.com) · [erickryski.com](https://erickryski.com) · [github.com/ekryski](https://github.com/ekryski) · [linkedin.com/in/ekryski](https://www.linkedin.com/in/ekryski)
 
@@ -10,7 +10,7 @@ Calgary, Canada · Available remote, open to Mountain View or Seattle
 
 ## Summary
 
-Full-stack engineer with 15 years shipping and operating production software, including eight as technical co-founder of a payments company that has processed over $40M at 99.9% uptime. I build the application, run the infrastructure under it, and stay responsible after launch. Most of my recent work is agentic: internal tools driven by LLMs, automation that replaced manual operations work, and ongoing research on coupled-oscillator speech models written in Python. I am used to being the first engineer on a problem nobody has scoped yet, and to deciding what to buy instead of build.
+Full-stack engineer with 15 years shipping and operating production software, eight of them as technical co-founder of a payments company. I build the application, run the infrastructure under it, and stay responsible after launch. Most of my recent work is agentic: internal tools driven by LLMs, automation that replaced manual operations work, and ongoing research on coupled-oscillator speech models written in Python. I am used to being the first engineer on a problem nobody has scoped yet, and to deciding what to buy instead of build.
 
 ---
 
@@ -35,28 +35,28 @@ Full-stack engineer with 15 years shipping and operating production software, in
 ### CEO & Co-Founder, Bidali
 **March 2018 – Present** · Calgary, Canada
 
-Payments and commerce infrastructure. First engineer, still the primary architect, also running the company.
+Payments and commerce infrastructure. Co-founding engineer and primary architect turned CEO.
 
-- Built and operated the internal tooling that runs the business: customer support, sales, marketing and compliance workflows, automated to the point that a very small team supports customers worldwide.
+- With my co-founder, built and operated the internal tooling that runs the business: customer support, sales, marketing and compliance workflows, automated to the point that a very small team supports customers worldwide.
 - Architected the platform APIs on Feathers.js, Node.js and PostgreSQL, with Redis for queueing and caching.
-- Designed and run the production infrastructure on Google Cloud Platform and Kubernetes, with front-end deploys on Netlify. Sustained 99.9% uptime.
+- Designed and run the production infrastructure on Google Cloud Platform and Kubernetes, with GitHub Actions for CI, GitHub Container Registry for container deploys and private NPM modules, and front-end deploys on Netlify. Sustained 99.9% uptime.
 - Processed over **$40M in payments volume** and grew the gift card catalogue to **4,516 brands across 154 countries**.
-- Integrated and maintained support for **30+ blockchain networks**, including the forensics tooling used to trace them.
+- Led the integration and maintenance process for **30+ blockchain networks**, including the forensics tooling used to trace them.
 - Assisted the RCMP, US Secret Service and FBI in tracing several crypto-asset thefts, and advised the governments of Bermuda and Canada on crypto-asset regulation.
 - Raised venture capital and ran finance, HR, taxation and cross-border licensing.
 
 ### Managing Partner, Bullish Ventures
 **August 2015 – Present** · Calgary, Canada
 
-Product development and CTO-as-a-service for startups, from rapid prototyping through to production. Early adopters of React, React Native and Expo.
+Product development and CTO-as-a-service for startups, from rapid prototyping through to production. Early adopters of and contributors to Web3.js, React, React Native and Expo.
 
-- **Uncoil (Matter), April – August 2025.** Built an AI-driven marketing platform generating omni-channel advertising that routed prospects to landing pages tailored to their buyer persona, with LLM-driven content generation and performance analysis. Business rules and AI automation in n8n. Node.js, React, PostgreSQL, Supabase, Google Cloud Platform.
-- **Plume Network, April 2024 – December 2025.** Built the first iteration of the network, the pre-launch portal and the mainnet portal. Ran static and dynamic analysis on sybil attack and usage patterns to separate bot traffic from genuine users. Vercel, Node.js, React, PostgreSQL, Redis.
+- **Uncoil (Matter), April – August 2025.** Architected an AI-driven marketing platform generating omni-channel advertising that routed prospects to landing pages tailored to their buyer persona, with LLM-driven content generation and performance analysis, then handed the architecture to their internal team to build out. Business rules and AI automation in n8n. Node.js, React, PostgreSQL, Supabase, Google Cloud Platform.
+- **Plume Network, April 2024 – December 2025.** Helped build the first iteration of the network, the pre-launch portal and the mainnet portal, working primarily as co-project manager for the team. Independently ran the static and dynamic analysis on sybil attack and usage patterns that separated bot traffic from genuine users. Vercel, Node.js, React, PostgreSQL, Redis.
 
 ### National FinTech Committee Member, Canadian Blockchain Consortium
 **March 2020 – December 2024** · Canada, part-time
 
-Helped lead the committee working toward Canadian standards for blockchain in financial services.
+Helped lead the committee working toward Canadian regulatory standards for blockchain and crypto-asset legislation in financial services. Drafted policy recommendations, gathered industry feedback, established governance protocols, and interfaced with politicians, regulators, law enforcement, financial institutions and other stakeholders at committee hearings and round tables.
 
 ### Engineering, KISSmetrics
 **July 2014 – January 2015** · Calgary, Canada
@@ -67,8 +67,8 @@ Helped lead the committee working toward Canadian standards for blockchain in fi
 ### VP of Architecture, PetroFeed
 **March 2013 – May 2014** · Calgary, Canada
 
-- Built the web scraping, ingestion, normalization and scoring pipeline for oil and gas drilling, well and land licensing data. Ruby, Node.js, MongoDB and RabbitMQ.
-- Built a heavily customized Google Maps interface that exposed relationships between rigs, land sales and production facilities, used for prospecting, monitoring, acquisitions and competitive analysis.
+- Built the scraping, ingestion, normalization and scoring pipeline for oil and gas drilling, well and land licensing data. Ruby, Node.js, MongoDB and RabbitMQ.
+- Led the team which built a heavily customized Google Maps interface that exposed relationships between rigs, land sales and production facilities, used for prospecting, monitoring, acquisitions and competitive analysis.
 
 ### Software Developer, Calgary Scientific
 **September 2012 – March 2013** · Calgary, Canada
@@ -80,7 +80,7 @@ Helped lead the committee working toward Canadian standards for blockchain in fi
 **May 2011 – July 2012** · Calgary, Canada
 
 - Replaced a .NET backend with a high-throughput Node.js service on MongoDB, Memcached and SQL Server, deployed to Heroku.
-- Built the Android, iOS and BlackBerry applications for collecting wireless cell tower usage data, and the heat map visualizations of coverage and signal strength over OpenStreetMap.
+- Helped build the Android, iOS and BlackBerry applications for collecting wireless cell tower usage data, and the heat map visualizations of coverage and signal strength over OpenStreetMap.
 
 ---
 
@@ -98,6 +98,4 @@ Helped lead the committee working toward Canadian standards for blockchain in fi
 
 ## Education
 
-**BSc, Computer Science** · University of Calgary, 2011. Published undergraduate HCI research on emotive expression through the movement of interactive robotic vehicles ([Springer](https://link.springer.com/chapter/10.1007/978-3-642-23765-2_7)).
-
-Founded and ran **Krysco Contracting Corp.**, a landscape construction company, from 2004 to 2012. Founder of **YYC.js**, Calgary's JavaScript meetup ([speaking history](https://erickryski.com/speaking)).
+**BSc, Computer Science** · University of Calgary, 2011. Published undergraduate HCI research on emotive expression through the movement of interactive robotic vehicles ([Springer](https://link.springer.com/chapter/10.1007/978-3-642-23765-2_7)). Founded and ran **Krysco Contracting Corp.**, a landscape construction company, from 2004 to 2012. Founder of **YYC.js** ([speaking history](https://erickryski.com/speaking)).
