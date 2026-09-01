@@ -22,7 +22,7 @@ Full-stack engineer with 15 years shipping and operating production software, ei
 
 **Backend** · Node.js, Feathers.js, Express, PostgreSQL, Redis, MongoDB, RabbitMQ, REST and real-time APIs, queueing, caching
 
-**AI and Agentic Systems** · LLM orchestration, agent harnesses and evaluation design, retrieval-augmented context with BM25/FTS5 ranking, memory decay and context-window management, AI-driven content generation and analysis, n8n workflow automation, local inference on Apple Silicon (MLX, Metal and CUDA kernels), AI-native development with Claude Code, Cursor and Codex
+**AI and Agentic Systems** · LLM orchestration, agent harnesses and evaluation design, RAG pipelines, hybrid retrieval over BM25/FTS5 and vector search, memory decay and context-window management, AI-driven content generation and analysis, n8n workflow automation, local inference on Apple Silicon (MLX, Metal and CUDA kernels), AI-native development with Claude Code, Cursor and Codex
 
 **Infrastructure and DevOps** · Google Cloud Platform, Kubernetes, Docker, CI/CD, GitHub Actions, Vercel, Netlify, Supabase, Heroku, monitoring and on-call ownership
 
@@ -88,7 +88,7 @@ Helped lead the committee working toward Canadian regulatory standards for block
 
 **Coupled-oscillator speech models** (2025 – present) · Original research into whether speech recognition can run on oscillator physics rather than attention. Two papers. The second measures spoken-digit recognition across **1,940 pre-registered experiment runs**, a full factorial of coupling laws, lattice geometries, frequency structures and drive pathways, against GRU, TCN, CNN, transformer and S4D baselines at exact parameter parity. Python, with 182 contract tests pinning every claim the papers rest on, and negative results reported alongside positive. An [interactive guide](https://erickryski.com/articles/how-a-machine-hears-a-number) runs the whole pipeline live in the browser.
 
-**Sam** · A personal AI assistant for macOS running fully on-device on Apple Silicon through MLX, no cloud and no Python. Memory is a retrieval-augmented store over SQLite FTS5 with BM25 ranking, TTL-based decay and automatic context injection.
+**Sam** · A personal AI assistant for macOS running fully on-device on Apple Silicon through MLX, no cloud and no Python. Memory is a retrieval-augmented store over SQLite FTS5 with BM25 ranking, TTL-based decay and automatic context injection, with embedding-based semantic search and a directed-graph memory layer for associative recall in progress.
 
 **Feathers.js** · Co-creator and maintainer of the real-time Node.js framework. Wrote the original authentication plugin and every OAuth connector flow in it, the permissions module behind its fine-grained RBAC, the database adapters, and the project documentation, and made sure all of it worked and scaled over websockets. Took it from a side project to adoption in almost every country, then handed it to a core team with a real release process.
 
