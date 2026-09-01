@@ -1,6 +1,16 @@
 @import 'tailwindcss';
 @import './prism.css' layer(components);
 
+@layer components {
+  .scrollbar-hide {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+}
+
 @plugin '@tailwindcss/typography';
 @config '../../typography.ts';
 

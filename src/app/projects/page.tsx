@@ -51,14 +51,14 @@ const projects = [
     name: 'Butter',
     description:
       'Melt away latency with ultra-smooth local inference. A dependency-light LLM inference library for Apple Silicon, built on pre-compiled Metal kernels from Iron. No Python, no MLX, no JIT.',
-    link: { href: 'https://github.com/thewafflehaus/butter', label: 'github.com/thewafflehaus' },
+    link: { href: 'https://github.com/waffuruai/butter', label: 'Coming soon' },
     logo: logoButter,
   },
   {
     name: 'Iron',
     description:
       'Press raw math directly into high-performance silicon. A Rust kernel DSL that compiles one definition down to Metal, CUDA, HIP, and Vulkan.',
-    link: { href: 'https://github.com/thewafflehaus/iron', label: 'github.com/thewafflehaus' },
+    link: { href: 'https://github.com/waffuruai/iron', label: 'Coming soon' },
     logo: logoIron,
   },
   {
@@ -74,6 +74,25 @@ const projects = [
       'Realtime gesture and touch recognition library for JavaScript.',
     link: { href: 'https://github.com/ekryski/caress-client', label: 'Archived' },
     logo: logoCaress,
+  },
+]
+
+/** Recent client work through Bullish Ventures. Listed rather than carded:
+ *  these are engagements, not products of mine. */
+const engagements = [
+  {
+    name: 'Uncoil (Matter)',
+    period: '2025',
+    description:
+      'An AI-driven marketing platform. Omni-channel ad generation routing prospects to landing pages written for their buyer persona, with LLM content generation and performance analysis, and business rules automated in n8n.',
+    stack: 'Node.js · React · PostgreSQL · Supabase · GCP · n8n',
+  },
+  {
+    name: 'Plume Network',
+    period: '2024 – 2025',
+    description:
+      'The first iteration of the network, plus the pre-launch and mainnet portals. Also ran static and dynamic analysis on sybil attack and usage patterns to separate bot traffic from real users.',
+    stack: 'Node.js · React · PostgreSQL · Redis · Vercel',
   },
 ]
 
@@ -194,7 +213,7 @@ export default function Projects() {
   return (
     <SimpleLayout
       title="Things I’ve made trying to put my dent in the universe."
-      intro="I’ve worked on tons of little projects over the years but these are the ones that I’m most proud of. Many of them are open-source, so if you see something that piques your interest, check out the code and contribute if you have ideas for how it can be improved."
+      intro="I’ve worked on dozens of projects over the years, from being early to Node.js, Express, React and React Native, to stablecoins, agentic commerce and physics-based artificial intelligence. I’ve always been curious about the new frontier. These are the ones I’m most proud of. Many of them are open source (or will be soon), so if you see something that piques your interest, dig into the code and tell me how it could be better."
     >
       <ul
         role="list"
@@ -204,6 +223,36 @@ export default function Projects() {
           <ProjectCard key={project.name} project={project} />
         ))}
       </ul>
+
+      <section className="mt-24 border-t border-zinc-100 pt-12 dark:border-zinc-700/40">
+        <h2 className="text-sm font-semibold tracking-wide text-zinc-500 uppercase dark:text-zinc-400">
+          Recent client work
+        </h2>
+        <p className="mt-4 max-w-2xl text-base text-zinc-600 dark:text-zinc-400">
+          Consulting engagements through Bullish Ventures, where I do product
+          development and CTO-as-a-service for startups.
+        </p>
+        <ul role="list" className="mt-10 space-y-10">
+          {engagements.map((engagement) => (
+            <li key={engagement.name} className="max-w-2xl">
+              <div className="flex items-baseline justify-between gap-4">
+                <h3 className="text-base font-semibold text-zinc-800 dark:text-zinc-100">
+                  {engagement.name}
+                </h3>
+                <span className="shrink-0 text-sm text-zinc-400 dark:text-zinc-500">
+                  {engagement.period}
+                </span>
+              </div>
+              <p className="mt-2 text-base text-zinc-600 dark:text-zinc-400">
+                {engagement.description}
+              </p>
+              <p className="mt-2 text-sm text-zinc-400 dark:text-zinc-500">
+                {engagement.stack}
+              </p>
+            </li>
+          ))}
+        </ul>
+      </section>
 
       <section className="mt-24 border-t border-zinc-100 pt-12 dark:border-zinc-700/40">
         <h2 className="text-sm font-semibold tracking-wide text-zinc-500 uppercase dark:text-zinc-400">

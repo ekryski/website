@@ -1,0 +1,174 @@
+/*
+ * Print styling for the CV PDF (public/cv.md -> public/Eric-Kryski-CV.pdf).
+ *
+ * Deliberately restrained: one typeface, one ink colour at three weights,
+ * hairline rules, no accent colour and no images. Beyond taste, applicant
+ * tracking systems parse a single-column, text-only document reliably and
+ * mangle anything with columns, tables or graphics, so the constraint and
+ * the aesthetic happen to agree.
+ *
+ * The web view at /cv renders the same markdown through the site's Prose
+ * component and does not use this file.
+ */
+
+:root {
+  --ink: #18181b; /* headings, name */
+  --body: #3f3f46; /* running text */
+  --muted: #71717a; /* dates, locations, meta */
+  --rule: #d4d4d8; /* section rules */
+}
+
+/* CI builds this on Linux where the Apple faces are absent, so every step of
+   the stack has to be a real grotesk. Without Arial/Liberation last, Chromium
+   falls back to a serif and the whole design changes. */
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica,
+    'Liberation Sans', Arial, sans-serif;
+  font-size: 9.2pt;
+  line-height: 1.31;
+  color: var(--body);
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Header ─────────────────────────────────────────────────────────── */
+
+h1 {
+  font-size: 21pt;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  margin: 0 0 6pt;
+  line-height: 1.1;
+}
+
+/* The three lines under the name: role, location, links. */
+h1 + p {
+  font-size: 10pt;
+  font-weight: 600;
+  color: var(--ink);
+  letter-spacing: 0.01em;
+  margin: 0 0 3pt;
+}
+
+h1 + p + p,
+h1 + p + p + p {
+  font-size: 9pt;
+  color: var(--muted);
+  margin: 0 0 2pt;
+}
+
+h1 + p strong {
+  font-weight: 600;
+}
+
+/* ── Sections ───────────────────────────────────────────────────────── */
+
+h2 {
+  font-size: 8.6pt;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.13em;
+  color: var(--ink);
+  margin: 8pt 0 5pt;
+  padding-bottom: 3pt;
+  border-bottom: 0.5pt solid var(--rule);
+  break-after: avoid;
+  break-inside: avoid;
+}
+
+/* Role headings. Kept with the dates line and the first bullet beneath
+   them so a job never splits across a page break at its title. */
+h3 {
+  font-size: 10.1pt;
+  font-weight: 600;
+  color: var(--ink);
+  margin: 8pt 0 1pt;
+  break-after: avoid;
+  break-inside: avoid;
+}
+
+/* The dates and location line that always follows a role heading. */
+h3 + p {
+  font-size: 8.8pt;
+  color: var(--muted);
+  margin: 0 0 5pt;
+  break-after: avoid;
+}
+
+h3 + p strong {
+  font-weight: 600;
+  color: var(--body);
+}
+
+p {
+  margin: 0 0 4pt;
+  orphans: 2;
+  widows: 2;
+}
+
+strong {
+  font-weight: 600;
+  color: var(--ink);
+}
+
+em {
+  font-style: italic;
+}
+
+/* ── Lists ──────────────────────────────────────────────────────────── */
+
+ul {
+  margin: 0 0 6pt;
+  padding-left: 12pt;
+  list-style: none;
+}
+
+li {
+  position: relative;
+  margin: 0 0 2pt;
+  padding-left: 2pt;
+  break-inside: avoid;
+}
+
+li::before {
+  content: '';
+  position: absolute;
+  left: -8pt;
+  top: 5.4pt;
+  width: 2.4pt;
+  height: 2.4pt;
+  border-radius: 50%;
+  background: var(--muted);
+}
+
+/* ── Links ──────────────────────────────────────────────────────────── */
+
+/* Printed in ink rather than blue. The URLs still resolve in the PDF and
+   still extract as plain text, they just stop shouting. */
+a {
+  color: var(--ink);
+  text-decoration: none;
+  border-bottom: 0.4pt solid var(--rule);
+}
+
+/* Contact line links carry no underline at all; the line is dense enough. */
+h1 + p + p + p a {
+  color: var(--muted);
+  border-bottom: none;
+}
+
+/* ── Rules ──────────────────────────────────────────────────────────── */
+
+/* The markdown source separates sections with `---`, which the web view
+   uses. In print the h2 rule already does that work, so the explicit
+   dividers would double up. */
+hr {
+  display: none;
+}
+
+/* ── Page breaks ────────────────────────────────────────────────────── */
+
+@page {
+  size: A4;
+}
