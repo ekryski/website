@@ -42,8 +42,7 @@ Payments and commerce infrastructure. Co-founding engineer and primary architect
 - Designed and ran the production infrastructure on Google Cloud Platform and Kubernetes, with GitHub Actions for CI, GitHub Container Registry for container deploys and private NPM modules, and front-end deploys on Netlify. 99.9% uptime.
 - Processed over **$40M in payments volume** and grew the gift card catalogue to **4,516 brands across 154 countries**.
 - Led the integration and maintenance process for **30+ blockchain networks**, including the forensics tooling used to trace them.
-- Assisted the RCMP, US Secret Service and FBI in tracing several crypto-asset thefts, and advised the governments of Bermuda and Canada on crypto-asset regulation.
-- Raised venture capital and ran finance, HR, taxation and licensing.
+- Raised venture capital and ran finance, HR, taxation and licensing while assisting North American law enforcement in tracing several crypto-asset thefts and advising the governments of Bermuda and Canada on crypto-asset regulation.
 
 ### Managing Partner, Bullish Ventures
 **August 2015 – Present** · Calgary, Canada
