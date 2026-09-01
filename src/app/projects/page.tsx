@@ -51,14 +51,14 @@ const projects = [
     name: 'Butter',
     description:
       'Melt away latency with ultra-smooth local inference. A dependency-light LLM inference library for Apple Silicon, built on pre-compiled Metal kernels from Iron. No Python, no MLX, no JIT.',
-    link: { href: 'https://github.com/thewafflehaus/butter', label: 'github.com/thewafflehaus' },
+    link: { href: 'https://github.com/waffuruai/butter', label: 'Coming soon' },
     logo: logoButter,
   },
   {
     name: 'Iron',
     description:
       'Press raw math directly into high-performance silicon. A Rust kernel DSL that compiles one definition down to Metal, CUDA, HIP, and Vulkan.',
-    link: { href: 'https://github.com/thewafflehaus/iron', label: 'github.com/thewafflehaus' },
+    link: { href: 'https://github.com/waffuruai/iron', label: 'Coming soon' },
     logo: logoIron,
   },
   {
@@ -213,7 +213,7 @@ export default function Projects() {
   return (
     <SimpleLayout
       title="Things I’ve made trying to put my dent in the universe."
-      intro="I’ve worked on tons of little projects over the years but these are the ones that I’m most proud of. Many of them are open-source, so if you see something that piques your interest, check out the code and contribute if you have ideas for how it can be improved."
+      intro="I’ve worked on dozens of projects over the years, from being early to Node.js, Express, React and React Native, to stablecoins, agentic commerce and physics-based artificial intelligence. I’ve always been curious about the new frontier. These are the ones I’m most proud of. Many of them are open source (or will be soon), so if you see something that piques your interest, dig into the code and tell me how it could be better."
     >
       <ul
         role="list"
