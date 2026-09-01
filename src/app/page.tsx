@@ -68,23 +68,27 @@ export default async function Home() {
       <Container className="mt-9">
         <div className="max-w-2xl">
           <h1 className="text-4xl font-bold tracking-tight text-zinc-800 sm:text-5xl dark:text-zinc-100">
-            Software designer, founder, investor and closet economist. These
-            days I mostly build AI systems.
+            Building products at the intersection of monetary systems and
+            artificial intelligence.
           </h1>
           <p className="mt-6 text-base text-zinc-600 dark:text-zinc-400">
             Hi 👋
           </p>
           <p className="mt-6 text-base text-zinc-600 dark:text-zinc-400">
             I'm Eric, a software designer and entrepreneur based in Calgary,
-            Canada 🇨🇦. I have been making software since 2003. I'm the
-            co-founder and CEO of <Link href="https://bidali.com" className="text-zinc-800 dark:text-zinc-100">Bidali</Link>, where we develop technologies
-            that empower regular people to participate in the global economy on
-            their own terms.
+            Canada 🇨🇦. I have been designing and coding software since 2003.
+            I'm the co-founder and CEO of <Link href="https://bidali.com" className="text-zinc-800 dark:text-zinc-100">Bidali</Link>, where we have developed
+            technologies that empower regular people across 154 countries to
+            participate in the global economy on their own terms. More recently
+            I've been doing deep research into AI inference and performant model
+            architectures. I'm very interested in where those two transformative
+            technologies meet, because together they could raise the GDP of the
+            planet and equalize access to both intelligence and money.
           </p>
           <p className="mt-6 text-base text-zinc-600 dark:text-zinc-400">
-            I have a passion for building beautiful products people love. Most
-            of my time now goes to AI: agentic systems and internal tooling,
-            local inference on Apple Silicon, and{' '}
+            I have a passion for building beautiful products people love. A lot
+            of my time recently has gone to AI: agentic systems and internal
+            tooling, local inference on Apple Silicon, and{' '}
             <Link href="/projects/resonant" className="text-zinc-800 dark:text-zinc-100">a research project</Link>{' '}
             testing whether speech models can run on coupled-oscillator physics
             instead of attention. The rest goes to distributed systems, secure

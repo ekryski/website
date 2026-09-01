@@ -22,7 +22,7 @@ Full-stack engineer with 15 years shipping and operating production software, in
 
 **Backend** · Node.js, Feathers.js, Express, PostgreSQL, Redis, MongoDB, RabbitMQ, REST and real-time APIs, queueing, caching
 
-**AI and Agentic Systems** · LLM orchestration, agent harnesses and evaluation design, AI-driven content generation and analysis, n8n workflow automation, local inference on Apple Silicon (MLX, Metal and CUDA kernels), AI-native development with Claude Code, Cursor and Codex
+**AI and Agentic Systems** · LLM orchestration, agent harnesses and evaluation design, retrieval-augmented context with BM25/FTS5 ranking, memory decay and context-window management, AI-driven content generation and analysis, n8n workflow automation, local inference on Apple Silicon (MLX, Metal and CUDA kernels), AI-native development with Claude Code, Cursor and Codex
 
 **Infrastructure and DevOps** · Google Cloud Platform, Kubernetes, Docker, CI/CD, GitHub Actions, Vercel, Netlify, Supabase, Heroku, monitoring and on-call ownership
 
@@ -35,7 +35,7 @@ Full-stack engineer with 15 years shipping and operating production software, in
 ### CEO & Co-Founder, Bidali
 **March 2018 – Present** · Calgary, Canada
 
-Payments and commerce infrastructure. First engineer, still the primary architect, and also running the company.
+Payments and commerce infrastructure. First engineer, still the primary architect, also running the company.
 
 - Built and operated the internal tooling that runs the business: customer support, sales, marketing and compliance workflows, automated to the point that a very small team supports customers worldwide.
 - Architected the platform APIs on Feathers.js, Node.js and PostgreSQL, with Redis for queueing and caching.
@@ -52,7 +52,6 @@ Product development and CTO-as-a-service for startups, from rapid prototyping th
 
 - **Uncoil (Matter), April – August 2025.** Built an AI-driven marketing platform generating omni-channel advertising that routed prospects to landing pages tailored to their buyer persona, with LLM-driven content generation and performance analysis. Business rules and AI automation in n8n. Node.js, React, PostgreSQL, Supabase, Google Cloud Platform.
 - **Plume Network, April 2024 – December 2025.** Built the first iteration of the network, the pre-launch portal and the mainnet portal. Ran static and dynamic analysis on sybil attack and usage patterns to separate bot traffic from genuine users. Vercel, Node.js, React, PostgreSQL, Redis.
-- Earlier engagements spanned real-time platforms, mobile applications and blockchain integrations for a range of venture-backed clients.
 
 ### National FinTech Committee Member, Canadian Blockchain Consortium
 **March 2020 – December 2024** · Canada, part-time
@@ -87,7 +86,9 @@ Helped lead the committee working toward Canadian standards for blockchain in fi
 
 ## Research & Open Source
 
-**Coupled-oscillator speech models** (2025 – present) · Original research into whether speech recognition can run on oscillator physics rather than attention. Two papers. The second measures spoken-digit recognition across **1,940 pre-registered experiment runs** spanning six coupling laws, six lattice geometries, three frequency structures and three drive pathways, against GRU, TCN, CNN, transformer and S4D baselines at exact parameter parity. Python, with 182 contract tests pinning every claim the papers rest on, and negative results reported with the same weight as positive. An interactive guide runs the whole pipeline live in the browser: [erickryski.com/articles/how-a-machine-hears-a-number](https://erickryski.com/articles/how-a-machine-hears-a-number)
+**Coupled-oscillator speech models** (2025 – present) · Original research into whether speech recognition can run on oscillator physics rather than attention. Two papers. The second measures spoken-digit recognition across **1,940 pre-registered experiment runs** spanning six coupling laws, six lattice geometries, three frequency structures and three drive pathways, against GRU, TCN, CNN, transformer and S4D baselines at exact parameter parity. Python, with 182 contract tests pinning every claim the papers rest on, and negative results reported alongside positive. An interactive guide runs the whole pipeline live in the browser: [erickryski.com/articles/how-a-machine-hears-a-number](https://erickryski.com/articles/how-a-machine-hears-a-number)
+
+**Sam** · A personal AI assistant for macOS running fully on-device on Apple Silicon through MLX, with no cloud and no Python. Memory is a retrieval-augmented store over SQLite FTS5 with BM25 ranking, categorised memories, TTL-based decay and automatic context injection.
 
 **Feathers.js** · Co-creator and maintainer of the real-time Node.js framework. Took it from a side project to adoption in almost every country, then handed it to a core team with a real release process.
 
@@ -99,4 +100,4 @@ Helped lead the committee working toward Canadian standards for blockchain in fi
 
 **BSc, Computer Science** · University of Calgary, 2011. Published undergraduate HCI research on emotive expression through the movement of interactive robotic vehicles ([Springer](https://link.springer.com/chapter/10.1007/978-3-642-23765-2_7)).
 
-Founded and ran **Krysco Contracting Corp.**, a residential landscape construction company, from 2004 to 2012 while studying. Founder of **YYC.js**, Calgary's JavaScript meetup group. Speaking history at [erickryski.com/speaking](https://erickryski.com/speaking).
+Founded and ran **Krysco Contracting Corp.**, a residential landscape construction company, from 2004 to 2012 while studying. Founder of **YYC.js**, Calgary's JavaScript meetup group ([speaking history](https://erickryski.com/speaking)).
