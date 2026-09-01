@@ -4,7 +4,7 @@
         <title>Eric Kryski</title>
         <link>https://erickryski.com</link>
         <description>Read Eric Kryski's musings on design, development, finance and entrepreneurship</description>
-        <lastBuildDate>Sun, 16 Aug 2026 05:42:50 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 01 Sep 2026 02:14:29 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <image>
@@ -23,6 +23,33 @@
             <author>hello@erickryski.com (Eric Kryski)</author>
         </item>
         <item>
+            <title><![CDATA[Can you tell which photos are AI-generated?]]></title>
+            <link>https://erickryski.com/articles/ai-image-generation-experiment</link>
+            <guid>https://erickryski.com/articles/ai-image-generation-experiment</guid>
+            <pubDate>Tue, 18 Apr 2023 00:00:00 GMT</pubDate>
+            <description><![CDATA[An experiment testing whether humans can distinguish real photos from AI-generated ones. Spoiler: 84% of people got it wrong.]]></description>
+            <content:encoded><![CDATA[An experiment testing whether humans can distinguish real photos from AI-generated ones. Spoiler: 84% of people got it wrong.]]></content:encoded>
+            <author>hello@erickryski.com (Eric Kryski)</author>
+        </item>
+        <item>
+            <title><![CDATA[What is the value of cryptocurrency vs. blockchain?]]></title>
+            <link>https://erickryski.com/articles/value-cryptocurrency-vs-blockchain</link>
+            <guid>https://erickryski.com/articles/value-cryptocurrency-vs-blockchain</guid>
+            <pubDate>Thu, 09 Feb 2023 00:00:00 GMT</pubDate>
+            <description><![CDATA[Why crypto and not just blockchain? The nuance lies in how the properties of cryptocurrency—immutability, verifiability, and programmability—can produce new ways of organizing our social fabric.]]></description>
+            <content:encoded><![CDATA[Why crypto and not just blockchain? The nuance lies in how the properties of cryptocurrency—immutability, verifiability, and programmability—can produce new ways of organizing our social fabric.]]></content:encoded>
+            <author>hello@erickryski.com (Eric Kryski)</author>
+        </item>
+        <item>
+            <title><![CDATA[Social Media, Social Incentives & Money]]></title>
+            <link>https://erickryski.com/articles/social-media-social-incentives-money</link>
+            <guid>https://erickryski.com/articles/social-media-social-incentives-money</guid>
+            <pubDate>Sat, 21 Jan 2023 00:00:00 GMT</pubDate>
+            <description><![CDATA[How a formative trip to South Korea taught me we\'re all fundamentally the same—and why that shapes how I think about money, social media, and the forces that drive human behaviour.]]></description>
+            <content:encoded><![CDATA[How a formative trip to South Korea taught me we\'re all fundamentally the same—and why that shapes how I think about money, social media, and the forces that drive human behaviour.]]></content:encoded>
+            <author>hello@erickryski.com (Eric Kryski)</author>
+        </item>
+        <item>
             <title><![CDATA[Taxation of Employee Stock Options]]></title>
             <link>https://erickryski.com/articles/taxation-employee-stock-options</link>
             <guid>https://erickryski.com/articles/taxation-employee-stock-options</guid>
@@ -32,12 +59,174 @@
             <author>hello@erickryski.com (Eric Kryski)</author>
         </item>
         <item>
+            <title><![CDATA[How to hire great software developers for your startup]]></title>
+            <link>https://erickryski.com/articles/how-to-hire-great-software-developers-for-your-startup</link>
+            <guid>https://erickryski.com/articles/how-to-hire-great-software-developers-for-your-startup</guid>
+            <pubDate>Sun, 06 Dec 2020 00:00:00 GMT</pubDate>
+            <description><![CDATA[Hint, it’s not whiteboard coding tests and random LinkedIn messages 😉]]></description>
+            <content:encoded><![CDATA[Hint, it’s not whiteboard coding tests and random LinkedIn messages 😉]]></content:encoded>
+            <author>hello@erickryski.com (Eric Kryski)</author>
+        </item>
+        <item>
             <title><![CDATA[Sales Tax 101 for Canadian Startups]]></title>
             <link>https://erickryski.com/articles/sales-tax-101-canadian-startups</link>
             <guid>https://erickryski.com/articles/sales-tax-101-canadian-startups</guid>
             <pubDate>Mon, 15 Jun 2020 00:00:00 GMT</pubDate>
             <description><![CDATA[A practical guide to navigating GST, HST, PST, and international sales tax for Canadian startups selling online—whether physical goods, SaaS, or services.]]></description>
             <content:encoded><![CDATA[A practical guide to navigating GST, HST, PST, and international sales tax for Canadian startups selling online—whether physical goods, SaaS, or services.]]></content:encoded>
+            <author>hello@erickryski.com (Eric Kryski)</author>
+        </item>
+        <item>
+            <title><![CDATA[October 2017 FeathersJS Community Update]]></title>
+            <link>https://erickryski.com/articles/october-2017-feathersjs-community-update</link>
+            <guid>https://erickryski.com/articles/october-2017-feathersjs-community-update</guid>
+            <pubDate>Mon, 13 Nov 2017 00:00:00 GMT</pubDate>
+            <description><![CDATA[The Feathers v3 (Buzzard) prerelease, what changed in the ecosystem, and where the community was putting its energy.]]></description>
+            <content:encoded><![CDATA[The Feathers v3 (Buzzard) prerelease, what changed in the ecosystem, and where the community was putting its energy.]]></content:encoded>
+            <author>hello@erickryski.com (Eric Kryski)</author>
+        </item>
+        <item>
+            <title><![CDATA[The Auk Takes Flight!]]></title>
+            <link>https://erickryski.com/articles/the-auk-takes-flight</link>
+            <guid>https://erickryski.com/articles/the-auk-takes-flight</guid>
+            <pubDate>Fri, 28 Apr 2017 00:00:00 GMT</pubDate>
+            <description><![CDATA[A new FeathersJS release and a year in review]]></description>
+            <content:encoded><![CDATA[A new FeathersJS release and a year in review]]></content:encoded>
+            <author>hello@erickryski.com (Eric Kryski)</author>
+        </item>
+        <item>
+            <title><![CDATA[“Hiring” Open Source]]></title>
+            <link>https://erickryski.com/articles/hiring-open-source</link>
+            <guid>https://erickryski.com/articles/hiring-open-source</guid>
+            <pubDate>Wed, 16 Nov 2016 00:00:00 GMT</pubDate>
+            <description><![CDATA[Part 2: how we onboard, support and retain Feathers contributors — recruiting for a project nobody is paid to work on.]]></description>
+            <content:encoded><![CDATA[Part 2: how we onboard, support and retain Feathers contributors — recruiting for a project nobody is paid to work on.]]></content:encoded>
+            <author>hello@erickryski.com (Eric Kryski)</author>
+        </item>
+        <item>
+            <title><![CDATA[Your open source is a product. Start treating it like one.]]></title>
+            <link>https://erickryski.com/articles/your-open-source-is-a-product-start-treating-it-like-one</link>
+            <guid>https://erickryski.com/articles/your-open-source-is-a-product-start-treating-it-like-one</guid>
+            <pubDate>Tue, 01 Nov 2016 00:00:00 GMT</pubDate>
+            <description><![CDATA[Part 1: your open source project needs a vision, positioning and a roadmap for the same reasons a commercial product does.]]></description>
+            <content:encoded><![CDATA[Part 1: your open source project needs a vision, positioning and a roadmap for the same reasons a commercial product does.]]></content:encoded>
+            <author>hello@erickryski.com (Eric Kryski)</author>
+        </item>
+        <item>
+            <title><![CDATA[Meet The New Feathers Core Team]]></title>
+            <link>https://erickryski.com/articles/meet-the-new-feathers-core-team</link>
+            <guid>https://erickryski.com/articles/meet-the-new-feathers-core-team</guid>
+            <pubDate>Mon, 24 Oct 2016 00:00:00 GMT</pubDate>
+            <description><![CDATA[Handing a growing open source project to a real core team: who joined, how we chose them, and why stepping back was the right call.]]></description>
+            <content:encoded><![CDATA[Handing a growing open source project to a real core team: who joined, how we chose them, and why stepping back was the right call.]]></content:encoded>
+            <author>hello@erickryski.com (Eric Kryski)</author>
+        </item>
+        <item>
+            <title><![CDATA[What’s Next For Feathers?]]></title>
+            <link>https://erickryski.com/articles/whats-next-for-feathers</link>
+            <guid>https://erickryski.com/articles/whats-next-for-feathers</guid>
+            <pubDate>Wed, 13 Apr 2016 00:00:00 GMT</pubDate>
+            <description><![CDATA[Where Feathers came from, and the roadmap after the 2.0 release — authentication, the service ecosystem, and what the core team took on next.]]></description>
+            <content:encoded><![CDATA[Where Feathers came from, and the roadmap after the 2.0 release — authentication, the service ecosystem, and what the core team took on next.]]></content:encoded>
+            <author>hello@erickryski.com (Eric Kryski)</author>
+        </item>
+        <item>
+            <title><![CDATA[Levelup, RethinkDB, and More Docs]]></title>
+            <link>https://erickryski.com/articles/levelup-rethinkdb-and-more-docs</link>
+            <guid>https://erickryski.com/articles/levelup-rethinkdb-and-more-docs</guid>
+            <pubDate>Mon, 11 Apr 2016 00:00:00 GMT</pubDate>
+            <description><![CDATA[A FeathersJS ecosystem update: LevelUP and RethinkDB adapters, and a documentation push to make a modular framework easier to keep up with.]]></description>
+            <content:encoded><![CDATA[A FeathersJS ecosystem update: LevelUP and RethinkDB adapters, and a documentation push to make a modular framework easier to keep up with.]]></content:encoded>
+            <author>hello@erickryski.com (Eric Kryski)</author>
+        </item>
+        <item>
+            <title><![CDATA[Why we built the best web framework you’ve probably never heard of (until now).]]></title>
+            <link>https://erickryski.com/articles/why-we-built-the-best-web-framework-youve-probably-never-heard-of-until-now</link>
+            <guid>https://erickryski.com/articles/why-we-built-the-best-web-framework-youve-probably-never-heard-of-until-now</guid>
+            <pubDate>Wed, 06 Apr 2016 00:00:00 GMT</pubDate>
+            <description><![CDATA[How FeathersJS came to be and why we built it.]]></description>
+            <content:encoded><![CDATA[How FeathersJS came to be and why we built it.]]></content:encoded>
+            <author>hello@erickryski.com (Eric Kryski)</author>
+        </item>
+        <item>
+            <title><![CDATA[What happens to your open source project when it gets “Hunted”?]]></title>
+            <link>https://erickryski.com/articles/what-happens-to-your-open-source-project-when-it-gets-hunted</link>
+            <guid>https://erickryski.com/articles/what-happens-to-your-open-source-project-when-it-gets-hunted</guid>
+            <pubDate>Mon, 04 Apr 2016 00:00:00 GMT</pubDate>
+            <description><![CDATA[What actually happened when we put FeathersJS on Product Hunt: the preparation, the numbers, and what moved the needle versus what didn't.]]></description>
+            <content:encoded><![CDATA[What actually happened when we put FeathersJS on Product Hunt: the preparation, the numbers, and what moved the needle versus what didn't.]]></content:encoded>
+            <author>hello@erickryski.com (Eric Kryski)</author>
+        </item>
+        <item>
+            <title><![CDATA[Introducing Feathers 2.0]]></title>
+            <link>https://erickryski.com/articles/introducing-feathers-20</link>
+            <guid>https://erickryski.com/articles/introducing-feathers-20</guid>
+            <pubDate>Tue, 15 Mar 2016 00:00:00 GMT</pubDate>
+            <description><![CDATA[A minimalist real-time framework for tomorrow’s apps]]></description>
+            <content:encoded><![CDATA[A minimalist real-time framework for tomorrow’s apps]]></content:encoded>
+            <author>hello@erickryski.com (Eric Kryski)</author>
+        </item>
+        <item>
+            <title><![CDATA[How to actually use Socket.io in React Native]]></title>
+            <link>https://erickryski.com/articles/how-to-actually-use-socketio-in-react-native</link>
+            <guid>https://erickryski.com/articles/how-to-actually-use-socketio-in-react-native</guid>
+            <pubDate>Sat, 27 Feb 2016 00:00:00 GMT</pubDate>
+            <description><![CDATA[Socket.io's client assumes a browser, and React Native isn't one. What you actually have to do to get the two talking.]]></description>
+            <content:encoded><![CDATA[Socket.io's client assumes a browser, and React Native isn't one. What you actually have to do to get the two talking.]]></content:encoded>
+            <author>hello@erickryski.com (Eric Kryski)</author>
+        </item>
+        <item>
+            <title><![CDATA[How to Maintain an Open Source Project Without Losing Your Mind]]></title>
+            <link>https://erickryski.com/articles/how-to-maintain-an-open-source-project</link>
+            <guid>https://erickryski.com/articles/how-to-maintain-an-open-source-project</guid>
+            <pubDate>Sat, 30 Jan 2016 00:00:00 GMT</pubDate>
+            <description><![CDATA[A response to Eran Hammer on maintainer burnout. Entitlement in open source is real, but public shaming makes a bad situation worse.]]></description>
+            <content:encoded><![CDATA[A response to Eran Hammer on maintainer burnout. Entitlement in open source is real, but public shaming makes a bad situation worse.]]></content:encoded>
+            <author>hello@erickryski.com (Eric Kryski)</author>
+        </item>
+        <item>
+            <title><![CDATA[A Recipe for Building Successful Products]]></title>
+            <link>https://erickryski.com/articles/a-recipe-for-building-successful-products</link>
+            <guid>https://erickryski.com/articles/a-recipe-for-building-successful-products</guid>
+            <pubDate>Wed, 18 Feb 2015 00:00:00 GMT</pubDate>
+            <description><![CDATA[A repeatable process for building products people want, drawn from the times I built features on a whim and watched them land flat.]]></description>
+            <content:encoded><![CDATA[A repeatable process for building products people want, drawn from the times I built features on a whim and watched them land flat.]]></content:encoded>
+            <author>hello@erickryski.com (Eric Kryski)</author>
+        </item>
+        <item>
+            <title><![CDATA[The Future of Analytics]]></title>
+            <link>https://erickryski.com/articles/the-future-of-analytics</link>
+            <guid>https://erickryski.com/articles/the-future-of-analytics</guid>
+            <pubDate>Sun, 08 Feb 2015 00:00:00 GMT</pubDate>
+            <description><![CDATA[A critique of the analytics tools of the era and where the category was heading, written from three years of using them and building one.]]></description>
+            <content:encoded><![CDATA[A critique of the analytics tools of the era and where the category was heading, written from three years of using them and building one.]]></content:encoded>
+            <author>hello@erickryski.com (Eric Kryski)</author>
+        </item>
+        <item>
+            <title><![CDATA[The Real Cost of Starting a Startup]]></title>
+            <link>https://erickryski.com/articles/the-real-cost-of-starting-a-startup</link>
+            <guid>https://erickryski.com/articles/the-real-cost-of-starting-a-startup</guid>
+            <pubDate>Tue, 20 Jan 2015 00:00:00 GMT</pubDate>
+            <description><![CDATA[The true cost of building a product, counted honestly — the money, the time, and the parts of the bill nobody warns you about.]]></description>
+            <content:encoded><![CDATA[The true cost of building a product, counted honestly — the money, the time, and the parts of the bill nobody warns you about.]]></content:encoded>
+            <author>hello@erickryski.com (Eric Kryski)</author>
+        </item>
+        <item>
+            <title><![CDATA[Why We Switched From Mixpanel to KISS]]></title>
+            <link>https://erickryski.com/articles/why-we-switched-from-mixpanel-to-kiss</link>
+            <guid>https://erickryski.com/articles/why-we-switched-from-mixpanel-to-kiss</guid>
+            <pubDate>Tue, 15 Apr 2014 00:00:00 GMT</pubDate>
+            <description><![CDATA[Even great services can still be painful]]></description>
+            <content:encoded><![CDATA[Even great services can still be painful]]></content:encoded>
+            <author>hello@erickryski.com (Eric Kryski)</author>
+        </item>
+        <item>
+            <title><![CDATA[Go Pitch Your Product to an 8 Year Old]]></title>
+            <link>https://erickryski.com/articles/go-pitch-your-product-to-an-8-year-old</link>
+            <guid>https://erickryski.com/articles/go-pitch-your-product-to-an-8-year-old</guid>
+            <pubDate>Mon, 14 Apr 2014 00:00:00 GMT</pubDate>
+            <description><![CDATA[The fastest test of whether you understand your own product: explain it to a child and see how quickly they cut through it.]]></description>
+            <content:encoded><![CDATA[The fastest test of whether you understand your own product: explain it to a child and see how quickly they cut through it.]]></content:encoded>
             <author>hello@erickryski.com (Eric Kryski)</author>
         </item>
     </channel>
