@@ -96,6 +96,6 @@ Helped lead the committee working toward Canadian regulatory standards for block
 
 ---
 
-## Education and Extracurriculars
+## Education and Interests
 
 **BSc, Computer Science** · University of Calgary, 2011. Published undergraduate HCI research on emotive expression in interactive robotic vehicles ([Springer](https://link.springer.com/chapter/10.1007/978-3-642-23765-2_7)). Founded and ran **Krysco Contracting Corp.**, a landscape construction company, from 2004 to 2012 to pay for school. Founder of **YYC.js** ([speaking history](https://erickryski.com/speaking)). Competed in speed skating at the national and international level, and classically trained in violin.
