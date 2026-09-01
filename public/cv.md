@@ -10,7 +10,7 @@ Calgary, Canada · Available remote, open to travel and relocation to select loc
 
 ## Summary
 
-Full-stack engineer with 15 years shipping and operating production software, eight of them as technical co-founder of a payments company. I build the application, run the infrastructure under it, and stay responsible after launch. Most of my recent work is agentic: internal tools driven by LLMs, automation that replaced manual operations work, and ongoing research on coupled-oscillator speech models written in Python. I am used to being the first engineer on a problem nobody has scoped yet, and to deciding what to buy instead of build.
+Full-stack engineer with 15 years shipping and operating production software, eight of them as technical co-founder of a payments company. I can design and build the application, run the infrastructure under it, and maintain and help scale it after launch. Most of my recent work is agentic in nature: internal tools driven by multi-modal AI models, automation that replaces manual operations work, and ongoing research on novel physics based and more performant AI models and GPU kernel tuning. I am used to being the first engineer on a problem nobody has scoped yet, and feel comfortable scoping work in phases and deciding what to buy instead of build.
 
 ---
 
@@ -90,7 +90,7 @@ Helped lead the committee working toward Canadian regulatory standards for block
 
 **Sam** · A personal AI assistant for macOS running fully on-device on Apple Silicon through MLX, no cloud and no Python. Memory is a retrieval-augmented store over SQLite FTS5 with BM25 ranking, TTL-based decay and automatic context injection.
 
-**Feathers.js** · Co-creator and maintainer of the real-time Node.js framework. Wrote the original authentication plugin and every OAuth connector flow in it, the database adapters, and the project documentation. Took it from a side project to adoption in almost every country, then handed it to a core team with a real release process.
+**Feathers.js** · Co-creator and maintainer of the real-time Node.js framework. Wrote the original authentication plugin and every OAuth connector flow in it, the permissions module behind its fine-grained RBAC, the database adapters, and the project documentation, and made sure all of it worked and scaled over websockets. Took it from a side project to adoption in almost every country, then handed it to a core team with a real release process.
 
 **Iron and Butter** · A Rust kernel DSL compiling one definition to Metal, CUDA, HIP and Vulkan, plus a dependency-light LLM inference library for Apple Silicon built on it. Releasing shortly at [waffuru.ai](https://waffuru.ai).
 
