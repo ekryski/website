@@ -39,19 +39,19 @@ Payments and commerce infrastructure. Co-founding engineer and primary architect
 
 - With my co-founder, built and operated the internal tooling that runs the business: customer support, sales, marketing and compliance workflows, automated to the point that a very small team supports customers worldwide.
 - Architected the platform APIs on Feathers.js, Node.js and PostgreSQL, with Redis for queueing and caching.
-- Designed and run the production infrastructure on Google Cloud Platform and Kubernetes, with GitHub Actions for CI, GitHub Container Registry for container deploys and private NPM modules, and front-end deploys on Netlify. Sustained 99.9% uptime.
+- Designed and run the production infrastructure on Google Cloud Platform and Kubernetes, with GitHub Actions for CI, GitHub Container Registry for container deploys and private NPM modules, and front-end deploys on Netlify. 99.9% uptime.
 - Processed over **$40M in payments volume** and grew the gift card catalogue to **4,516 brands across 154 countries**.
 - Led the integration and maintenance process for **30+ blockchain networks**, including the forensics tooling used to trace them.
 - Assisted the RCMP, US Secret Service and FBI in tracing several crypto-asset thefts, and advised the governments of Bermuda and Canada on crypto-asset regulation.
-- Raised venture capital and ran finance, HR, taxation and cross-border licensing.
+- Raised venture capital and ran finance, HR, taxation and licensing.
 
 ### Managing Partner, Bullish Ventures
 **August 2015 – Present** · Calgary, Canada
 
 Product development and CTO-as-a-service for startups, from rapid prototyping through to production. Early adopters of and contributors to Web3.js, React, React Native and Expo.
 
-- **Uncoil (Matter), April – August 2025.** Architected an AI-driven marketing platform generating omni-channel advertising that routed prospects to landing pages tailored to their buyer persona, with LLM-driven content generation and performance analysis, then handed the architecture to their internal team to build out. Business rules and AI automation in n8n. Node.js, React, PostgreSQL, Supabase, Google Cloud Platform.
-- **Plume Network, April 2024 – December 2025.** Helped build the first iteration of the network, the pre-launch portal and the mainnet portal, working primarily as co-project manager for the team. Independently ran the static and dynamic analysis on sybil attack and usage patterns that separated bot traffic from genuine users. Vercel, Node.js, React, PostgreSQL, Redis.
+- **Uncoil (Matter), April – August 2025.** Architected an AI-driven marketing platform generating omni-channel advertising that routed prospects to landing pages tailored to their buyer persona, with LLM-driven content generation and performance analysis, then handed the architecture to their internal team to build. Business rules and AI automation in n8n. Node.js, React, PostgreSQL, Supabase, GCP.
+- **Plume Network, April 2024 – December 2025.** Helped build the first iteration of the network, the pre-launch portal and the mainnet portal, working primarily as co-project manager. Independently ran the static and dynamic analysis on sybil attack and usage patterns that separated bots from genuine users. Vercel, Node.js, React, PostgreSQL, Redis.
 
 ### National FinTech Committee Member, Canadian Blockchain Consortium
 **March 2020 – December 2024** · Canada, part-time
@@ -98,4 +98,4 @@ Helped lead the committee working toward Canadian regulatory standards for block
 
 ## Education
 
-**BSc, Computer Science** · University of Calgary, 2011. Published undergraduate HCI research on emotive expression through the movement of interactive robotic vehicles ([Springer](https://link.springer.com/chapter/10.1007/978-3-642-23765-2_7)). Founded and ran **Krysco Contracting Corp.**, a landscape construction company, from 2004 to 2012. Founder of **YYC.js** ([speaking history](https://erickryski.com/speaking)).
+**BSc, Computer Science** · University of Calgary, 2011. Published undergraduate HCI research on emotive expression in interactive robotic vehicles ([Springer](https://link.springer.com/chapter/10.1007/978-3-642-23765-2_7)). Founded and ran **Krysco Contracting Corp.**, a landscape construction company, from 2004 to 2012 to pay for school. Founder of **YYC.js** ([speaking history](https://erickryski.com/speaking)). Competed in speed skating at the national and international level, and classically trained in violin.
