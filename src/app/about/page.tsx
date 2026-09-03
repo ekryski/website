@@ -8,6 +8,7 @@ import { Resume } from '@/components/Resume'
 import { TrackedLink } from '@/components/TrackedLink'
 import portraitImage from '@/images/portrait.png'
 import { pageMetadata } from '@/lib/metadata'
+import { person } from '@/components/StructuredData'
 
 export const metadata: Metadata = pageMetadata({
   title: 'About',
@@ -16,9 +17,27 @@ export const metadata: Metadata = pageMetadata({
   url: '/about',
 })
 
+/** Tells search engines this page IS the profile of the site's Person entity. */
+function ProfileStructuredData() {
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{
+        __html: JSON.stringify({
+          '@context': 'https://schema.org',
+          '@type': 'ProfilePage',
+          mainEntity: { '@id': person['@id'] },
+          about: { '@id': person['@id'] },
+        }),
+      }}
+    />
+  )
+}
+
 export default function About() {
   return (
     <Container className="mt-16 sm:mt-32">
+      <ProfileStructuredData />
       <div className="grid grid-cols-1 gap-y-16 lg:grid-cols-2 lg:grid-rows-[auto_1fr] lg:gap-y-12">
         <div className="lg:pl-20">
           <div className="max-w-xs px-2.5 lg:max-w-none">

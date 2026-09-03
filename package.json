@@ -4,8 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "npm run build:feed && npm run build:cv && npm run build:og-image && npm run build:resonant-og && npm run build:project-logos && next build",
+    "build": "npm run build:feed && npm run build:llms && npm run build:cv && npm run build:og-image && npm run build:resonant-og && npm run build:project-logos && next build",
     "build:feed": "node scripts/generate-feed.js",
+    "build:llms": "node scripts/generate-llms.js",
     "build:og-image": "node scripts/generate-og-image.js",
     "build:resonant-og": "node scripts/generate-resonant-og.js",
     "build:project-logos": "node scripts/generate-project-logos.js",

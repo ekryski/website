@@ -30,7 +30,11 @@ function extractArticleFromMdx(filePath) {
     /description:\s*['"]([\s\S]*?)['"]\s*[,}]/m,
   )
   const description = descriptionMatch
-    ? descriptionMatch[1].trim().replace(/\s+/g, ' ')
+    ? descriptionMatch[1]
+        .trim()
+        .replace(/\s+/g, ' ')
+        // the source is a JS string literal: drop its escaping
+        .replace(/\\(['"])/g, '$1')
     : ''
 
   if (!title || !date) return null

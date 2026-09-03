@@ -1,0 +1,47 @@
+# Eric Kryski
+
+> Software designer and entrepreneur in Calgary, Canada. Co-founder and CEO of Bidali, building at the intersection of money and intelligence, and researching oscillator-based speech models.
+
+Writing on distributed computing, payments, startups, economics and AI. Everything below is a page on this site; the full text of each article lives at its URL.
+
+## Pages
+
+- [About](https://erickryski.com/about): Who I am, what I have built, and what I am working on now.
+- [Articles](https://erickryski.com/articles): Every essay, newest first.
+- [Projects](https://erickryski.com/projects): Products and open source I have built, past and present.
+- [Resonant](https://erickryski.com/projects/resonant): Research project testing whether speech models can be built on coupled-oscillator physics instead of attention.
+- [Speaking](https://erickryski.com/speaking): Conference talks and podcast appearances.
+- [Tools](https://erickryski.com/tools): The hardware and software I actually use.
+- [CV](https://erickryski.com/cv): Full curriculum vitae.
+
+## Articles
+
+- [How a machine hears a number](https://erickryski.com/articles/how-a-machine-hears-a-number) (2026-08-15): A progressive guide to speech model architectures — pressure waves, Fourier transforms, mel spectrograms, vocoders, and a coupled-oscillator core — where every figure is computed live in your browser from real recordings of spoken digits.
+- [Can you tell which photos are AI-generated?](https://erickryski.com/articles/ai-image-generation-experiment) (2023-04-18): An experiment testing whether humans can distinguish real photos from AI-generated ones. Spoiler: 84% of people got it wrong.
+- [What is the value of cryptocurrency vs. blockchain?](https://erickryski.com/articles/value-cryptocurrency-vs-blockchain) (2023-02-09): Why crypto and not just blockchain? The nuance lies in how the properties of cryptocurrency—immutability, verifiability, and programmability—can produce new ways of organizing our social fabric.
+- [Social Media, Social Incentives & Money](https://erickryski.com/articles/social-media-social-incentives-money) (2023-01-21): How a formative trip to South Korea taught me we're all fundamentally the same—and why that shapes how I think about money, social media, and the forces that drive human behaviour.
+- [Taxation of Employee Stock Options](https://erickryski.com/articles/taxation-employee-stock-options) (2022-12-22): A practical guide to how stock options are taxed in Canada—when you pay, what you owe, and key differences for employees vs. contractors.
+- [How to hire great software developers for your startup](https://erickryski.com/articles/how-to-hire-great-software-developers-for-your-startup) (2020-12-06): Hint, it’s not whiteboard coding tests and random LinkedIn messages 😉
+- [Sales Tax 101 for Canadian Startups](https://erickryski.com/articles/sales-tax-101-canadian-startups) (2020-06-15): A practical guide to navigating GST, HST, PST, and international sales tax for Canadian startups selling online—whether physical goods, SaaS, or services.
+- [October 2017 FeathersJS Community Update](https://erickryski.com/articles/october-2017-feathersjs-community-update) (2017-11-13): The Feathers v3 (Buzzard) prerelease, what changed in the ecosystem, and where the community was putting its energy.
+- [The Auk Takes Flight!](https://erickryski.com/articles/the-auk-takes-flight) (2017-04-28): A new FeathersJS release and a year in review
+- [“Hiring” Open Source](https://erickryski.com/articles/hiring-open-source) (2016-11-16): Part 2: how we onboard, support and retain Feathers contributors — recruiting for a project nobody is paid to work on.
+- [Your open source is a product. Start treating it like one.](https://erickryski.com/articles/your-open-source-is-a-product-start-treating-it-like-one) (2016-11-01): Part 1: your open source project needs a vision, positioning and a roadmap for the same reasons a commercial product does.
+- [Meet The New Feathers Core Team](https://erickryski.com/articles/meet-the-new-feathers-core-team) (2016-10-24): Handing a growing open source project to a real core team: who joined, how we chose them, and why stepping back was the right call.
+- [What’s Next For Feathers?](https://erickryski.com/articles/whats-next-for-feathers) (2016-04-13): Where Feathers came from, and the roadmap after the 2.0 release — authentication, the service ecosystem, and what the core team took on next.
+- [Levelup, RethinkDB, and More Docs](https://erickryski.com/articles/levelup-rethinkdb-and-more-docs) (2016-04-11): A FeathersJS ecosystem update: LevelUP and RethinkDB adapters, and a documentation push to make a modular framework easier to keep up with.
+- [Why we built the best web framework you’ve probably never heard of (until now).](https://erickryski.com/articles/why-we-built-the-best-web-framework-youve-probably-never-heard-of-until-now) (2016-04-06): How FeathersJS came to be and why we built it.
+- [What happens to your open source project when it gets “Hunted”?](https://erickryski.com/articles/what-happens-to-your-open-source-project-when-it-gets-hunted) (2016-04-04): What actually happened when we put FeathersJS on Product Hunt: the preparation, the numbers, and what moved the needle versus what didn't.
+- [Introducing Feathers 2.0](https://erickryski.com/articles/introducing-feathers-20) (2016-03-15): A minimalist real-time framework for tomorrow’s apps
+- [How to actually use Socket.io in React Native](https://erickryski.com/articles/how-to-actually-use-socketio-in-react-native) (2016-02-27): Socket.io's client assumes a browser, and React Native isn't one. What you actually have to do to get the two talking.
+- [How to Maintain an Open Source Project Without Losing Your Mind](https://erickryski.com/articles/how-to-maintain-an-open-source-project) (2016-01-30): A response to Eran Hammer on maintainer burnout. Entitlement in open source is real, but public shaming makes a bad situation worse.
+- [A Recipe for Building Successful Products](https://erickryski.com/articles/a-recipe-for-building-successful-products) (2015-02-18): A repeatable process for building products people want, drawn from the times I built features on a whim and watched them land flat.
+- [The Future of Analytics](https://erickryski.com/articles/the-future-of-analytics) (2015-02-08): A critique of the analytics tools of the era and where the category was heading, written from three years of using them and building one.
+- [The Real Cost of Starting a Startup](https://erickryski.com/articles/the-real-cost-of-starting-a-startup) (2015-01-20): The true cost of building a product, counted honestly — the money, the time, and the parts of the bill nobody warns you about.
+- [Why We Switched From Mixpanel to KISS](https://erickryski.com/articles/why-we-switched-from-mixpanel-to-kiss) (2014-04-15): Even great services can still be painful
+- [Go Pitch Your Product to an 8 Year Old](https://erickryski.com/articles/go-pitch-your-product-to-an-8-year-old) (2014-04-14): The fastest test of whether you understand your own product: explain it to a child and see how quickly they cut through it.
+
+## Optional
+
+- [RSS feed](https://erickryski.com/feed.xml): every article, as XML.
+- [Sitemap](https://erickryski.com/sitemap.xml): every indexable URL.
