@@ -2,8 +2,9 @@ import Link from 'next/link'
 import clsx from 'clsx'
 
 const variantStyles = {
+  // the site's accent, matching the contact callout's email button
   primary:
-    'bg-zinc-800 font-semibold text-zinc-100 hover:bg-zinc-700 active:bg-zinc-800 active:text-zinc-100/70 dark:bg-zinc-700 dark:hover:bg-zinc-600 dark:active:bg-zinc-700 dark:active:text-zinc-100/70',
+    'bg-violet-500 font-semibold text-white hover:bg-violet-600 active:bg-violet-700 active:text-white/80 dark:bg-violet-500 dark:hover:bg-violet-600 dark:active:bg-violet-700 dark:active:text-white/80',
   secondary:
     'bg-zinc-100 font-medium text-zinc-900 hover:bg-zinc-200 active:bg-zinc-200 active:text-zinc-900/60 dark:bg-zinc-800/50 dark:text-zinc-300 dark:hover:bg-zinc-800 dark:hover:text-zinc-50 dark:active:bg-zinc-800/50 dark:active:text-zinc-50/70',
   // no fill: a border and the text colour, inverted in dark mode
