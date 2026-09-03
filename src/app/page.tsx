@@ -32,31 +32,46 @@ function Article({ article }: { article: ArticleWithSlug }) {
   )
 }
 
+const PHOTO_SCROLLER_ID = 'home-photos'
+
 function Photos() {
   const rotations = ['rotate-2', '-rotate-2', 'rotate-2', 'rotate-2', '-rotate-2']
 
   return (
     <div className="mt-16 sm:mt-20">
+      {/* CSS can centre an overflowing row or keep it reachable, not both:
+          justify-center pushes the first photos past scrollLeft 0 where no
+          amount of swiping reaches them. So the track is laid out from the
+          left, and the script below parks the scroll position in the middle
+          during parse — centred on arrival, scrollable both ways after. */}
       <div
-        className="-my-4 flex justify-center gap-5 overflow-x-auto overflow-y-hidden overscroll-x-contain scrollbar-hide px-4 py-4 sm:gap-8 snap-x snap-mandatory [-webkit-overflow-scrolling:touch]"
+        id={PHOTO_SCROLLER_ID}
+        className="-my-4 overflow-x-auto overflow-y-hidden overscroll-x-contain scrollbar-hide snap-x snap-mandatory [-webkit-overflow-scrolling:touch]"
       >
-        {[image1, image2, image3, image4, image5].map((image, imageIndex) => (
-          <div
-            key={image.src}
-            className={clsx(
-              'relative aspect-9/10 w-44 flex-none shrink-0 overflow-hidden rounded-xl bg-zinc-100 sm:w-72 sm:rounded-2xl snap-center snap-always dark:bg-zinc-800',
-              rotations[imageIndex % rotations.length],
-            )}
-          >
-            <Image
-              src={image}
-              alt=""
-              sizes="(min-width: 640px) 18rem, 11rem"
-              className="absolute inset-0 h-full w-full object-cover"
-            />
-          </div>
-        ))}
+        <div className="mx-auto flex w-max gap-5 px-4 py-4 sm:gap-8">
+          {[image1, image2, image3, image4, image5].map((image, imageIndex) => (
+            <div
+              key={image.src}
+              className={clsx(
+                'relative aspect-9/10 w-44 flex-none shrink-0 overflow-hidden rounded-xl bg-zinc-100 shadow-lg shadow-zinc-800/10 sm:w-72 sm:rounded-2xl snap-center snap-always dark:bg-zinc-800 dark:shadow-black/40',
+                rotations[imageIndex % rotations.length],
+              )}
+            >
+              <Image
+                src={image}
+                alt=""
+                sizes="(min-width: 640px) 18rem, 11rem"
+                className="absolute inset-0 h-full w-full object-cover"
+              />
+            </div>
+          ))}
+        </div>
       </div>
+      <script
+        dangerouslySetInnerHTML={{
+          __html: `(function(){function c(){var e=document.getElementById('${PHOTO_SCROLLER_ID}');if(e){e.scrollLeft=(e.scrollWidth-e.clientWidth)/2}}c();document.addEventListener('DOMContentLoaded',c)})();`,
+        }}
+      />
     </div>
   )
 }
