@@ -118,7 +118,7 @@ export default async function Home() {
         <div className="mx-auto grid max-w-xl grid-cols-1 gap-y-20 lg:max-w-none lg:grid-cols-2">
           <div className="flex flex-col gap-16">
             <h2 className="text-2xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100">
-              From the Notebook
+              📔 From the Notebook
             </h2>
             {articles.map((article) => (
               <Article key={article.slug} article={article} />
