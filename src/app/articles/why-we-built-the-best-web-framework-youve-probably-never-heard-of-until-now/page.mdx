@@ -1,5 +1,6 @@
 import { ArticleLayout } from '@/components/ArticleLayout'
 import { Newsletter } from '@/components/Newsletter'
+import { articleMetadata } from '@/lib/metadata'
 
 export const article = {
  author: 'Eric Kryski',
@@ -9,12 +10,7 @@ export const article = {
  description: "How FeathersJS came to be and why we built it.",
 }
 
-export const metadata = {
- title: article.title,
- description: article.description,
- openGraph: { title: article.title, description: article.description, url: '/articles/why-we-built-the-best-web-framework-youve-probably-never-heard-of-until-now' },
- twitter: { card: 'summary_large_image', title: article.title, description: article.description },
-}
+export const metadata = articleMetadata(article, 'why-we-built-the-best-web-framework-youve-probably-never-heard-of-until-now')
 
 export default ({ children }) => <ArticleLayout article={article}>{children}</ArticleLayout>
 

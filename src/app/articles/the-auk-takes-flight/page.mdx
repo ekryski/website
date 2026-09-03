@@ -4,6 +4,7 @@ import imageimage1jpeg from './image-1.jpeg'
 
 import imageimage3png from './image-3.png'
 import imageimage4gif from './image-4.gif'
+import { articleMetadata } from '@/lib/metadata'
 
 export const article = {
  author: 'Eric Kryski',
@@ -13,12 +14,7 @@ export const article = {
  description: "A new FeathersJS release and a year in review",
 }
 
-export const metadata = {
- title: article.title,
- description: article.description,
- openGraph: { title: article.title, description: article.description, url: '/articles/the-auk-takes-flight' },
- twitter: { card: 'summary_large_image', title: article.title, description: article.description },
-}
+export const metadata = articleMetadata(article, 'the-auk-takes-flight')
 
 export default ({ children }) => <ArticleLayout article={article}>{children}</ArticleLayout>
 

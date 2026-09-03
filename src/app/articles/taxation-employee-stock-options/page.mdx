@@ -1,5 +1,6 @@
 import { ArticleLayout } from '@/components/ArticleLayout'
 import { Newsletter } from '@/components/Newsletter'
+import { articleMetadata } from '@/lib/metadata'
 
 export const dynamic = 'force-static'
 
@@ -12,12 +13,7 @@ export const article = {
  'A practical guide to how stock options are taxed in Canada—when you pay, what you owe, and key differences for employees vs. contractors.',
 }
 
-export const metadata = {
- title: article.title,
- description: article.description,
- openGraph: { title: article.title, description: article.description, url: '/articles/taxation-employee-stock-options' },
- twitter: { card: 'summary_large_image', title: article.title, description: article.description },
-}
+export const metadata = articleMetadata(article, 'taxation-employee-stock-options')
 
 export default ({ children }) => <ArticleLayout article={article}>{children}</ArticleLayout>
 

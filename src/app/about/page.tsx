@@ -7,24 +7,14 @@ import { Container } from '@/components/Container'
 import { Resume } from '@/components/Resume'
 import { TrackedLink } from '@/components/TrackedLink'
 import portraitImage from '@/images/portrait.png'
+import { pageMetadata } from '@/lib/metadata'
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: 'About',
   description:
-    'I\'m Eric Kryski. I live in Calgary, where I design, build and invest in the future.',
-  openGraph: {
-    title: 'About - Eric Kryski',
-    description:
-      'I\'m Eric Kryski. I live in Calgary, where I design, build and invest in the future.',
-    url: '/about',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'About - Eric Kryski',
-    description:
-      'I\'m Eric Kryski. I live in Calgary, where I design, build and invest in the future.',
-  },
-}
+    "I'm Eric Kryski. I live in Calgary, where I design, build and invest in the future.",
+  url: '/about',
+})
 
 export default function About() {
   return (

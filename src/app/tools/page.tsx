@@ -2,6 +2,7 @@ import { Card } from '@/components/Card'
 import { DesignToolLogo } from '@/components/DesignToolLogo'
 import { Section } from '@/components/Section'
 import { SimpleLayout } from '@/components/SimpleLayout'
+import { pageMetadata } from '@/lib/metadata'
 
 function ToolsSection({
   children,
@@ -105,23 +106,11 @@ function WorkstationTool({
   )
 }
 
-export const metadata = {
+export const metadata = pageMetadata({
   title: 'Tools',
-  description:
-    'Software I use, gadgets I love, and other things I recommend.',
-  openGraph: {
-    title: 'Tools - Eric Kryski',
-    description:
-      'Software I use, gadgets I love, and other things I recommend.',
-    url: '/tools',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Tools - Eric Kryski',
-    description:
-      'Software I use, gadgets I love, and other things I recommend.',
-  },
-}
+  description: 'Software I use, gadgets I love, and other things I recommend.',
+  url: '/tools',
+})
 
 export default function Tools() {
   return (

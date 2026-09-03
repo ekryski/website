@@ -1,5 +1,6 @@
 import { ArticleLayout } from '@/components/ArticleLayout'
 import { Newsletter } from '@/components/Newsletter'
+import { articleMetadata } from '@/lib/metadata'
 
 export const dynamic = 'force-static'
 
@@ -12,13 +13,7 @@ export const article = {
  'A personal reflection on a year of extremes—from burnout and depression to gratitude and growth. Lessons on balance, mental health, and what really matters.',
 }
 
-export const metadata = {
-  robots: { index: false, follow: false },
- title: article.title,
- description: article.description,
- openGraph: { title: article.title, description: article.description, url: '/articles/reflections-on-2020' },
- twitter: { card: 'summary_large_image', title: article.title, description: article.description },
-}
+export const metadata = articleMetadata(article, 'reflections-on-2020')
 
 export default ({ children }) => <ArticleLayout article={article}>{children}</ArticleLayout>
 

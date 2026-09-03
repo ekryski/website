@@ -1,5 +1,6 @@
 import { ArticleLayout } from '@/components/ArticleLayout'
 import { Newsletter } from '@/components/Newsletter'
+import { articleMetadata } from '@/lib/metadata'
 
 export const dynamic = 'force-static'
 
@@ -12,13 +13,7 @@ export const article = {
  'A concise explanation of blockchain value from the Ethereum Wiki—how crowdfunding, tokens, and open auditable code create new possibilities.',
 }
 
-export const metadata = {
-  robots: { index: false, follow: false },
- title: article.title,
- description: article.description,
- openGraph: { title: article.title, description: article.description, url: '/articles/why-blockchains-are-valuable' },
- twitter: { card: 'summary_large_image', title: article.title, description: article.description },
-}
+export const metadata = articleMetadata(article, 'why-blockchains-are-valuable')
 
 export default ({ children }) => <ArticleLayout article={article}>{children}</ArticleLayout>
 

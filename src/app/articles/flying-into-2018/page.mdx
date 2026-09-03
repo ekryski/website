@@ -7,6 +7,7 @@ import imageimage4png from './image-4.png'
 import imageimage5png from './image-5.png'
 import imageimage6png from './image-6.png'
 import imageimage7jpeg from './image-7.jpeg'
+import { articleMetadata } from '@/lib/metadata'
 
 export const article = {
  author: 'Eric Kryski',
@@ -16,13 +17,7 @@ export const article = {
  description: "Quick Recap",
 }
 
-export const metadata = {
-  robots: { index: false, follow: false },
- title: article.title,
- description: article.description,
- openGraph: { title: article.title, description: article.description, url: '/articles/flying-into-2018' },
- twitter: { card: 'summary_large_image', title: article.title, description: article.description },
-}
+export const metadata = articleMetadata(article, 'flying-into-2018')
 
 export default ({ children }) => <ArticleLayout article={article}>{children}</ArticleLayout>
 

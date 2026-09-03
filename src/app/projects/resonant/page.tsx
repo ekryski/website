@@ -4,6 +4,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 import { Container } from '@/components/Container'
+import { pageMetadata } from '@/lib/metadata'
 
 const REPO = 'https://github.com/ekryski/oscillator-research'
 const GUIDE = '/articles/how-a-machine-hears-a-number'
@@ -16,30 +17,14 @@ const title = 'Resonant'
 const description =
   'A research project testing whether speech models can be built on coupled-oscillator physics instead of attention — a field of Kuramoto oscillators as the core of a streaming speech model.'
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title,
   description,
-  openGraph: {
-    title: `${title} - Eric Kryski`,
-    description,
-    url: '/projects/resonant',
-    images: [
-      {
-        url: '/resonant/og.png',
-        width: 1200,
-        height: 630,
-        alt: 'A sound wave rippling through a lattice of oscillators and resolving into the digit seven',
-      },
-    ],
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: `${title} - Eric Kryski`,
-    description,
-    images: ['/resonant/og.png'],
-  },
-  alternates: { canonical: '/projects/resonant' },
-}
+  url: '/projects/resonant',
+  image: '/resonant/og.png',
+  imageAlt:
+    'A sound wave rippling through a lattice of oscillators and resolving into the digit seven',
+})
 
 const reading = [
   {

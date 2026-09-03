@@ -3,6 +3,7 @@ import { Newsletter } from '@/components/Newsletter'
 import imageimage1png from './image-1.png'
 
 import imageimage3png from './image-3.png'
+import { articleMetadata } from '@/lib/metadata'
 
 export const article = {
  author: 'Eric Kryski',
@@ -12,13 +13,7 @@ export const article = {
  description: "The release of Verge Core wallet 4.0",
 }
 
-export const metadata = {
-  robots: { index: false, follow: false },
- title: article.title,
- description: article.description,
- openGraph: { title: article.title, description: article.description, url: '/articles/an-update-on-wraith' },
- twitter: { card: 'summary_large_image', title: article.title, description: article.description },
-}
+export const metadata = articleMetadata(article, 'an-update-on-wraith')
 
 export default ({ children }) => <ArticleLayout article={article}>{children}</ArticleLayout>
 
