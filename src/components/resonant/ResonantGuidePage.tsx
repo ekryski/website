@@ -1,3 +1,4 @@
+import { ArticleStructuredData } from '@/components/ArticleStructuredData'
 import { Container } from '@/components/Container'
 import { ResonantGuide } from '@/components/resonant/ResonantGuide'
 import { formatDate } from '@/lib/formatDate'
@@ -10,9 +11,26 @@ import { formatDate } from '@/lib/formatDate'
  * wide by nature. The header treatment matches an article (date, title,
  * standfirst) so it still reads as one.
  */
-export function ResonantGuidePage({ date }: { date?: string }) {
+export function ResonantGuidePage({
+  date,
+  title,
+  description,
+}: {
+  date?: string
+  title?: string
+  description?: string
+}) {
   return (
     <Container className="mt-16 sm:mt-32">
+      {date && title && description && (
+        <ArticleStructuredData
+          title={title}
+          description={description}
+          date={date}
+          path="/articles/how-a-machine-hears-a-number"
+          image="/resonant/og.png"
+        />
+      )}
       <header className="max-w-2xl">
         {date && (
           <time

@@ -3,6 +3,7 @@ import { type Metadata } from 'next'
 import { Providers } from '@/app/providers'
 import { GoogleAnalytics } from '@/components/GoogleAnalytics'
 import { Layout } from '@/components/Layout'
+import { SiteStructuredData } from '@/components/StructuredData'
 
 import '@/styles/tailwind.css'
 
@@ -98,6 +99,7 @@ export default function RootLayout({
         )}
       </head>
       <body className="flex h-full bg-zinc-100 dark:bg-zinc-950">
+        <SiteStructuredData />
         <GoogleAnalytics />
         <Providers>
           <div className="flex w-full">

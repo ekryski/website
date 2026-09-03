@@ -19,4 +19,11 @@ export const metadata = articleMetadata(article, 'how-a-machine-hears-a-number',
     'A sound wave rippling through a lattice of oscillators and resolving into the digit seven',
 })
 
-export default (props) => <ResonantGuidePage date={article.date} {...props} />
+export default (props) => (
+  <ResonantGuidePage
+    date={article.date}
+    title={article.title}
+    description={article.description}
+    {...props}
+  />
+)

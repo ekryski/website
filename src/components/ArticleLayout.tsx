@@ -4,6 +4,7 @@ import { useContext } from 'react'
 import { useRouter, usePathname } from 'next/navigation'
 
 import { AppContext } from '@/app/providers'
+import { ArticleStructuredData } from '@/components/ArticleStructuredData'
 import { Container } from '@/components/Container'
 import { Prose } from '@/components/Prose'
 import { type ArticleWithSlug } from '@/lib/articles'
@@ -35,23 +36,11 @@ export function ArticleLayout({
 
   return (
     <Container className="mt-16 lg:mt-32">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'BlogPosting',
-            headline: article.title,
-            datePublished: article.date,
-            dateModified: article.date,
-            description: article.description,
-            url: `https://erickryski.com${pathname}`,
-            author: {
-              '@type': 'Person',
-              name: article.author || 'Eric Kryski',
-            },
-          }),
-        }}
+      <ArticleStructuredData
+        title={article.title}
+        description={article.description}
+        date={article.date}
+        path={pathname}
       />
       <div className="xl:relative">
         <div className="mx-auto max-w-2xl">
