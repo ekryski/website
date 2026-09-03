@@ -3,6 +3,7 @@ import { type Metadata } from 'next'
 import { Card } from '@/components/Card'
 import { Section } from '@/components/Section'
 import { SimpleLayout } from '@/components/SimpleLayout'
+import { pageMetadata } from '@/lib/metadata'
 
 function SpeakingSection({
   children,
@@ -40,23 +41,12 @@ function Appearance({
   )
 }
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: 'Speaking',
   description:
     "I've spoken at events all around the world and been interviewed for many podcasts.",
-  openGraph: {
-    title: 'Speaking - Eric Kryski',
-    description:
-      "I've spoken at events all around the world and been interviewed for many podcasts.",
-    url: '/speaking',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Speaking - Eric Kryski',
-    description:
-      "I've spoken at events all around the world and been interviewed for many podcasts.",
-  },
-}
+  url: '/speaking',
+})
 
 export default function Speaking() {
   return (

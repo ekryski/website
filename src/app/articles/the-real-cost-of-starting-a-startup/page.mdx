@@ -5,6 +5,7 @@ import imageimage2gif from './image-2.gif'
 import imageimage3png from './image-3.png'
 import imageimage4png from './image-4.png'
 import imageimage5png from './image-5.png'
+import { articleMetadata } from '@/lib/metadata'
 
 export const article = {
  author: 'Eric Kryski',
@@ -14,12 +15,7 @@ export const article = {
  description: "The true cost of building a product, counted honestly — the money, the time, and the parts of the bill nobody warns you about.",
 }
 
-export const metadata = {
- title: article.title,
- description: article.description,
- openGraph: { title: article.title, description: article.description, url: '/articles/the-real-cost-of-starting-a-startup' },
- twitter: { card: 'summary_large_image', title: article.title, description: article.description },
-}
+export const metadata = articleMetadata(article, 'the-real-cost-of-starting-a-startup')
 
 export default ({ children }) => <ArticleLayout article={article}>{children}</ArticleLayout>
 

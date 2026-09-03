@@ -6,6 +6,7 @@ import imageimage3png from './image-3.png'
 import imageimage4png from './image-4.png'
 import imageimage5gif from './image-5.gif'
 import imageimage6gif from './image-6.gif'
+import { articleMetadata } from '@/lib/metadata'
 
 export const article = {
  author: 'Eric Kryski',
@@ -15,13 +16,7 @@ export const article = {
  description: "The invisible decline of the US economy",
 }
 
-export const metadata = {
-  robots: { index: false, follow: false },
- title: article.title,
- description: article.description,
- openGraph: { title: article.title, description: article.description, url: '/articles/how-the-coronavirus-could-topple-america-the-worlds-greatest-superpower-part-4' },
- twitter: { card: 'summary_large_image', title: article.title, description: article.description },
-}
+export const metadata = articleMetadata(article, 'how-the-coronavirus-could-topple-america-the-worlds-greatest-superpower-part-4')
 
 export default ({ children }) => <ArticleLayout article={article}>{children}</ArticleLayout>
 

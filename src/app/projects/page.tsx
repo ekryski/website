@@ -12,6 +12,7 @@ import logoFeathersJS from '@/images/projects/feathersjs.png'
 import logoIron from '@/images/projects/iron.png'
 import logoResonant from '@/images/projects/resonant.png'
 import logoSam from '@/images/projects/sam.png'
+import { pageMetadata } from '@/lib/metadata'
 
 function ProjectIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
   return (
@@ -123,23 +124,12 @@ function LinkIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
   )
 }
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: 'Projects',
   description:
     "Things I've made trying to put my dent in the universe. Bidali, FeathersJS, DeliciousDB, Caress, and more.",
-  openGraph: {
-    title: 'Projects - Eric Kryski',
-    description:
-      "Things I've made trying to put my dent in the universe. Bidali, FeathersJS, DeliciousDB, Caress, and more.",
-    url: '/projects',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Projects - Eric Kryski',
-    description:
-      "Things I've made trying to put my dent in the universe. Bidali, FeathersJS, DeliciousDB, Caress, and more.",
-  },
-}
+  url: '/projects',
+})
 
 type Project = {
   name: string

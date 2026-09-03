@@ -4,6 +4,7 @@ import { Card } from '@/components/Card'
 import { SimpleLayout } from '@/components/SimpleLayout'
 import { type ArticleWithSlug, getAllArticles } from '@/lib/articles'
 import { formatDate } from '@/lib/formatDate'
+import { pageMetadata } from '@/lib/metadata'
 
 function Article({ article }: { article: ArticleWithSlug }) {
   return (
@@ -38,20 +39,11 @@ const title = 'Writing on distributed computing, payments, startups, economics a
 const description =
   'Long-form thoughts from building at the intersection of money and intelligence — distributed systems, payments and programmable money, startups, economics, and AI. Collected in chronological order.'
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: 'Articles',
   description,
-  openGraph: {
-    title: 'Articles - Eric Kryski',
-    description,
-    url: '/articles',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Articles - Eric Kryski',
-    description,
-  },
-}
+  url: '/articles',
+})
 
 export default async function ArticlesIndex() {
   // Fetch all articles

@@ -2,6 +2,7 @@ import { ArticleLayout } from '@/components/ArticleLayout'
 import { Newsletter } from '@/components/Newsletter'
 
 import imageimage2jpeg from './image-2.jpeg'
+import { articleMetadata } from '@/lib/metadata'
 
 export const article = {
  author: 'Eric Kryski',
@@ -11,12 +12,7 @@ export const article = {
  description: "The Feathers v3 (Buzzard) prerelease, what changed in the ecosystem, and where the community was putting its energy.",
 }
 
-export const metadata = {
- title: article.title,
- description: article.description,
- openGraph: { title: article.title, description: article.description, url: '/articles/october-2017-feathersjs-community-update' },
- twitter: { card: 'summary_large_image', title: article.title, description: article.description },
-}
+export const metadata = articleMetadata(article, 'october-2017-feathersjs-community-update')
 
 export default ({ children }) => <ArticleLayout article={article}>{children}</ArticleLayout>
 

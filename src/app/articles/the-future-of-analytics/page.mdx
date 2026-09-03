@@ -4,6 +4,7 @@ import { Newsletter } from '@/components/Newsletter'
 import imageimage2png from './image-2.png'
 import imageimage3png from './image-3.png'
 import imageimage4gif from './image-4.gif'
+import { articleMetadata } from '@/lib/metadata'
 
 export const article = {
  author: 'Eric Kryski',
@@ -13,12 +14,7 @@ export const article = {
  description: "A critique of the analytics tools of the era and where the category was heading, written from three years of using them and building one.",
 }
 
-export const metadata = {
- title: article.title,
- description: article.description,
- openGraph: { title: article.title, description: article.description, url: '/articles/the-future-of-analytics' },
- twitter: { card: 'summary_large_image', title: article.title, description: article.description },
-}
+export const metadata = articleMetadata(article, 'the-future-of-analytics')
 
 export default ({ children }) => <ArticleLayout article={article}>{children}</ArticleLayout>
 

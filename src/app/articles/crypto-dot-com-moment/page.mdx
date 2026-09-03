@@ -1,5 +1,6 @@
 import { ArticleLayout } from '@/components/ArticleLayout'
 import { Newsletter } from '@/components/Newsletter'
+import { articleMetadata } from '@/lib/metadata'
 
 export const dynamic = 'force-static'
 
@@ -12,13 +13,7 @@ export const article = {
  'Drawing parallels between the 2022 crypto crash and the Dot Com bust—and why the technology is far from dead despite the wealth destruction.',
 }
 
-export const metadata = {
-  robots: { index: false, follow: false },
- title: article.title,
- description: article.description,
- openGraph: { title: article.title, description: article.description, url: '/articles/crypto-dot-com-moment' },
- twitter: { card: 'summary_large_image', title: article.title, description: article.description },
-}
+export const metadata = articleMetadata(article, 'crypto-dot-com-moment')
 
 export default ({ children }) => <ArticleLayout article={article}>{children}</ArticleLayout>
 

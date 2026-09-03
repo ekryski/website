@@ -1,6 +1,7 @@
 import { ArticleLayout } from '@/components/ArticleLayout'
 import { Newsletter } from '@/components/Newsletter'
 import imageimage1jpeg from './image-1.jpeg'
+import { articleMetadata } from '@/lib/metadata'
 
 export const article = {
  author: 'Eric Kryski',
@@ -10,12 +11,7 @@ export const article = {
  description: "A repeatable process for building products people want, drawn from the times I built features on a whim and watched them land flat.",
 }
 
-export const metadata = {
- title: article.title,
- description: article.description,
- openGraph: { title: article.title, description: article.description, url: '/articles/a-recipe-for-building-successful-products' },
- twitter: { card: 'summary_large_image', title: article.title, description: article.description },
-}
+export const metadata = articleMetadata(article, 'a-recipe-for-building-successful-products')
 
 export default ({ children }) => <ArticleLayout article={article}>{children}</ArticleLayout>
 

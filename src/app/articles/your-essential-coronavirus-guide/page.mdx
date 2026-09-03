@@ -10,6 +10,7 @@ import imageimage7png from './image-7.png'
 import imageimage8png from './image-8.png'
 import imageimage9png from './image-9.png'
 import imageimage10png from './image-10.png'
+import { articleMetadata } from '@/lib/metadata'
 
 export const article = {
  author: 'Eric Kryski',
@@ -19,13 +20,7 @@ export const article = {
  description: "From a traveled Canadian no longer in quarantine",
 }
 
-export const metadata = {
-  robots: { index: false, follow: false },
- title: article.title,
- description: article.description,
- openGraph: { title: article.title, description: article.description, url: '/articles/your-essential-coronavirus-guide' },
- twitter: { card: 'summary_large_image', title: article.title, description: article.description },
-}
+export const metadata = articleMetadata(article, 'your-essential-coronavirus-guide')
 
 export default ({ children }) => <ArticleLayout article={article}>{children}</ArticleLayout>
 

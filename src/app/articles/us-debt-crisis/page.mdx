@@ -1,6 +1,7 @@
 import { ArticleLayout } from '@/components/ArticleLayout'
 import { Newsletter } from '@/components/Newsletter'
 import sofrChart from './sofr-chart.png'
+import { articleMetadata } from '@/lib/metadata'
 
 export const dynamic = 'force-static'
 
@@ -13,13 +14,7 @@ export const article = {
  'If the US fumbles the ball on raising their debt ceiling, the fallout could be worse than 2008. The world economy is more dependent on the USA than ever.',
 }
 
-export const metadata = {
-  robots: { index: false, follow: false },
- title: article.title,
- description: article.description,
- openGraph: { title: article.title, description: article.description, url: '/articles/us-debt-crisis' },
- twitter: { card: 'summary_large_image', title: article.title, description: article.description },
-}
+export const metadata = articleMetadata(article, 'us-debt-crisis')
 
 export default ({ children }) => <ArticleLayout article={article}>{children}</ArticleLayout>
 

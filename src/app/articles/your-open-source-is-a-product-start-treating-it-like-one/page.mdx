@@ -3,6 +3,7 @@ import { Newsletter } from '@/components/Newsletter'
 import imageimage1jpeg from './image-1.jpeg'
 
 import imageimage3png from './image-3.png'
+import { articleMetadata } from '@/lib/metadata'
 
 export const article = {
  author: 'Eric Kryski',
@@ -12,12 +13,7 @@ export const article = {
  description: "Part 1: your open source project needs a vision, positioning and a roadmap for the same reasons a commercial product does.",
 }
 
-export const metadata = {
- title: article.title,
- description: article.description,
- openGraph: { title: article.title, description: article.description, url: '/articles/your-open-source-is-a-product-start-treating-it-like-one' },
- twitter: { card: 'summary_large_image', title: article.title, description: article.description },
-}
+export const metadata = articleMetadata(article, 'your-open-source-is-a-product-start-treating-it-like-one')
 
 export default ({ children }) => <ArticleLayout article={article}>{children}</ArticleLayout>
 

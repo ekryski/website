@@ -10,6 +10,7 @@ import imageimage7png from './image-7.png'
 import imageimage8png from './image-8.png'
 import imageimage9png from './image-9.png'
 import imageimage10png from './image-10.png'
+import { articleMetadata } from '@/lib/metadata'
 
 export const article = {
  author: 'Eric Kryski',
@@ -19,12 +20,7 @@ export const article = {
  description: "What actually happened when we put FeathersJS on Product Hunt: the preparation, the numbers, and what moved the needle versus what didn't.",
 }
 
-export const metadata = {
- title: article.title,
- description: article.description,
- openGraph: { title: article.title, description: article.description, url: '/articles/what-happens-to-your-open-source-project-when-it-gets-hunted' },
- twitter: { card: 'summary_large_image', title: article.title, description: article.description },
-}
+export const metadata = articleMetadata(article, 'what-happens-to-your-open-source-project-when-it-gets-hunted')
 
 export default ({ children }) => <ArticleLayout article={article}>{children}</ArticleLayout>
 
