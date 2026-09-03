@@ -1,5 +1,6 @@
 import { ArticleLayout } from '@/components/ArticleLayout'
 import { Newsletter } from '@/components/Newsletter'
+import { articleMetadata } from '@/lib/metadata'
 
 export const dynamic = 'force-static'
 
@@ -7,17 +8,13 @@ export const article = {
  author: 'Eric Kryski',
  date: '2023-02-09',
  published: true,
+ featured: true,
  title: 'What is the value of cryptocurrency vs. blockchain?',
  description:
  'Why crypto and not just blockchain? The nuance lies in how the properties of cryptocurrency—immutability, verifiability, and programmability—can produce new ways of organizing our social fabric.',
 }
 
-export const metadata = {
- title: article.title,
- description: article.description,
- openGraph: { title: article.title, description: article.description, url: '/articles/value-cryptocurrency-vs-blockchain' },
- twitter: { card: 'summary_large_image', title: article.title, description: article.description },
-}
+export const metadata = articleMetadata(article, 'value-cryptocurrency-vs-blockchain')
 
 export default ({ children }) => <ArticleLayout article={article}>{children}</ArticleLayout>
 

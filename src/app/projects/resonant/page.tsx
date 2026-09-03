@@ -136,7 +136,7 @@ export default function ResonantProject() {
           <div className={BODY}>
             <p>
               While I believe that oscillator models may be generalizable to other domains, 
-              and this theory is supported by work by other researchers, speech is the natural 
+              and this theory is gaining support due to work by other researchers, speech is the natural 
               place to explore this idea, because speech is oscillation at
               every scale: prosody near 1 Hz, syllable rhythm at 4–8 Hz, phone transitions
               at 10–40 Hz, pitch and formants from 100 Hz to several kHz. An oscillator

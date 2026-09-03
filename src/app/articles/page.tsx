@@ -34,21 +34,22 @@ function Article({ article }: { article: ArticleWithSlug }) {
   )
 }
 
+const title = 'Writing on distributed computing, payments, startups, economics and AI.'
+const description =
+  'Long-form thoughts from building at the intersection of money and intelligence — distributed systems, payments and programmable money, startups, economics, and AI. Collected in chronological order.'
+
 export const metadata: Metadata = {
   title: 'Articles',
-  description:
-    'Long-form thoughts on crypto, startups, finance, Canada, and the intersection of technology with money and society.',
+  description,
   openGraph: {
     title: 'Articles - Eric Kryski',
-    description:
-      'Long-form thoughts on crypto, startups, finance, Canada, and the intersection of technology with money and society.',
+    description,
     url: '/articles',
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Articles - Eric Kryski',
-    description:
-      'Long-form thoughts on crypto, startups, finance, Canada, and the intersection of technology with money and society.',
+    description,
   },
 }
 
@@ -57,10 +58,7 @@ export default async function ArticlesIndex() {
   const articles = await getAllArticles()
 
   return (
-    <SimpleLayout
-      title="Writing on crypto, startups, finance, and building in public."
-      intro="Long-form thoughts on cryptocurrency, Canadian startups, finance, and the intersection of technology with money and society. Collected in chronological order."
-    >
+    <SimpleLayout title={title} intro={description}>
       <div className="md:border-l md:border-zinc-100 md:pl-6 md:dark:border-zinc-700/40">
         <div className="flex max-w-3xl flex-col space-y-16">
           {articles.map((article) => (

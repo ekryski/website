@@ -1,5 +1,6 @@
 import { ArticleLayout } from '@/components/ArticleLayout'
 import { Newsletter } from '@/components/Newsletter'
+import { articleMetadata } from '@/lib/metadata'
 
 export const dynamic = 'force-static'
 
@@ -7,17 +8,13 @@ export const article = {
  author: 'Eric Kryski',
  date: '2023-01-21',
  published: true,
+ featured: true,
  title: 'Social Media, Social Incentives & Money',
  description:
  'How a formative trip to South Korea taught me we\'re all fundamentally the same—and why that shapes how I think about money, social media, and the forces that drive human behaviour.',
 }
 
-export const metadata = {
- title: article.title,
- description: article.description,
- openGraph: { title: article.title, description: article.description, url: '/articles/social-media-social-incentives-money' },
- twitter: { card: 'summary_large_image', title: article.title, description: article.description },
-}
+export const metadata = articleMetadata(article, 'social-media-social-incentives-money')
 
 export default ({ children }) => <ArticleLayout article={article}>{children}</ArticleLayout>
 

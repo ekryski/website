@@ -7,6 +7,7 @@ import image3 from './image-3.jpg'
 import image4 from './image-4.jpg'
 import image1Tells from './image-1-tells.jpg'
 import image4Tells from './image-4-tells.jpg'
+import { articleMetadata } from '@/lib/metadata'
 
 export const dynamic = 'force-static'
 
@@ -14,17 +15,13 @@ export const article = {
  author: 'Eric Kryski',
  date: '2023-04-18',
  published: true,
+ featured: true,
  title: 'Can you tell which photos are AI-generated?',
  description:
  'An experiment testing whether humans can distinguish real photos from AI-generated ones. Spoiler: 84% of people got it wrong.',
 }
 
-export const metadata = {
- title: article.title,
- description: article.description,
- openGraph: { title: article.title, description: article.description, url: '/articles/ai-image-generation-experiment' },
- twitter: { card: 'summary_large_image', title: article.title, description: article.description },
-}
+export const metadata = articleMetadata(article, 'ai-image-generation-experiment')
 
 export default ({ children }) => <ArticleLayout article={article}>{children}</ArticleLayout>
 
