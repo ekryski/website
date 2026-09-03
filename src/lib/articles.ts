@@ -6,6 +6,7 @@ interface Article {
   author: string
   date: string
   published?: boolean
+  featured?: boolean
 }
 
 export interface ArticleWithSlug extends Article {
@@ -37,4 +38,14 @@ export async function getAllArticles() {
   return articles
     .filter((a) => a.published !== false)
     .sort((a, z) => +new Date(z.date) - +new Date(a.date))
+}
+
+/**
+ * The hand-picked set the home page leads with, newest first. Marked with
+ * `featured: true` in an article's own frontmatter, so the choice lives with
+ * the piece rather than in a list here.
+ */
+export async function getFeaturedArticles(limit?: number) {
+  const featured = (await getAllArticles()).filter((article) => article.featured)
+  return typeof limit === 'number' ? featured.slice(0, limit) : featured
 }
