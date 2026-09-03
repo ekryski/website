@@ -98,7 +98,7 @@ export default function RootLayout({
           </>
         )}
       </head>
-      <body className="flex h-full bg-zinc-100 dark:bg-zinc-950">
+      <body className="flex h-full bg-zinc-100 dark:bg-zinc-800">
         <SiteStructuredData />
         <GoogleAnalytics />
         <Providers>
