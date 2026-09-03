@@ -97,7 +97,7 @@ export default function RootLayout({
           </>
         )}
       </head>
-      <body className="flex h-full bg-zinc-50 dark:bg-black">
+      <body className="flex h-full bg-zinc-100 dark:bg-zinc-950">
         <GoogleAnalytics />
         <Providers>
           <div className="flex w-full">

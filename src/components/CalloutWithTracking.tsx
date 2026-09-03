@@ -13,7 +13,7 @@ export function CalloutWithTracking() {
   }
 
   return (
-    <div className="mt-10 rounded-2xl border border-zinc-100 bg-zinc-50 p-6 shadow-md dark:border-zinc-700/40 dark:bg-zinc-800/50">
+    <div className="mt-10 rounded-2xl border border-zinc-200 bg-zinc-100 p-6 shadow-md dark:border-zinc-700/40 dark:bg-zinc-800/50">
       <div className="flex flex-col items-center justify-center gap-6 text-center sm:flex-row sm:flex-nowrap sm:items-center sm:gap-8">
         <p className="text-sm font-medium text-zinc-800 dark:text-zinc-200 sm:flex-shrink-0">
           Need help with a project or a speaker for an event?
