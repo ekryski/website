@@ -47,7 +47,7 @@ const reading = [
     internal: true,
     title: 'How a machine hears a number',
     blurb:
-      'The interactive guide: walking youo through how your ear hears, how speech models work, followed by the new untrained 2,000 parameter oscillator model running live in your browser on real spoken digits.',
+      'The interactive guide: walking you through how your ear hears, how speech models work, followed by the new untrained 2,000 parameter oscillator model running live in your browser on real spoken digits.',
     cta: 'Read the guide',
   },
   {
