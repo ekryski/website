@@ -3,8 +3,10 @@
 import {
   DribbbleIcon,
   GitHubIcon,
+  GoogleScholarIcon,
   InstagramIcon,
   LinkedInIcon,
+  OrcidIcon,
   XIcon,
 } from '@/components/SocialIcons'
 import { TrackedSocialLink } from '@/components/TrackedSocialLink'
@@ -52,6 +54,18 @@ export function HomeSocialLinks() {
         aria-label="Follow on LinkedIn"
         icon={LinkedInIcon}
         trackLabel="LinkedIn"
+      />
+      <TrackedSocialLink
+        href="https://scholar.google.ca/citations?user=cq-gq5MAAAAJ&hl=en"
+        aria-label="View Google Scholar profile"
+        icon={GoogleScholarIcon}
+        trackLabel="Google Scholar"
+      />
+      <TrackedSocialLink
+        href="https://orcid.org/0009-0005-7751-9059"
+        aria-label="View ORCID profile"
+        icon={OrcidIcon}
+        trackLabel="ORCID"
       />
       <TrackedSocialLink
         href="https://www.dribbble.com/ekryski"
