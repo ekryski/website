@@ -4,8 +4,10 @@ import Link from 'next/link'
 import {
   DribbbleIcon,
   GitHubIcon,
+  GoogleScholarIcon,
   InstagramIcon,
   LinkedInIcon,
+  OrcidIcon,
   XIcon,
 } from '@/components/SocialIcons'
 import { TrackedSocialLink } from '@/components/TrackedSocialLink'
@@ -36,27 +38,65 @@ export function AboutSocialLinks() {
   return (
     <ul role="list">
       <li className="flex">
-        <TrackedSocialLink href="https://x.com/ekryski" icon={XIcon} trackLabel="X">
+        <TrackedSocialLink
+          href="https://x.com/ekryski"
+          icon={XIcon}
+          trackLabel="X"
+        >
           Follow on X
         </TrackedSocialLink>
       </li>
       <li className="mt-4 flex">
-        <TrackedSocialLink href="https://github.com/ekryski" icon={GitHubIcon} trackLabel="GitHub">
+        <TrackedSocialLink
+          href="https://github.com/ekryski"
+          icon={GitHubIcon}
+          trackLabel="GitHub"
+        >
           Follow on GitHub
         </TrackedSocialLink>
       </li>
       <li className="mt-4 flex">
-        <TrackedSocialLink href="https://www.linkedin.com/in/ekryski" icon={LinkedInIcon} trackLabel="LinkedIn">
+        <TrackedSocialLink
+          href="https://www.linkedin.com/in/ekryski"
+          icon={LinkedInIcon}
+          trackLabel="LinkedIn"
+        >
           Follow on LinkedIn
         </TrackedSocialLink>
       </li>
       <li className="mt-4 flex">
-        <TrackedSocialLink href="https://dribbble.com/ekryski" icon={DribbbleIcon} trackLabel="Dribbble">
+        <TrackedSocialLink
+          href="https://scholar.google.ca/citations?user=cq-gq5MAAAAJ&hl=en"
+          icon={GoogleScholarIcon}
+          trackLabel="Google Scholar"
+        >
+          View Google Scholar profile
+        </TrackedSocialLink>
+      </li>
+      <li className="mt-4 flex">
+        <TrackedSocialLink
+          href="https://orcid.org/0009-0005-7751-9059"
+          icon={OrcidIcon}
+          trackLabel="ORCID"
+        >
+          View ORCID profile
+        </TrackedSocialLink>
+      </li>
+      <li className="mt-4 flex">
+        <TrackedSocialLink
+          href="https://dribbble.com/ekryski"
+          icon={DribbbleIcon}
+          trackLabel="Dribbble"
+        >
           Follow on Dribbble
         </TrackedSocialLink>
       </li>
       <li className="mt-4 flex">
-        <TrackedSocialLink href="https://www.instagram.com/ekryski" icon={InstagramIcon} trackLabel="Instagram">
+        <TrackedSocialLink
+          href="https://www.instagram.com/ekryski"
+          icon={InstagramIcon}
+          trackLabel="Instagram"
+        >
           Follow on Instagram
         </TrackedSocialLink>
       </li>

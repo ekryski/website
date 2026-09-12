@@ -18,6 +18,8 @@ const SAME_AS = [
   'https://www.linkedin.com/in/ekryski',
   'https://www.instagram.com/ekryski',
   'https://www.dribbble.com/ekryski',
+  'https://scholar.google.ca/citations?user=cq-gq5MAAAAJ&hl=en',
+  'https://orcid.org/0009-0005-7751-9059',
 ]
 
 export const person = {
