@@ -436,7 +436,8 @@ export async function mountRecordExplorer(store) {
       }
     }
     seg('recNoise', [null, 0, 5], (v) => (v === null ? 'clean' : v === 0 ? '0 dB' : '+5 dB'), 'noise');
-    seg('recGain', [1, 2], (v) => (isReservoir(state.arm) ? `gain ${v}` : 'n/a'), 'gain');
+    if (isReservoir(state.arm)) seg('recGain', [1, 2], (v) => `gain ${v}`, 'gain');
+    else $('recGain').innerHTML = '<button type="button" class="segBtn" disabled>does not apply</button>';
     seg('recRead', reads, (v) => readNames[v], 'read');
     seg('recSize', [2048, 8192, 24000], (v) => v.toLocaleString(), 'n');
     seg('recWidth', [192, 1024, 4096, 'native'], (v) => (v === 'native' ? 'native' : v.toLocaleString()), 'width');
