@@ -1,18 +1,16 @@
-// The three input pathways of paper 02, each a fixed, parameter-free map from
-// a 16 kHz waveform to the rows that drive an arm (band b drives row b):
+// The two input pathways of paper 02, each a fixed, parameter-free map from a
+// 16 kHz waveform to the rows that drive an arm (band b drives row b):
 //
 //   band-energy  log-mel band energies at 62.5 frames a second
 //                (harness/stimuli/frontend.py:hop_rows)
 //   quadrature   the same energies, paired with each band's phase at its
 //                centre bin, demodulated to baseband (hop_rows_quad)
-//   carrier      the band-filtered waveform itself at 16,000 frames a second,
-//                bands 96-1,536 Hz (harness/stimuli/filterbank.py:bandpass_rows)
 //
 // Plus the noise protocol (harness/confirm/protocol.py:add_noise).
 
 import { fft, hann, powerSpectrogram, melRows } from '../resonant/dsp.js';
 
-export const PATHWAYS = ['envelope', 'quadrature', 'carrier'];
+export const PATHWAYS = ['envelope', 'quadrature'];
 
 /** Band-energy rows: {frames, mels, logMel, rows, spec}. */
 export function envelopeRows(samples, fe) {
@@ -58,44 +56,10 @@ export function quadratureRows(samples, fe) {
   return { ...env, pairs, phase };
 }
 
-/**
- * Carrier rows: row b is the clip band-passed to [edge_b, edge_b+1) cycles per
- * sample by masking a full-clip DFT, [T=L][G] row-major. The DFT is done
- * directly over the ~1,440 bins inside the bands (L = 16,000 is not a power of
- * two), with a shared twiddle table.
- */
-export function carrierRows(samples, fe) {
-  const L = samples.length, G = fe.n_mels, edges = fe.carrier_edges;
-  const cosT = new Float64Array(L), sinT = new Float64Array(L);
-  for (let m = 0; m < L; m++) { cosT[m] = Math.cos((2 * Math.PI * m) / L); sinT[m] = Math.sin((2 * Math.PI * m) / L); }
-  const rows = new Float32Array(L * G);
-  const half = Math.floor(L / 2);
-  for (let b = 0; b < G; b++) {
-    const lo = Math.ceil(edges[b] * L - 1e-9), hi = Math.ceil(edges[b + 1] * L - 1e-9);
-    for (let k = Math.max(lo, 0); k < Math.min(hi, half + 1); k++) {
-      if (k / L < edges[b] || k / L >= edges[b + 1]) continue;
-      let xr = 0, xi = 0, idx = 0;
-      for (let t = 0; t < L; t++) {
-        xr += samples[t] * cosT[idx]; xi -= samples[t] * sinT[idx];
-        idx += k; if (idx >= L) idx -= L;
-      }
-      // irfft: every bin but DC and Nyquist appears twice in the real signal
-      const w = (k === 0 || (L % 2 === 0 && k === half)) ? 1 / L : 2 / L;
-      idx = 0;
-      for (let t = 0; t < L; t++) {
-        rows[t * G + b] += w * (xr * cosT[idx] - xi * sinT[idx]);
-        idx += k; if (idx >= L) idx -= L;
-      }
-    }
-  }
-  return { rows, T: L, G, frames: L, mels: G };
-}
-
 /** Rows for any pathway. */
 export function frontEnd(samples, fe, pathway) {
   if (pathway === 'envelope') return envelopeRows(samples, fe);
   if (pathway === 'quadrature') return quadratureRows(samples, fe);
-  if (pathway === 'carrier') return carrierRows(samples, fe);
   throw new Error(`unknown pathway ${pathway}`);
 }
 

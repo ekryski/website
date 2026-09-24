@@ -6,14 +6,6 @@
 //
 // Exits non-zero if any config disagrees on a predicted digit or its scores
 // drift past the tolerance.
-//
-// One exception, measured: the coupled networks on the carrier pathway. Over a
-// clip's 16,000 steps they amplify small differences on some clips (a 1e-10
-// nudge to one phase grows up to a million-fold by the last step; on the
-// band-energy pathway it does not grow at all), and the harness integrates in
-// float32 where this page uses float64. For those configs the scores are
-// reported but only the predicted digits are held to the harness, allowing one
-// flip in ten clips.
 
 import { readFile } from 'node:fs/promises'
 import path from 'node:path'
@@ -69,11 +61,9 @@ for (const id of ids) {
     if (refTop !== r.predicted) flips++
     if (r.predicted === clips[k].digit) correct++
   }
-  const float32Drift = cfg.drive === 'carrier' && cfg.arm.kind === 'field' && !cfg.arm.severed
-  const ok = float32Drift ? flips <= Math.floor(clips.length / 10) : flips === 0 && worst < TOL
+  const ok = flips === 0 && worst < TOL
   if (!ok) failures++
-  const tag = ok ? (float32Drift ? 'ok~ ' : 'ok  ') : 'FAIL'
-  console.log(`${tag} ${id.padEnd(64)} max |dscore| ${worst.toExponential(2)}  flips ${flips}  ` +
+  console.log(`${ok ? 'ok  ' : 'FAIL'} ${id.padEnd(64)} max |dscore| ${worst.toExponential(2)}  flips ${flips}  ` +
     `${correct}/${clips.length} right  ${((Date.now() - t0) / clips.length).toFixed(0)} ms/clip`)
 }
 console.log(failures ? `${failures} of ${ids.length} configs disagree` : `all ${ids.length} configs agree`)

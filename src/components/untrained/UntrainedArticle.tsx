@@ -751,14 +751,14 @@ export function UntrainedArticle() {
 
       {/* ─────────────────────────────────────────────────────────── 09 ─── */}
       <Prose className={TYPE}>
-        <h2><span className="num">09 · the drive signal</span>Three ways to push an oscillator</h2>
+        <h2><span className="num">09 · the drive signal</span>Two ways to push an oscillator</h2>
         <p>
           Everything so far drives the oscillators with band energies: how loud each band is, frame by frame.
           That throws away something an oscillator could use. Sound is itself oscillation, and a band-energy
           drive tells an oscillator how hard to push, never <em>when</em> in the sound’s own cycle to push. An
           oscillator nudged at the right moment of every cycle can lock to a rhythm; one pushed at random
-          moments cannot. The paper tests two pathways that keep timing, each with its own spectrogram-only
-          baseline.
+          moments cannot. So the paper also drives the network through a pathway that keeps timing, with its
+          own spectrogram-only baseline.
         </p>
         <ul>
           <li>
@@ -772,33 +772,24 @@ export function UntrainedArticle() {
             relative to the band’s own cycle, the phase-referenced drive Adler analysed in 1946, which pulls an
             oscillator into step with the band.
           </li>
-          <li>
-            <strong>Carrier.</strong> No envelope at all: the waveform itself, split into 16 bands from 96 to
-            1,536 Hz, drives the network 16,000 times a second, at gain 32. An oscillator whose natural
-            frequency sits near its band’s can lock to it directly, cycle by cycle. At this rate a free
-            oscillator turns about 255 times a second, inside the range of the bands it is driven with.
-          </li>
         </ul>
       </Prose>
 
       <figure className="my-10">
         <div className="panel">
           <div className="panelTitle">
-            <span>the selected clip, three ways</span>
+            <span>the selected clip, two ways</span>
             <em>16 bands, lowest at the bottom</em>
           </div>
           <div className="feLabel">band-energy · 61 frames · brightness = energy</div>
           <div className="canvasFrame"><canvas id="pwEnvelope" style={{ height: 80 }} /></div>
           <div className="feLabel">quadrature · 61 frames · brightness = energy, hue = the band’s phase</div>
           <div className="canvasFrame"><canvas id="pwQuadrature" style={{ height: 80 }} /></div>
-          <div className="feLabel">carrier · 16,000 samples · orange positive, blue negative</div>
-          <div className="canvasFrame"><canvas id="pwCarrier" style={{ height: 80 }} /></div>
         </div>
         <figcaption className={CAPTION}>
           <b>Figure 11 · what each pathway hands the network.</b> The same recording (chosen in section 04).
           Band-energy keeps 0 to 8 kHz at 16 ms resolution and discards phase. Quadrature keeps the same
-          energies and adds each band’s drifting phase. Carrier keeps the waveform’s timing sample by sample,
-          but only between 96 and 1,536 Hz.
+          energies and adds each band’s drifting phase.
         </figcaption>
       </figure>
 
@@ -806,11 +797,9 @@ export function UntrainedArticle() {
         <p>
           The console below restricts itself to the three reservoirs this question is about, the leaky bank,
           the uncoupled network and the coupled network, on the torus with random natural frequencies. Two
-          pairings do not exist: a leaky integrator has no phase for a quadrature pair to act on, and the
-          Stuart–Landau networks were built for the band-energy and carrier pathways only. The paper
-          registered the carrier at a single condition, 0 dB and gain 32. It runs 262 times as many steps per
-          clip as the other pathways, and here takes a few seconds. The uncoupled network on the quadrature and carrier pathways
-          is not a registered arm, and is included as the obvious reference.
+          pairings do not exist on the quadrature pathway: a leaky integrator has no phase for a quadrature
+          pair to act on, and the Stuart–Landau networks were not built for it. The uncoupled network on the
+          quadrature pathway is not a registered arm, and is included as the obvious reference.
         </p>
       </Prose>
 
@@ -818,8 +807,8 @@ export function UntrainedArticle() {
         <ModelConsole prefix="d" drive />
         <figcaption className={CAPTION}>
           <b>Figure 12 · the drive explorer.</b> On the quadrature pathway the network’s left panel shows the
-          same oscillators as before; the rows panel shows each band’s phase as hue. On the carrier pathway
-          the network steps 16,000 times per second, and the figures show every 16th step.
+          same oscillators as before; the rows panel shows each band’s phase as hue, its brightness the
+          band’s energy.
         </figcaption>
       </figure>
 
@@ -840,8 +829,7 @@ export function UntrainedArticle() {
         <p>
           The paper, its registration, the harness that ran every model on this page, and the raw per-run
           record behind every number quoted here are public. The browser code here is a port of that harness,
-          checked against it: on the 61-frame pathways, the scores your browser computes match the harness’s
-          on every demo clip, and every untrained arm’s readout, rescored on the full test set, reproduces
+          checked against it: the scores your browser computes match the harness’s on every demo clip, and every untrained arm’s readout, rescored on the full test set, reproduces
           the record’s seed-0 accuracy wherever the record has that cell.
         </p>
         <p style={{ marginTop: '1.5rem' }}>
@@ -886,12 +874,9 @@ export function UntrainedArticle() {
             microphone, room and voice. The readouts were fitted on AudioMNIST alone.
           </li>
           <li>
-            On the carrier pathway the coupled networks run 16,000 steps a clip, and on some clips they
-            amplify small differences: a nudge of 10⁻¹⁰ to one oscillator’s phase grows as much as a
-            million-fold by the end of the clip. The paper’s harness computes in 32-bit floating point and this
-            page in 64-bit, so on those clips the page follows a measurably different trajectory, and its
-            carrier scores can differ from the harness’s for the same clip. On the 61-frame pathways nothing
-            grows, and the two agree to three decimal places or better.
+            The paper’s harness computes in 32-bit floating point and this page in 64-bit. Over a clip’s 61
+            frames the difference does not grow, and every score on this page agrees with the harness’s to
+            three decimal places or better on every demo clip.
           </li>
         </ul>
       </aside>

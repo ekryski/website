@@ -16,14 +16,13 @@
 //
 // all computed from the convolutions K * sin and K * cos. The drive is the
 // band's row value, broadcast to every oscillator of the band's row in every
-// channel (band-energy and carrier pathways), or the quadrature pair's Adler
-// torque A sin(phi - theta). "Uncoupled" is the same network with K = 0.
+// channel (band-energy pathway), or the quadrature pair's Adler torque
+// A sin(phi - theta). "Uncoupled" is the same network with K = 0.
 //
 // The network exposes sin theta and cos theta of every oscillator: [sin of all
 // channels, then cos of all channels], the harness's order.
 
 import { denseOperator, rowSums } from './lattice.js';
-import { Torus16 } from './fft16.js';
 
 const TWO_PI = 2 * Math.PI;
 export const PHASE_FUNCTIONS = ['kuramoto', 'sakaguchi', 'harmonic2', 'winfree'];
@@ -53,12 +52,10 @@ function matvec(op, base, N, f, out) {
 
 /**
  * A phase-oscillator network.
- * opts: {physics, fn, geometry, gain, severed, fast}
- *   fast: use the torus FFT for the convolution (the carrier's 16,000 frames);
- *         the same operator as the dense one, up to rounding.
+ * opts: {physics, fn, geometry, gain, severed}
  */
 export class PhaseNetwork {
-  constructor({ physics, fn = 'kuramoto', geometry = 'torus', gain = 1, severed = false, fast = false }) {
+  constructor({ physics, fn = 'kuramoto', geometry = 'torus', gain = 1, severed = false }) {
     if (!PHASE_FUNCTIONS.includes(fn)) throw new Error(`not a phase coupling function: ${fn}`);
     this.C = physics.channels; this.G = physics.grid; this.N = this.G * this.G;
     this.D = 2 * this.C * this.N;
@@ -68,27 +65,15 @@ export class PhaseNetwork {
     this.ws = physics.winfree_s; this.wi = physics.winfree_i;
     this.omega = physics.omega; this.phase0 = physics.phase0;
     if (!severed) {
-      if (fast) {
-        if (geometry !== 'torus') throw new Error('the fast path is the torus only');
-        this.fft = new Torus16(physics.taps.torus, this.C, this.G);
-        const sums = new Float64Array(this.C * this.N);
-        for (let c = 0; c < this.C; c++) {
-          let s = 0;
-          for (let k = 0; k < this.N; k++) s += physics.taps.torus[c * this.N + k];
-          sums.fill(s, c * this.N, (c + 1) * this.N);
-        }
-        this.ksum = sums;
-      } else {
-        const { op, sums } = operatorFor(physics, geometry);
-        this.op = op;
-        // Winfree's K * 1: the harness's matmul path takes site 0's row sum as one
-        // number per channel on the torus and the cylinder, and every site's own
-        // sum elsewhere. Mirrored exactly, since that is what ran.
-        if (geometry === 'torus' || geometry === 'cylinder') {
-          this.ksum = new Float64Array(this.C * this.N);
-          for (let c = 0; c < this.C; c++) this.ksum.fill(sums[c * this.N], c * this.N, (c + 1) * this.N);
-        } else this.ksum = sums;
-      }
+      const { op, sums } = operatorFor(physics, geometry);
+      this.op = op;
+      // Winfree's K * 1: the harness's matmul path takes site 0's row sum as one
+      // number per channel on the torus and the cylinder, and every site's own
+      // sum elsewhere. Mirrored exactly, since that is what ran.
+      if (geometry === 'torus' || geometry === 'cylinder') {
+        this.ksum = new Float64Array(this.C * this.N);
+        for (let c = 0; c < this.C; c++) this.ksum.fill(sums[c * this.N], c * this.N, (c + 1) * this.N);
+      } else this.ksum = sums;
     }
     const N = this.N;
     this.s = new Float64Array(N); this.c = new Float64Array(N);
@@ -120,14 +105,9 @@ export class PhaseNetwork {
         if (fn === 'harmonic2') { s2[i] = Math.sin(2 * th); c2[i] = Math.cos(2 * th); }
       }
       if (coupled) {
-        if (this.fft) {
-          this.fft.convolvePair(ch, s, c, cs, cc);
-          if (fn === 'harmonic2') this.fft.convolvePair(ch, s2, c2, cs2, cc2);
-        } else {
-          const ob = ch * N * N;
-          matvec(this.op, ob, N, s, cs); matvec(this.op, ob, N, c, cc);
-          if (fn === 'harmonic2') { matvec(this.op, ob, N, s2, cs2); matvec(this.op, ob, N, c2, cc2); }
-        }
+        const ob = ch * N * N;
+        matvec(this.op, ob, N, s, cs); matvec(this.op, ob, N, c, cc);
+        if (fn === 'harmonic2') { matvec(this.op, ob, N, s2, cs2); matvec(this.op, ob, N, c2, cc2); }
       }
       for (let r = 0; r < G; r++) {
         const drive = rowDrive ? gain * rowDrive[r] : 0;
@@ -178,7 +158,7 @@ function amplitudeRoot(rOld, dtBeta, oneMinusDtAlpha) {
  * the sin/cos order.
  */
 export class SLNetwork {
-  constructor({ physics, fixedAmp = false, gain = 1, fast = false }) {
+  constructor({ physics, fixedAmp = false, gain = 1 }) {
     this.C = physics.channels; this.G = physics.grid; this.N = this.G * this.G;
     this.D = 2 * this.C * this.N;
     this.dt = physics.dt; this.lambda = physics.damping; this.gain = gain;
@@ -186,8 +166,7 @@ export class SLNetwork {
     this.alpha = physics.sl.alpha; this.beta = physics.sl.beta;
     this.omega = physics.omega; this.state0 = physics.slState0;
     const taps = physics.taps.torus;
-    if (fast) this.fft = new Torus16(taps, this.C, this.G);
-    else this.op = operatorFor(physics, 'torus').op;
+    this.op = operatorFor(physics, 'torus').op;
     this.s0 = new Float64Array(this.C);
     for (let c = 0; c < this.C; c++) {
       let s = 0;
@@ -231,8 +210,8 @@ export class SLNetwork {
     for (let ch = 0; ch < C; ch++) {
       const base = ch * N, s0 = this.s0[ch];
       for (let i = 0; i < N; i++) { fx[i] = x[base + i]; fy[i] = y[base + i]; }
-      if (this.fft) this.fft.convolvePair(ch, fx, fy, kx, ky);
-      else { matvec(this.op, ch * N * N, N, fx, kx); matvec(this.op, ch * N * N, N, fy, ky); }
+      matvec(this.op, ch * N * N, N, fx, kx);
+      matvec(this.op, ch * N * N, N, fy, ky);
       for (let r = 0; r < G; r++) {
         const d = rowDrive ? this.gain * rowDrive[r] : 0;
         for (let col = 0; col < G; col++) {

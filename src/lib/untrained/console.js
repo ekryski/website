@@ -1,7 +1,6 @@
 // A live console: pick an arm, a registered condition and a clip, press play.
 //
-// The run happens first (a few tens of milliseconds for the 61-frame pathways,
-// a few seconds for the carrier's 16,000), then the audio plays and every
+// The run happens first (a few tens of milliseconds), then the audio plays and every
 // panel is driven off the playhead, so what you hear and what you see are the
 // same instant of the simulation. The scores appear when the read's last
 // window closes: the readout reads four windows of frames 16 to 61, so there
@@ -14,7 +13,7 @@ import { runConfig } from './engine.js';
 import { addNoise, gaussian } from './frontend.js';
 import { LatticeView, phaseRGB } from './lattice3d.js';
 import { drawWaveform, drawHeatmap, drawField, drawLines, drawBars } from '../resonant/plots.js';
-import { drawMosaic, drawPhaseHeat, drawSignedHeat, shadeWindows, pct } from './panels.js';
+import { drawMosaic, drawPhaseHeat, shadeWindows, pct } from './panels.js';
 import { MicRecorder, micSupported, micErrorMessage, conditionForBank } from './mic.js';
 
 const CHANNEL_COLORS = ['#7cc4ff', '#6ee7a8', '#ffd166', '#ff8a5b', '#c4a7ff', '#ff9ecf', '#9be7ff', '#e7eaf1'];
@@ -38,7 +37,7 @@ export const FUNCTIONS = {
   sl: 'Stuart–Landau', 'sl-fixedamp': 'Stuart–Landau, fixed amplitude',
 };
 export const GEOS = { torus: 'torus', cylinder: 'cylinder', sheet: 'sheet', helix: 'helix', cube: 'cube', sphere: 'sphere' };
-export const PATHWAY_NAMES = { envelope: 'band-energy', quadrature: 'quadrature', carrier: 'carrier' };
+export const PATHWAY_NAMES = { envelope: 'band-energy', quadrature: 'quadrature' };
 const NOISE_NAMES = (db) => (db === null ? 'clean' : db === 0 ? '0 dB' : `+${db} dB`);
 const TIER_NAMES = { tier1: 'Tier 1', tier2: 'Tier 2', tier3: 'Tier 3' };
 
@@ -231,8 +230,8 @@ export function mountConsole(ctx, { prefix, mode }) {
     const noises = available('noise');
     segButtons($('noise'), [null, 0, 5], sel.noise, noises, NOISE_NAMES, (v) => { sel.noise = v; select('noise'); });
     if ($('pathway')) {
-      segButtons($('pathway'), ['envelope', 'quadrature', 'carrier'], sel.pathway,
-                 new Set(['envelope', 'quadrature', 'carrier'].filter((p) => configs.some((c) => c.drive === p))),
+      segButtons($('pathway'), Object.keys(PATHWAY_NAMES), sel.pathway,
+                 new Set(Object.keys(PATHWAY_NAMES).filter((p) => configs.some((c) => c.drive === p))),
                  (p) => PATHWAY_NAMES[p], (p) => { sel.pathway = p; select('pathway'); });
       // a model with no run on this pathway is still offered; picking it moves the pathway
       [...$('model').options].forEach((opt) => {
@@ -254,10 +253,6 @@ export function mountConsole(ctx, { prefix, mode }) {
     if (cfg.tier === 'tier2') notes.push('Network design (Tier 2) is read at 0 and +5 dB only: on clean audio the task saturates.');
     if (a.physics?.startsWith('sl')) notes.push('The Stuart–Landau functions were run on the torus only.');
     if (cfg.drive === 'quadrature') notes.push('The quadrature pathway drives phase oscillators only: a leaky integrator has no phase for the pair to act on, and the Stuart–Landau networks were not built for it.');
-    if (cfg.drive === 'carrier') notes.push('The carrier pathway was registered at one condition: 0 dB, input gain 32 (the exploratory phase’s calibration), 16,000 steps a second.');
-    if (mode === 'drive' && !configs.some((c) => c.drive === 'carrier')) {
-      notes.push('The carrier’s readouts are still being fitted (2,048 clips of 16,000 steps each, per model); the pathway opens here when they are.');
-    }
     for (const [key, from, to] of moved) {
       const fmt = key === 'noise' ? NOISE_NAMES : key === 'fn' ? (v) => FUNCTIONS[v] : (v) => String(v);
       notes.push(`Moved ${key === 'fn' ? 'the coupling function' : key} from ${fmt(from)} to ${fmt(to)}: nothing was registered at ${fmt(from)} here.`);
@@ -290,16 +285,13 @@ export function mountConsole(ctx, { prefix, mode }) {
     const clip = clips[sel.clip];
     let samples = clip.samples;
     if (cfg.noise_db !== null) samples = addNoise(samples, clip.speech, await unitNoise(clip, cfg.noise_db), cfg.noise_db);
-    const long = cfg.drive === 'carrier';
     const progress = $('progress');
-    progress.textContent = long ? 'running 16,000 steps…' : '';
+    progress.textContent = '';
     $('play').disabled = true;
     root.classList.add('busy');
     let result;
     try {
-      result = await runConfig(store, cfg.id, samples, {
-        onProgress: long ? (f) => { if (token === local.token) progress.textContent = `running… ${Math.round(f * 100)}%`; } : null,
-      });
+      result = await runConfig(store, cfg.id, samples);
     } catch (err) {
       console.error('untrained: run failed', err);
       progress.textContent = 'could not run this config';
@@ -442,21 +434,19 @@ export function mountConsole(ctx, { prefix, mode }) {
     const { t, df, T } = frameInfo();
     const frac = (t + 0.5) / T;
     const input = r.input;
-    const carrier = cfg.drive === 'carrier';
     const sr = store.frontend.sample_rate, hop = store.frontend.hop;
-    const seconds = carrier ? t / sr : (t * hop + store.frontend.n_fft / 2) / sr;
-    $('time').textContent = `${seconds.toFixed(2)} s · ${carrier ? `sample ${t + 1}/${T}` : `frame ${t + 1}/${T}`}`;
+    const seconds = (t * hop + store.frontend.n_fft / 2) / sr;
+    $('time').textContent = `${seconds.toFixed(2)} s · frame ${t + 1}/${T}`;
 
     drawWaveform($('wave'), local.samples, { playhead: frac });
     const hot = loudest(input.rows, t, G);
     if (cfg.drive === 'quadrature') drawPhaseHeat($('rows'), input.rows, input.phase, T, G, { playhead: frac });
-    else if (carrier) drawSignedHeat($('rows'), input.rows, T, G, { playhead: frac });
     else drawHeatmap($('rows'), input.rows, T, G, { min: 0, max: 1.6, playhead: frac, highlightRow: hot >= 0 ? hot : undefined });
     shadeWindows($('rows'), r.edges, T);
 
     // drive rows entering right now
     const now = Array.from(input.rows.slice(t * G, (t + 1) * G), Math.abs);
-    drawBars($('drive'), now, { max: carrier ? Math.max(1e-3, ...now) : 1.6 });
+    drawBars($('drive'), now, { max: 1.6 });
 
     // traces up to now
     const series = [];
@@ -491,11 +481,11 @@ export function mountConsole(ctx, { prefix, mode }) {
         if (!d.amp) return rgb;
         const k = Math.min(1, d.amp[off + i]);
         return rgb.map((v) => v * (0.25 + 0.75 * k));
-      }, carrier ? -1 : hot);
+      }, hot);
       $('viewTag').textContent = `channel ${ch + 1} of ${d.C}`;
       root.querySelectorAll('.fieldGrid').forEach((canvas) => {
         const c = Number(canvas.dataset.ch);
-        drawField(canvas, d.state, base + c * d.N, G, { highlightRow: c === ch && !carrier ? hot : -1 });
+        drawField(canvas, d.state, base + c * d.N, G, { highlightRow: c === ch ? hot : -1 });
       });
     } else if (kind === 'bank') {
       drawMosaic($('view2d'), d.state, df * d.C * d.N, d.C, G, { cols: d.C > 4 ? 4 : 2, lo: 0, hi: 1 });
@@ -569,7 +559,6 @@ export function mountConsole(ctx, { prefix, mode }) {
   function startPlayback() {
     if (!local.result) return;
     const rate = Number($('speed').value) / 100;
-    const cfg = local.cfg;
     const sr = store.frontend.sample_rate, hop = store.frontend.hop, nfft = store.frontend.n_fft;
     local.playing = true;
     local.final = false;
@@ -577,8 +566,7 @@ export function mountConsole(ctx, { prefix, mode }) {
     player.play(local.playKey, {
       rate,
       onTick: (seconds) => {
-        const f = cfg.drive === 'carrier' ? Math.round(seconds * sr) : Math.round((seconds * sr - nfft / 2) / hop);
-        draw(f);
+        draw(Math.round((seconds * sr - nfft / 2) / hop));
       },
       onEnd: () => {
         local.playing = false;

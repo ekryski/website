@@ -2,10 +2,10 @@
 // Each mount function finds its markup by id and returns a disposer.
 
 import { drawWaveform, drawHeatmap, drawLines, drawBars, fitCanvas, magmaColor } from '../resonant/plots.js';
-import { envelopeRows, quadratureRows, carrierRows } from './frontend.js';
+import { envelopeRows, quadratureRows } from './frontend.js';
 import { denseOperator } from './lattice.js';
 import { LatticeView, signedRGB } from './lattice3d.js';
-import { drawMosaic, drawPhaseHeat, drawSignedHeat, shadeWindows, drawColumns, pct } from './panels.js';
+import { drawMosaic, drawPhaseHeat, shadeWindows, drawColumns, pct } from './panels.js';
 import { runConfig } from './engine.js';
 import { windowEdges, project } from './read.js';
 
@@ -481,7 +481,7 @@ export async function mountRecordExplorer(store) {
 }
 
 // ---------------------------------------------------------------------------
-// 09 · three ways in: the pathways on the chosen clip
+// 09 · two ways in: the pathways on the chosen clip
 // ---------------------------------------------------------------------------
 
 export function drawPathways(shared, store) {
@@ -492,10 +492,6 @@ export function drawPathways(shared, store) {
   drawHeatmap($('pwEnvelope'), env.rows, env.frames, env.mels, { min: 0, max: 1.6 });
   const quad = quadratureRows(clip.samples, fe);
   drawPhaseHeat($('pwQuadrature'), quad.rows, quad.phase, quad.frames, quad.mels);
-  const car = shared.carrier ??= new Map();
-  if (!car.has(clip.key)) car.set(clip.key, carrierRows(clip.samples, fe));
-  const c = car.get(clip.key);
-  drawSignedHeat($('pwCarrier'), c.rows, c.T, c.G);
 }
 
 export { envelopeRows, windowEdges };

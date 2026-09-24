@@ -11,24 +11,22 @@ import { netHidden } from './nets.js';
 import { WindowStats, applyReadout, argmax } from './read.js';
 
 const TWO_PI = 2 * Math.PI;
-/** At most this many frames of state are kept for the figures (the carrier runs 16,000). */
+/** At most this many frames of state are kept for the figures. */
 const DISPLAY_FRAMES = 1000;
 
 /** The arm a config describes, built from the store. */
 export function buildArm(store, cfg) {
   const a = cfg.arm, physics = store.physics;
   const gain = cfg.gain ?? 1;
-  const fast = cfg.drive === 'carrier';
   if (a.kind === 'field') {
     if (a.physics === 'sl' || a.physics === 'sl-fixedamp') {
-      return new SLNetwork({ physics, fixedAmp: a.physics === 'sl-fixedamp', gain, fast });
+      return new SLNetwork({ physics, fixedAmp: a.physics === 'sl-fixedamp', gain });
     }
-    return new PhaseNetwork({ physics, fn: a.physics, geometry: a.boundary, gain, severed: a.severed, fast });
+    return new PhaseNetwork({ physics, fn: a.physics, geometry: a.boundary, gain, severed: a.severed });
   }
   if (a.kind === 'bank') {
     const bank = store.banks[`bank-c${a.channels}`];
-    const rateHz = cfg.drive === 'carrier' ? bank.rates_hz.carrier : bank.rates_hz.hop;
-    return new LeakyBank({ bank, grid: physics.grid, gain, rateHz });
+    return new LeakyBank({ bank, grid: physics.grid, gain, rateHz: bank.rates_hz.hop });
   }
   return null;
 }
@@ -45,9 +43,8 @@ function orderParameter(theta, C, N, out, off) {
 /**
  * Run one clip. samples: the (possibly noisy) waveform, 16,000 samples.
  * Returns {input, T, features, logits, predicted, display, ms}.
- * onProgress(fraction) is called during long (carrier) runs.
  */
-export async function runConfig(store, cfgId, samples, { onProgress = null, keepDisplay = true } = {}) {
+export async function runConfig(store, cfgId, samples, { keepDisplay = true } = {}) {
   const cfg = store.config(cfgId);
   const fe = store.frontend;
   const readout = await store.readout(cfgId);
@@ -86,7 +83,6 @@ export async function runConfig(store, cfgId, samples, { onProgress = null, keep
       if (isField && arm instanceof SLNetwork) display.amp = new Float32Array(display.frames * C * N);
     }
     const drive = new Float32Array(G), pair = quad ? new Float32Array(2 * G) : null;
-    const chunk = 500;
     for (let t = 0; t < T; t++) {
       if (quad) pair.set(input.pairs.subarray(t * 2 * G, (t + 1) * 2 * G));
       else drive.set(input.rows.subarray(t * G, (t + 1) * G));
@@ -103,10 +99,6 @@ export async function runConfig(store, cfgId, samples, { onProgress = null, keep
         } else if (t % display.stride === 0) {
           display.state.set(sig.subarray(0, C * N), (t / display.stride) * C * N);
         }
-      }
-      if (onProgress && t % chunk === chunk - 1) {
-        onProgress(t / T);
-        await new Promise((r) => setTimeout(r, 0));     // let the page breathe
       }
     }
   }

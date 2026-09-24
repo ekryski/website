@@ -1,5 +1,5 @@
 // Drawing helpers the first guide's plots.js does not have: value grids,
-// phase-and-amplitude heatmaps, signed heatmaps, windows.
+// phase-and-amplitude heatmaps, windows, labelled columns.
 
 import { fitCanvas, magmaColor, phaseColor } from '../resonant/plots.js';
 
@@ -48,27 +48,6 @@ export function drawPhaseHeat(canvas, amp, phase, T, K, opts = {}) {
     }
   }
   ctx.globalAlpha = 1;
-  playhead(ctx, w, h, opts.playhead);
-}
-
-/** Signed heatmap of a long [T][K] array, drawn per pixel column (the carrier's 16,000 frames). */
-export function drawSignedHeat(canvas, data, T, K, opts = {}) {
-  const ctx = fitCanvas(canvas);
-  const w = canvas.clientWidth, h = canvas.clientHeight;
-  const cols = Math.max(1, Math.floor(w));
-  const ch = h / K;
-  let max = 1e-9;
-  for (let i = 0; i < T * K; i++) max = Math.max(max, Math.abs(data[i]));
-  for (let x = 0; x < cols; x++) {
-    const t0 = Math.floor((x / cols) * T), t1 = Math.max(t0 + 1, Math.floor(((x + 1) / cols) * T));
-    for (let k = 0; k < K; k++) {
-      let peak = 0;
-      for (let t = t0; t < t1; t++) { const v = data[t * K + k]; if (Math.abs(v) > Math.abs(peak)) peak = v; }
-      const v = Math.sqrt(Math.abs(peak) / max);           // square root: quiet bands stay visible
-      ctx.fillStyle = peak >= 0 ? `rgba(255,138,91,${v})` : `rgba(124,196,255,${v})`;
-      ctx.fillRect(x, h - (k + 1) * ch, 1, Math.ceil(ch) + 0.5);
-    }
-  }
   playhead(ctx, w, h, opts.playhead);
 }
 
