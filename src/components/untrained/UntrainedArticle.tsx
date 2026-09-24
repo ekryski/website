@@ -404,7 +404,9 @@ export function UntrainedArticle() {
         <p>
           Nothing in the front end is trained, and nothing depends on the clip. The same arithmetic runs
           here in your browser: the rows you see are identical, to rounding, to the rows the paper’s harness
-          computed.
+          computed. One of these constants has a price you can look up: in figure 8, read the
+          spectrogram-only baseline <em>from frame 0</em> and then with the four windows, which skip the
+          warm-up, to see what the first 256 ms of a word are worth on their own.
         </p>
       </Prose>
 
@@ -484,8 +486,9 @@ export function UntrainedArticle() {
           <strong>One fixed window.</strong> The exploratory harness read each clip over its own length. An
           oscillator keeps turning whether or not anything drives it, so statistics over a span encode how
           long the span was, and in speech, how long a word lasts says something about which word it is. An
-          undriven network, with no input at all, read over each clip’s own length recognizes digits well
-          above chance. Read over the same frames for every clip, it reads exactly chance. The registered
+          undriven network, with no input at all, read over each clip’s own length recognizes digits about 18%
+          of the time, against 10% for chance. Read over the same frames for every clip, it reads exactly
+          10%. The registered
           design reads every arm over frames 16 to 61, so everything a read carries arrives through the arm’s
           response to the sound.
         </p>
@@ -589,7 +592,8 @@ export function UntrainedArticle() {
           <strong>Noise.</strong> Clean audio, and white noise added at 0 dB and +5 dB relative to the
           speech: at 0 dB the noise is as loud as the speech, and at +5 dB it is louder. Each clip’s noise is
           drawn from a generator seeded by the clip itself, so a clip sounds the same to every arm. Clean audio
-          nearly saturates this task, so only the noisy conditions carry a design verdict.
+          nearly saturates this task, so the design comparisons of section 07 are read on the noisy conditions
+          only.
         </p>
         <p>
           <strong>Input gain.</strong> The reservoirs are nonlinear, so how hard the input pushes relative to
@@ -710,10 +714,10 @@ export function UntrainedArticle() {
           <li><strong>Coupling ceiling.</strong> 1 and 0.5: stronger or weaker coupling overall.</li>
         </ul>
         <p>
-          The two Stuart–Landau functions were run on the torus only, and design verdicts are read at 0 and
-          +5 dB, both gains and three seeds. The consoles below let you run the torus-and-random-frequency
-          slice of this design, every coupling function on every geometry, at restoring strength 0.3 and
-          ceiling 1.
+          The two Stuart–Landau functions were run on the torus only, and design effects are read at 0 and
+          +5 dB, both gains and three seeds. The console below lets you run the random-frequency slice of this
+          design: every coupling function on every geometry, at restoring strength 0.3 and coupling ceiling
+          1.
         </p>
       </Prose>
 
@@ -771,8 +775,8 @@ export function UntrainedArticle() {
           <li>
             <strong>Carrier.</strong> No envelope at all: the waveform itself, split into 16 bands from 96 to
             1,536 Hz, drives the network 16,000 times a second, at gain 32. An oscillator whose natural
-            frequency sits near its band’s can lock to it directly, as a tuning fork does. At this rate a free
-            oscillator turns about 255 times a second, inside the bands it is driven with.
+            frequency sits near its band’s can lock to it directly, cycle by cycle. At this rate a free
+            oscillator turns about 255 times a second, inside the range of the bands it is driven with.
           </li>
         </ul>
       </Prose>
@@ -804,8 +808,8 @@ export function UntrainedArticle() {
           the uncoupled network and the coupled network, on the torus with random natural frequencies. Two
           pairings do not exist: a leaky integrator has no phase for a quadrature pair to act on, and the
           Stuart–Landau networks were built for the band-energy and carrier pathways only. The paper
-          registered the carrier at one condition, 0 dB and gain 32, because it runs 262 times as many steps
-          per clip; here it takes a few seconds. The uncoupled network on the quadrature and carrier pathways
+          registered the carrier at a single condition, 0 dB and gain 32. It runs 262 times as many steps per
+          clip as the other pathways, and here takes a few seconds. The uncoupled network on the quadrature and carrier pathways
           is not a registered arm, and is included as the obvious reference.
         </p>
       </Prose>

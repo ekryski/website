@@ -26,7 +26,7 @@ export function UntrainedPostPage({
           description={description}
           date={date}
           path={`/articles/${SLUG}`}
-          image="/resonant/og.png"
+          image="/untrained/og.png"
         />
       )}
       <header className="max-w-2xl">
