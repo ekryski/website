@@ -127,16 +127,14 @@ export class Store {
       viewLayout(await this.fetchBytes(this.url(cfg.net.file)), cfg.net.layout));
   }
 
-  /** Unit noise for demo clip k at +level dB, as the harness drew it. */
+  /** Unit noise for demo clip k at +level dB, exactly as the harness drew it. */
   async noise(clipIndex, levelDb) {
     const n = this.manifest.noise;
-    const all = await this.once('noise', async () => new Int16Array(await this.fetchBytes(this.url(n.file))));
+    const all = await this.once('noise', async () => new Float32Array(await this.fetchBytes(this.url(n.file))));
     const li = n.levels_db.indexOf(levelDb);
     if (li < 0) return null;
     const off = (clipIndex * n.levels_db.length + li) * n.samples;
-    const out = new Float32Array(n.samples);
-    for (let i = 0; i < n.samples; i++) out[i] = all[off + i] / n.scale;
-    return out;
+    return all.slice(off, off + n.samples);
   }
 }
 

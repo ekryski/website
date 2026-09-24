@@ -34,13 +34,18 @@ export function quadratureRows(samples, fe) {
   const re = new Float32Array(n), im = new Float32Array(n);
   const pairs = new Float32Array(T * G * 2);
   const phase = new Float32Array(T * G);
+  const f32 = Math.fround, sr = fe.sample_rate;
+  const twoPi = f32(-2 * Math.PI);
   for (let t = 0; t < T; t++) {
     for (let i = 0; i < n; i++) { re[i] = samples[t * hop + i] * win[i]; im[i] = 0; }
     fft(re, im);
+    const time = f32((t * hop) / sr);
     for (let b = 0; b < G; b++) {
       const k = bins[b];
-      // demodulate by exp(-2 pi i f_c t hop / sr) = exp(-i pi k t) at hop = n_fft / 2
-      const ang = -2 * Math.PI * (k * hop / n) * t;
+      // demodulate by exp(-2 pi i f_c t hop / sr), with the angle rounded as the harness
+      // rounds it, in float32: late in a clip and high in frequency it is tens of thousands
+      // of radians, where float32 moves it by milliradians, and the rows follow the harness
+      const ang = f32(f32(twoPi * f32((k * sr) / n)) * time);
       const c = Math.cos(ang), s = Math.sin(ang);
       const dr = re[k] * c - im[k] * s, di = re[k] * s + im[k] * c;
       const phi = Math.atan2(di, dr);
