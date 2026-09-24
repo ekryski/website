@@ -554,7 +554,10 @@ export function UntrainedArticle() {
           Tier 1 of the paper puts ten models in the slot, each chosen to remove exactly one candidate
           explanation for the network’s accuracy.
         </p>
-        <div className="not-prose my-6 overflow-x-auto">
+      </Prose>
+
+      <div className="tableBlock">
+        <div className="overflow-x-auto">
           <table className="armTable">
             <thead>
               <tr><th>model</th><th>between the front end and the readout</th><th>states</th><th>parameters</th><th>features</th><th>what it isolates</th></tr>
@@ -569,6 +572,9 @@ export function UntrainedArticle() {
             </tbody>
           </table>
         </div>
+      </div>
+
+      <Prose className={TYPE}>
         <p>
           The four untrained dynamical arms (both oscillator networks and both banks) are the paper’s{' '}
           <strong>reservoirs</strong>, the term reservoir computing uses for a fixed dynamical system read by
@@ -623,7 +629,10 @@ export function UntrainedArticle() {
           How the phases of two coupled oscillators turn into a push on one of them. The paper tests six, each
           a standard object in the synchronization literature, each changing one property of the pull.
         </p>
-        <div className="not-prose my-6 overflow-x-auto">
+      </Prose>
+
+      <div className="tableBlock">
+        <div className="overflow-x-auto">
           <table className="armTable">
             <thead>
               <tr><th>function</th><th>the coupling term for oscillator i</th><th>what it changes</th></tr>
@@ -638,6 +647,9 @@ export function UntrainedArticle() {
             </tbody>
           </table>
         </div>
+      </div>
+
+      <Prose className={TYPE}>
         <h3>The lattice geometry</h3>
         <p>
           Every geometry stores the same 256 oscillators per channel in the same 16 × 16 grid, with row r
@@ -824,9 +836,9 @@ export function UntrainedArticle() {
         <p>
           The paper, its registration, the harness that ran every model on this page, and the raw per-run
           record behind every number quoted here are public. The browser code here is a port of that harness,
-          checked against it: for every model and condition on this page, the scores your browser computes
-          match the harness’s on every demo clip, and each readout reproduces the recorded seed-0 accuracy on
-          the full test set.
+          checked against it: on the 61-frame pathways, the scores your browser computes match the harness’s
+          on every demo clip, and every untrained arm’s readout, rescored on the full test set, reproduces
+          the record’s seed-0 accuracy wherever the record has that cell.
         </p>
         <p style={{ marginTop: '1.5rem' }}>
           <a className="action primary" href={PAPER} {...ext} style={{ textDecoration: 'none', display: 'inline-block' }}>
@@ -868,6 +880,13 @@ export function UntrainedArticle() {
           <li>
             Your own recording is shaped like a corpus clip before it is run, but it is not one: a different
             microphone, room and voice. The readouts were fitted on AudioMNIST alone.
+          </li>
+          <li>
+            On the carrier pathway the oscillator networks run 16,000 steps a clip. The paper’s harness
+            computes them in 32-bit floating point and this page in 64-bit, and over that many steps the two
+            drift apart by up to a few percent of a signal’s range, so the page’s carrier scores can differ a
+            little from the harness’s for the same clip. On the 61-frame pathways they agree to three decimal
+            places or better.
           </li>
         </ul>
       </aside>

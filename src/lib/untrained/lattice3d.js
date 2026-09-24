@@ -240,6 +240,9 @@ export class LatticeView {
     if (this.canvas.width !== Math.round(w * this.renderer.getPixelRatio())) {
       this.renderer.setSize(w, h, false);
       this.camera.aspect = w / h;
+      // back off on narrow canvases, so the shape fits across as well as up
+      this.camera.position.setLength(3.8 / Math.min(1, this.camera.aspect * 1.15));
+      this.camera.lookAt(0, 0, 0);
       this.camera.updateProjectionMatrix();
     }
     if (this.spin) this.group.rotation.z += dt * 0.12;

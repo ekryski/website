@@ -461,7 +461,7 @@ export function mountConsole(ctx, { prefix, mode }) {
     if (kind === 'field') {
       for (let c = 0; c < d.C; c++) {
         const values = [];
-        for (let k = 0; k <= t; k += step) values.push(d.R[k * d.C + c]);
+        for (let k = 0; k <= t; k += step) values.push(d.R[Math.floor(k / d.stride) * d.C + c]);
         series.push({ values, color: CHANNEL_COLORS[c], width: c === sel.channel ? 2.2 : 1.2 });
       }
       $('traceScale').textContent = `0 – ${local.maxR.toFixed(2)}`;

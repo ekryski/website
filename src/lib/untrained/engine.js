@@ -82,7 +82,7 @@ export async function runConfig(store, cfgId, samples, { onProgress = null, keep
     if (keepDisplay) {
       display.C = C; display.N = N;
       display.state = new Float32Array(display.frames * C * N);
-      if (isField) display.R = new Float32Array(T * C);
+      if (isField) display.R = new Float32Array(display.frames * C);
       if (isField && arm instanceof SLNetwork) display.amp = new Float32Array(display.frames * C * N);
     }
     const drive = new Float32Array(G), pair = quad ? new Float32Array(2 * G) : null;
@@ -94,11 +94,11 @@ export async function runConfig(store, cfgId, samples, { onProgress = null, keep
       stats.push(t, sig);
       if (keepDisplay) {
         if (isField) {
-          const th = arm.phases();
-          orderParameter(th, C, N, display.R, t * C);
           if (t % display.stride === 0) {
-            display.state.set(th, (t / display.stride) * C * N);
-            if (display.amp) display.amp.set(arm.amplitudes(), (t / display.stride) * C * N);
+            const th = arm.phases(), f = t / display.stride;
+            orderParameter(th, C, N, display.R, f * C);
+            display.state.set(th, f * C * N);
+            if (display.amp) display.amp.set(arm.amplitudes(), f * C * N);
           }
         } else if (t % display.stride === 0) {
           display.state.set(sig.subarray(0, C * N), (t / display.stride) * C * N);

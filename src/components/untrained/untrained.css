@@ -145,7 +145,9 @@
 }
 .dark .untrainedPost .armTable td,
 .dark .untrainedPost .leakTable td { color: #a1a1aa; }
-.untrainedPost .armTable td:first-child { font-weight: 600; color: #3f3f46; white-space: nowrap; }
+.untrainedPost .tableBlock { margin: 28px 0; }
+.untrainedPost .armTable td:first-child { font-weight: 600; color: #3f3f46; min-width: 150px; }
+.untrainedPost .armTable { min-width: 720px; }
 .dark .untrainedPost .armTable td:first-child { color: #e4e4e7; }
 .untrainedPost td.mono { font-family: var(--mono); font-size: 13px; white-space: nowrap; }
 .untrainedPost .leakTable td:not(:first-child) { font-family: var(--mono); }
