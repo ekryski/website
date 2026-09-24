@@ -7,12 +7,13 @@
 // Exits non-zero if any config disagrees on a predicted digit or its scores
 // drift past the tolerance.
 //
-// One exception, measured: the coupled networks on the carrier pathway. The
-// harness integrates in float32, and over a clip's 16,000 steps its signals
-// drift up to 0.05 from the same model integrated in float64 (the uncoupled
-// network's drift is 0.002). This page computes in float64, so for those
-// configs the scores are reported but only the predicted digits are held to
-// the harness, allowing one flip in ten clips.
+// One exception, measured: the coupled networks on the carrier pathway. Over a
+// clip's 16,000 steps they amplify small differences on some clips (a 1e-10
+// nudge to one phase grows up to a million-fold by the last step; on the
+// band-energy pathway it does not grow at all), and the harness integrates in
+// float32 where this page uses float64. For those configs the scores are
+// reported but only the predicted digits are held to the harness, allowing one
+// flip in ten clips.
 
 import { readFile } from 'node:fs/promises'
 import path from 'node:path'

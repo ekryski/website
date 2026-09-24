@@ -886,11 +886,12 @@ export function UntrainedArticle() {
             microphone, room and voice. The readouts were fitted on AudioMNIST alone.
           </li>
           <li>
-            On the carrier pathway the oscillator networks run 16,000 steps a clip. The paper’s harness
-            computes them in 32-bit floating point and this page in 64-bit, and over that many steps the two
-            drift apart by up to a few percent of a signal’s range, so the page’s carrier scores can differ a
-            little from the harness’s for the same clip. On the 61-frame pathways they agree to three decimal
-            places or better.
+            On the carrier pathway the coupled networks run 16,000 steps a clip, and on some clips they
+            amplify small differences: a nudge of 10⁻¹⁰ to one oscillator’s phase grows as much as a
+            million-fold by the end of the clip. The paper’s harness computes in 32-bit floating point and this
+            page in 64-bit, so on those clips the page follows a measurably different trajectory, and its
+            carrier scores can differ from the harness’s for the same clip. On the 61-frame pathways nothing
+            grows, and the two agree to three decimal places or better.
           </li>
         </ul>
       </aside>
