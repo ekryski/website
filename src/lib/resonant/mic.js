@@ -212,7 +212,7 @@ export class MicRecorder {
 }
 
 /** Resample through an OfflineAudioContext — the browser's own converter. */
-async function resample(samples, from, to) {
+export async function resample(samples, from, to) {
   if (from === to || samples.length === 0) return samples;
   const frames = Math.max(1, Math.round((samples.length * to) / from));
   const Offline = window.OfflineAudioContext || window.webkitOfflineAudioContext;
@@ -228,7 +228,7 @@ async function resample(samples, from, to) {
 }
 
 /** One-pole high-pass. Removes DC and low rumble the corpus clips do not carry. */
-function highPass(samples, rate, cutoffHz = HIGHPASS_HZ) {
+export function highPass(samples, rate, cutoffHz = HIGHPASS_HZ) {
   const rc = 1 / (2 * Math.PI * cutoffHz);
   const alpha = rc / (rc + 1 / rate);
   const out = new Float32Array(samples.length);
@@ -248,7 +248,7 @@ function highPass(samples, rate, cutoffHz = HIGHPASS_HZ) {
  * job is to strip the silence a person leaves around a single spoken digit.
  * Returns null when nothing in the recording is loud enough to be speech.
  */
-function speechBounds(samples, rate) {
+export function speechBounds(samples, rate) {
   const win = Math.max(1, Math.round(ENVELOPE_SECONDS * rate));
   const hops = Math.ceil(samples.length / win);
   const env = new Float32Array(hops);
