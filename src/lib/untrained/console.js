@@ -255,6 +255,9 @@ export function mountConsole(ctx, { prefix, mode }) {
     if (a.physics?.startsWith('sl')) notes.push('The Stuart–Landau functions were run on the torus only.');
     if (cfg.drive === 'quadrature') notes.push('The quadrature pathway drives phase oscillators only: a leaky integrator has no phase for the pair to act on, and the Stuart–Landau networks were not built for it.');
     if (cfg.drive === 'carrier') notes.push('The carrier pathway was registered at one condition: 0 dB, input gain 32 (the exploratory phase’s calibration), 16,000 steps a second.');
+    if (mode === 'drive' && !configs.some((c) => c.drive === 'carrier')) {
+      notes.push('The carrier’s readouts are still being fitted (2,048 clips of 16,000 steps each, per model); the pathway opens here when they are.');
+    }
     for (const [key, from, to] of moved) {
       const fmt = key === 'noise' ? NOISE_NAMES : key === 'fn' ? (v) => FUNCTIONS[v] : (v) => String(v);
       notes.push(`Moved ${key === 'fn' ? 'the coupling function' : key} from ${fmt(from)} to ${fmt(to)}: nothing was registered at ${fmt(from)} here.`);

@@ -877,9 +877,9 @@ export function UntrainedArticle() {
             seeds on 6,000 test clips; a single clip, or a handful, says almost nothing about either.
           </li>
           <li>
-            The trained baselines were retrained for this page at seed 0 with the paper’s recipe. Training on a
-            different machine is not bit-for-bit reproducible, so their scores can differ slightly from the
-            record’s seed 0.
+            The trained baselines were retrained for this page at seed 0 with the paper’s recipe. Fourteen of
+            the fifteen reproduce the record’s seed-0 accuracy exactly; the transformer at +5 dB scores 70.6%
+            against the record’s 70.7%, since training is not bit-for-bit reproducible across runs.
           </li>
           <li>
             Your own recording is shaped like a corpus clip before it is run, but it is not one: a different
