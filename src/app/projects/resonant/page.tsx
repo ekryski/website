@@ -174,8 +174,8 @@ export default function ResonantProject() {
               Because the coupling is a circular convolution, one step costs a single FFT,
               and the phase field doubles as a fixed-size streaming memory, with no cache
               that grows with the length of what you said. The model in the interactive guide 
-              is roughly 2,000 parameters and does near perfect digit classification without 
-              even being trained. <span className="font-bold">There is more to come as I have already begun training more complex models.</span>
+              is roughly 2,000 parameters and classifies spoken digits with incredible accuracy,
+              without training and with even the most basic linear readout method. <span className="font-bold">There is more to come as I have already begun training more complex models.</span>
             </p>
           </div>
         </section>
