@@ -1072,9 +1072,10 @@ export function UntrainedArticle() {
             seeds on 6,000 test clips; a single clip, or a handful, says almost nothing about either.
           </li>
           <li>
-            The trained baselines were retrained for this page at seed 0 with the paper’s recipe. Fourteen of
-            the fifteen reproduce the record’s seed-0 accuracy exactly; the transformer at +5 dB scores 70.6%
-            against the record’s 70.7%, since training is not bit-for-bit reproducible across runs.
+            Every readout on this page was refitted with the paper’s code at seed 0, and the trained baselines
+            were retrained the same way. Of the 211 that have a cell in the paper’s record, 210 reproduce its
+            seed-0 accuracy exactly; the other, the matched cochlea with Kuramoto coupling at gain 1 and −5 dB,
+            differs by one clip in 6,000.
           </li>
           <li>
             Your own recording is shaped like a corpus clip before it is run, but it is not one: a different
@@ -1083,8 +1084,8 @@ export function UntrainedArticle() {
           </li>
           <li>
             The paper’s harness computes in 32-bit floating point and this page in 64-bit. Over a clip’s 61
-            frames the difference does not grow, and every score on this page agrees with the harness’s to
-            three decimal places or better on every demo clip.
+            frames the difference does not grow: on every demo clip, every score on this page is within 0.0004
+            of the harness’s, and no prediction changes.
           </li>
         </ul>
       </aside>
