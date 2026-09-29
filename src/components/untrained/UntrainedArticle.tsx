@@ -775,7 +775,7 @@ export function UntrainedArticle() {
           </div>
           <div className="kernelGrid">
             <div>
-              <div className="feLabel">the flat 16 × 16 grid · row 1 (lowest band) at the bottom · click to choose</div>
+              <div className="feLabel">the flat 16 × 16 grid · row 1 (lowest band) at the bottom · click to choose an oscillator to focus on</div>
               <div className="canvasFrame"><canvas id="kernelGrid" className="square" /></div>
             </div>
             <div>
@@ -784,11 +784,21 @@ export function UntrainedArticle() {
             </div>
           </div>
           <p className="viewNote" id="kernelNote" />
+          {/* the colours are figures.js's CHOSEN, INFLUENCE and UNREACHABLE */}
+          <div className="legend kernelLegend" aria-hidden="true">
+            <span><i style={{ background: 'rgb(125,196,255)' }} />the chosen oscillator</span>
+            <span>
+              <i className="ramp" style={{ background: 'linear-gradient(90deg, rgb(87,18,61), rgb(237,64,153), rgb(255,255,255))' }} />
+              acts on it, weakly to strongly
+            </span>
+            <span><i style={{ background: 'rgb(38,9,28)', boxShadow: 'inset 0 0 0 1px rgba(255,255,255,0.12)' }} />cannot act on it</span>
+          </div>
         </div>
         <figcaption className={CAPTION}>
           <b>Figure 10 · one kernel, every gluing.</b> Blue: the chosen oscillator. Every other oscillator is
           lit by how strongly it acts on the chosen one, from dim fuchsia for a small weight to white for the
-          largest, whether it pulls toward its phase or pushes away; unlit ones cannot act on it at all. The
+          largest, whether it pulls toward its phase or pushes away. The darkest, a near-black fuchsia, cannot
+          act on it at all. The
           kernel has 16 offsets on each axis, reaching 8 rows or columns one way and 7 the other, so from the
           starting point, row 8 and column 8, it reaches every oscillator on every geometry but the coils. Click
           one near an edge to see where each geometry cuts the reach off. On the <b>torus</b> both axes wrap,

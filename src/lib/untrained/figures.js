@@ -142,12 +142,15 @@ function drawRing(canvas, state, R, psi) {
 // 07 · who acts on whom: one kernel, six gluings
 // ---------------------------------------------------------------------------
 
-/** Oscillators the geometry cuts off from the chosen one: unlit, a slate that still shows the shape. */
-const UNREACHABLE = [0.18, 0.19, 0.23];
+/**
+ * Oscillators the geometry cuts off from the chosen one: a very dark fuchsia, so every oscillator
+ * of the channel stays visible and choosing another only changes how bright each one is.
+ */
+const UNREACHABLE = [0.15, 0.035, 0.11];
 /** The chosen oscillator, in the page's accent so it never reads as a weight. */
 const CHOSEN = [0.49, 0.77, 1];
 /** How strongly an oscillator acts on the chosen one: dim fuchsia through fuchsia to white. */
-const INFLUENCE = [[0.22, 0.05, 0.16], [0.93, 0.25, 0.6], [1, 1, 1]];
+const INFLUENCE = [[0.34, 0.07, 0.24], [0.93, 0.25, 0.6], [1, 1, 1]];
 
 /**
  * A colour on the influence ramp for t = |weight| / largest |weight| in [0, 1].
@@ -199,7 +202,8 @@ export function mountKernelFigure(store) {
       for (let c = 0; c < G; c++) {
         const [R, Gc, B] = colour(r * G + c);
         ctx.fillStyle = `rgb(${R * 255},${Gc * 255},${B * 255})`;
-        ctx.fillRect(c * cw, h - (r + 1) * ch, Math.ceil(cw) + 0.5, Math.ceil(ch) + 0.5);
+        // a hairline gap, so every oscillator reads as its own cell, lit or not
+        ctx.fillRect(c * cw + 0.5, h - (r + 1) * ch + 0.5, cw - 1, ch - 1);
       }
     }
     view.setGeometry(state.geo);

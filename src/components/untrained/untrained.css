@@ -145,6 +145,9 @@
 }
 .untrainedPost .legend span { display: inline-flex; align-items: center; gap: 6px; }
 .untrainedPost .legend i { display: inline-block; width: 14px; height: 3px; border-radius: 2px; }
+.untrainedPost .kernelLegend { margin-top: 10px; }
+.untrainedPost .kernelLegend i { width: 12px; height: 12px; border-radius: 3px; }
+.untrainedPost .kernelLegend i.ramp { width: 56px; }
 .untrainedPost .bandRange { margin-top: 4px; font: 600 12px/1.4 var(--mono); color: var(--panel-ink); }
 
 .untrainedPost .feGrid { display: grid; gap: 10px; margin-top: 14px; }
