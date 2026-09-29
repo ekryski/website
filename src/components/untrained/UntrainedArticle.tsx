@@ -786,22 +786,23 @@ export function UntrainedArticle() {
           <p className="viewNote" id="kernelNote" />
         </div>
         <figcaption className={CAPTION}>
-          <b>Figure 10 · one kernel, every gluing.</b> White: the chosen oscillator. Orange: oscillators that
-          pull it toward their phase; blue: ones that push it away; grey: ones that cannot act on it at all.
-          The kernel has 16 offsets on each axis, reaching 8 rows or columns one way and 7 the other. On the{' '}
-          <b>torus</b> both axes wrap, so every
-          oscillator reaches every other and the top band couples to the bottom. The <b>cylinder</b> opens the
-          frequency axis, as in the cochlea, so the reach stops at the top and bottom rows: an oscillator in
-          the top band hears only the 7 bands below it, and the rest of the cylinder is grey. Choose one in
-          row 8 and it reaches all 255. The <b>sheet</b> opens both axes. The{' '}
+          <b>Figure 10 · one kernel, every gluing.</b> Blue: the chosen oscillator. Every other oscillator is
+          lit by how strongly it acts on the chosen one, from dim fuchsia for a small weight to white for the
+          largest, whether it pulls toward its phase or pushes away; unlit ones cannot act on it at all. The
+          kernel has 16 offsets on each axis, reaching 8 rows or columns one way and 7 the other, so from the
+          starting point, row 8 and column 8, it reaches every oscillator on every geometry but the coils. Click
+          one near an edge to see where each geometry cuts the reach off. On the <b>torus</b> both axes wrap,
+          so every oscillator reaches every other from anywhere, and the top band couples to the bottom. The{' '}
+          <b>cylinder</b> opens the frequency axis, as in the cochlea, so the reach stops at the top and bottom
+          rows: from the top band, only the 7 bands below it can act. The <b>sheet</b> opens both axes. The{' '}
           <b>helix</b> reads all 256 as one closed coil, 64 to a turn, so a turn away is an octave away. The{' '}
           <b>cube</b> folds each row into a 4 × 4 slab, a 16 × 4 × 4 lattice that wraps on all three axes,
           with shorter paths between the same oscillators. The <b>sphere</b> makes rows latitudes and weights
           each oscillator’s influence by the cosine of its latitude, an approximation to a sphere rather than
           exact spherical coupling. The <b>coil</b> is the helix opened, so its ends never meet and each
           oscillator reaches two turns either way. The <b>cochlea</b> adds a direction (arrowheads, pointing
-          to the apex), which shows on the grid as stronger weights from the rows above the chosen oscillator
-          than from the rows below, and a curvature weighting, which scales everything arriving at an
+          to the apex), which shows on the grid as brighter oscillators in the rows above the chosen one
+          than in the rows below, and a curvature weighting, which scales everything arriving at an
           oscillator from 1 at the apex to 1/4 at the base: choose higher rows and the largest weight, below
           the grid, falls. The channel buttons switch between the four channels. Each is a complete copy of the
           lattice with its own kernel, not another part of the shape.

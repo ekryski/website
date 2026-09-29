@@ -142,8 +142,23 @@ function drawRing(canvas, state, R, psi) {
 // 07 · who acts on whom: one kernel, six gluings
 // ---------------------------------------------------------------------------
 
-/** Oscillators the geometry cuts off from the chosen one: a flat grey, apart from the weight ramp. */
-const UNREACHABLE = [0.36, 0.38, 0.42];
+/** Oscillators the geometry cuts off from the chosen one: unlit, a slate that still shows the shape. */
+const UNREACHABLE = [0.18, 0.19, 0.23];
+/** The chosen oscillator, in the page's accent so it never reads as a weight. */
+const CHOSEN = [0.49, 0.77, 1];
+/** How strongly an oscillator acts on the chosen one: dim fuchsia through fuchsia to white. */
+const INFLUENCE = [[0.22, 0.05, 0.16], [0.93, 0.25, 0.6], [1, 1, 1]];
+
+/**
+ * A colour on the influence ramp for t = |weight| / largest |weight| in [0, 1].
+ * The square root lifts the many small weights off the floor so every
+ * oscillator that acts at all is visibly lit.
+ */
+function influenceRGB(t) {
+  const x = Math.sqrt(Math.min(1, Math.max(0, t))) * (INFLUENCE.length - 1);
+  const i = Math.min(INFLUENCE.length - 2, Math.floor(x)), f = x - i;
+  return INFLUENCE[i].map((a, k) => a + (INFLUENCE[i + 1][k] - a) * f);
+}
 
 export function mountKernelFigure(store) {
   const disposers = [];
@@ -154,7 +169,8 @@ export function mountKernelFigure(store) {
   const N = G * G;
   const view = new LatticeView($('kernel3d'), G);
   disposers.push(() => view.dispose());
-  const state = { geo: 'torus', channel: 0, site: 15 * G + 0 };
+  // row 8, column 8: from here the kernel reaches every oscillator on every geometry but the coils
+  const state = { geo: 'torus', channel: 0, site: 7 * G + 7 };
   const ops = {};
   const opFor = (geo) => (ops[geo] ??= denseOperator(geo, store.physics.taps[geo], C, G));
 
@@ -176,7 +192,7 @@ export function mountKernelFigure(store) {
     for (let j = 0; j < N; j++) { row[j] = op[base + j]; if (j !== state.site) max = Math.max(max, Math.abs(row[j])); }
     // taps a geometry zeroes come back from the inverse FFT as rounding noise, so "cannot" is relative
     const cannot = (j) => j !== state.site && Math.abs(row[j]) < 1e-6 * max;
-    const colour = (j) => (j === state.site ? [1, 1, 1] : cannot(j) ? UNREACHABLE : signedRGB(row[j] / max));
+    const colour = (j) => (j === state.site ? CHOSEN : cannot(j) ? UNREACHABLE : influenceRGB(Math.abs(row[j]) / max));
     const ctx = fitCanvas(grid);
     const w = grid.clientWidth, h = grid.clientHeight, cw = w / G, ch = h / G;
     for (let r = 0; r < G; r++) {
