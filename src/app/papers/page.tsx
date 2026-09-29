@@ -18,6 +18,17 @@ interface Paper {
 const papers: Paper[] = [
   {
     title:
+      'Spoken-Digit Recognition Without Training: Geometry, Coupling, and Drive Effects in Oscillator Networks',
+    authors: 'Eric Kryski',
+    venue: 'Under review at ICLR 2027 · September 2026',
+    date: '2026-09-25',
+    description:
+      'An untrained network of 1,024 coupled oscillators, read by a linear readout, set against its own input, the same network uncoupled, leaky-integrator banks and five trained networks of the same size on noisy spoken digits from held-out speakers. Across eight experiments and 6,353 runs, most of the accuracy comes from the input and the readout: the dynamics add memory, a free oscillator amplitude is the one design choice that moves accuracy by more than a point, and neither the lattice geometry, a cochlea included, nor the phase coupling function does.',
+    href: 'https://github.com/ekryski/oscillator-research/blob/main/papers/02-untrained-reservoirs/spoken-digit-recognition-without-training-iclr.pdf',
+    cta: 'Read the PDF on GitHub',
+  },
+  {
+    title:
       'From Synchronization Physics to Trained Dynamics: A Survey of Oscillator Networks in Machine Learning',
     authors: 'Eric Kryski',
     venue: 'SSRN Working Paper, September 2026',
@@ -59,7 +70,7 @@ function PaperEntry({ paper }: { paper: Paper }) {
 export const metadata: Metadata = pageMetadata({
   title: 'Papers',
   description:
-    "Papers I've published, from human-robot interaction research as an undergrad to a survey of oscillator networks in machine learning.",
+    "Papers I've published, from human-robot interaction research as an undergrad to research on oscillator networks in machine learning.",
   url: '/papers',
 })
 
