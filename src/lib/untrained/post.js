@@ -4,7 +4,7 @@
 // frames and drops listeners.
 
 import { Store, decodeBankWav } from './data.js';
-import { envelopeRows } from './frontend.js';
+import { spectrogramRows } from './frontend.js';
 import { ClipPlayer } from '../resonant/player.js';
 import { mountConsole } from './console.js';
 import {
@@ -38,10 +38,10 @@ export async function mountPost() {
     listeners: [],
     cache: new Map(),
     clip: () => clips[shared.index],
-    envelope: () => {
+    spectrogram: () => {
       const c = clips[shared.index];
       if (!c) return null;
-      if (!shared.cache.has(c.key)) shared.cache.set(c.key, envelopeRows(c.samples, store.frontend));
+      if (!shared.cache.has(c.key)) shared.cache.set(c.key, spectrogramRows(c.samples, store.frontend));
       return shared.cache.get(c.key);
     },
     onClip: (fn) => shared.listeners.push(fn),

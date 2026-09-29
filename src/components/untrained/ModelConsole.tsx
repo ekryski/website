@@ -43,7 +43,7 @@ export function ModelConsole({ prefix, drive = false }: { prefix: string; drive?
         <div className="panel">
           <div className="panelTitle">
             <span>{drive ? 'choose a reservoir and a pathway' : 'choose a model'}</span>
-            <em id={id('fitTag')} className="tag ok">as registered</em>
+            <em id={id('fitTag')} className="tag ok">in the paper</em>
           </div>
           <div className="controlGrid">
             <label className="field">
@@ -126,7 +126,7 @@ export function ModelConsole({ prefix, drive = false }: { prefix: string; drive?
           <div className="metrics" style={{ marginTop: 12 }}>
             <div className="metric"><span>source</span><b id={id('mTruth')}>—</b></div>
             <div className="metric"><span>detected</span><b id={id('mPred')}>—</b></div>
-            <div className="metric"><span>registered accuracy</span><b id={id('mRecord')}>—</b></div>
+            <div className="metric"><span>accuracy in the paper</span><b id={id('mRecord')}>—</b></div>
             <div className="metric"><span>run time</span><b id={id('mMs')}>—</b></div>
           </div>
           <p className="recordNote" id={id('recordNote')} />

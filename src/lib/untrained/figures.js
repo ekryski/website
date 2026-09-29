@@ -2,7 +2,7 @@
 // Each mount function finds its markup by id and returns a disposer.
 
 import { drawWaveform, drawHeatmap, drawLines, drawBars, fitCanvas, magmaColor } from '../resonant/plots.js';
-import { envelopeRows, quadratureRows } from './frontend.js';
+import { spectrogramRows, quadratureRows } from './frontend.js';
 import { denseOperator } from './lattice.js';
 import { LatticeView, signedRGB } from './lattice3d.js';
 import { drawMosaic, drawPhaseHeat, shadeWindows, drawColumns, pct } from './panels.js';
@@ -185,8 +185,9 @@ export function mountKernelFigure(store) {
     view.paint((j) => (j === state.site ? [1, 1, 1] : signedRGB(row[j] / max)));
     buttons.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.kgeo === state.geo)));
     document.querySelectorAll('[data-kchan]').forEach((b) => b.setAttribute('aria-pressed', String(Number(b.dataset.kchan) === state.channel)));
+    // taps a geometry zeroes come back from the inverse FFT as rounding noise, so "cannot" is relative
     let zero = 0;
-    for (let j = 0; j < N; j++) if (j !== state.site && Math.abs(row[j]) < 1e-9) zero++;
+    for (let j = 0; j < N; j++) if (j !== state.site && Math.abs(row[j]) < 1e-6 * max) zero++;
     const r0 = Math.floor(state.site / G), c0 = state.site % G;
     $('kernelNote').textContent = `oscillator at row ${r0 + 1} (mel band ${r0 + 1}), column ${c0 + 1} · `
       + `${N - 1 - zero} of 255 others act on it${zero ? `, ${zero} cannot` : ''} · largest weight ${max.toFixed(3)}`;
@@ -212,7 +213,7 @@ export function mountLeakyToy(shared) {
   document.querySelectorAll('[data-lgain]').forEach((b) => on(b, 'click', () => { state.gain = Number(b.dataset.lgain); draw(); }));
 
   function draw() {
-    const rows = shared.envelope();
+    const rows = shared.spectrogram();
     if (!rows) return;
     const { T, G } = rows;
     const input = [], outs = TAUS.map(() => []);
@@ -241,7 +242,7 @@ export function mountLeakyToy(shared) {
 export function drawBankLayout(store) {
   const canvas = $('bankLayout');
   if (!canvas) return;
-  const bank = store.banks['bank-c4'];
+  const bank = store.banks['bank-state'];
   const G = store.physics.grid;
   const lo = Math.min(...bank.tau), hi = Math.max(...bank.tau);
   const logTau = Array.from(bank.tau, (t) => Math.log(t / lo) / Math.log(hi / lo));
@@ -260,7 +261,7 @@ export function drawBankLayout(store) {
 
 export function drawFrontEnd(shared, frac) {
   const clip = shared.clip();
-  const env = shared.envelope();
+  const env = shared.spectrogram();
   if (!clip || !env) return;
   drawWaveform($('feWave'), clip.samples, { playhead: frac });
   const { frames, bins, power } = env.spec;
@@ -278,23 +279,23 @@ export function drawFrontEnd(shared, frac) {
 // ---------------------------------------------------------------------------
 
 const READ_ARMS = {
-  field: { drive: 'envelope', label: 'field-kuramoto-torus-random-lam0.3-clamp1', gain: 1 },
-  severed: { drive: 'envelope', label: 'severed-kuramoto-torus-random-lam0.3-clamp1', gain: 1 },
-  'bank-c4': { drive: 'envelope', label: 'bank-c4', gain: 1 },
-  floor: { drive: 'envelope', label: 'floor', gain: null },
+  coupled: { pathway: 'spectrogram', label: 'coupled-kuramoto-torus-random-restoring0.3-ceiling1', gain: 1 },
+  uncoupled: { pathway: 'spectrogram', label: 'uncoupled-kuramoto-torus-random-restoring0.3-ceiling1', gain: 1 },
+  'bank-state': { pathway: 'spectrogram', label: 'bank-state', gain: 1 },
+  baseline: { pathway: 'spectrogram', label: 'baseline', gain: null },
 };
 
 export function mountReadFigure(store, shared) {
   const disposers = [];
   const on = listen(disposers);
   if (!$('readTraces')) return () => {};
-  const state = { arm: 'field', result: null };
+  const state = { arm: 'coupled', result: null };
   document.querySelectorAll('[data-rarm]').forEach((b) => on(b, 'click', () => { state.arm = b.dataset.rarm; run(); }));
 
   function configId() {
     const a = READ_ARMS[state.arm];
     const c = Object.values(store.manifest.configs).find((cfg) =>
-      cfg.drive === a.drive && cfg.label === a.label && cfg.gain === a.gain && cfg.noise_db === null && cfg.read === 'windowed');
+      cfg.pathway === a.pathway && cfg.label === a.label && cfg.gain === a.gain && cfg.noise_db === null && cfg.read === 'windowed');
     return c?.id;
   }
 
@@ -320,7 +321,7 @@ export function mountReadFigure(store, shared) {
       const values = [];
       for (let t = 0; t < T; t++) {
         let v;
-        if (kind === 'floor') v = r.input.rows[t * G + (picks[s] % G)] / 1.6;
+        if (kind === 'baseline') v = r.input.rows[t * G + (picks[s] % G)] / 1.6;
         else if (kind === 'bank') v = d.state[t * d.C * d.N + picks[s]];
         else v = 0.5 + 0.5 * Math.sin(d.state[t * d.C * d.N + picks[s]]);
         values.push(v);
@@ -352,7 +353,7 @@ export function mountReadFigure(store, shared) {
       max: Math.max(1, ...r.logits),
       color: (i) => (i === r.predicted ? '#6ee7a8' : '#7cc4ff'),
     });
-    $('readCounts').textContent = `${kind === 'floor' ? 16 : d.C * d.N * (kind === 'bank' ? 1 : 2)} signals × 3 statistics × 4 windows = ${D.toLocaleString()} features `
+    $('readCounts').textContent = `${kind === 'baseline' ? 16 : d.C * d.N * (kind === 'bank' ? 1 : 2)} signals × 3 statistics × 4 windows = ${D.toLocaleString()} features `
       + `${R.projected ? `→ projected to ${R.width}` : '(already 192: read as it is)'} → 10 scores · this clip reads as “${r.predicted}”`;
   }
 
@@ -377,7 +378,7 @@ function drawStrip(canvas, z) {
 }
 
 // ---------------------------------------------------------------------------
-// 05 · the record: what each readout choice does, in registered numbers
+// 05 · the record: what each readout choice does, in the paper's numbers
 // ---------------------------------------------------------------------------
 
 export async function mountRecordExplorer(store) {
@@ -386,12 +387,13 @@ export async function mountRecordExplorer(store) {
   const host = $('recordExplorer');
   if (!host || !store.manifest.record) return () => {};
   const record = await store.fetchJson(store.url(store.manifest.record.file));
-  const rows = record.tier1;
+  const rows = record.controls;
   const names = record.names;
-  const state = { arm: 'field-kuramoto-torus-random-lam0.3-clamp1', noise: 0, gain: 1, read: 'windowed', n: 2048, width: 192 };
+  const state = { arm: 'coupled-kuramoto-torus-random-restoring0.3-ceiling1', noise: 0, gain: 1, read: 'windowed', n: 2048, width: 192 };
   const arms = [...new Set(rows.map((r) => r[0]))];
-  const order = ['floor', 'field-kuramoto-torus-random-lam0.3-clamp1', 'severed-kuramoto-torus-random-lam0.3-clamp1',
-                 'bank-c4', 'bank-c8', 'ann-gru', 'ann-tcn', 'ann-cnn', 'ann-transformer', 'ann-s4d'];
+  const order = ['baseline', 'coupled-kuramoto-torus-random-restoring0.3-ceiling1', 'uncoupled-kuramoto-torus-random-restoring0.3-ceiling1',
+                 'coupled-stuart-landau-torus-random-restoring0.3-ceiling1', 'bank-state', 'bank-width',
+                 'trained-gru', 'trained-tcn', 'trained-cnn', 'trained-transformer', 'trained-s4d'];
   arms.sort((a, b) => order.indexOf(a) - order.indexOf(b));
   const sel = $('recArm');
   arms.forEach((a) => {
@@ -404,7 +406,7 @@ export async function mountRecordExplorer(store) {
 
   const match = (r, s) => r[0] === s.arm && r[1] === s.noise && r[2] === (isReservoir(s.arm) ? s.gain : null)
     && r[4] === s.read && r[5] === s.n && String(r[6]) === String(s.width);
-  const isReservoir = (a) => a.startsWith('field') || a.startsWith('severed') || a.startsWith('bank');
+  const isReservoir = (a) => a.startsWith('coupled') || a.startsWith('uncoupled') || a.startsWith('bank');
   const summary = (accs) => {
     const m = accs.reduce((x, y) => x + y, 0) / accs.length;
     const sd = accs.length > 1 ? Math.sqrt(accs.reduce((x, y) => x + (y - m) ** 2, 0) / (accs.length - 1)) : 0;
@@ -435,7 +437,7 @@ export async function mountRecordExplorer(store) {
         if (rows.some((r) => match(r, probe))) { state.read = read; break; }
       }
     }
-    seg('recNoise', [null, 0, 5], (v) => (v === null ? 'clean' : v === 0 ? '0 dB' : '+5 dB'), 'noise');
+    seg('recNoise', [null, 0, 5], (v) => (v === null ? 'clean' : v === 0 ? '0 dB' : '−5 dB'), 'noise');
     if (isReservoir(state.arm)) seg('recGain', [1, 2], (v) => `gain ${v}`, 'gain');
     else $('recGain').innerHTML = '<button type="button" class="segBtn" disabled>does not apply</button>';
     seg('recRead', reads, (v) => readNames[v], 'read');
@@ -463,19 +465,19 @@ export async function mountRecordExplorer(store) {
   }
   draw();
 
-  // the leak the fixed window closes: the gate's no-input and per-clip cells beside Tier 1's
+  // the leak the fixed window closes: the leak check's no-input and per-clip cells beside the controls'
   const leak = $('leakTable');
   if (leak) {
-    const field = 'field-kuramoto-torus-random-lam0.3-clamp1';
+    const field = 'coupled-kuramoto-torus-random-restoring0.3-ceiling1';
     const primary = (r) => r[0] === field && r[1] === 0 && r[4] === 'windowed' && r[5] === 2048 && r[6] === 192;
-    const gate = (gain, span) => record.gate.find((r) => primary(r) && r[2] === gain && r[3] === span);
-    const tier1 = (gain) => rows.find((r) => primary(r) && r[2] === gain);
+    const leakCheck = (gain, span) => record['leak-check'].find((r) => primary(r) && r[2] === gain && r[3] === span);
+    const controls = (gain) => rows.find((r) => primary(r) && r[2] === gain);
     const fmt = (c) => (c ? `${pct(summary(c[7]).m)}${c[7].length > 1 ? ` · ${c[7].length} seeds` : ''}` : '—');
     leak.innerHTML = `
       <tr><th>coupled network, 0 dB</th><th>fixed window: frames 16–61</th><th>each clip’s own length</th></tr>
-      <tr><td>no input (gain 0)</td><td>${fmt(gate(0, 'fixed'))}</td><td>${fmt(gate(0, 'clip'))}</td></tr>
-      <tr><td>gain 1</td><td>${fmt(tier1(1))}</td><td>${fmt(gate(1, 'clip'))}</td></tr>
-      <tr><td>gain 2</td><td>${fmt(tier1(2))}</td><td>${fmt(gate(2, 'clip'))}</td></tr>`;
+      <tr><td>no input (gain 0)</td><td>${fmt(leakCheck(0, 'fixed'))}</td><td>${fmt(leakCheck(0, 'clip'))}</td></tr>
+      <tr><td>gain 1</td><td>${fmt(controls(1))}</td><td>${fmt(leakCheck(1, 'clip'))}</td></tr>
+      <tr><td>gain 2</td><td>${fmt(controls(2))}</td><td>${fmt(leakCheck(2, 'clip'))}</td></tr>`;
   }
   return () => disposers.forEach((d) => d());
 }
@@ -486,12 +488,12 @@ export async function mountRecordExplorer(store) {
 
 export function drawPathways(shared, store) {
   const clip = shared.clip();
-  if (!clip || !$('pwEnvelope')) return;
+  if (!clip || !$('pwSpectrogram')) return;
   const fe = store.frontend;
-  const env = shared.envelope();
-  drawHeatmap($('pwEnvelope'), env.rows, env.frames, env.mels, { min: 0, max: 1.6 });
+  const env = shared.spectrogram();
+  drawHeatmap($('pwSpectrogram'), env.rows, env.frames, env.mels, { min: 0, max: 1.6 });
   const quad = quadratureRows(clip.samples, fe);
   drawPhaseHeat($('pwQuadrature'), quad.rows, quad.phase, quad.frames, quad.mels);
 }
 
-export { envelopeRows, windowEdges };
+export { spectrogramRows, windowEdges };

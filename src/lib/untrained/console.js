@@ -1,4 +1,4 @@
-// A live console: pick an arm, a registered condition and a clip, press play.
+// A live console: pick an arm, one of the study's conditions and a clip, press play.
 //
 // The run happens first (a few tens of milliseconds), then the audio plays and every
 // panel is driven off the playhead, so what you hear and what you see are the
@@ -7,7 +7,7 @@
 // is no honest verdict before the clip ends.
 //
 // Every option comes from the export's manifest. A control is disabled when
-// the paper registered no run there, and the note under the controls says why.
+// the paper ran nothing there, and the note under the controls says why.
 
 import { runConfig } from './engine.js';
 import { addNoise, gaussian } from './frontend.js';
@@ -19,27 +19,34 @@ import { MicRecorder, micSupported, micErrorMessage, conditionForBank } from './
 const CHANNEL_COLORS = ['#7cc4ff', '#6ee7a8', '#ffd166', '#ff8a5b', '#c4a7ff', '#ff9ecf', '#9be7ff', '#e7eaf1'];
 
 export const MODELS = [
-  { key: 'field', label: 'coupled oscillator network', short: 'coupled network', match: { kind: 'field', severed: false } },
-  { key: 'severed', label: 'uncoupled oscillator network', short: 'uncoupled network', match: { kind: 'field', severed: true } },
-  { key: 'bank-c4', label: 'leaky-integrator bank, state-matched', short: 'leaky bank (1,024)', match: { kind: 'bank', channels: 4 } },
-  { key: 'bank-c8', label: 'leaky-integrator bank, width-matched', short: 'leaky bank (2,048)', match: { kind: 'bank', channels: 8 } },
-  { key: 'floor', label: 'spectrogram-only baseline (whole clip)', short: 'spectrogram only', match: { kind: 'floor' }, read: 'windowed@wholeclip' },
-  { key: 'floor16', label: 'spectrogram-only baseline (from frame 16)', short: 'spectrogram only, frame 16 on', match: { kind: 'floor' }, read: 'windowed' },
-  { key: 'ann-gru', label: 'GRU, trained', short: 'GRU', match: { kind: 'ann', arch: 'gru' } },
-  { key: 'ann-tcn', label: 'TCN, trained', short: 'TCN', match: { kind: 'ann', arch: 'tcn' } },
-  { key: 'ann-cnn', label: 'CNN, trained', short: 'CNN', match: { kind: 'ann', arch: 'cnn' } },
-  { key: 'ann-transformer', label: 'transformer, trained', short: 'transformer', match: { kind: 'ann', arch: 'transformer' } },
-  { key: 'ann-s4d', label: 'S4D, trained', short: 'S4D', match: { kind: 'ann', arch: 's4d' } },
+  { key: 'coupled', label: 'coupled oscillator network', short: 'coupled network', match: { kind: 'network', coupled: true } },
+  { key: 'uncoupled', label: 'uncoupled oscillator network', short: 'uncoupled network', match: { kind: 'network', coupled: false } },
+  { key: 'bank-state', label: 'leaky-integrator bank, state-matched', short: 'leaky bank (1,024)', match: { kind: 'bank', channels: 4 } },
+  { key: 'bank-width', label: 'leaky-integrator bank, width-matched', short: 'leaky bank (2,048)', match: { kind: 'bank', channels: 8 } },
+  { key: 'baseline', label: 'spectrogram-only baseline (whole clip)', short: 'spectrogram only', match: { kind: 'baseline' }, read: 'windowed@wholeclip' },
+  { key: 'baseline16', label: 'spectrogram-only baseline (from frame 16)', short: 'spectrogram only, frame 16 on', match: { kind: 'baseline' }, read: 'windowed' },
+  { key: 'trained-gru', label: 'GRU, trained', short: 'GRU', match: { kind: 'trained', arch: 'gru' } },
+  { key: 'trained-tcn', label: 'TCN, trained', short: 'TCN', match: { kind: 'trained', arch: 'tcn' } },
+  { key: 'trained-cnn', label: 'CNN, trained', short: 'CNN', match: { kind: 'trained', arch: 'cnn' } },
+  { key: 'trained-transformer', label: 'transformer, trained', short: 'transformer', match: { kind: 'trained', arch: 'transformer' } },
+  { key: 'trained-s4d', label: 'S4D, trained', short: 'S4D', match: { kind: 'trained', arch: 's4d' } },
 ];
 
 export const FUNCTIONS = {
-  kuramoto: 'Kuramoto', sakaguchi: 'Kuramoto–Sakaguchi', harmonic2: 'second harmonic', winfree: 'Winfree',
-  sl: 'Stuart–Landau', 'sl-fixedamp': 'Stuart–Landau, fixed amplitude',
+  kuramoto: 'Kuramoto', 'kuramoto-sakaguchi': 'Kuramoto–Sakaguchi', 'second-harmonic': 'second harmonic',
+  winfree: 'Winfree', 'stuart-landau': 'Stuart–Landau', 'stuart-landau-fixed': 'Stuart–Landau, fixed amplitude',
 };
-export const GEOS = { torus: 'torus', cylinder: 'cylinder', sheet: 'sheet', helix: 'helix', cube: 'cube', sphere: 'sphere' };
-export const PATHWAY_NAMES = { envelope: 'band-energy', quadrature: 'quadrature' };
-const NOISE_NAMES = (db) => (db === null ? 'clean' : db === 0 ? '0 dB' : `+${db} dB`);
-const TIER_NAMES = { tier1: 'Tier 1', tier2: 'Tier 2', tier3: 'Tier 3' };
+export const GEOS = {
+  torus: 'torus', cylinder: 'cylinder', sheet: 'sheet', helix: 'helix', cube: 'cube', sphere: 'sphere',
+  coil: 'coil', cochlea: 'cochlea', 'cochlea-matched': 'cochlea, matched coupling',
+};
+export const PATHWAY_NAMES = { spectrogram: 'spectrogram', quadrature: 'quadrature' };
+/** The record keeps the noise level relative to the speech (5 dB louder); people read it as SNR. */
+export const NOISE_NAMES = (db) => (db === null ? 'clean' : db === 0 ? '0 dB' : `−${db} dB`);
+export const EXPERIMENT_NAMES = {
+  controls: 'the controls experiment', design: 'the design experiment', cochlea: 'the cochlea experiment',
+  quadrature: 'the quadrature experiment',
+};
 
 /** Does a manifest config belong to a model option? */
 function isModel(cfg, model) {
@@ -48,8 +55,8 @@ function isModel(cfg, model) {
 }
 
 const FIELDS = {
-  fn: (c) => (c.arm.kind === 'field' && !c.arm.severed ? c.arm.physics : null),
-  geo: (c) => (c.arm.kind === 'field' && !c.arm.severed ? c.arm.boundary : null),
+  fn: (c) => (c.arm.kind === 'network' && c.arm.coupled ? c.arm.coupling : null),
+  geo: (c) => (c.arm.kind === 'network' && c.arm.coupled ? c.arm.geometry : null),
   gain: (c) => c.gain,
   noise: (c) => c.noise_db,
 };
@@ -65,7 +72,7 @@ export function mountConsole(ctx, { prefix, mode }) {
   const $ = (name) => document.getElementById(`${prefix}-${name}`);
   const configs = Object.values(store.manifest.configs);
   const models = mode === 'drive'
-    ? MODELS.filter((m) => ['bank-c4', 'severed', 'field'].includes(m.key))
+    ? MODELS.filter((m) => ['bank-state', 'uncoupled', 'coupled'].includes(m.key))
     : MODELS;
   const G = store.physics.grid;
   const disposers = [];
@@ -77,8 +84,8 @@ export function mountConsole(ctx, { prefix, mode }) {
 
   const clips = [...ctx.clips];
   const sel = {
-    model: mode === 'drive' ? 'field' : 'field', fn: 'kuramoto', geo: 'torus', gain: 1, noise: mode === 'drive' ? 0 : null,
-    pathway: 'envelope', clip: Math.max(0, clips.findIndex((c) => c.digit === 7)), channel: 0,
+    model: 'coupled', fn: 'kuramoto', geo: 'torus', gain: 1, noise: mode === 'drive' ? 0 : null,
+    pathway: 'spectrogram', clip: Math.max(0, clips.findIndex((c) => c.digit === 7)), channel: 0,
   };
   const local = { cfg: null, result: null, samples: null, frame: 0, final: true, token: 0, running: false };
 
@@ -97,7 +104,7 @@ export function mountConsole(ctx, { prefix, mode }) {
   // --- choosing a config ---------------------------------------------------
 
   const modelOf = (key) => models.find((m) => m.key === key);
-  const pool = (s) => configs.filter((c) => c.drive === s.pathway && isModel(c, modelOf(s.model)));
+  const pool = (s) => configs.filter((c) => c.pathway === s.pathway && isModel(c, modelOf(s.model)));
 
   /** The config for a selection, adjusting whatever the export does not have; `changed` wins. */
   function resolve(changed) {
@@ -197,7 +204,7 @@ export function mountConsole(ctx, { prefix, mode }) {
   function refreshControls() {
     $('model').value = sel.model;
     const m = modelOf(sel.model);
-    const isField = m.match.kind === 'field' && !m.match.severed;
+    const isField = m.match.kind === 'network' && m.match.coupled;
 
     // coupling function: every function the export has for this model and pathway
     const fnSel = $('fn');
@@ -223,7 +230,7 @@ export function mountConsole(ctx, { prefix, mode }) {
       $('geoField').hidden = !isField;
     }
     const gains = available('gain');
-    const gainValues = [...new Set(configs.filter((c) => c.drive === sel.pathway && c.gain !== null).map((c) => c.gain))]
+    const gainValues = [...new Set(configs.filter((c) => c.pathway === sel.pathway && c.gain !== null).map((c) => c.gain))]
       .sort((a, b) => a - b);
     segButtons($('gain'), gains.has(null) ? [null] : gainValues, sel.gain, gains,
                (v) => (v === null ? 'does not apply' : `${v}`), (v) => { sel.gain = v; select('gain'); });
@@ -231,12 +238,12 @@ export function mountConsole(ctx, { prefix, mode }) {
     segButtons($('noise'), [null, 0, 5], sel.noise, noises, NOISE_NAMES, (v) => { sel.noise = v; select('noise'); });
     if ($('pathway')) {
       segButtons($('pathway'), Object.keys(PATHWAY_NAMES), sel.pathway,
-                 new Set(Object.keys(PATHWAY_NAMES).filter((p) => configs.some((c) => c.drive === p))),
+                 new Set(Object.keys(PATHWAY_NAMES).filter((p) => configs.some((c) => c.pathway === p))),
                  (p) => PATHWAY_NAMES[p], (p) => { sel.pathway = p; select('pathway'); });
       // a model with no run on this pathway is still offered; picking it moves the pathway
       [...$('model').options].forEach((opt) => {
         const mm = modelOf(opt.value);
-        opt.disabled = !configs.some((c) => c.drive === sel.pathway && isModel(c, mm));
+        opt.disabled = !configs.some((c) => c.pathway === sel.pathway && isModel(c, mm));
       });
     }
     $('clip').value = String(sel.clip);
@@ -245,17 +252,23 @@ export function mountConsole(ctx, { prefix, mode }) {
   function explain(cfg, moved) {
     const notes = [];
     const a = cfg.arm;
-    if (a.kind === 'floor' || a.kind === 'ann') {
-      notes.push(a.kind === 'floor'
+    if (a.kind === 'baseline' || a.kind === 'trained') {
+      notes.push(a.kind === 'baseline'
         ? 'Input gain does not apply: the baseline has no dynamics for it to act on, and the readout’s standardization would divide out any fixed scale.'
         : 'Input gain does not apply: a trained network learns its own input scale. Each is trained once per noise level, on the input as it is.');
     }
-    if (cfg.tier === 'tier2') notes.push('Network design (Tier 2) is read at 0 and +5 dB only: on clean audio the task saturates.');
-    if (a.physics?.startsWith('sl')) notes.push('The Stuart–Landau functions were run on the torus only.');
-    if (cfg.drive === 'quadrature') notes.push('The quadrature pathway drives phase oscillators only: a leaky integrator has no phase for the pair to act on, and the Stuart–Landau networks were not built for it.');
+    if (cfg.experiment === 'design' || cfg.experiment === 'cochlea') {
+      notes.push('The design and cochlea experiments read network design at 0 and −5 dB only: on clean audio the task saturates.');
+    }
+    if (a.coupling?.startsWith('stuart-landau')) {
+      notes.push('The Stuart–Landau functions were run on the torus only; the free-amplitude network also on clean audio, in the controls experiment.');
+    }
+    if (cfg.pathway === 'quadrature') {
+      notes.push('The quadrature pathway drives phase oscillators only: a leaky integrator has no phase for the push to act on, and the Stuart–Landau networks were not run on it.');
+    }
     for (const [key, from, to] of moved) {
       const fmt = key === 'noise' ? NOISE_NAMES : key === 'fn' ? (v) => FUNCTIONS[v] : (v) => String(v);
-      notes.push(`Moved ${key === 'fn' ? 'the coupling function' : key} from ${fmt(from)} to ${fmt(to)}: nothing was registered at ${fmt(from)} here.`);
+      notes.push(`Moved ${key === 'fn' ? 'the coupling function' : key} from ${fmt(from)} to ${fmt(to)}: the paper ran nothing at ${fmt(from)} here.`);
     }
     $('controlNote').textContent = notes.join(' ');
   }
@@ -319,38 +332,38 @@ export function mountConsole(ctx, { prefix, mode }) {
 
   function setupView(cfg, result) {
     const a = cfg.arm, kind = a.kind;
-    const oscillators = kind === 'field';
+    const oscillators = kind === 'network';
     $('view3d').hidden = !oscillators;
     $('view2d').hidden = oscillators;
     $('chanRow').hidden = !oscillators;
     $('gridsPanel').hidden = !oscillators;
-    const geo = oscillators ? (a.severed ? 'torus' : a.boundary) : 'torus';
+    const geo = oscillators ? (a.coupled ? a.geometry : 'torus') : 'torus';
     if (oscillators) view.setGeometry(geo);
     const titles = {
-      field: a.severed ? 'the uncoupled network (coupling set to zero)' : `the network on its ${GEOS[geo]}`,
+      network: a.coupled ? `the network on its ${GEOS[geo]}` : 'the uncoupled network (coupling set to zero)',
       bank: `the bank’s ${a.channels * 256} units`,
-      ann: `the ${modelOf(sel.model)?.short ?? a.arch}’s hidden units`,
-      floor: 'what the readout reads: the band energies',
+      trained: `the ${modelOf(sel.model)?.short ?? a.arch}’s hidden units`,
+      baseline: 'what the readout reads: the band energies',
     };
     $('viewTitle').textContent = titles[kind];
     const notes = {
-      field: a.physics?.startsWith('sl')
+      network: a.coupling === 'stuart-landau'
         ? 'Each cell is one oscillator: hue is its phase, brightness its amplitude. Row r is driven by mel band r. Drag to turn it.'
         : 'Each cell is one oscillator and its hue is its phase. Row r is driven by mel band r; the white line marks the loudest band. Drag to turn it.',
       bank: 'Each square is one channel. Rows are mel bands; columns run from the fastest time constant (16 ms, channel 1, left) to the slowest (1 s). Brightness is the unit’s state.',
-      ann: 'Hidden units over time (brighter is larger), frames 16 on: the trajectory the readout’s statistics are taken over.',
-      floor: 'The drive rows themselves, with the read’s four windows marked: the readout reads the input directly, with nothing between them.',
+      trained: 'Hidden units over time (brighter is larger), frames 16 on: the trajectory the readout’s statistics are taken over.',
+      baseline: 'The drive rows themselves, with the read’s four windows marked: the readout reads the input directly, with nothing between them.',
     };
     $('viewNote').textContent = notes[kind];
-    $('stripArm').textContent = { field: a.severed ? 'uncoupled' : 'oscillators', bank: 'leaky bank', ann: a.arch, floor: '(nothing)' }[kind];
+    $('stripArm').textContent = { network: a.coupled ? 'oscillators' : 'uncoupled', bank: 'leaky bank', trained: a.arch, baseline: '(nothing)' }[kind];
     const rTitles = {
-      field: 'order parameter R per channel · drive rows now',
+      network: 'order parameter R per channel · drive rows now',
       bank: 'four units of the loudest band, fast to slow · drive rows now',
-      ann: 'four hidden units · drive rows now',
-      floor: 'four band energies · drive rows now',
+      trained: 'four hidden units · drive rows now',
+      baseline: 'four band energies · drive rows now',
     };
     $('traceTitle').textContent = rTitles[kind];
-    $('inputTitle').textContent = `input · ${PATHWAY_NAMES[cfg.drive]} pathway`;
+    $('inputTitle').textContent = `input · ${PATHWAY_NAMES[cfg.pathway]} pathway`;
     buildScoreBars();
     buildWindows(result);
     updateRecord(cfg, result);
@@ -392,22 +405,19 @@ export function mountConsole(ctx, { prefix, mode }) {
     const m = $('mRecord');
     const note = $('recordNote');
     const tag = $('fitTag');
-    tag.textContent = rec ? 'as registered' : cfg.tier ? `${TIER_NAMES[cfg.tier]} pending` : 'not registered';
+    tag.textContent = rec ? 'in the paper' : 'not in the paper';
     tag.className = `tag ${rec ? 'ok' : 'off'}`;
     if (rec) {
       m.textContent = `${(rec.mean * 100).toFixed(1)} ± ${(rec.sd * 100).toFixed(1)}%`;
       const s0 = rec.seeds['0'];
-      note.textContent = `Registered in ${TIER_NAMES[cfg.tier]}: mean ± SD over ${rec.n} seeds on the 6,000 test clips, `
-        + `at 2,048 training clips and width 192.${s0 !== undefined ? ` This page runs seed 0 (${pct(s0)}).` : ''}`;
-    } else if (cfg.tier) {
-      m.textContent = 'pending';
-      note.textContent = `${TIER_NAMES[cfg.tier]} has not recorded this cell yet. The readout here was fitted the registered way`
-        + `${ex ? ` and scores ${pct(ex.acc)} on ${cfg.n_test.toLocaleString()} test clips` : ''}.`;
+      note.textContent = `From ${EXPERIMENT_NAMES[cfg.experiment] ?? 'the record'}: mean ± SD over ${rec.n} seeds on the `
+        + `6,000 test clips, at 2,048 training clips and width 192.${s0 !== undefined ? ` This page runs seed 0 (${pct(s0)}).` : ''}`;
     } else {
-      m.textContent = 'not registered';
-      note.textContent = 'Not a registered arm: the paper did not run it here. Its readout was fitted by the export the registered way, as a reference.';
+      m.textContent = ex ? pct(ex.acc) : 'not run';
+      note.textContent = 'The paper did not run this arm here. It is included as a reference: its readout was fitted the '
+        + `paper’s way${ex ? ` and scores ${pct(ex.acc)} on the ${cfg.n_test.toLocaleString()} test clips, at seed 0` : ''}.`;
     }
-    if (cfg.export && cfg.n_test && cfg.n_test < 6000) note.textContent += ` (Development data: a short training set, not the registered fit.)`;
+    if (cfg.export && cfg.n_test && cfg.n_test < 6000) note.textContent += ' (Development data: a short training set, not the paper’s fit.)';
   }
 
   function frameInfo() {
@@ -440,7 +450,7 @@ export function mountConsole(ctx, { prefix, mode }) {
 
     drawWaveform($('wave'), local.samples, { playhead: frac });
     const hot = loudest(input.rows, t, G);
-    if (cfg.drive === 'quadrature') drawPhaseHeat($('rows'), input.rows, input.phase, T, G, { playhead: frac });
+    if (cfg.pathway === 'quadrature') drawPhaseHeat($('rows'), input.rows, input.phase, T, G, { playhead: frac });
     else drawHeatmap($('rows'), input.rows, T, G, { min: 0, max: 1.6, playhead: frac, highlightRow: hot >= 0 ? hot : undefined });
     shadeWindows($('rows'), r.edges, T);
 
@@ -451,7 +461,7 @@ export function mountConsole(ctx, { prefix, mode }) {
     // traces up to now
     const series = [];
     const step = Math.max(1, Math.floor(T / 400));
-    if (kind === 'field') {
+    if (kind === 'network') {
       for (let c = 0; c < d.C; c++) {
         const values = [];
         for (let k = 0; k <= t; k += step) values.push(d.R[Math.floor(k / d.stride) * d.C + c]);
@@ -466,13 +476,13 @@ export function mountConsole(ctx, { prefix, mode }) {
         for (let k = 0; k <= t; k += step) values.push(pick[s](k));
         series.push({ values, color: CHANNEL_COLORS[s], width: 1.5 });
       }
-      const top = kind === 'floor' ? 1.6 : kind === 'bank' ? 1 : Math.max(1e-3, ...series.flatMap((x) => x.values.map(Math.abs)));
+      const top = kind === 'baseline' ? 1.6 : kind === 'bank' ? 1 : Math.max(1e-3, ...series.flatMap((x) => x.values.map(Math.abs)));
       $('traceScale').textContent = `0 – ${top.toFixed(2)}`;
       drawLines($('trace'), series.map((x) => ({ ...x, values: x.values.map((v) => Math.max(0, v)) })), { yMax: top });
     }
 
     // the arm itself
-    if (kind === 'field') {
+    if (kind === 'network') {
       const base = df * d.C * d.N;
       const ch = Math.min(sel.channel, d.C - 1);
       const off = base + ch * d.N;
@@ -490,7 +500,7 @@ export function mountConsole(ctx, { prefix, mode }) {
     } else if (kind === 'bank') {
       drawMosaic($('view2d'), d.state, df * d.C * d.N, d.C, G, { cols: d.C > 4 ? 4 : 2, lo: 0, hi: 1 });
       $('viewTag').textContent = `${d.C} channels × 16 × 16`;
-    } else if (kind === 'ann') {
+    } else if (kind === 'trained') {
       drawHeatmap($('view2d'), d.hidden, T, d.H, { min: 0, playhead: frac });
       shadeWindows($('view2d'), r.edges, T, { labels: true });
       $('viewTag').textContent = `${d.H} units × ${T} frames`;
@@ -519,7 +529,7 @@ export function mountConsole(ctx, { prefix, mode }) {
       const chans = [0, Math.floor(d.C / 3), Math.floor((2 * d.C) / 3), d.C - 1];
       return chans.map((c) => (k) => d.state[Math.min(d.frames - 1, Math.floor(k / d.stride)) * d.C * d.N + c * d.N + row * G + 7]);
     }
-    if (kind === 'ann') return [0, 1, 2, 3].map((u) => (k) => d.hidden[k * d.H + u]);
+    if (kind === 'trained') return [0, 1, 2, 3].map((u) => (k) => d.hidden[k * d.H + u]);
     const bands = [2, 6, 10, 14];
     return bands.map((b) => (k) => local.result.input.rows[k * G + b]);
   }

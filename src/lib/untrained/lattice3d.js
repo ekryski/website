@@ -8,6 +8,10 @@
 //   sphere    rows as latitudes (south = lowest band), columns as longitudes
 //   helix     all 256 in one closed coil, 64 per turn: an octave per turn
 //   cube      16 slabs of 4 x 4, one per band, stacked
+//   coil      all 256 in one open spiral, apex (lowest band, narrow, top) to
+//             base (highest band, wide), 64 per turn; the cochlea and its
+//             matched control are the same spiral, with arrowheads for the
+//             base-to-apex direction of their coupling
 //
 // Cells are coloured by the caller: hue for phase, or a ramp for a value.
 
@@ -62,6 +66,7 @@ export class LatticeView {
     this._clear();
     if (SURFACES[name]) this._buildSurface(SURFACES[name], name);
     else if (name === 'helix') this._buildHelix();
+    else if (name === 'coil' || name === 'cochlea' || name === 'cochlea-matched') this._buildCoil(name !== 'coil');
     else if (name === 'cube') this._buildCube();
     this.group.rotation.set(name === 'sheet' ? 0.25 : 0.42, 0, 0);
     this._highlight = -2;
@@ -153,6 +158,44 @@ export class LatticeView {
       for (let i = 0; i <= 32; i++) {
         const q = at(row * this.G + (i / 32) * (this.G - 1));
         out.push(new THREE.Vector3(q[0] * 1.08, q[1] * 1.08, q[2]));
+      }
+      return out;
+    };
+    this._addRing();
+  }
+
+  _buildCoil(directed) {
+    const turns = 4, per = this.N / turns, rBase = 1.0, rApex = 0.25, height = 1.5;
+    const at = (p) => {
+      const f = p / (this.N - 1);
+      const r = rBase * (rApex / rBase) ** (1 - f);          // narrow at the apex (p = 0), wide at the base
+      const a = (p / per) * TWO_PI;
+      return [r * Math.cos(a), r * Math.sin(a), height * (0.5 - f)];
+    };
+    const positions = [];
+    for (let p = 0; p < this.N; p++) positions.push(at(p));
+    this._instanced(new THREE.SphereGeometry(0.05, 10, 8), positions);
+    const pts = [];
+    for (let i = 0; i <= 512; i++) pts.push(new THREE.Vector3(...at((i / 512) * (this.N - 1))));
+    this.group.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts),
+      new THREE.LineBasicMaterial({ color: 0x67718a, transparent: true, opacity: 0.6 })));
+    if (directed) {
+      // the travelling wave's direction: influence runs from the base toward the apex
+      const cone = new THREE.ConeGeometry(0.035, 0.1, 10);
+      const mat = new THREE.MeshBasicMaterial({ color: 0xe7eaf1 });
+      for (let p = 24; p < this.N; p += 40) {
+        const a = new THREE.Vector3(...at(p)), b = new THREE.Vector3(...at(p - 1));
+        const m = new THREE.Mesh(cone, mat);
+        m.position.copy(a).multiplyScalar(1.12);
+        m.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), b.sub(a).normalize());
+        this.group.add(m);
+      }
+    }
+    this.rowPath = (row) => {
+      const out = [];
+      for (let i = 0; i <= 32; i++) {
+        const q = at(row * this.G + (i / 32) * (this.G - 1));
+        out.push(new THREE.Vector3(q[0] * 1.1, q[1] * 1.1, q[2]));
       }
       return out;
     };
