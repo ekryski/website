@@ -85,9 +85,9 @@ export function gaussian(seed, n) {
 }
 
 /**
- * White noise at `db` relative to the speech: amplitude = RMS(speech) x 10^(db/20),
+ * White noise `db` decibels above the speech: amplitude = RMS(speech) x 10^(db/20),
  * the RMS taken over the clip's own samples, the noise over the whole padded
- * second. 0 dB is noise as loud as the speech; +5 dB is louder.
+ * second. db 0 is noise as loud as the speech (0 dB SNR); db 5 is louder (−5 dB SNR).
  */
 export function addNoise(samples, speechLength, unitNoise, db) {
   if (db === null || db === undefined) return samples;

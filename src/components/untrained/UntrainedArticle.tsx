@@ -450,7 +450,7 @@ export function UntrainedArticle() {
         <p>
           Nothing in the front end is trained, and nothing depends on the clip. The same arithmetic runs
           here in your browser: the rows you see are identical, to rounding, to the rows the paper’s harness
-          computed. One of these constants has a price you can look up: in figure 9, read the
+          computed. The paper measures the effect of one of these constants: in figure 9, read the
           spectrogram-only baseline <em>from frame 0</em> and then with the four windows, which skip the
           warm-up, to see what the first 256 ms of a word are worth on their own.
         </p>
@@ -525,8 +525,8 @@ export function UntrainedArticle() {
           it is handed, and the reservoirs expose 12,288 to 24,576 against the input’s 192. So that readout
           capacity cannot pass for dynamics, every arm is read at 192 features: exactly the spectrogram-only
           baseline’s own count (16 bands × 3 statistics × 4 windows), so the input is read without
-          compression, and the native width of four of the five trained baselines. The paper prices the
-          choice: at width 4,096 the reservoirs gain up to about 6 points, but their readout then fits 40,970
+          compression, and the native width of four of the five trained baselines. The paper also reads every
+          model wider: at width 4,096 the reservoirs gain up to about 6 points, but their readout then fits 40,970
           weights against the 1,930 that read the input. Figure 9 shows every width.
         </p>
         <p>
@@ -852,8 +852,9 @@ export function UntrainedArticle() {
           <b>Figure 11 · the model explorer.</b> The coupled network starts at the paper’s reference
           configuration: Kuramoto coupling on a torus, random natural frequencies, restoring strength 0.3,
           ceiling 1. Change its coupling function or geometry and you are in the design or cochlea experiment.
-          Noise is added the way the paper adds it, with each clip’s own recorded noise; your own recording gets
-          a fresh draw of the same recipe. Accuracy on one clip says little: the paper’s number beside it is
+          Noise is added the way the paper adds it, with the same noise samples the paper drew for each clip;
+          your own recording gets Gaussian white noise at the same signal-to-noise ratio. Accuracy on one clip
+          says little: the paper’s number beside it is
           over 6,000.
         </figcaption>
       </figure>
