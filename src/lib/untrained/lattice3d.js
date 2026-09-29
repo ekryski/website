@@ -56,7 +56,10 @@ export class LatticeView {
     this.colors = new Float32Array(this.N * 3);
     this.spin = true;
     this.geometry = null;
+    this.radius = 1.5;     // the shape's reach from the origin, set per geometry
+    this.zoom = 1;         // 1 frames the whole shape; above 1 moves in
     this._installDragControls();
+    this._installZoomButtons();
   }
 
   /** Rebuild the mesh for a geometry name. */
@@ -70,6 +73,49 @@ export class LatticeView {
     else if (name === 'cube') this._buildCube();
     this.group.rotation.set(name === 'sheet' ? 0.25 : 0.42, 0, 0);
     this._highlight = -2;
+    this.radius = this._reach();
+    this._frame();
+  }
+
+  /** The farthest any drawn point sits from the origin: the shape's bounding sphere, whatever its rotation. */
+  _reach() {
+    let r2 = 0;
+    const v = new THREE.Vector3(), m = new THREE.Matrix4();
+    this.group.children.forEach((obj) => {
+      const pos = obj.geometry?.attributes?.position;
+      if (!pos || obj === this.ring) return;
+      if (obj.isInstancedMesh) {
+        obj.geometry.computeBoundingSphere();
+        const pad = obj.geometry.boundingSphere.radius;
+        for (let i = 0; i < obj.count; i++) {
+          obj.getMatrixAt(i, m);
+          v.setFromMatrixPosition(m);
+          r2 = Math.max(r2, (v.length() + pad) ** 2);
+        }
+      } else {
+        obj.updateMatrix();
+        for (let i = 0; i < pos.count; i++) {
+          v.fromBufferAttribute(pos, i).applyMatrix4(obj.matrix);
+          r2 = Math.max(r2, v.lengthSq());
+        }
+      }
+    });
+    return Math.sqrt(r2) || 1.5;
+  }
+
+  /** Place the camera so the bounding sphere fits the canvas both ways, then apply the zoom. */
+  _frame() {
+    const vHalf = THREE.MathUtils.degToRad(this.camera.fov / 2);
+    const hHalf = Math.atan(Math.tan(vHalf) * this.camera.aspect);
+    const fit = (this.radius * 1.06) / Math.sin(Math.min(vHalf, hHalf));
+    this.camera.position.setLength(fit / this.zoom);
+    this.camera.lookAt(0, 0, 0);
+    this.camera.updateProjectionMatrix();
+  }
+
+  setZoom(z) {
+    this.zoom = Math.min(3, Math.max(0.6, z));
+    this._frame();
   }
 
   _clear() {
@@ -275,6 +321,35 @@ export class LatticeView {
     add(this.canvas, 'pointerdown', down);
     add(window, 'pointermove', move);
     add(window, 'pointerup', up);
+    // a trackpad pinch arrives as ctrl + wheel; a plain wheel still scrolls the page
+    add(this.canvas, 'wheel', (e) => {
+      if (!e.ctrlKey) return;
+      e.preventDefault();
+      this.setZoom(this.zoom * Math.exp(-e.deltaY * 0.01));
+    }, { passive: false });
+  }
+
+  /** Zoom out and in, over the top right of the view. */
+  _installZoomButtons() {
+    const host = this.canvas.parentElement;
+    if (!host) return;
+    host.classList.add('zoomHost');
+    const box = document.createElement('div');
+    box.className = 'zoomBox';
+    for (const [label, name, f] of [['−', 'zoom out', 1 / 1.25], ['+', 'zoom in', 1.25]]) {
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'zoomBtn';
+      b.textContent = label;
+      b.setAttribute('aria-label', name);
+      b.title = name;
+      const click = () => this.setZoom(this.zoom * f);
+      b.addEventListener('click', click);
+      this._listeners.push(() => b.removeEventListener('click', click));
+      box.appendChild(b);
+    }
+    host.appendChild(box);
+    this._listeners.push(() => box.remove());
   }
 
   render(dt = 0) {
@@ -283,10 +358,7 @@ export class LatticeView {
     if (this.canvas.width !== Math.round(w * this.renderer.getPixelRatio())) {
       this.renderer.setSize(w, h, false);
       this.camera.aspect = w / h;
-      // back off on narrow canvases, so the shape fits across as well as up
-      this.camera.position.setLength(3.8 / Math.min(1, this.camera.aspect * 1.15));
-      this.camera.lookAt(0, 0, 0);
-      this.camera.updateProjectionMatrix();
+      this._frame();
     }
     if (this.spin) this.group.rotation.z += dt * 0.12;
     this.renderer.render(this.scene, this.camera);

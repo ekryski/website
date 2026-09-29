@@ -74,7 +74,7 @@ export function UntrainedArticle() {
               </marker>
             </defs>
             <text x="20" y="26" className="hd">FIXED, SHARED</text>
-            <text x="330" y="26" className="hd">THE ONLY THING THAT CHANGES</text>
+            <text x="330" y="26" className="hd">VARIES BY MODEL</text>
             <text x="690" y="26" className="hd">FIXED, SHARED</text>
 
             <rect className="bx bxFront" x="20" y="70" width="140" height="110" rx="12" />
@@ -112,12 +112,12 @@ export function UntrainedArticle() {
             <path className="ln" markerEnd="url(#uArrow)" d="M660 125 H685" />
             <path className="ln" markerEnd="url(#uArrow)" d="M830 125 H855" />
             <text x="495" y="236" className="sub" textAnchor="middle">
-              every arm sits in the same slot, is read by the same function, and is scored by a readout of the same size
+              every model is read by the same function and scored by a readout of the same size
             </text>
           </svg>
         </div>
         <figcaption className={CAPTION}>
-          <b>Figure 1 · one slot, many occupants.</b> The paper’s design in one picture. The front end, the
+          <b>Figure 1 · the shared pipeline.</b> The paper’s design in one picture. The front end, the
           way signals are summarized and the readout are identical for every model; only the box in the
           middle changes. The untrained arms have no fitted parameters at all: only the readout’s 1,930
           weights are fitted, so any difference between two arms is a difference in what they did to the
@@ -127,10 +127,12 @@ export function UntrainedArticle() {
 
       {/* ─────────────────────────────────────────────────────────── 02 ─── */}
       <Prose className={TYPE}>
-        <h2><span className="num">02 · oscillators</span>A crowd that keeps its own time</h2>
+        <h2><span className="num">02 · oscillators</span>Oscillators, coupled and uncoupled</h2>
         <p>
           An oscillator is anything that cycles: a pendulum, a firefly’s flash, a neuron that fires
-          rhythmically. The simplest mathematical version keeps a single number, its <strong>phase</strong>{' '}
+          rhythmically. The simplest mathematical version (
+          <a href="https://en.wikipedia.org/wiki/Kuramoto_model" {...ext}>Kuramoto</a>) keeps a single number,
+          its <strong>phase</strong>{' '}
           θ, an angle that advances around a circle. Left alone, it advances at its own{' '}
           <strong>natural frequency</strong> ω. The interesting part is what happens when many of them can
           feel each other.
@@ -252,7 +254,7 @@ export function UntrainedArticle() {
 
       {/* ─────────────────────────────────────────────────────────── 03 ─── */}
       <Prose className={TYPE}>
-        <h2><span className="num">03 · the control with memory</span>Leaky integrators: memory that never turns</h2>
+        <h2><span className="num">03 · the control with memory</span>Leaky integrators: memory without oscillation</h2>
         <p>
           An oscillator network driven by sound is, among other things, a bank of filters with memory. Each
           oscillator’s state at any moment depends on what it heard recently, weighted toward the recent past.
@@ -263,26 +265,64 @@ export function UntrainedArticle() {
           That simpler object is the <strong>leaky integrator</strong>. It holds one number and, every frame,
           moves a fixed fraction of the way toward its input:
         </p>
-        <p className="!font-mono !text-base">x ← (1 − a) · x + a · tanh(g<sub>in</sub> · g · u)</p>
-        <p>
-          The old value decays, or leaks, so the unit is a running average of its recent input, with a time
-          constant set by the leak rate a. In signal-processing terms it is a first-order low-pass filter; in
-          reservoir computing it is the unit of a leaky echo state network. The tanh bounds the input, so a
-          loud enough band saturates it.
-        </p>
       </Prose>
+
+      <figure className="my-10">
+        <div className="panel">
+          <div className="equation !border-0 !bg-transparent !p-0 !pb-1">
+            x ← <span className="tDrift">(1 − a) · x</span>{' + '}
+            <span className="tCouple">a</span> · tanh(<span className="tPin">g<sub>in</sub> · g</span> ·{' '}
+            <span className="tDrive">u</span>)
+          </div>
+          <div className="termGrid">
+            <div>
+              <span className="tDrift">(1 − a) x</span>
+              <span><b>What it keeps.</b> Each frame the unit keeps a share 1 − a of its old value; the rest leaks away, so old input fades exponentially.</span>
+            </div>
+            <div>
+              <span className="tCouple">a</span>
+              <span><b>Leak rate.</b> Set by the unit’s time constant τ as a = 1 − e<sup>−1/(62.5 τ)</sup>: 0.63 at τ = 16 ms, a unit that forgets within a few frames, down to 0.016 at τ = 1 s, one that averages the whole clip.</span>
+            </div>
+            <div>
+              <span className="tPin">g<sub>in</sub> · g</span>
+              <span><b>Gains.</b> The unit’s own input weight, drawn from N(1, 0.1²), times the input gain g that every reservoir shares.</span>
+            </div>
+            <div>
+              <span className="tDrive">u</span>
+              <span><b>The input.</b> The energy in the unit’s mel band, the same row value that drives the oscillators. The tanh keeps a loud band from pushing the state past 1.</span>
+            </div>
+          </div>
+        </div>
+        <figcaption className={CAPTION}>
+          <b>Figure 4 · a leaky integrator, in one line.</b> In signal-processing terms it is a first-order
+          low-pass filter: a running average of its recent input. In reservoir computing it is the unit of a
+          leaky echo state network.
+        </figcaption>
+      </figure>
 
       <figure className="my-10">
         <div className="panel">
           <div className="panelTitle">
             <span>one band’s energy through five leaky integrators</span>
-            <em>band <b id="leakyBandVal">7</b></em>
           </div>
-          <div className="canvasFrame"><canvas id="leakyCanvas" style={{ height: 170 }} /></div>
+          <div className="canvasFrame"><canvas id="leakyCanvas" style={{ height: 200 }} /></div>
+          <div className="legend" aria-hidden="true">
+            <span><i style={{ background: 'rgba(231,234,241,0.55)' }} />input, tanh(g · u)</span>
+            <span><i style={{ background: '#ff8a5b' }} />τ 16 ms</span>
+            <span><i style={{ background: '#ffd166' }} />45 ms</span>
+            <span><i style={{ background: '#6ee7a8' }} />125 ms</span>
+            <span><i style={{ background: '#7cc4ff' }} />350 ms</span>
+            <span><i style={{ background: '#c4a7ff' }} />1 s</span>
+          </div>
           <div className="grid gap-4 sm:grid-cols-2" style={{ marginTop: 12 }}>
             <div className="dial">
               <label htmlFor="leakyBand">mel band <b>low → high</b></label>
-              <input className="slider" type="range" id="leakyBand" min="0" max="15" defaultValue="6" />
+              <input className="slider" type="range" id="leakyBand" min="0" max="15" step="1" defaultValue="6"
+                     list="leakyBandTicks" />
+              <datalist id="leakyBandTicks">
+                {Array.from({ length: 16 }, (_, b) => <option value={b} key={b} />)}
+              </datalist>
+              <div className="bandRange" id="leakyBandRange">band 7 · 1,004 to 1,591 Hz</div>
             </div>
             <div className="field">
               <span>input gain</span>
@@ -295,9 +335,11 @@ export function UntrainedArticle() {
           </div>
         </div>
         <figcaption className={CAPTION}>
-          <b>Figure 4 · fast and slow memories.</b> Grey: one mel band’s energy over the selected clip (pick a
-          clip in section 04). Coloured: five leaky integrators fed that band, with time constants of 16 ms
-          (orange), 45 ms, 125 ms, 350 ms and 1 s (violet). The fast ones track every syllable; the slow ones
+          <b>Figure 5 · fast and slow memories.</b> Time along the bottom, over the selected clip’s one
+          second (pick a clip in section 04); each unit’s state x up the side. Grey: the input every unit moves
+          toward, tanh(g · u) of one mel band’s energy. Coloured: the states of five leaky integrators fed that
+          band, with time constants of 16 ms (orange), 45 ms, 125 ms, 350 ms and 1 s (violet). The slider picks
+          the band, and the line under it gives the frequencies that band covers. The fast ones track every syllable; the slow ones
           only know roughly how loud the band has been. Raise the gain and the tanh flattens the peaks. None of
           them can ever do what an oscillator does: turn.
         </figcaption>
@@ -325,12 +367,12 @@ export function UntrainedArticle() {
         <div className="panel">
           <div className="panelTitle">
             <span>the state-matched bank’s 1,024 time constants</span>
-            <em>dark = fast · pale = slow</em>
+            <em>dark = slow · light = fast</em>
           </div>
           <div className="canvasFrame"><canvas id="bankLayout" style={{ height: 170 }} /></div>
         </div>
         <figcaption className={CAPTION}>
-          <b>Figure 5 · every band at every time scale.</b> The bank stored as the network is: four channels
+          <b>Figure 6 · every band at every time scale.</b> The bank stored as the network is: four channels
           of 16 × 16, row r fed by mel band r. Within a row, the 64 units run from the fastest (channel 1,
           left) to the slowest (channel 4, right), so each band is integrated over 64 time scales.
         </figcaption>
@@ -383,7 +425,7 @@ export function UntrainedArticle() {
           </div>
         </div>
         <figcaption className={CAPTION}>
-          <b>Figure 6 · the front end, live.</b> Every clip on this page comes from{' '}
+          <b>Figure 7 · the front end, live.</b> Every clip on this page comes from{' '}
           <a href="https://github.com/soerenab/AudioMNIST" {...ext} className="underline">AudioMNIST</a>, 30,000
           recordings of 60 speakers saying the ten digits. These twenty come from the test speakers (49 to
           60), whom no readout on this page was ever fitted on. Each is stored as the paper’s bank stores it:
@@ -402,13 +444,13 @@ export function UntrainedArticle() {
             <tr><td>mel bands</td><td>16</td><td>One per lattice row, so band r can drive row r directly.</td></tr>
             <tr><td>log</td><td>log(energy + 10⁻⁵)</td><td>Loudness is heard on a log scale; the offset keeps silence finite.</td></tr>
             <tr><td>rescale</td><td>(x + 10) / 10, clamped at 0</td><td>One fixed map into a drive of about 0 (silence) to 1.5 (loud). Nothing is normalized per clip, because a clip’s own statistics are unknown until it ends: a model that has to listen as the sound arrives cannot use them.</td></tr>
-            <tr><td>warm-up</td><td>16 frames (256 ms)</td><td>Discarded by the read, so every arm is read after its state has settled from the same initial condition.</td></tr>
+            <tr><td>warm-up</td><td>16 frames (256 ms)</td><td>Skipped by the read, so every model is read after its state has settled from the same initial condition. The spectrogram-only baseline, which has no state, is read from frame 0 (section 05).</td></tr>
           </tbody>
         </table>
         <p>
           Nothing in the front end is trained, and nothing depends on the clip. The same arithmetic runs
           here in your browser: the rows you see are identical, to rounding, to the rows the paper’s harness
-          computed. One of these constants has a price you can look up: in figure 8, read the
+          computed. One of these constants has a price you can look up: in figure 9, read the
           spectrogram-only baseline <em>from frame 0</em> and then with the four windows, which skip the
           warm-up, to see what the first 256 ms of a word are worth on their own.
         </p>
@@ -416,12 +458,11 @@ export function UntrainedArticle() {
 
       {/* ─────────────────────────────────────────────────────────── 05 ─── */}
       <Prose className={TYPE}>
-        <h2><span className="num">05 · the readout</span>One reader for every model</h2>
+        <h2><span className="num">05 · the readout</span>One readout for every model</h2>
         <p>
-          The readout is where a comparison like this is most easily rigged, usually by accident: read two
-          models differently and you are comparing the readers, not the models. A pilot of this study read its
-          models three different ways, and learned that lesson. So the paper reads every arm with exactly one
-          function, in four steps.
+          If two models are read differently, a difference in their accuracy can come from the readers rather
+          than the models. A pilot of this study read its models three different ways, so the paper reads every
+          model with exactly one function, in four steps.
         </p>
         <ol>
           <li>
@@ -470,7 +511,7 @@ export function UntrainedArticle() {
           <p className="viewNote" id="readCounts" />
         </div>
         <figcaption className={CAPTION}>
-          <b>Figure 7 · the read, step by step.</b> The selected clip (section 04) through each arm at gain 1
+          <b>Figure 8 · the read, step by step.</b> The selected clip (section 04) through each arm at gain 1
           on clean audio, and through that arm’s fitted readout. The coupled network exposes 2,048 signals, so
           its read is 24,576 numbers before the projection brings it to 192; the spectrogram-only baseline
           exposes 16 and reaches exactly 192 on its own.
@@ -486,7 +527,7 @@ export function UntrainedArticle() {
           baseline’s own count (16 bands × 3 statistics × 4 windows), so the input is read without
           compression, and the native width of four of the five trained baselines. The paper prices the
           choice: at width 4,096 the reservoirs gain up to about 6 points, but their readout then fits 40,970
-          weights against the 1,930 that read the input. Figure 8 shows every width.
+          weights against the 1,930 that read the input. Figure 9 shows every width.
         </p>
         <p>
           <strong>One fixed window.</strong> The natural shortcut is to read each clip over its own length. But
@@ -501,16 +542,22 @@ export function UntrainedArticle() {
           <table className="leakTable" id="leakTable" />
         </div>
         <p>
-          <strong>The whole-clip baseline is the primary control.</strong> Every arm skips the first 16
-          frames, but the start of a word is informative, and an arm can carry it forward in its memory. So
-          the spectrogram-only baseline is also read from frame 0, seeing everything the other arms were driven
-          with, and that harder version is the comparison that counts.
+          <strong>Why the read starts at frame 16.</strong> Every reservoir starts each clip from the same
+          fixed state, and for the first 16 frames (256 ms) its state reflects that starting point more than
+          the sound. So every model, the trained baselines included, is read over frames 16 to 61. Nothing is
+          thrown away: the input drives each model from the first frame, and what a model remembers of the
+          first 256 ms reaches the read through its state. The spectrogram-only baseline has no memory, so
+          read over the same frames it would miss the start of the word, which the other models hear. It is
+          therefore read over the whole clip, frames 0 to 61, seeing everything the others were driven with,
+          and that is the comparison the paper makes. Read from frame 16 instead, it loses 10 to 17 points,
+          which is what the first 256 ms of a word are worth on their own (the <em>from frame 0</em> read
+          below).
         </p>
         <p>
-          <strong>The paper’s numbers, not new ones.</strong> Below, every accuracy is copied from the
-          paper’s record of the controls experiment: the mean over three seeds on all 6,000 test clips, for
-          every read, width and training size it ran. The primary cell, the one every comparison is made at,
-          is width 192, 2,048 training clips and the four-window read.
+          Below are spoken-digit classification accuracies for the models in the paper, at different
+          readout widths and training sizes: the mean over three seeds on all 6,000 test clips, copied from the
+          paper’s record of the controls experiment. The primary cell, the one every comparison is made at, is
+          width 192, 2,048 training clips and the four-window read.
         </p>
       </Prose>
 
@@ -520,16 +567,16 @@ export function UntrainedArticle() {
             <span>the record: what each readout choice does</span>
             <em>controls experiment · test speakers 49–60</em>
           </div>
-          <div className="controlGrid">
-            <label className="field">
+          <div className="recControls">
+            <label className="field recModel">
               <span>model</span>
               <select className="action" id="recArm" aria-label="model" />
             </label>
             <div className="field"><span>noise</span><div className="seg" id="recNoise" /></div>
             <div className="field"><span>input gain</span><div className="seg" id="recGain" /></div>
             <div className="field"><span>read</span><div className="seg" id="recRead" /></div>
-            <div className="field"><span>training clips</span><div className="seg" id="recSize" /></div>
             <div className="field"><span>readout width</span><div className="seg" id="recWidth" /></div>
+            <div className="field"><span>training clips</span><div className="seg" id="recSize" /></div>
           </div>
           <div className="recOut">
             <b id="recValue">—</b>
@@ -547,7 +594,7 @@ export function UntrainedArticle() {
           </div>
         </div>
         <figcaption className={CAPTION}>
-          <b>Figure 8 · the readout’s choices, priced.</b> Pick a model and a condition and toggle the
+          <b>Figure 9 · accuracy by readout.</b> Pick a model and a condition and toggle the
           readout’s settings. <b>Width</b> is how many features the ridge sees (native is the arm’s own
           count, unprojected, fitted at 2,048 clips only). <b>Read</b>: the four windows, the whole span as
           one window, the oscillator networks with their rotation rates added (a read that favours them, since
@@ -558,10 +605,10 @@ export function UntrainedArticle() {
 
       {/* ─────────────────────────────────────────────────────────── 06 ─── */}
       <Prose className={TYPE}>
-        <h2><span className="num">06 · the comparison</span>Ten models, one slot</h2>
+        <h2><span className="num">06 · the comparison</span>The ten models compared</h2>
         <p>
-          The paper’s controls experiment puts ten models in the slot, each chosen to remove exactly one
-          candidate explanation for the network’s accuracy.
+          The controls experiment compares ten models. Each removes one candidate explanation for the
+          network’s accuracy.
         </p>
       </Prose>
 
@@ -738,17 +785,25 @@ export function UntrainedArticle() {
           <p className="viewNote" id="kernelNote" />
         </div>
         <figcaption className={CAPTION}>
-          <b>Figure 9 · one kernel, every gluing.</b> White: the chosen oscillator. Orange: oscillators that
-          pull it toward their phase; blue: ones that push it away; black: none. On the <b>torus</b> both axes
-          wrap, so the top band couples to the bottom. The <b>cylinder</b> opens the frequency axis, as in the
-          cochlea, and the <b>sheet</b> opens both, so coupling stops at the edges. The <b>helix</b> reads all
-          256 as one closed coil, 64 to a turn, so a turn away is an octave away. The <b>cube</b> folds each
-          row into a 4 × 4 slab, a 16 × 4 × 4 lattice that wraps on all three axes, with shorter paths between
-          the same oscillators. The <b>sphere</b> makes rows latitudes and weights each oscillator’s influence
-          by the cosine of its latitude, an approximation to a sphere rather than exact spherical coupling. The
-          <b> coil</b> is the helix opened, so its ends never meet, and the <b>cochlea</b> adds the direction
-          (arrowheads, pointing to the apex) and the curvature weighting, which shows on the grid as weights
-          fading from the lowest rows to the highest.
+          <b>Figure 10 · one kernel, every gluing.</b> White: the chosen oscillator. Orange: oscillators that
+          pull it toward their phase; blue: ones that push it away; grey: ones that cannot act on it at all.
+          The kernel has 16 offsets on each axis, reaching 8 rows or columns one way and 7 the other. On the{' '}
+          <b>torus</b> both axes wrap, so every
+          oscillator reaches every other and the top band couples to the bottom. The <b>cylinder</b> opens the
+          frequency axis, as in the cochlea, so the reach stops at the top and bottom rows: an oscillator in
+          the top band hears only the 7 bands below it, and the rest of the cylinder is grey. Choose one in
+          row 8 and it reaches all 255. The <b>sheet</b> opens both axes. The{' '}
+          <b>helix</b> reads all 256 as one closed coil, 64 to a turn, so a turn away is an octave away. The{' '}
+          <b>cube</b> folds each row into a 4 × 4 slab, a 16 × 4 × 4 lattice that wraps on all three axes,
+          with shorter paths between the same oscillators. The <b>sphere</b> makes rows latitudes and weights
+          each oscillator’s influence by the cosine of its latitude, an approximation to a sphere rather than
+          exact spherical coupling. The <b>coil</b> is the helix opened, so its ends never meet and each
+          oscillator reaches two turns either way. The <b>cochlea</b> adds a direction (arrowheads, pointing
+          to the apex), which shows on the grid as stronger weights from the rows above the chosen oscillator
+          than from the rows below, and a curvature weighting, which scales everything arriving at an
+          oscillator from 1 at the apex to 1/4 at the base: choose higher rows and the largest weight, below
+          the grid, falls. The channel buttons switch between the four channels. Each is a complete copy of the
+          lattice with its own kernel, not another part of the shape.
         </figcaption>
       </figure>
 
@@ -764,7 +819,9 @@ export function UntrainedArticle() {
           <li><strong>Coupling ceiling.</strong> 1 and 0.5: stronger or weaker coupling overall.</li>
         </ul>
         <p>
-          The two Stuart–Landau functions were run on the torus only. The sweep experiment then pushes each
+          The two Stuart–Landau functions were run on the torus only, a limit of the study’s scope: their
+          core was built for the torus, and the other geometries were wired into the phase oscillators alone.
+          The sweep experiment then pushes each
           coupling function’s reference network past these levels, to restoring strengths of 0.5 to 1,
           ceilings of 1.5 and 2, and gains from 0.25 to 12. The console below runs the random-frequency slice
           of the design and cochlea experiments: every coupling function on every geometry it was run on, at
@@ -792,7 +849,7 @@ export function UntrainedArticle() {
       <figure className="my-10">
         <ModelConsole prefix="m" />
         <figcaption className={CAPTION}>
-          <b>Figure 10 · the model explorer.</b> The coupled network starts at the paper’s reference
+          <b>Figure 11 · the model explorer.</b> The coupled network starts at the paper’s reference
           configuration: Kuramoto coupling on a torus, random natural frequencies, restoring strength 0.3,
           ceiling 1. Change its coupling function or geometry and you are in the design or cochlea experiment.
           Noise is added the way the paper adds it, with each clip’s own recorded noise; your own recording gets
@@ -803,7 +860,7 @@ export function UntrainedArticle() {
 
       {/* ─────────────────────────────────────────────────────────── 09 ─── */}
       <Prose className={TYPE}>
-        <h2><span className="num">09 · the drive signal</span>Two ways to push an oscillator</h2>
+        <h2><span className="num">09 · the drive signal</span>Two input pathways</h2>
         <p>
           Everything so far drives the oscillators with the spectrogram: how loud each band is, frame by frame.
           That throws away something an oscillator could use. Sound is itself oscillation, and a spectrogram
@@ -839,7 +896,7 @@ export function UntrainedArticle() {
           <div className="canvasFrame"><canvas id="pwQuadrature" style={{ height: 80 }} /></div>
         </div>
         <figcaption className={CAPTION}>
-          <b>Figure 11 · what each pathway hands the network.</b> The same recording (chosen in section 04).
+          <b>Figure 12 · what each pathway hands the network.</b> The same recording (chosen in section 04).
           The spectrogram keeps 0 to 8 kHz at 16 ms resolution and discards phase. Quadrature keeps the same
           energies and adds each band’s drifting phase.
         </figcaption>
@@ -859,7 +916,7 @@ export function UntrainedArticle() {
       <figure className="my-10">
         <ModelConsole prefix="d" drive />
         <figcaption className={CAPTION}>
-          <b>Figure 12 · the drive explorer.</b> On the quadrature pathway the network’s left panel shows the
+          <b>Figure 13 · the drive explorer.</b> On the quadrature pathway the network’s left panel shows the
           same oscillators as before; the rows panel shows each band’s phase as hue, its brightness the
           band’s energy.
         </figcaption>
@@ -883,7 +940,7 @@ export function UntrainedArticle() {
           <Image src="/untrained/figures/fig01-sec4-1-recognition-arms.png" alt="Recognition accuracy for every arm at clean, 0 dB and minus 5 dB, from the paper" width={1981} height={997} className="h-auto w-full" unoptimized />
         </div>
         <figcaption className={CAPTION}>
-          <b>Figure 13 · every arm at the primary cell</b>, from the paper: mean ± one standard deviation over
+          <b>Figure 14 · every arm at the primary cell</b>, from the paper: mean ± one standard deviation over
           three seeds, the reservoirs at gain 1 (filled) and 2 (open). Dashed line: the whole-clip
           spectrogram-only baseline.
         </figcaption>
@@ -907,7 +964,7 @@ export function UntrainedArticle() {
           <Image src="/untrained/figures/fig02-sec4-2-order-arms.png" alt="Temporal-order accuracy for every arm, from the paper" width={1982} height={936} className="h-auto w-full" unoptimized />
         </div>
         <figcaption className={CAPTION}>
-          <b>Figure 14 · temporal order</b>, from the paper: which of two digits came first, averaged over five
+          <b>Figure 15 · temporal order</b>, from the paper: which of two digits came first, averaged over five
           digit pairs. Dotted line: chance. The CNN sees 9 frames, less than a digit, so with noise it reads
           chance.
         </figcaption>
@@ -930,7 +987,7 @@ export function UntrainedArticle() {
           <Image src="/untrained/figures/fig04-sec4-4-lattice-geometries.png" alt="Each lattice geometry minus the torus, from the paper" width={1763} height={579} className="h-auto w-full" unoptimized />
         </div>
         <figcaption className={CAPTION}>
-          <b>Figure 15 · lattice geometry</b>, from the paper: each geometry minus the torus, paired, with 95%
+          <b>Figure 16 · lattice geometry</b>, from the paper: each geometry minus the torus, paired, with 95%
           intervals. Left of the grey line, the design experiment; right, the cochlea experiment.
         </figcaption>
       </figure>
@@ -951,7 +1008,7 @@ export function UntrainedArticle() {
           <Image src="/untrained/figures/fig06-sec4-5-restoring-ceiling-gain.png" alt="Accuracy of each coupling function against restoring strength, coupling ceiling and input gain, from the paper" width={1977} height={1026} className="h-auto w-full" unoptimized />
         </div>
         <figcaption className={CAPTION}>
-          <b>Figure 16 · restoring strength, ceiling and gain</b>, from the paper, for each coupling function at
+          <b>Figure 17 · restoring strength, ceiling and gain</b>, from the paper, for each coupling function at
           the reference configuration, at 0 dB (top) and −5 dB (bottom).
         </figcaption>
       </figure>

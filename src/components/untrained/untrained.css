@@ -13,6 +13,20 @@
 .untrainedPost canvas.view3d:active { cursor: grabbing; }
 .untrainedPost canvas.view2d { height: 330px; }
 .untrainedPost canvas[hidden] { display: none; }
+.untrainedPost .zoomHost { position: relative; }
+.untrainedPost .zoomBox { position: absolute; top: 8px; right: 8px; display: flex; gap: 4px; }
+.untrainedPost .zoomBtn {
+  width: 28px;
+  height: 28px;
+  border-radius: 7px;
+  border: 1px solid var(--line);
+  background: rgba(12, 16, 24, 0.75);
+  color: var(--panel-ink);
+  font: 600 16px/1 var(--mono);
+  cursor: pointer;
+}
+.untrainedPost .zoomBtn:hover { border-color: var(--accent); }
+.untrainedPost .zoomHost:has(> canvas.view3d[hidden]) .zoomBox { display: none; }
 .untrainedPost .chanRow { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
 .untrainedPost .chanRow[hidden] { display: none; }
 .untrainedPost .action.small { padding: 7px 11px; font-size: 13px; }
@@ -55,6 +69,22 @@
 .untrainedPost .segBtn:hover:not(:disabled) { border-color: var(--accent); }
 .untrainedPost .segBtn[aria-pressed='true'] { background: var(--accent); border-color: var(--accent); color: #06263c; }
 .untrainedPost .segBtn:disabled { opacity: 0.35; cursor: not-allowed; }
+/* a control that has no setting for the chosen model: plain text, not a button */
+.untrainedPost .segNote {
+  display: inline-block;
+  padding: 8px 0;
+  font: 500 12.5px/1 var(--font-sans, ui-sans-serif, system-ui, sans-serif);
+  color: var(--muted);
+}
+
+/* the record explorer: each group wraps whole, never its own buttons */
+.untrainedPost .recControls { display: flex; flex-wrap: wrap; gap: 14px 22px; align-items: start; }
+.untrainedPost .recControls .field { flex: 0 0 auto; }
+.untrainedPost .recControls .field.recModel { flex: 1 1 100%; }
+.untrainedPost .recControls .seg { flex-wrap: nowrap; }
+@media (max-width: 560px) {
+  .untrainedPost .recControls .seg { flex-wrap: wrap; }
+}
 .untrainedPost .runRow { align-items: center; }
 .untrainedPost .progress { margin-right: auto; font: 11.5px/1.4 var(--mono); color: var(--warn); }
 .untrainedPost .console.busy .panel { transition: opacity 0.2s; }
@@ -104,6 +134,18 @@
 .untrainedPost .termGrid > div { display: grid; grid-template-columns: 120px 1fr; gap: 14px; align-items: start; }
 .untrainedPost .termGrid > div > span:first-child { font: 600 19px/1.3 var(--mono); }
 .untrainedPost .termGrid b { color: #fff; }
+
+.untrainedPost .legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+  margin-top: 8px;
+  font: 11px/1.4 var(--mono);
+  color: var(--muted);
+}
+.untrainedPost .legend span { display: inline-flex; align-items: center; gap: 6px; }
+.untrainedPost .legend i { display: inline-block; width: 14px; height: 3px; border-radius: 2px; }
+.untrainedPost .bandRange { margin-top: 4px; font: 600 12px/1.4 var(--mono); color: var(--panel-ink); }
 
 .untrainedPost .feGrid { display: grid; gap: 10px; margin-top: 14px; }
 .untrainedPost .feRowsGrid { display: grid; grid-template-columns: 1fr 74px; gap: 10px; }

@@ -119,3 +119,43 @@ export function drawColumns(canvas, items, { chance = 0.1 } = {}) {
   ctx.fillStyle = 'rgba(255,209,102,0.85)';
   ctx.fillText('chance', 2, y(chance) - 3);
 }
+
+/**
+ * Lines over time with labelled axes: seconds along the bottom, value up the left.
+ * series: [{ values, color, width }], one value per frame at `rate` frames a second.
+ */
+export function drawTimeSeries(canvas, series, { rate = 62.5, yMax = 1, yLabel = '', yTicks = [0, 0.5, 1] } = {}) {
+  const ctx = fitCanvas(canvas);
+  const w = canvas.clientWidth, h = canvas.clientHeight;
+  const padL = 34, padR = 8, padT = 16, padB = 22;
+  const n = Math.max(...series.map((s) => s.values.length));
+  const tMax = (n - 1) / rate;
+  const X = (t) => padL + (t / tMax) * (w - padL - padR);
+  const Y = (v) => h - padB - (Math.min(yMax, Math.max(0, v)) / yMax) * (h - padT - padB);
+  ctx.font = '10px ui-monospace, monospace';
+  ctx.lineWidth = 1;
+  // grid and ticks
+  for (const v of yTicks) {
+    ctx.strokeStyle = v === 0 ? 'rgba(255,255,255,0.22)' : 'rgba(255,255,255,0.08)';
+    ctx.beginPath(); ctx.moveTo(padL, Y(v)); ctx.lineTo(w - padR, Y(v)); ctx.stroke();
+    ctx.fillStyle = 'rgba(200,210,230,0.7)';
+    ctx.textAlign = 'right';
+    ctx.fillText(String(v), padL - 6, Y(v) + 3);
+  }
+  ctx.textAlign = 'center';
+  for (let t = 0; t <= tMax + 1e-9; t += 0.25) {
+    ctx.strokeStyle = 'rgba(255,255,255,0.22)';
+    ctx.beginPath(); ctx.moveTo(X(t), h - padB); ctx.lineTo(X(t), h - padB + 4); ctx.stroke();
+    ctx.fillStyle = 'rgba(200,210,230,0.7)';
+    ctx.fillText(`${t.toFixed(2)} s`, Math.min(w - padR - 16, Math.max(padL + 14, X(t))), h - 6);
+  }
+  ctx.textAlign = 'left';
+  if (yLabel) ctx.fillText(yLabel, padL, 10);
+  for (const s of series) {
+    ctx.strokeStyle = s.color;
+    ctx.lineWidth = s.width ?? 1.4;
+    ctx.beginPath();
+    s.values.forEach((v, t) => (t ? ctx.lineTo(X(t / rate), Y(v)) : ctx.moveTo(X(t / rate), Y(v))));
+    ctx.stroke();
+  }
+}

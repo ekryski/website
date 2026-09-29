@@ -5,7 +5,7 @@ import { drawWaveform, drawHeatmap, drawLines, drawBars, fitCanvas, magmaColor }
 import { spectrogramRows, quadratureRows } from './frontend.js';
 import { denseOperator } from './lattice.js';
 import { LatticeView, signedRGB } from './lattice3d.js';
-import { drawMosaic, drawPhaseHeat, shadeWindows, drawColumns, pct } from './panels.js';
+import { drawMosaic, drawPhaseHeat, shadeWindows, drawColumns, drawTimeSeries, pct } from './panels.js';
 import { runConfig } from './engine.js';
 import { windowEdges, project } from './read.js';
 
@@ -142,6 +142,9 @@ function drawRing(canvas, state, R, psi) {
 // 07 · who acts on whom: one kernel, six gluings
 // ---------------------------------------------------------------------------
 
+/** Oscillators the geometry cuts off from the chosen one: a flat grey, apart from the weight ramp. */
+const UNREACHABLE = [0.36, 0.38, 0.42];
+
 export function mountKernelFigure(store) {
   const disposers = [];
   const on = listen(disposers);
@@ -171,23 +174,24 @@ export function mountKernelFigure(store) {
     const base = state.channel * N * N + state.site * N;
     let max = 1e-9;
     for (let j = 0; j < N; j++) { row[j] = op[base + j]; if (j !== state.site) max = Math.max(max, Math.abs(row[j])); }
+    // taps a geometry zeroes come back from the inverse FFT as rounding noise, so "cannot" is relative
+    const cannot = (j) => j !== state.site && Math.abs(row[j]) < 1e-6 * max;
+    const colour = (j) => (j === state.site ? [1, 1, 1] : cannot(j) ? UNREACHABLE : signedRGB(row[j] / max));
     const ctx = fitCanvas(grid);
     const w = grid.clientWidth, h = grid.clientHeight, cw = w / G, ch = h / G;
     for (let r = 0; r < G; r++) {
       for (let c = 0; c < G; c++) {
-        const j = r * G + c;
-        const [R, Gc, B] = j === state.site ? [1, 1, 1] : signedRGB(row[j] / max);
+        const [R, Gc, B] = colour(r * G + c);
         ctx.fillStyle = `rgb(${R * 255},${Gc * 255},${B * 255})`;
         ctx.fillRect(c * cw, h - (r + 1) * ch, Math.ceil(cw) + 0.5, Math.ceil(ch) + 0.5);
       }
     }
     view.setGeometry(state.geo);
-    view.paint((j) => (j === state.site ? [1, 1, 1] : signedRGB(row[j] / max)));
+    view.paint(colour);
     buttons.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.kgeo === state.geo)));
     document.querySelectorAll('[data-kchan]').forEach((b) => b.setAttribute('aria-pressed', String(Number(b.dataset.kchan) === state.channel)));
-    // taps a geometry zeroes come back from the inverse FFT as rounding noise, so "cannot" is relative
     let zero = 0;
-    for (let j = 0; j < N; j++) if (j !== state.site && Math.abs(row[j]) < 1e-6 * max) zero++;
+    for (let j = 0; j < N; j++) if (cannot(j)) zero++;
     const r0 = Math.floor(state.site / G), c0 = state.site % G;
     $('kernelNote').textContent = `oscillator at row ${r0 + 1} (mel band ${r0 + 1}), column ${c0 + 1} · `
       + `${N - 1 - zero} of 255 others act on it${zero ? `, ${zero} cannot` : ''} · largest weight ${max.toFixed(3)}`;
@@ -209,33 +213,49 @@ export function mountLeakyToy(shared) {
   const state = { band: 6, gain: 1 };
   const TAUS = [1 / 62.5, 0.045, 0.125, 0.35, 1.0];
   const COLORS = ['#ff8a5b', '#ffd166', '#6ee7a8', '#7cc4ff', '#c4a7ff'];
-  on($('leakyBand'), 'input', () => { state.band = Number($('leakyBand').value); $('leakyBandVal').textContent = String(state.band + 1); draw(); });
+  on($('leakyBand'), 'input', () => { state.band = Number($('leakyBand').value); draw(); });
   document.querySelectorAll('[data-lgain]').forEach((b) => on(b, 'click', () => { state.gain = Number(b.dataset.lgain); draw(); }));
 
   function draw() {
+    const [lo, hi] = melBandHz(state.band);
+    $('leakyBandRange').textContent = `band ${state.band + 1} · ${hz(lo)} to ${hz(hi)} Hz`;
     const rows = shared.spectrogram();
     if (!rows) return;
     const { T, G } = rows;
-    const input = [], outs = TAUS.map(() => []);
+    // the grey line is what every integrator moves toward: the band's drive through the tanh
+    const target = [], outs = TAUS.map(() => []);
     const x = TAUS.map(() => 0);
     for (let t = 0; t < T; t++) {
-      const u = rows.rows[t * G + state.band];
-      input.push(u);
+      const drive = Math.tanh(rows.rows[t * G + state.band] * state.gain);
+      target.push(drive);
       TAUS.forEach((tau, k) => {
         const a = 1 - Math.exp(-1 / (tau * 62.5));
-        x[k] = (1 - a) * x[k] + a * Math.tanh(u * state.gain);
+        x[k] = (1 - a) * x[k] + a * drive;
         outs[k].push(x[k]);
       });
     }
-    drawLines(canvas, [
-      { values: input.map((v) => v / 1.6), color: 'rgba(231,234,241,0.35)', width: 1 },
+    drawTimeSeries(canvas, [
+      { values: target, color: 'rgba(231,234,241,0.45)', width: 1 },
       ...outs.map((values, k) => ({ values, color: COLORS[k], width: 1.8 })),
-    ], { yMax: 1 });
+    ], { yLabel: 'state x' });
     document.querySelectorAll('[data-lgain]').forEach((b) => b.setAttribute('aria-pressed', String(Number(b.dataset.lgain) === state.gain)));
   }
   shared.onClip(draw);
   draw();
   return () => disposers.forEach((d) => d());
+}
+
+const hz = (f) => Math.round(f).toLocaleString('en-US');
+
+/**
+ * The frequency span of mel band b: the feet of its triangular filter, on the
+ * front end's HTK scale (16 bands from 0 to 8 kHz).
+ */
+function melBandHz(b, bands = 16, fMax = 8000) {
+  const mel = (f) => 2595 * Math.log10(1 + f / 700);
+  const inv = (m) => 700 * (10 ** (m / 2595) - 1);
+  const step = mel(fMax) / (bands + 1);
+  return [inv(b * step), inv((b + 2) * step)];
 }
 
 /** The state-matched bank's layout: each unit coloured by its time constant. */
@@ -252,7 +272,8 @@ export function drawBankLayout(store) {
     const span = bank.tau.subarray(c * G * G, (c + 1) * G * G);
     labels.push(`ch ${c + 1} · ${fmt(Math.min(...span))} to ${fmt(Math.max(...span))}`);
   }
-  drawMosaic(canvas, logTau, 0, bank.channels, G, { cols: 4, lo: 0, hi: 1, color: magmaColor, labels });
+  // magma runs dark to light, so the slowest units are the darkest
+  drawMosaic(canvas, logTau.map((v) => 1 - v), 0, bank.channels, G, { cols: 4, lo: 0, hi: 1, color: magmaColor, labels });
 }
 
 // ---------------------------------------------------------------------------
@@ -439,7 +460,7 @@ export async function mountRecordExplorer(store) {
     }
     seg('recNoise', [null, 0, 5], (v) => (v === null ? 'clean' : v === 0 ? '0 dB' : '−5 dB'), 'noise');
     if (isReservoir(state.arm)) seg('recGain', [1, 2], (v) => `gain ${v}`, 'gain');
-    else $('recGain').innerHTML = '<button type="button" class="segBtn" disabled>does not apply</button>';
+    else $('recGain').innerHTML = '<span class="segNote">does not apply</span>';
     seg('recRead', reads, (v) => readNames[v], 'read');
     seg('recSize', [2048, 8192, 24000], (v) => v.toLocaleString(), 'n');
     seg('recWidth', [192, 1024, 4096, 'native'], (v) => (v === 'native' ? 'native' : v.toLocaleString()), 'width');

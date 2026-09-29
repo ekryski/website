@@ -232,8 +232,9 @@ export function mountConsole(ctx, { prefix, mode }) {
     const gains = available('gain');
     const gainValues = [...new Set(configs.filter((c) => c.pathway === sel.pathway && c.gain !== null).map((c) => c.gain))]
       .sort((a, b) => a - b);
-    segButtons($('gain'), gains.has(null) ? [null] : gainValues, sel.gain, gains,
-               (v) => (v === null ? 'does not apply' : `${v}`), (v) => { sel.gain = v; select('gain'); });
+    // a model the gain cannot act on gets a statement, not a control
+    if (gains.has(null)) $('gain').innerHTML = '<span class="segNote">does not apply</span>';
+    else segButtons($('gain'), gainValues, sel.gain, gains, (v) => `${v}`, (v) => { sel.gain = v; select('gain'); });
     const noises = available('noise');
     segButtons($('noise'), [null, 0, 5], sel.noise, noises, NOISE_NAMES, (v) => { sel.noise = v; select('noise'); });
     if ($('pathway')) {
