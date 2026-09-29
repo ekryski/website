@@ -8,7 +8,7 @@ Writing on distributed computing, payments, startups, economics and AI. Everythi
 
 - [About](https://erickryski.com/about): Who I am, what I have built, and what I am working on now.
 - [Articles](https://erickryski.com/articles): Every essay, newest first.
-- [Papers](https://erickryski.com/papers): Research papers, from human-robot interaction to oscillator networks in machine learning.
+- [Research](https://erickryski.com/research): Research papers, from human-robot interaction to oscillator networks in machine learning.
 - [Projects](https://erickryski.com/projects): Products and open source I have built, past and present.
 - [Resonant](https://erickryski.com/projects/resonant): Research project testing whether speech models can be built on coupled-oscillator physics instead of attention.
 - [Speaking](https://erickryski.com/speaking): Conference talks and podcast appearances.

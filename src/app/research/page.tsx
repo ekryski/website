@@ -28,9 +28,9 @@ function PapersStructuredData({ papers }: { papers: Paper[] }) {
   const data = {
     '@context': 'https://schema.org',
     '@type': 'CollectionPage',
-    '@id': `${siteUrl}/papers`,
-    url: `${siteUrl}/papers`,
-    name: 'Papers',
+    '@id': `${siteUrl}/research`,
+    url: `${siteUrl}/research`,
+    name: 'Research',
     author: authorRef,
     hasPart: papers.map((paper) => ({
       '@type': 'ScholarlyArticle',
@@ -52,10 +52,10 @@ function PapersStructuredData({ papers }: { papers: Paper[] }) {
 }
 
 export const metadata: Metadata = pageMetadata({
-  title: 'Papers',
+  title: 'Research',
   description:
     "Papers I've published, from human-robot interaction research as an undergrad to research on oscillator networks in machine learning.",
-  url: '/papers',
+  url: '/research',
 })
 
 export default function Papers() {

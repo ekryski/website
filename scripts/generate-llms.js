@@ -21,7 +21,7 @@ const articlesDir = path.join(process.cwd(), 'src', 'app', 'articles')
 const PAGES = [
   ['About', '/about', 'Who I am, what I have built, and what I am working on now.'],
   ['Articles', '/articles', 'Every essay, newest first.'],
-  ['Papers', '/papers', 'Research papers, from human-robot interaction to oscillator networks in machine learning.'],
+  ['Research', '/research', 'Research papers, from human-robot interaction to oscillator networks in machine learning.'],
   ['Projects', '/projects', 'Products and open source I have built, past and present.'],
   [
     'Resonant',

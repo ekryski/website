@@ -29,7 +29,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     page('', lastArticle),
     page('/about'),
     page('/articles', lastArticle),
-    page('/papers', lastPaper),
+    page('/research', lastPaper),
     page('/projects'),
     page('/projects/resonant'),
     page('/speaking'),

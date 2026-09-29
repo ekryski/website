@@ -1,5 +1,5 @@
 /**
- * The papers page's entries, shared with the sitemap so the page's last-modified
+ * The research page's papers, shared with the sitemap so the page's last-modified
  * date is the newest paper's rather than the build's.
  */
 
