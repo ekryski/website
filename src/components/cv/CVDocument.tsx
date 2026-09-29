@@ -148,14 +148,19 @@ function contactIcon(href: string) {
 
 function DocumentDownloadIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
   return (
-    <svg viewBox="0 0 24 24" fill="none" strokeWidth="1.5" stroke="currentColor" aria-hidden="true" {...props}>
+    <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" {...props}>
       <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m.75 12 3 3m0 0 3-3m-3 3v-6m-1.5-9H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z"
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M4.5 2A1.5 1.5 0 0 0 3 3.5v13A1.5 1.5 0 0 0 4.5 18h11a1.5 1.5 0 0 0 1.5-1.5V7.621a1.5 1.5 0 0 0-.44-1.06l-4.12-4.122A1.5 1.5 0 0 0 11.378 2H4.5Zm4.75 6.75a.75.75 0 0 1 1.5 0v2.546l.943-1.048a.75.75 0 0 1 1.114 1.004l-2.25 2.5a.75.75 0 0 1-1.114 0l-2.25-2.5a.75.75 0 1 1 1.114-1.004l.943 1.048V8.75Z"
       />
     </svg>
   )
+}
+
+/** A link label that may break after its slashes and @, never inside a word. */
+function breakable(label: string) {
+  return label.split(/(?<=[/@])/).flatMap((part, i) => (i ? [<wbr key={i} />, part] : [part]))
 }
 
 function SectionTitle({ children }: { children: React.ReactNode }) {
@@ -218,36 +223,46 @@ export function CVDocument({ markdown }: { markdown: string }) {
           priority
           className="h-28 w-28 flex-none rounded-2xl bg-zinc-100 object-cover shadow-lg shadow-zinc-900/15 dark:bg-zinc-800 dark:shadow-black/40"
         />
-        <div className="sm:border-l-2 sm:border-violet-500 sm:pl-6">
+        <div className="min-w-0 flex-1 sm:border-l-2 sm:border-violet-500 sm:pl-6">
           <h1 className="text-4xl font-bold tracking-tight text-zinc-900 sm:text-5xl dark:text-zinc-100">{cv.name}</h1>
           <p className="mt-2 text-sm font-semibold tracking-[0.12em] text-violet-600 uppercase dark:text-violet-400">
             {cv.tagline}
           </p>
           <p className="mt-1.5 text-sm text-zinc-500 dark:text-zinc-400">{cv.location}</p>
         </div>
-        <div className="sm:ml-auto print:hidden">
-          <Button href="/Eric-Kryski-CV.pdf" download="Eric-Kryski-CV.pdf" variant="primary">
-            <DocumentDownloadIcon className="h-4 w-4" />
+        <div className="flex-none print:hidden">
+          <Button
+            href="/Eric-Kryski-CV.pdf"
+            download="Eric-Kryski-CV.pdf"
+            variant="primary"
+            className="whitespace-nowrap"
+          >
+            <DocumentDownloadIcon className="h-4 w-4 flex-none" />
             Download PDF
           </Button>
         </div>
       </header>
 
-      <div className="mt-10 grid gap-10 lg:grid-cols-[15rem_1fr] lg:gap-12">
-        <aside className="order-last space-y-9 lg:order-first lg:border-r lg:border-zinc-100 lg:pr-8 dark:lg:border-zinc-700/40">
-          <section>
+      {/*
+        One column below lg, in reading order: summary, contact, skills, experience,
+        then the rest. From lg the contact, skills and education move into a sidebar.
+        Below lg the two columns are display: contents, so their sections order as one list.
+      */}
+      <div className="mt-10 flex flex-col gap-10 lg:grid lg:grid-cols-[15rem_1fr] lg:gap-12">
+        <aside className="contents lg:block lg:space-y-9 lg:border-r lg:border-zinc-100 lg:pr-8 dark:lg:border-zinc-700/40">
+          <section className="order-2 lg:order-none">
             <SectionTitle>Contact</SectionTitle>
-            <ul className="mt-4 space-y-2 text-sm">
+            <ul className="mt-4 grid grid-cols-2 gap-x-4 gap-y-2.5 text-[13px] sm:text-sm lg:grid-cols-1">
               {cv.links.map((link) => {
                 const Icon = contactIcon(link.href)
                 return (
-                  <li key={link.href}>
+                  <li key={link.href} className="min-w-0">
                     <a
                       href={link.href}
-                      className="group flex items-center gap-3 text-zinc-600 transition hover:text-violet-600 dark:text-zinc-400 dark:hover:text-violet-400"
+                      className="group flex items-center gap-2.5 text-zinc-600 transition hover:text-violet-600 dark:text-zinc-400 dark:hover:text-violet-400"
                     >
                       <Icon className="h-4 w-4 flex-none fill-zinc-400 transition group-hover:fill-violet-600 dark:fill-zinc-500 dark:group-hover:fill-violet-400" />
-                      <span className="break-all">{link.label}</span>
+                      <span className="min-w-0 break-words">{breakable(link.label)}</span>
                     </a>
                   </li>
                 )
@@ -255,9 +270,9 @@ export function CVDocument({ markdown }: { markdown: string }) {
             </ul>
           </section>
           {skillsBody && (
-            <section>
+            <section className="order-3 lg:order-none">
               <SectionTitle>Skills</SectionTitle>
-              <dl className="mt-4 space-y-4">
+              <dl className="mt-4 grid gap-4 sm:grid-cols-2 sm:gap-x-8 lg:grid-cols-1">
                 {skills(skillsBody).map((group) => (
                   <div key={group.label}>
                     <dt className="text-[11px] font-semibold tracking-[0.12em] text-zinc-800 uppercase dark:text-zinc-200">
@@ -270,7 +285,7 @@ export function CVDocument({ markdown }: { markdown: string }) {
             </section>
           )}
           {education.map(([title, body]) => (
-            <section key={title}>
+            <section key={title} className="order-6 lg:order-none">
               <SectionTitle>{title}</SectionTitle>
               <div className="mt-2">
                 <Markdown>{body}</Markdown>
@@ -279,9 +294,9 @@ export function CVDocument({ markdown }: { markdown: string }) {
           ))}
         </aside>
 
-        <div className="space-y-10">
+        <div className="contents lg:block lg:space-y-10">
           {Summary && (
-            <section>
+            <section className="order-1 lg:order-none">
               <SectionTitle>Summary</SectionTitle>
               <div className="mt-2 [&>p]:text-[15px] [&>p]:leading-7">
                 <Markdown>{Summary}</Markdown>
@@ -289,13 +304,13 @@ export function CVDocument({ markdown }: { markdown: string }) {
             </section>
           )}
           {Experience && (
-            <section>
+            <section className="order-4 lg:order-none">
               <SectionTitle>Experience</SectionTitle>
               <Timeline items={roles(Experience)} />
             </section>
           )}
           {main.map(([title, body]) => (
-            <section key={title}>
+            <section key={title} className="order-5 lg:order-none">
               <SectionTitle>{title}</SectionTitle>
               <div className="mt-2 space-y-1">
                 <Markdown>{body}</Markdown>
