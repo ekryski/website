@@ -38,7 +38,7 @@ export function UntrainedArticle() {
         <p>
           In <Link href={FIRST_POST}>How a machine hears a number</Link> I walked from a pressure wave to a
           network of coupled oscillators that could tell <em>“three”</em> from <em>“eight”</em>. The
-          oscillators were never trained. Their coupling was drawn at random once and frozen, and only a
+          oscillators were never trained. Their coupling was drawn at random once and never updated, and only a
           linear readout on top was fitted, and it still read spoken digits at 96%.
         </p>
         <p>
