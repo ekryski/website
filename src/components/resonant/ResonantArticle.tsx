@@ -871,6 +871,9 @@ export function ResonantArticle() {
               <a href="https://en.wikipedia.org/wiki/Kuramoto_model" target="_blank" rel="noopener noreferrer" className="font-medium">The Kuramoto model</a>{': '}the synchronization dynamics at the core
             </li>
             <li>
+              <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=7445198" target="_blank" rel="noopener noreferrer" className="font-medium">From Synchronization Physics to Trained Dynamics</a>{': '}my survey of oscillator networks in machine learning, covering eighteen published systems including several below
+            </li>
+            <li>
               <a href="https://arxiv.org/abs/2410.13821" target="_blank" rel="noopener noreferrer" className="font-medium">AKOrN</a>{': '}trained Kuramoto neurons for vision and reasoning
             </li>
             <li>
