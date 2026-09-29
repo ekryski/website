@@ -650,52 +650,54 @@ export function ResonantArticle() {
                 <path d="M0 0 L10 5 L0 10 z" fill="#67718a" />
               </marker>
             </defs>
-            <text x="20" y="24" className="hd">IDENTICAL FRONT END</text>
-            <text x="352" y="24" className="hd">PHYSICS CORE (REPLACES THE ENCODER)</text>
-            <text x="800" y="24" className="hd">SAME HEADS</text>
+            {/* the core is sized to its widest line (the update rule); the outer boxes and
+                margins give up the room, and every arrow keeps at least 23 units */}
+            <text x="12" y="24" className="hd">IDENTICAL FRONT END</text>
+            <text x="310" y="24" className="hd">PHYSICS CORE (REPLACES THE ENCODER)</text>
+            <text x="868" y="24" className="hd">SAME HEADS</text>
 
-            <rect className="bx" x="20" y="120" width="120" height="70" rx="10" />
-            <text x="80" y="150" className="lb" textAnchor="middle">STFT + mel</text>
-            <text x="80" y="169" className="sub" textAnchor="middle">16 bands</text>
+            <rect className="bx" x="12" y="120" width="112" height="70" rx="10" />
+            <text x="68" y="150" className="lb" textAnchor="middle">STFT + mel</text>
+            <text x="68" y="169" className="sub" textAnchor="middle">16 bands</text>
 
-            <rect className="bx" x="170" y="120" width="140" height="70" rx="10" />
-            <text x="240" y="145" className="lb" textAnchor="middle">drive map</text>
-            <text x="240" y="163" className="sub" textAnchor="middle">band b → row b</text>
-            <text x="240" y="179" className="sub" textAnchor="middle">× gain</text>
+            <rect className="bx" x="152" y="120" width="124" height="70" rx="10" />
+            <text x="214" y="145" className="lb" textAnchor="middle">drive map</text>
+            <text x="214" y="163" className="sub" textAnchor="middle">band b → row b</text>
+            <text x="214" y="179" className="sub" textAnchor="middle">× gain</text>
 
-            <rect className="bx bxCore" x="352" y="72" width="286" height="176" rx="14" />
-            <text x="495" y="102" className="lb" textAnchor="middle">4 × (16 × 16) oscillators</text>
-            <text x="495" y="126" className="sub" textAnchor="middle">θ ← θ + dt · (ω + coupling − pinning + drive)</text>
-            <text x="495" y="148" className="sub" textAnchor="middle">coupling = circular convolution (one FFT)</text>
-            <text x="495" y="170" className="sub" textAnchor="middle">periodic in both axes = a torus</text>
-            <text x="495" y="200" className="subHot" textAnchor="middle">state θ carries over to the next frame</text>
-            <text x="495" y="218" className="subHot" textAnchor="middle">— fixed-size streaming memory</text>
+            <rect className="bx bxCore" x="310" y="72" width="356" height="176" rx="14" />
+            <text x="488" y="102" className="lb" textAnchor="middle">4 × (16 × 16) oscillators</text>
+            <text x="488" y="126" className="sub" textAnchor="middle">θ ← θ + dt · (ω + coupling − pinning + drive)</text>
+            <text x="488" y="148" className="sub" textAnchor="middle">coupling = circular convolution (one FFT)</text>
+            <text x="488" y="170" className="sub" textAnchor="middle">periodic in both axes = a torus</text>
+            <text x="488" y="200" className="subHot" textAnchor="middle">state θ carries over to the next frame</text>
+            <text x="488" y="218" className="subHot" textAnchor="middle">— fixed-size streaming memory</text>
 
-            <rect className="bx" x="680" y="120" width="130" height="70" rx="10" />
-            <text x="745" y="145" className="lb" textAnchor="middle">readout</text>
-            <text x="745" y="163" className="sub" textAnchor="middle">sin θ, cos θ</text>
-            <text x="745" y="179" className="sub" textAnchor="middle">+ phase steps</text>
+            <rect className="bx" x="700" y="120" width="116" height="70" rx="10" />
+            <text x="758" y="145" className="lb" textAnchor="middle">readout</text>
+            <text x="758" y="163" className="sub" textAnchor="middle">sin θ, cos θ</text>
+            <text x="758" y="179" className="sub" textAnchor="middle">+ phase steps</text>
 
-            <rect className="bx" x="848" y="78" width="132" height="52" rx="10" />
-            <text x="914" y="102" className="lb" textAnchor="middle">softmax</text>
-            <text x="914" y="119" className="sub" textAnchor="middle">digit 0–9</text>
+            <rect className="bx" x="868" y="78" width="120" height="52" rx="10" />
+            <text x="928" y="102" className="lb" textAnchor="middle">softmax</text>
+            <text x="928" y="119" className="sub" textAnchor="middle">digit 0–9</text>
 
-            <rect className="bx" x="848" y="142" width="132" height="52" rx="10" />
-            <text x="914" y="166" className="lb" textAnchor="middle">CTC</text>
-            <text x="914" y="183" className="sub" textAnchor="middle">text</text>
+            <rect className="bx" x="868" y="142" width="120" height="52" rx="10" />
+            <text x="928" y="166" className="lb" textAnchor="middle">CTC</text>
+            <text x="928" y="183" className="sub" textAnchor="middle">text</text>
 
-            <rect className="bx" x="848" y="206" width="132" height="52" rx="10" />
-            <text x="914" y="230" className="lb" textAnchor="middle">mel head</text>
-            <text x="914" y="247" className="sub" textAnchor="middle">→ vocoder</text>
+            <rect className="bx" x="868" y="206" width="120" height="52" rx="10" />
+            <text x="928" y="230" className="lb" textAnchor="middle">mel head</text>
+            <text x="928" y="247" className="sub" textAnchor="middle">→ vocoder</text>
 
-            <path className="ln" markerEnd="url(#arHead2)" d="M140 155 H165" />
-            <path className="ln" markerEnd="url(#arHead2)" d="M310 155 H347" />
-            <path className="ln" markerEnd="url(#arHead2)" d="M638 155 H675" />
-            <path className="ln" markerEnd="url(#arHead2)" d="M810 155 C830 155 830 104 843 104" />
-            <path className="ln" markerEnd="url(#arHead2)" d="M810 155 H843" />
-            <path className="ln" markerEnd="url(#arHead2)" d="M810 155 C830 155 830 232 843 232" />
-            <path className="lnHot" markerEnd="url(#arHead2)" d="M600 248 C600 292 400 292 400 252" />
-            <text x="500" y="306" className="subHot" textAnchor="middle">phases persist frame to frame — the recurrence</text>
+            <path className="ln" markerEnd="url(#arHead2)" d="M124 155 H147" />
+            <path className="ln" markerEnd="url(#arHead2)" d="M276 155 H305" />
+            <path className="ln" markerEnd="url(#arHead2)" d="M666 155 H695" />
+            <path className="ln" markerEnd="url(#arHead2)" d="M816 155 C842 155 842 104 863 104" />
+            <path className="ln" markerEnd="url(#arHead2)" d="M816 155 H863" />
+            <path className="ln" markerEnd="url(#arHead2)" d="M816 155 C842 155 842 232 863 232" />
+            <path className="lnHot" markerEnd="url(#arHead2)" d="M620 248 C620 292 356 292 356 252" />
+            <text x="488" y="306" className="subHot" textAnchor="middle">phases persist frame to frame — the recurrence</text>
           </svg>
         </div>
         <figcaption className={CAPTION}>
