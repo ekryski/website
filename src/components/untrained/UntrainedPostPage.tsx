@@ -51,7 +51,7 @@ export function UntrainedPostPage({
           live in your browser on real recordings.
         </p>
         <p className="mt-4 font-mono text-xs text-zinc-500 dark:text-zinc-400">
-          Twenty held-out clips from AudioMNIST · every model from the paper’s first tier · ~20 min read
+          Twenty held-out clips from AudioMNIST · every model the paper compares · ~25 min read
         </p>
       </header>
 

@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import Link from 'next/link'
 
 import { Prose } from '@/components/Prose'
@@ -5,6 +6,7 @@ import { ModelConsole } from '@/components/untrained/ModelConsole'
 
 const REPO = 'https://github.com/ekryski/oscillator-research'
 const PAPER = `${REPO}/tree/main/papers/02-untrained-reservoirs`
+const PDF = `${REPO}/blob/main/papers/02-untrained-reservoirs/spoken-digit-recognition-without-training-iclr.pdf`
 const FIRST_POST = '/articles/how-a-machine-hears-a-number'
 
 /** Section headings read as chapter markers; body rhythm is tighter than the site default. */
@@ -48,16 +50,18 @@ export function UntrainedArticle() {
           projection and 96.2% fell to 67.3%.
         </p>
         <p>
-          The second paper in this research programme is built to separate those three explanations. It
-          freezes a small oscillator network, reads it the same way it reads every alternative, and compares
-          it against models that each remove one ingredient: the dynamics entirely, the oscillation, the
-          coupling. It then changes the physics one factor at a time. The design was written down and frozen
-          before a single registered run, so none of it could be tuned to the answer.
+          The second paper in this research programme,{' '}
+          <a href={PDF} {...ext}>Spoken-Digit Recognition Without Training</a>, is built to separate those
+          three explanations. It takes a small untrained oscillator network, reads it the same way it reads
+          every alternative, and compares it with models that each remove one ingredient: the dynamics
+          entirely, the oscillation, the coupling. Then it changes the physics one factor at a time, across
+          eight experiments and 6,353 runs.
         </p>
         <p>
-          This page explains that experiment: what each model is, how they were compared, and why the
-          comparisons are the ones they are. Every model the paper tested at its core is also running here,
-          in your browser, on real recordings, so you can do the experiment yourself one clip at a time.
+          This page explains that study: what each model is, how they were compared, and why the comparisons
+          are the ones they are, with what the paper found at the end. Every model at the heart of the paper is
+          also running here, in your browser, on real recordings, so you can do the experiment yourself one
+          clip at a time.
         </p>
       </Prose>
 
@@ -414,10 +418,10 @@ export function UntrainedArticle() {
       <Prose className={TYPE}>
         <h2><span className="num">05 · the readout</span>One reader for every model</h2>
         <p>
-          The readout is where a comparison like this is most easily rigged, usually by accident. The paper’s
-          exploratory phase, which came before the registered study, read its models three different ways,
-          and one of those differences was large enough to decide the result on its own. So the registered
-          design reads every arm with exactly one function, in four steps.
+          The readout is where a comparison like this is most easily rigged, usually by accident: read two
+          models differently and you are comparing the readers, not the models. A pilot of this study read its
+          models three different ways, and learned that lesson. So the paper reads every arm with exactly one
+          function, in four steps.
         </p>
         <ol>
           <li>
@@ -433,7 +437,8 @@ export function UntrainedArticle() {
           <li>
             <strong>Projection.</strong> The features are standardized with the training set’s own statistics
             and multiplied by one fixed random Gaussian matrix down to 192, the spectrogram-only baseline’s own
-            width. An arm already at or below 192 is read as it is.
+            width. An arm already at or below 192 is read as it is. The matrix is drawn once, from a fixed
+            seed, and serves every run of the same native width.
           </li>
           <li>
             <strong>Ridge.</strong> One linear layer from 192 features to ten digit scores, fitted in closed
@@ -448,10 +453,10 @@ export function UntrainedArticle() {
           <div className="panelTitle">
             <span>reading the selected clip</span>
             <div className="seg" role="group" aria-label="arm to read">
-              <button type="button" className="segBtn" data-rarm="field">coupled</button>
-              <button type="button" className="segBtn" data-rarm="severed">uncoupled</button>
-              <button type="button" className="segBtn" data-rarm="bank-c4">leaky bank</button>
-              <button type="button" className="segBtn" data-rarm="floor">spectrogram only</button>
+              <button type="button" className="segBtn" data-rarm="coupled">coupled</button>
+              <button type="button" className="segBtn" data-rarm="uncoupled">uncoupled</button>
+              <button type="button" className="segBtn" data-rarm="bank-state">leaky bank</button>
+              <button type="button" className="segBtn" data-rarm="baseline">spectrogram only</button>
             </div>
           </div>
           <div className="feLabel">1 · six of the arm’s signals over the clip, the warm-up dimmed, the four windows marked</div>
@@ -476,21 +481,21 @@ export function UntrainedArticle() {
         <h3>Why these choices</h3>
         <p>
           <strong>The same width for every arm.</strong> A ridge’s capacity grows with the number of features
-          it is handed. In the exploratory phase the network was read with 16,384 features and its
-          spectrogram-only baseline with 192, so the ridge had 163,840 coefficients for one and 1,920 for the
-          other. The one width-matched read in that record put the network below its baseline in 936 of 936
-          runs. Reading every arm at 192 means a difference in accuracy is not a difference in how much the
-          readout was allowed to memorize.
+          it is handed, and the reservoirs expose 12,288 to 24,576 against the input’s 192. So that readout
+          capacity cannot pass for dynamics, every arm is read at 192 features: exactly the spectrogram-only
+          baseline’s own count (16 bands × 3 statistics × 4 windows), so the input is read without
+          compression, and the native width of four of the five trained baselines. The paper prices the
+          choice: at width 4,096 the reservoirs gain up to about 6 points, but their readout then fits 40,970
+          weights against the 1,930 that read the input. Figure 8 shows every width.
         </p>
         <p>
-          <strong>One fixed window.</strong> The exploratory harness read each clip over its own length. An
-          oscillator keeps turning whether or not anything drives it, so statistics over a span encode how
-          long the span was, and in speech, how long a word lasts says something about which word it is. An
-          undriven network, with no input at all, read over each clip’s own length recognizes digits about 18%
-          of the time, against 10% for chance. Read over the same frames for every clip, it reads exactly
-          10%. The registered
-          design reads every arm over frames 16 to 61, so everything a read carries arrives through the arm’s
-          response to the sound.
+          <strong>One fixed window.</strong> The natural shortcut is to read each clip over its own length. But
+          an oscillator keeps turning whether or not anything drives it, so statistics over a span encode how
+          long the span was, and in speech, how long a word lasts says something about which word it is. The
+          paper’s leak check measures it: an undriven network, with no input at all, read over each clip’s own
+          length recognizes digits about 18% of the time, against 10% for chance. Read over the same frames
+          for every clip, it reads exactly 10%. So every arm is read over frames 16 to 61, and everything a
+          read carries arrives through the arm’s response to the sound.
         </p>
         <div className="not-prose my-6 overflow-x-auto">
           <table className="leakTable" id="leakTable" />
@@ -502,10 +507,10 @@ export function UntrainedArticle() {
           with, and that harder version is the comparison that counts.
         </p>
         <p>
-          <strong>Registered numbers, not new ones.</strong> Below, every accuracy is copied from the paper’s
-          record: the mean over three seeds on all 6,000 test clips, for every read, width and training size
-          the paper ran. The primary cell, the one every comparison is made at, is width 192, 2,048 training
-          clips and the four-window read.
+          <strong>The paper’s numbers, not new ones.</strong> Below, every accuracy is copied from the
+          paper’s record of the controls experiment: the mean over three seeds on all 6,000 test clips, for
+          every read, width and training size it ran. The primary cell, the one every comparison is made at,
+          is width 192, 2,048 training clips and the four-window read.
         </p>
       </Prose>
 
@@ -513,7 +518,7 @@ export function UntrainedArticle() {
         <div className="panel" id="recordExplorer">
           <div className="panelTitle">
             <span>the record: what each readout choice does</span>
-            <em>Tier 1 · test speakers 49–60</em>
+            <em>controls experiment · test speakers 49–60</em>
           </div>
           <div className="controlGrid">
             <label className="field">
@@ -546,7 +551,8 @@ export function UntrainedArticle() {
           readout’s settings. <b>Width</b> is how many features the ridge sees (native is the arm’s own
           count, unprojected, fitted at 2,048 clips only). <b>Read</b>: the four windows, the whole span as
           one window, the oscillator networks with their rotation rates added (a read that favours them, since
-          no other arm has an analogue), and the baseline from frame 0. Chance is 10%.
+          no other arm has an analogue), and the baseline from frame 0. Noise is the signal-to-noise ratio:
+          at 0 dB the noise is as loud as the speech, at −5 dB louder. Chance is 10%.
         </figcaption>
       </figure>
 
@@ -554,8 +560,8 @@ export function UntrainedArticle() {
       <Prose className={TYPE}>
         <h2><span className="num">06 · the comparison</span>Ten models, one slot</h2>
         <p>
-          Tier 1 of the paper puts ten models in the slot, each chosen to remove exactly one candidate
-          explanation for the network’s accuracy.
+          The paper’s controls experiment puts ten models in the slot, each chosen to remove exactly one
+          candidate explanation for the network’s accuracy.
         </p>
       </Prose>
 
@@ -584,22 +590,27 @@ export function UntrainedArticle() {
           a trained linear layer. The five trained baselines play a different role. Their input layers are
           themselves trained, so they cannot isolate any physics; they answer whether a conventional network
           of the same size, trained normally, does better or worse. Each is trained with AdamW for 30 epochs
-          through a learned linear head on the very statistics the ridge reads, so it is trained for the read
-          it is judged by, and is then read by the same ridge as everyone else.
+          through a learned linear head on the very statistics the ridge reads, standardized, so it is trained
+          for the read it is judged by, and is then read by the same ridge as everyone else. The TCN is a
+          dilated residual one, as Bai, Kolter and Koltun define it; the CNN is two plain causal convolutions
+          that see 9 frames, the local, memoryless baseline. The controls experiment also runs the
+          Stuart–Landau network of section 07 on clean audio, so that network stands beside every arm in all
+          three conditions.
         </p>
         <h3>The conditions</h3>
         <p>
-          <strong>Noise.</strong> Clean audio, and white noise added at 0 dB and +5 dB relative to the
-          speech: at 0 dB the noise is as loud as the speech, and at +5 dB it is louder. Each clip’s noise is
-          drawn from a generator seeded by the clip itself, so a clip sounds the same to every arm. Clean audio
-          nearly saturates this task, so the design comparisons of section 07 are read on the noisy conditions
-          only.
+          <strong>Noise.</strong> Clean audio nearly saturates this task, so white noise is added at
+          signal-to-noise ratios of 0 dB (the noise as loud as the speech) and −5 dB (5 dB louder), and clean
+          audio is reported for reference. Each clip’s noise is drawn from a generator seeded by the clip
+          itself, so a clip sounds the same to every arm. The design experiments of section 07 read only the
+          noisy conditions.
         </p>
         <p>
           <strong>Input gain.</strong> The reservoirs are nonlinear, so how hard the input pushes relative to
           their own dynamics changes how they respond: for an oscillator, the input competes with its natural
           frequency, its coupling and the restoring pull; for a leaky integrator, it sets how far into the
-          tanh the input reaches. Every reservoir runs at gains 1 and 2. Gain does not apply to the
+          tanh the input reaches. Every reservoir runs at gains 1 and 2, and the sweep experiment takes each
+          coupling function’s reference network from gain 0.25 to 12. Gain does not apply to the
           spectrogram-only baseline, whose standardized statistics would divide any fixed scale out exactly,
           nor to the trained baselines, whose first layer learns its own.
         </p>
@@ -609,10 +620,12 @@ export function UntrainedArticle() {
           readout is fitted on; the test set is always all 6,000 clips of speakers 49 to 60. Accuracies are
           reported as the mean and standard deviation over seeds, and every comparison between two arms is
           paired on the same test clips, with a 95% interval from resampling them. No threshold decides a
-          result.
+          result. For comparison with published numbers, the controls arms also run once on each of Becker et
+          al.’s five speaker folds, on clean audio.
         </p>
         <p>
-          <strong>Temporal order.</strong> Tier 1 also runs a second task, built so that an order-free read of
+          <strong>Temporal order.</strong> The controls experiment also runs a second task, built so that an
+          order-free read of
           the input cannot solve it: two digits spoken one after the other, and the question is which came
           first. The mean and spread of a signal do not depend on the order of its frames, so the
           spectrogram-only baseline, read over the whole span, sits at 50% by construction. Anything above
@@ -620,13 +633,39 @@ export function UntrainedArticle() {
         </p>
       </Prose>
 
+      <Prose className={TYPE}>
+        <h3>Eight experiments</h3>
+        <p>The study runs these comparisons, and the ablations of the next section, as eight experiments.</p>
+      </Prose>
+
+      <div className="tableBlock">
+        <div className="overflow-x-auto">
+          <table className="armTable">
+            <thead>
+              <tr><th>experiment</th><th>runs</th><th>what it asks</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>leak check</td><td>13</td><td>Does the pipeline leak? Every reservoir with no input must read exactly chance, and a per-clip read window is measured for how much it would give away.</td></tr>
+              <tr><td>controls</td><td>852</td><td>Does the network add anything beyond its input, a leaky-integrator bank of its size, or its own oscillators uncoupled, and how do trained baselines compare? On recognition and on temporal order.</td></tr>
+              <tr><td>design</td><td>3,744</td><td>Does the network’s design matter: its coupling function, lattice geometry, natural frequencies, restoring strength and coupling ceiling?</td></tr>
+              <tr><td>cochlea</td><td>432</td><td>Do a coil and a cochlea, lattices built to follow the ear, do better than the torus?</td></tr>
+              <tr><td>sweep</td><td>684</td><td>What happens beyond the design’s levels: restoring strengths up to 1, ceilings of 1.5 and 2, and input gains from 0.25 to 12?</td></tr>
+              <tr><td>quadrature</td><td>126</td><td>Can the networks use a drive that tells them when in a band’s cycle to push (section 09)?</td></tr>
+              <tr><td>projection</td><td>432</td><td>Does the readout’s fixed random projection matter? The reservoirs are read again through one drawn from each run’s seed.</td></tr>
+              <tr><td>Becker folds</td><td>70</td><td>Where do the arms sit against published AudioMNIST results, on the corpus’s own speaker folds?</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
       {/* ─────────────────────────────────────────────────────────── 07 ─── */}
       <Prose className={TYPE}>
         <h2><span className="num">07 · the ablations</span>Changing the physics one factor at a time</h2>
         <p>
-          Tier 2 asks whether the design of the network matters. It varies five factors of the coupled
-          network across 3,744 runs, and every effect is measured on <strong>matched pairs</strong>: two runs
-          identical in every factor but the one compared, at the same noise level, gain and seed.
+          The design experiment asks whether the design of the network matters. It crosses five factors of
+          the coupled network, 312 configurations at 0 and −5 dB, both gains and three seeds, and measures
+          every effect on <strong>matched pairs</strong>: two runs identical in every factor but the one
+          compared, at the same noise level, gain and seed.
         </p>
         <h3>The coupling function</h3>
         <p>
@@ -659,7 +698,14 @@ export function UntrainedArticle() {
           Every geometry stores the same 256 oscillators per channel in the same 16 × 16 grid, with row r
           driven by band r. A geometry only changes how the grid’s edges are glued, and so which oscillators
           are neighbours. The kernel is the same table of weights in every case; the gluing decides where each
-          weight lands. Click any oscillator on the grid to see who acts on it.
+          weight lands. The design experiment runs six geometries. The cochlea experiment adds two that
+          follow the ear itself: a <strong>coil</strong>, the 256 oscillators on one open spiral from the
+          apex (the lowest band) to the base (the highest), an octave per turn, and a{' '}
+          <strong>cochlea</strong>, the coil with two features of the cochlea’s mechanics. Influence runs three
+          times as strongly from base to apex as back, as the travelling wave does, and the coupling into each
+          site grows with the spiral’s curvature, from a quarter at the base to full strength at the apex.
+          Because that weighting halves the cochlea’s average coupling, a control keeps its shape at the coil’s
+          average. Click any oscillator on the grid to see who acts on it.
         </p>
       </Prose>
 
@@ -674,8 +720,9 @@ export function UntrainedArticle() {
             </div>
           </div>
           <div className="seg wrap" role="group" aria-label="lattice geometry" style={{ marginBottom: 12 }}>
-            {['torus', 'cylinder', 'sheet', 'helix', 'cube', 'sphere'].map((g) => (
-              <button type="button" className="segBtn" data-kgeo={g} key={g}>{g}</button>
+            {[['torus', 'torus'], ['cylinder', 'cylinder'], ['sheet', 'sheet'], ['helix', 'helix'], ['cube', 'cube'],
+              ['sphere', 'sphere'], ['coil', 'coil'], ['cochlea', 'cochlea'], ['cochlea-matched', 'cochlea, matched']].map(([g, name]) => (
+              <button type="button" className="segBtn" data-kgeo={g} key={g}>{name}</button>
             ))}
           </div>
           <div className="kernelGrid">
@@ -691,14 +738,17 @@ export function UntrainedArticle() {
           <p className="viewNote" id="kernelNote" />
         </div>
         <figcaption className={CAPTION}>
-          <b>Figure 9 · one kernel, six gluings.</b> White: the chosen oscillator. Orange: oscillators that
+          <b>Figure 9 · one kernel, every gluing.</b> White: the chosen oscillator. Orange: oscillators that
           pull it toward their phase; blue: ones that push it away; black: none. On the <b>torus</b> both axes
           wrap, so the top band couples to the bottom. The <b>cylinder</b> opens the frequency axis, as in the
           cochlea, and the <b>sheet</b> opens both, so coupling stops at the edges. The <b>helix</b> reads all
           256 as one closed coil, 64 to a turn, so a turn away is an octave away. The <b>cube</b> folds each
           row into a 4 × 4 slab, a 16 × 4 × 4 lattice that wraps on all three axes, with shorter paths between
           the same oscillators. The <b>sphere</b> makes rows latitudes and weights each oscillator’s influence
-          by the cosine of its latitude, an approximation to a sphere rather than exact spherical coupling.
+          by the cosine of its latitude, an approximation to a sphere rather than exact spherical coupling. The
+          <b> coil</b> is the helix opened, so its ends never meet, and the <b>cochlea</b> adds the direction
+          (arrowheads, pointing to the apex) and the curvature weighting, which shows on the grid as weights
+          fading from the lowest rows to the highest.
         </figcaption>
       </figure>
 
@@ -714,10 +764,11 @@ export function UntrainedArticle() {
           <li><strong>Coupling ceiling.</strong> 1 and 0.5: stronger or weaker coupling overall.</li>
         </ul>
         <p>
-          The two Stuart–Landau functions were run on the torus only, and design effects are read at 0 and
-          +5 dB, both gains and three seeds. The console below lets you run the random-frequency slice of this
-          design: every coupling function on every geometry, at restoring strength 0.3 and coupling ceiling
-          1.
+          The two Stuart–Landau functions were run on the torus only. The sweep experiment then pushes each
+          coupling function’s reference network past these levels, to restoring strengths of 0.5 to 1,
+          ceilings of 1.5 and 2, and gains from 0.25 to 12. The console below runs the random-frequency slice
+          of the design and cochlea experiments: every coupling function on every geometry it was run on, at
+          restoring strength 0.3 and coupling ceiling 1.
         </p>
       </Prose>
 
@@ -732,20 +783,21 @@ export function UntrainedArticle() {
           moment; the scores appear when the read’s last window closes.
         </p>
         <p>
-          Gain and noise snap to the levels the paper registered, and a control is disabled where the paper
-          ran nothing. Each prediction comes from a readout fitted at exactly that condition at seed 0, and the
-          accuracy beside it is the record’s, over all three seeds.
+          Gain and noise snap to the levels the paper ran (gains 1 and 2; clean, 0 dB and −5 dB), and a
+          control is disabled where the paper ran nothing. Each prediction comes from a readout fitted at
+          exactly that condition at seed 0, and the accuracy beside it is the paper’s, over all three seeds.
         </p>
       </Prose>
 
       <figure className="my-10">
         <ModelConsole prefix="m" />
         <figcaption className={CAPTION}>
-          <b>Figure 10 · the model explorer.</b> The coupled network is Tier 1’s: Kuramoto coupling on a torus,
-          random natural frequencies, restoring strength 0.3, ceiling 1. Change its coupling function or
-          geometry and you are in Tier 2. Noise is added the way the paper adds it, with each clip’s own
-          recorded noise; your own recording gets a fresh draw of the same recipe. Accuracy on one clip says
-          little: the record’s number beside it is over 6,000.
+          <b>Figure 10 · the model explorer.</b> The coupled network starts at the paper’s reference
+          configuration: Kuramoto coupling on a torus, random natural frequencies, restoring strength 0.3,
+          ceiling 1. Change its coupling function or geometry and you are in the design or cochlea experiment.
+          Noise is added the way the paper adds it, with each clip’s own recorded noise; your own recording gets
+          a fresh draw of the same recipe. Accuracy on one clip says little: the paper’s number beside it is
+          over 6,000.
         </figcaption>
       </figure>
 
@@ -753,8 +805,8 @@ export function UntrainedArticle() {
       <Prose className={TYPE}>
         <h2><span className="num">09 · the drive signal</span>Two ways to push an oscillator</h2>
         <p>
-          Everything so far drives the oscillators with band energies: how loud each band is, frame by frame.
-          That throws away something an oscillator could use. Sound is itself oscillation, and a band-energy
+          Everything so far drives the oscillators with the spectrogram: how loud each band is, frame by frame.
+          That throws away something an oscillator could use. Sound is itself oscillation, and a spectrogram
           drive tells an oscillator how hard to push, never <em>when</em> in the sound’s own cycle to push. An
           oscillator nudged at the right moment of every cycle can lock to a rhythm; one pushed at random
           moments cannot. So the paper also drives the network through a pathway that keeps timing, with its
@@ -762,7 +814,7 @@ export function UntrainedArticle() {
         </p>
         <ul>
           <li>
-            <strong>Band-energy.</strong> The front end of section 04: each band’s energy adds to the turning
+            <strong>Spectrogram.</strong> The front end of section 04: each band’s energy adds to the turning
             rate of its row, the same push whatever the oscillator’s phase. Everything above runs on it.
           </li>
           <li>
@@ -781,14 +833,14 @@ export function UntrainedArticle() {
             <span>the selected clip, two ways</span>
             <em>16 bands, lowest at the bottom</em>
           </div>
-          <div className="feLabel">band-energy · 61 frames · brightness = energy</div>
-          <div className="canvasFrame"><canvas id="pwEnvelope" style={{ height: 80 }} /></div>
+          <div className="feLabel">spectrogram · 61 frames · brightness = energy</div>
+          <div className="canvasFrame"><canvas id="pwSpectrogram" style={{ height: 80 }} /></div>
           <div className="feLabel">quadrature · 61 frames · brightness = energy, hue = the band’s phase</div>
           <div className="canvasFrame"><canvas id="pwQuadrature" style={{ height: 80 }} /></div>
         </div>
         <figcaption className={CAPTION}>
           <b>Figure 11 · what each pathway hands the network.</b> The same recording (chosen in section 04).
-          Band-energy keeps 0 to 8 kHz at 16 ms resolution and discards phase. Quadrature keeps the same
+          The spectrogram keeps 0 to 8 kHz at 16 ms resolution and discards phase. Quadrature keeps the same
           energies and adds each band’s drifting phase.
         </figcaption>
       </figure>
@@ -796,10 +848,11 @@ export function UntrainedArticle() {
       <Prose className={TYPE}>
         <p>
           The console below restricts itself to the three reservoirs this question is about, the leaky bank,
-          the uncoupled network and the coupled network, on the torus with random natural frequencies. Two
-          pairings do not exist on the quadrature pathway: a leaky integrator has no phase for a quadrature
-          pair to act on, and the Stuart–Landau networks were not built for it. The uncoupled network on the
-          quadrature pathway is not a registered arm, and is included as the obvious reference.
+          the uncoupled network and the coupled network, on the torus with random natural frequencies. The
+          paper runs only coupled networks on the quadrature pathway, the four phase coupling functions: a
+          leaky integrator has no phase for the push to act on, and the question is whether coupled
+          oscillators can use a phase-referenced drive at all. The uncoupled network on the quadrature pathway
+          is not in the paper; it is included here as the obvious reference.
         </p>
       </Prose>
 
@@ -814,12 +867,109 @@ export function UntrainedArticle() {
 
       {/* ─────────────────────────────────────────────────────────── 10 ─── */}
       <Prose className={TYPE}>
-        <h2><span className="num">10 · what we found</span>Results, when the record is complete</h2>
+        <h2><span className="num">10 · what we found</span>Mostly the input, and a memory</h2>
         <p>
-          This section is waiting for the paper’s registered runs to finish. When they do, it will summarize
-          what each comparison showed, with the same numbers the consoles above quote, whichever way they fall.
-          Until then, the accuracies shown in the explorers are the ones recorded so far, and the configurations
-          whose tiers are still running say so.
+          <strong>Against its controls.</strong> Read at the common width, the spectrogram alone reads 93.6%
+          on clean audio, 78.0% at 0 dB and 71.6% at −5 dB. The Kuramoto network at gain 1 reads 91.1%,
+          77.8% and 70.7%: within a point of its own input with noise, and 2.5 points below it on clean audio.
+          It reads 0.4 to 1.1 points above the same network uncoupled, and about 4 points above the
+          state-matched leaky-integrator bank with noise, though 2.35 below it on clean audio. With noise every
+          trained baseline reads above it, from 79.2% (CNN) to 82.8% (GRU) at 0 dB.
+        </p>
+      </Prose>
+
+      <figure className="my-10">
+        <div className="overflow-hidden rounded-2xl border border-zinc-200 bg-white dark:border-zinc-700/50">
+          <Image src="/untrained/figures/fig01-sec4-1-recognition-arms.png" alt="Recognition accuracy for every arm at clean, 0 dB and minus 5 dB, from the paper" width={1981} height={997} className="h-auto w-full" unoptimized />
+        </div>
+        <figcaption className={CAPTION}>
+          <b>Figure 13 · every arm at the primary cell</b>, from the paper: mean ± one standard deviation over
+          three seeds, the reservoirs at gain 1 (filled) and 2 (open). Dashed line: the whole-clip
+          spectrogram-only baseline.
+        </figcaption>
+      </figure>
+
+      <Prose className={TYPE}>
+        <p>
+          <strong>What the dynamics add is memory.</strong> Read only after its 16-frame warm-up, the network
+          reads 7.5 to 15.9 points above its input read over the same frames: it carries the onset, which the
+          input loses without its first 16 frames. On the order task, which the input alone cannot solve
+          (49.8% to 50.6%), it reads 95.5% to 97.7%. The leaky-integrator banks do both, and better on order,
+          98.7% to 99.9%. The reason is the same in both: apart from the restoring pull and the coupling, an
+          oscillator’s phase is the running sum of its band’s energy wrapped around a circle. Oscillation adds
+          no memory the bank lacks; the phase is an integrator whose sum wraps. Coupling adds about a point on
+          noisy recognition and 2 to 19 points on order.
+        </p>
+      </Prose>
+
+      <figure className="my-10">
+        <div className="overflow-hidden rounded-2xl border border-zinc-200 bg-white dark:border-zinc-700/50">
+          <Image src="/untrained/figures/fig02-sec4-2-order-arms.png" alt="Temporal-order accuracy for every arm, from the paper" width={1982} height={936} className="h-auto w-full" unoptimized />
+        </div>
+        <figcaption className={CAPTION}>
+          <b>Figure 14 · temporal order</b>, from the paper: which of two digits came first, averaged over five
+          digit pairs. Dotted line: chance. The CNN sees 9 frames, less than a digit, so with noise it reads
+          chance.
+        </figcaption>
+      </figure>
+
+      <Prose className={TYPE}>
+        <p>
+          <strong>Design.</strong> Among phase oscillators, the coupling function moved accuracy by at most half
+          a point, and every lattice geometry read within 0.65 points of the torus. The coil read within 0.22
+          points of it and the cochlea 0.41 to 0.97 below: built to follow the ear, they read no better. The one
+          design choice that mattered was a free amplitude. The Stuart–Landau network reads 2.1 to 3.8 points
+          above its Kuramoto match and, at the reference configuration, above its own input in every noisy
+          condition, by 1.1 to 2.3 points, which puts it in the trained baselines’ range. With its amplitude
+          fixed it reads like Kuramoto, so the effect is the amplitude, not the coupling form.
+        </p>
+      </Prose>
+
+      <figure className="my-10">
+        <div className="overflow-hidden rounded-2xl border border-zinc-200 bg-white dark:border-zinc-700/50">
+          <Image src="/untrained/figures/fig04-sec4-4-lattice-geometries.png" alt="Each lattice geometry minus the torus, from the paper" width={1763} height={579} className="h-auto w-full" unoptimized />
+        </div>
+        <figcaption className={CAPTION}>
+          <b>Figure 15 · lattice geometry</b>, from the paper: each geometry minus the torus, paired, with 95%
+          intervals. Left of the grey line, the design experiment; right, the cochlea experiment.
+        </figcaption>
+      </figure>
+
+      <Prose className={TYPE}>
+        <p>
+          <strong>Gain and drive.</strong> Gain separates the Stuart–Landau network from the rest: from gain 1
+          to gain 8 it lost 3 to 4 points while every phase-oscillator network lost 15 to 19, as if a free
+          amplitude lets an oscillator absorb a strong drive in its radius where a phase can only be pushed
+          faster. Below gain 1 the order reverses, and at their better low gain the phase networks read above
+          their input at 0 dB. Driven in quadrature, every network read near chance, 11.7% to 15.1%: in no
+          run did more than 0.3% of its oscillators lock to their band.
+        </p>
+      </Prose>
+
+      <figure className="my-10">
+        <div className="overflow-hidden rounded-2xl border border-zinc-200 bg-white dark:border-zinc-700/50">
+          <Image src="/untrained/figures/fig06-sec4-5-restoring-ceiling-gain.png" alt="Accuracy of each coupling function against restoring strength, coupling ceiling and input gain, from the paper" width={1977} height={1026} className="h-auto w-full" unoptimized />
+        </div>
+        <figcaption className={CAPTION}>
+          <b>Figure 16 · restoring strength, ceiling and gain</b>, from the paper, for each coupling function at
+          the reference configuration, at 0 dB (top) and −5 dB (bottom).
+        </figcaption>
+      </figure>
+
+      <Prose className={TYPE}>
+        <p>
+          <strong>The readout.</strong> Widening the readout to 4,096 features lifts the reservoirs above their
+          input, but through a readout with 21 times as many fitted weights, so the fair comparison stays at the
+          common width. More training data helps the trained baselines three to six times as much as the
+          network, since in a reservoir only the readout learns.
+        </p>
+        <p>
+          <strong>In short.</strong> Untrained and read at a common width, a coupled oscillator network
+          classifies noisy, held-out spoken digits about as well as its own input, and carries the order of
+          events by integrating it, as a leaky-integrator bank does. Coupling adds a little to both; a free
+          amplitude lifts it above its input and into the trained baselines’ range; the geometry and the phase
+          coupling function each move it by less than a point. Those numbers are the baseline a trained
+          oscillator network of this size, on this task, should beat.
         </p>
       </Prose>
 
@@ -827,14 +977,17 @@ export function UntrainedArticle() {
       <Prose className={TYPE}>
         <h2><span className="num">11 · go deeper</span>The paper, the code and the prior art</h2>
         <p>
-          The paper, its registration, the harness that ran every model on this page, and the raw per-run
-          record behind every number quoted here are public. The browser code here is a port of that harness,
-          checked against it: the scores your browser computes match the harness’s on every demo clip, and every untrained arm’s readout, rescored on the full test set, reproduces
-          the record’s seed-0 accuracy wherever the record has that cell.
+          The paper, the harness that ran every model on this page, and the per-run record behind every
+          number quoted here are public. The browser code here is a port of that harness, checked against it:
+          the scores your browser computes match the harness’s on every demo clip, and every untrained arm’s
+          readout, rescored on the full test set, reproduces the paper’s seed-0 accuracy.
         </p>
-        <p style={{ marginTop: '1.5rem' }}>
-          <a className="action primary" href={PAPER} {...ext} style={{ textDecoration: 'none', display: 'inline-block' }}>
-            Paper 02 and its code on GitHub →
+        <p style={{ marginTop: '1.5rem' }} className="flex flex-wrap gap-3">
+          <a className="action primary" href={PDF} {...ext} style={{ textDecoration: 'none', display: 'inline-block' }}>
+            Read the paper (PDF) →
+          </a>
+          <a className="action" href={PAPER} {...ext} style={{ textDecoration: 'none', display: 'inline-block' }}>
+            Its code and record on GitHub →
           </a>
         </p>
 
@@ -851,6 +1004,8 @@ export function UntrainedArticle() {
             <li><a href="https://www.ai.rug.nl/minds/uploads/EchoStatesTechRep.pdf" {...ext} className="font-medium">Jaeger (2001)</a> and <a href="https://doi.org/10.1162/089976602760407955" {...ext} className="font-medium">Maass et al. (2002)</a>: reservoir computing</li>
             <li><a href="https://doi.org/10.1016/j.neunet.2007.04.016" {...ext} className="font-medium">Jaeger et al. (2007)</a>: leaky-integrator echo state networks</li>
             <li><a href="https://doi.org/10.1016/j.jfranklin.2023.11.038" {...ext} className="font-medium">Becker et al. (2024)</a>: AudioMNIST, and the speaker folds used for comparison with published results</li>
+            <li><a href="https://doi.org/10.1038/s41598-019-56991-x" {...ext} className="font-medium">Abreu Araujo et al. (2020)</a>: how much of an oscillator reservoir’s accuracy its front end supplies</li>
+            <li><a href="https://doi.org/10.2139/ssrn.7445198" {...ext} className="font-medium">Kryski (2026)</a>: the survey of oscillator networks in machine learning that found these ablations missing</li>
           </ul>
         </div>
       </Prose>
@@ -861,7 +1016,7 @@ export function UntrainedArticle() {
         </h2>
         <ul className="mt-3 list-disc space-y-2 pl-5 text-[13.5px] leading-relaxed text-zinc-600 marker:text-amber-500/60 dark:text-zinc-400">
           <li>
-            The consoles run seed 0 of each model. The record’s accuracy beside each is the mean over three
+            The consoles run seed 0 of each model. The paper’s accuracy beside each is the mean over three
             seeds on 6,000 test clips; a single clip, or a handful, says almost nothing about either.
           </li>
           <li>
