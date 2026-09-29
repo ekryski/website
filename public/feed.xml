@@ -4,7 +4,7 @@
         <title>Eric Kryski</title>
         <link>https://erickryski.com</link>
         <description>Read Eric Kryski's musings on design, development, finance and entrepreneurship</description>
-        <lastBuildDate>Tue, 29 Sep 2026 06:00:16 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 29 Sep 2026 06:47:24 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <image>
@@ -13,6 +13,15 @@
             <link>https://erickryski.com</link>
         </image>
         <copyright>All rights reserved 2026</copyright>
+        <item>
+            <title><![CDATA[Does the physics do the work?]]></title>
+            <link>https://erickryski.com/articles/does-the-physics-do-the-work</link>
+            <guid>https://erickryski.com/articles/does-the-physics-do-the-work</guid>
+            <pubDate>Tue, 29 Sep 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[What does an untrained network of coupled oscillators add to spoken-digit recognition? How a 6,353-run study tested it, with every model live in your browser.]]></description>
+            <content:encoded><![CDATA[What does an untrained network of coupled oscillators add to spoken-digit recognition? How a 6,353-run study tested it, with every model live in your browser.]]></content:encoded>
+            <author>hello@erickryski.com (Eric Kryski)</author>
+        </item>
         <item>
             <title><![CDATA[How a machine hears a number]]></title>
             <link>https://erickryski.com/articles/how-a-machine-hears-a-number</link>

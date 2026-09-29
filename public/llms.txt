@@ -17,6 +17,7 @@ Writing on distributed computing, payments, startups, economics and AI. Everythi
 
 ## Articles
 
+- [Does the physics do the work?](https://erickryski.com/articles/does-the-physics-do-the-work) (2026-09-29): What does an untrained network of coupled oscillators add to spoken-digit recognition? How a 6,353-run study tested it, with every model live in your browser.
 - [How a machine hears a number](https://erickryski.com/articles/how-a-machine-hears-a-number) (2026-08-15): A progressive guide to speech models, from pressure waves and mel spectrograms to a coupled-oscillator core, with every figure computed live in your browser.
 - [Can you tell which photos are AI-generated?](https://erickryski.com/articles/ai-image-generation-experiment) (2023-04-18): An experiment testing whether humans can distinguish real photos from AI-generated ones. Spoiler: 84% of people got it wrong.
 - [What is the value of cryptocurrency vs. blockchain?](https://erickryski.com/articles/value-cryptocurrency-vs-blockchain) (2023-02-09): Why crypto and not just blockchain? The nuance lies in how the properties of cryptocurrency—immutability, verifiability, and programmability—can produce new ways of organizing our social fabric.
