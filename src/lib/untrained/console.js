@@ -260,7 +260,7 @@ export function mountConsole(ctx, { prefix }) {
         : 'Input gain does not apply: a trained network learns its own input scale. Each is trained once per noise level, on the input as it is.');
     }
     if (cfg.experiment === 'design' || cfg.experiment === 'cochlea') {
-      notes.push('The design and cochlea experiments read network design at 0 and −5 dB only: on clean audio the task saturates.');
+      notes.push('The design and cochlea experiments read network design at 0 and −5 dB only, because clean audio nearly saturates the task.');
     }
     if (a.coupling?.startsWith('stuart-landau')) {
       notes.push('The Stuart–Landau functions were run on the torus only; the free-amplitude network also on clean audio, in the controls experiment.');

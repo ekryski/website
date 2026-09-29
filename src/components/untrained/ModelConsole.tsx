@@ -114,7 +114,7 @@ export function ModelConsole({ prefix }: { prefix: string }) {
 
         <div className="panel">
           <div className="panelTitle">
-            <span>readout · ten digit scores · highest wins</span>
+            <span>ten scores · highest wins</span>
             <em id={id('verdict')}>—</em>
           </div>
           <div id={id('bars')} className="scoreBars" />
