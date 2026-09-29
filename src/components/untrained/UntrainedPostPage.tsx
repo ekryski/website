@@ -7,7 +7,7 @@ const SLUG = 'does-the-physics-do-the-work'
 
 /**
  * Page shell for the paper 02 post. Like the first guide, not ArticleLayout:
- * the consoles are wide by nature. The header matches an article.
+ * the console is wide by nature. The header matches an article.
  */
 export function UntrainedPostPage({
   date,

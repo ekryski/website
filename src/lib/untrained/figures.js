@@ -1,4 +1,4 @@
-// The explanatory figures: everything on the page except the two consoles.
+// The explanatory figures: everything on the page except the console.
 // Each mount function finds its markup by id and returns a disposer.
 
 import { drawWaveform, drawHeatmap, drawLines, drawBars, fitCanvas } from '../resonant/plots.js';

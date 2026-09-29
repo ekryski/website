@@ -5,7 +5,7 @@
 // it needs, when it comes within a screen or so of the viewport, so a reader
 // who never scrolls to the models never downloads them, and the page's first
 // paint and main thread stay the article's. As a reader heads toward the
-// readout and the consoles, their largest files (the 24,576-wide projection and
+// readout and the console, their largest files (the 24,576-wide projection and
 // the default readouts) are fetched ahead at low priority, unless the browser
 // asks to save data or the connection is slow.
 //
@@ -26,10 +26,9 @@ const $ = (id) => document.getElementById(id);
 const NEAR_PX = 600;
 /** How far ahead the next section's large files start downloading. */
 const PREFETCH_PX = 2600;
-/** The configs a reader meets first: the read figure's and the consoles' defaults. */
+/** The config a reader meets first: the read figure's and the console's default. */
 const DEFAULTS = [
   'spectrogram-coupled-kuramoto-torus-random-restoring0p3-ceiling1-g1-clean',
-  'spectrogram-coupled-kuramoto-torus-random-restoring0p3-ceiling1-g1-0db',
 ];
 
 /** Should this visit fetch ahead of need at all? */
@@ -78,7 +77,7 @@ export async function mountPost() {
       return { ...c, index, key: `clip:${index}`, speech: c.samples, samples };
     }));
 
-    // one clip chosen for the explanatory figures (the consoles keep their own)
+    // one clip chosen for the explanatory figures (the console keeps its own)
     const shared = {
       index: Math.max(0, clips.findIndex((c) => c.digit === 7)),
       listeners: [],
