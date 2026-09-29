@@ -1,0 +1,209 @@
+/* The paper 02 post's own instrument styling, on top of the first guide's
+ * (resonant.css, which this wrapper also carries). Everything is scoped to
+ * .untrainedPost so nothing leaks into the rest of the site. The panels stay
+ * dark in both themes, as in the first guide: they are screens. */
+
+.untrainedPost .console { grid-template-columns: 1.05fr 1fr; }
+.untrainedPost .console .pipelineStrip { grid-column: 1 / -1; }
+
+/* --- the arm's view ----------------------------------------------------- */
+
+.untrainedPost .viewBox { position: relative; }
+.untrainedPost canvas.view3d { height: 330px; cursor: grab; touch-action: none; }
+.untrainedPost canvas.view3d:active { cursor: grabbing; }
+.untrainedPost canvas.view2d { height: 330px; }
+.untrainedPost canvas[hidden] { display: none; }
+.untrainedPost .zoomHost { position: relative; }
+.untrainedPost .zoomBox { position: absolute; top: 8px; right: 8px; display: flex; gap: 4px; }
+.untrainedPost .zoomBtn {
+  width: 28px;
+  height: 28px;
+  border-radius: 7px;
+  border: 1px solid var(--line);
+  background: rgba(12, 16, 24, 0.75);
+  color: var(--panel-ink);
+  font: 600 16px/1 var(--mono);
+  cursor: pointer;
+}
+.untrainedPost .zoomBtn:hover { border-color: var(--accent); }
+.untrainedPost .zoomHost:has(> canvas.view3d[hidden]) .zoomBox { display: none; }
+.untrainedPost .chanRow { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
+.untrainedPost .chanRow[hidden] { display: none; }
+.untrainedPost .action.small { padding: 7px 11px; font-size: 13px; }
+.untrainedPost .viewNote,
+.untrainedPost .controlNote,
+.untrainedPost .recordNote {
+  margin: 10px 0 0;
+  font: 11.5px/1.55 var(--mono);
+  color: var(--muted);
+}
+.untrainedPost .controlNote:empty,
+.untrainedPost .recordNote:empty { display: none; }
+.untrainedPost [hidden] { display: none !important; }
+
+/* --- controls ----------------------------------------------------------- */
+
+.untrainedPost .controlGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 12px 14px;
+}
+.untrainedPost .field { display: grid; gap: 6px; min-width: 0; }
+.untrainedPost .field > span {
+  font: 600 11px/1.4 var(--mono);
+  letter-spacing: 0.06em;
+  color: var(--muted);
+}
+.untrainedPost .field select.action { width: 100%; min-width: 0; padding: 9px 28px 9px 11px; font-size: 13.5px; }
+.untrainedPost .seg { display: flex; gap: 6px; flex-wrap: wrap; }
+.untrainedPost .panelTitle .seg { text-transform: none; letter-spacing: 0; }
+.untrainedPost .segBtn {
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  background: var(--panel-2);
+  color: var(--panel-ink);
+  font: 600 12.5px/1 var(--font-sans, ui-sans-serif, system-ui, sans-serif);
+  padding: 8px 11px;
+  cursor: pointer;
+}
+.untrainedPost .segBtn:hover:not(:disabled) { border-color: var(--accent); }
+.untrainedPost .segBtn[aria-pressed='true'] { background: var(--accent); border-color: var(--accent); color: #06263c; }
+.untrainedPost .segBtn:disabled { opacity: 0.35; cursor: not-allowed; }
+/* a control that has no setting for the chosen model: plain text, not a button */
+.untrainedPost .segNote {
+  display: inline-block;
+  padding: 8px 0;
+  font: 500 12.5px/1 var(--font-sans, ui-sans-serif, system-ui, sans-serif);
+  color: var(--muted);
+}
+
+/* the record explorer: each group wraps whole, never its own buttons */
+.untrainedPost .recControls { display: flex; flex-wrap: wrap; gap: 14px 22px; align-items: start; }
+.untrainedPost .recControls .field { flex: 0 0 auto; }
+.untrainedPost .recControls .field.recModel { flex: 1 1 100%; }
+.untrainedPost .recControls .seg { flex-wrap: nowrap; }
+@media (max-width: 560px) {
+  .untrainedPost .recControls .seg { flex-wrap: wrap; }
+}
+.untrainedPost .runRow { align-items: center; }
+.untrainedPost .progress { margin-right: auto; font: 11.5px/1.4 var(--mono); color: var(--warn); }
+.untrainedPost .console.busy .panel { transition: opacity 0.2s; }
+.untrainedPost .console.busy canvas { opacity: 0.55; }
+
+/* --- input and readout panels -------------------------------------------- */
+
+.untrainedPost .traceRow { display: grid; grid-template-columns: 1fr 74px; gap: 10px; margin-top: 8px; }
+.untrainedPost .scoreBars { display: grid; gap: 4px; }
+.untrainedPost .readoutRow { grid-template-columns: 22px 1fr 46px; }
+.untrainedPost .readoutRow .pct { text-align: right; }
+.untrainedPost .windowStrip {
+  display: flex;
+  gap: 3px;
+  margin-top: 12px;
+  font: 600 9.5px/1 var(--mono);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.untrainedPost .win {
+  padding: 6px 4px;
+  border-radius: 6px;
+  border: 1px solid var(--line);
+  background: var(--panel-2);
+  color: var(--muted);
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+.untrainedPost .win.warm { opacity: 0.5; }
+.untrainedPost .win.live { border-color: var(--accent); color: var(--panel-ink); }
+.untrainedPost .win.done { background: #1b2a3d; border-color: #2d4a63; color: var(--panel-ink); }
+
+/* --- explanatory figures -------------------------------------------------- */
+
+.untrainedPost .termGrid {
+  display: grid;
+  gap: 14px;
+  margin-top: 22px;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+  font-size: 15px;
+  line-height: 1.6;
+  color: #cbd2de;
+}
+.untrainedPost .termGrid > div { display: grid; grid-template-columns: 120px 1fr; gap: 14px; align-items: start; }
+.untrainedPost .termGrid > div > span:first-child { font: 600 19px/1.3 var(--mono); }
+.untrainedPost .termGrid b { color: #fff; }
+
+.untrainedPost .legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+  margin-top: 8px;
+  font: 11px/1.4 var(--mono);
+  color: var(--muted);
+}
+.untrainedPost .legend span { display: inline-flex; align-items: center; gap: 6px; }
+.untrainedPost .legend i { display: inline-block; width: 14px; height: 3px; border-radius: 2px; }
+.untrainedPost .bandRange { margin-top: 4px; font: 600 12px/1.4 var(--mono); color: var(--panel-ink); }
+
+.untrainedPost .feGrid { display: grid; gap: 10px; margin-top: 14px; }
+.untrainedPost .feRowsGrid { display: grid; grid-template-columns: 1fr 74px; gap: 10px; }
+.untrainedPost .feLabel { margin: 10px 0 5px; font: 600 10.5px/1.4 var(--mono); letter-spacing: 0.05em; color: var(--muted); }
+.untrainedPost .feGrid .feLabel { margin-top: 0; }
+
+.untrainedPost .kernelGrid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.untrainedPost canvas.square { aspect-ratio: 1; height: auto; cursor: pointer; }
+.untrainedPost .seg.wrap { flex-wrap: wrap; }
+
+.untrainedPost .recOut { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; margin: 16px 0 6px; }
+.untrainedPost .recOut b { font-size: 34px; font-weight: 700; color: var(--good); }
+.untrainedPost .recOut span { font: 12px/1.5 var(--mono); color: var(--muted); }
+
+/* tables that sit outside the prose styling */
+.untrainedPost table.armTable,
+.untrainedPost table.leakTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  line-height: 1.5;
+}
+.untrainedPost .armTable th,
+.untrainedPost .leakTable th {
+  text-align: left;
+  font: 600 11px/1.4 var(--mono);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #71717a;
+  padding: 8px 10px;
+  border-bottom: 1px solid rgba(113, 113, 122, 0.35);
+}
+.untrainedPost .armTable td,
+.untrainedPost .leakTable td {
+  padding: 9px 10px;
+  border-bottom: 1px solid rgba(113, 113, 122, 0.18);
+  vertical-align: top;
+  color: #52525b;
+}
+.dark .untrainedPost .armTable td,
+.dark .untrainedPost .leakTable td { color: #a1a1aa; }
+.untrainedPost .tableBlock { margin: 28px 0; }
+.untrainedPost .armTable td:first-child { font-weight: 600; color: #3f3f46; min-width: 150px; }
+.untrainedPost .armTable { min-width: 720px; }
+.dark .untrainedPost .armTable td:first-child { color: #e4e4e7; }
+.untrainedPost td.mono { font-family: var(--mono); font-size: 13px; white-space: nowrap; }
+.untrainedPost .leakTable td:not(:first-child) { font-family: var(--mono); }
+
+@media (max-width: 900px) {
+  .untrainedPost .console { grid-template-columns: 1fr; }
+  .untrainedPost .kernelGrid { grid-template-columns: 1fr; }
+  .untrainedPost .termGrid > div { grid-template-columns: 90px 1fr; }
+}
+
+/* the clip picker: one column per digit, one row per speaker */
+.untrainedPost #clipPicker { display: grid; grid-template-columns: repeat(10, 44px); gap: 8px; }
+.untrainedPost #clipPicker .digitBtn { display: grid; place-items: center; line-height: 1; }
+.untrainedPost #clipPicker .digitBtn small { display: block; margin-top: 3px; font: 500 9px/1 var(--mono); opacity: 0.6; }
+@media (max-width: 560px) {
+  .untrainedPost #clipPicker { grid-template-columns: repeat(5, 44px); }
+}

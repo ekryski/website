@@ -293,13 +293,13 @@ export function mountConsole(state, api = {}) {
       try {
         const clip = await conditionClip(take.samples, take.sampleRate, model.frontend);
         if (!clip) {
-          say('nothing loud enough to be a word — try again, closer');
+          say('nothing loud enough to be a word; try again, closer');
           return;
         }
         api.setLiveClip(clip.samples, clip.sampleRate);   // recomputes and redraws
         // the dB figure is only worth showing when it is the reason for a miss
         const head = `${clip.seconds.toFixed(2)} s of speech`;
-        if (clip.snrDb < NOISY_SNR_DB) say(`${head} · only ${clip.snrDb.toFixed(0)} dB over the room — expect misses`);
+        if (clip.snrDb < NOISY_SNR_DB) say(`${head} · only ${clip.snrDb.toFixed(0)} dB over the room, so expect misses`);
         else if (clip.truncated) say(`${head} · trimmed to the model’s 1.00 s window`);
         else say(`${head} · levelled and placed like the corpus`);
         startPlayback();
@@ -337,7 +337,7 @@ export function mountConsole(state, api = {}) {
       btn.disabled = false;
       btn.classList.add('recording');
       btn.textContent = '■ stop 0.0s';
-      say('say a digit — zero through nine');
+      say('say a digit from zero to nine');
     });
 
     disposers.push(() => { recorder?.dispose(); recorder = null; });

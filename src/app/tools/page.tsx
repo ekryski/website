@@ -108,7 +108,8 @@ function WorkstationTool({
 
 export const metadata = pageMetadata({
   title: 'Tools',
-  description: 'Software I use, gadgets I love, and other things I recommend.',
+  description:
+    'The software, hardware and desk setup I use every day to design, build and write, and the other things I recommend.',
   url: '/tools',
 })
 

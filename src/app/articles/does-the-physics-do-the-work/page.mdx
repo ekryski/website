@@ -1,0 +1,29 @@
+import { UntrainedPostPage } from '@/components/untrained/UntrainedPostPage'
+import { articleMetadata } from '@/lib/metadata'
+
+export const dynamic = 'force-static'
+
+export const article = {
+  author: 'Eric Kryski',
+  date: '2026-09-29',
+  published: true,
+  featured: true,
+  title: 'Does the physics do the work?',
+  description:
+    'What does an untrained network of coupled oscillators add to spoken-digit recognition? How a 6,353-run study tested it, with every model live in your browser.',
+}
+
+export const metadata = articleMetadata(article, 'does-the-physics-do-the-work', {
+  image: '/untrained/og.png',
+  imageAlt:
+    'The same 16 by 16 lattice of oscillators twice, coupled into a travelling wave and uncoupled with scattered phases',
+})
+
+export default (props) => (
+  <UntrainedPostPage
+    date={article.date}
+    title={article.title}
+    description={article.description}
+    {...props}
+  />
+)

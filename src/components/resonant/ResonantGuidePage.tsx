@@ -48,9 +48,9 @@ export function ResonantGuidePage({
           How a machine hears a number.
         </h1>
         <p className="mt-6 text-lg text-zinc-600 dark:text-zinc-400">
-          Start with air moving. End with a physics simulation that can tell{' '}
+          This guide starts with air moving and ends with a physics simulation that can tell{' '}
           <em>“three”</em> from <em>“eight”</em>. Every figure on this page is computed
-          live, in your browser, from real recordings — nothing here is a mockup.
+          live in your browser from real recordings.
         </p>
         <p className="mt-4 font-mono text-xs text-zinc-500 dark:text-zinc-400">
           Ten held-out clips from AudioMNIST · ~20 min read
