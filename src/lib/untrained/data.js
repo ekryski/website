@@ -3,8 +3,9 @@
 // end's constants, the seed-0 physics, the demo clips and, per config, the
 // readout fitted at that exact condition.
 //
-// Loading is lazy: the manifest and the clips up front, and each readout,
-// projection and trained network only when a config that needs it is picked.
+// Loading is lazy: the manifest and the clips when the first model figure comes
+// near, each readout, projection and trained network only when a config that
+// needs it is picked, and `warm` fetches one at low priority ahead of need.
 // Nothing here touches the DOM, so the same code runs in Node for the parity
 // check (scripts/check-untrained-parity.mjs).
 
@@ -57,13 +58,13 @@ export function viewLayout(buffer, layout) {
 
 /**
  * The store: the manifest plus a cache of everything fetched after it.
- * fetchBytes(url) -> ArrayBuffer and fetchJson(url) are injectable so Node can
- * read the files from disk.
+ * fetchBytes(url, init) -> ArrayBuffer and fetchJson(url) are injectable so Node
+ * can read the files from disk.
  */
 export class Store {
   constructor({ base = BASE, fetchBytes, fetchJson } = {}) {
     this.base = base;
-    this.fetchBytes = fetchBytes || (async (url) => (await fetch(url)).arrayBuffer());
+    this.fetchBytes = fetchBytes || (async (url, init) => (await fetch(url, init)).arrayBuffer());
     this.fetchJson = fetchJson || (async (url) => (await fetch(url)).json());
     this.cache = new Map();
     this.manifest = null;
@@ -105,19 +106,25 @@ export class Store {
   }
 
   /** The fitted readout for a config: {inv1, shift, P, mean2, sd2, weight, bias, ...}. */
-  readout(id) {
+  readout(id, init) {
     const cfg = this.config(id);
     return this.once(`readout:${id}`, async () => {
       const r = cfg.readout;
-      const parts = viewLayout(await this.fetchBytes(this.url(r.file)), r.layout);
+      const parts = viewLayout(await this.fetchBytes(this.url(r.file), init), r.layout);
       const out = { ...parts, native: r.native, width: r.width, projected: r.projected };
-      if (r.projected) out.P = await this.projection(r.projection);
+      if (r.projected) out.P = await this.projection(r.projection, init);
       return out;
     });
   }
 
-  projection(file) {
-    return this.once(`proj:${file}`, async () => decodeHalf(await this.fetchBytes(this.url(file))));
+  projection(file, init) {
+    return this.once(`proj:${file}`, async () => decodeHalf(await this.fetchBytes(this.url(file), init)));
+  }
+
+  /** Fetch a config's readout and projection at low priority, so they are ready before they are asked for. */
+  warm(id) {
+    if (!this.manifest.configs[id]) return Promise.resolve();
+    return this.readout(id, { priority: 'low' }).catch(() => {});
   }
 
   /** A trained baseline's weights, by parameter name. */
@@ -127,10 +134,16 @@ export class Store {
       viewLayout(await this.fetchBytes(this.url(cfg.net.file)), cfg.net.layout));
   }
 
+  /** Every demo clip's unit noise at both levels, one float32 array. */
+  noiseTable(init) {
+    const n = this.manifest.noise;
+    return this.once('noise', async () => new Float32Array(await this.fetchBytes(this.url(n.file), init)));
+  }
+
   /** Unit noise for demo clip k at +level dB, exactly as the harness drew it. */
   async noise(clipIndex, levelDb) {
     const n = this.manifest.noise;
-    const all = await this.once('noise', async () => new Float32Array(await this.fetchBytes(this.url(n.file))));
+    const all = await this.noiseTable();
     const li = n.levels_db.indexOf(levelDb);
     if (li < 0) return null;
     const off = (clipIndex * n.levels_db.length + li) * n.samples;
