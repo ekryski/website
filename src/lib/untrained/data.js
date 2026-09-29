@@ -1,7 +1,7 @@
 // Everything the post runs on comes from one export of paper 02's harness
-// (papers/02-untrained-reservoirs/src/scripts/export_web_demo.py): the front
+// (papers/02-untrained-reservoirs/scripts/export_web_demo.py): the front
 // end's constants, the seed-0 physics, the demo clips and, per config, the
-// readout fitted at that exact registered condition.
+// readout fitted at that exact condition.
 //
 // Loading is lazy: the manifest and the clips up front, and each readout,
 // projection and trained network only when a config that needs it is picked.

@@ -1,7 +1,7 @@
 // The two input pathways of paper 02, each a fixed, parameter-free map from a
 // 16 kHz waveform to the rows that drive an arm (band b drives row b):
 //
-//   band-energy  log-mel band energies at 62.5 frames a second
+//   spectrogram  log-mel band energies at 62.5 frames a second
 //                (harness/stimuli/frontend.py:hop_rows)
 //   quadrature   the same energies, paired with each band's phase at its
 //                centre bin, demodulated to baseband (hop_rows_quad)
@@ -10,10 +10,10 @@
 
 import { fft, hann, powerSpectrogram, melRows } from '../resonant/dsp.js';
 
-export const PATHWAYS = ['envelope', 'quadrature'];
+export const PATHWAYS = ['spectrogram', 'quadrature'];
 
 /** Band-energy rows: {frames, mels, logMel, rows, spec}. */
-export function envelopeRows(samples, fe) {
+export function spectrogramRows(samples, fe) {
   const spec = powerSpectrogram(samples, fe.n_fft, fe.hop);
   const mel = melRows(spec, fe.melFb, fe);
   return { ...mel, spec, G: fe.n_mels, T: mel.frames };
@@ -25,7 +25,7 @@ export function envelopeRows(samples, fe) {
  * demodulating by that bin's own frequency.
  */
 export function quadratureRows(samples, fe) {
-  const env = envelopeRows(samples, fe);
+  const env = spectrogramRows(samples, fe);
   const { n_fft: n, hop } = fe;
   const bins = fe.quad_bins, G = fe.n_mels, T = env.frames;
   const win = hann(n);
@@ -58,7 +58,7 @@ export function quadratureRows(samples, fe) {
 
 /** Rows for any pathway. */
 export function frontEnd(samples, fe, pathway) {
-  if (pathway === 'envelope') return envelopeRows(samples, fe);
+  if (pathway === 'spectrogram') return spectrogramRows(samples, fe);
   if (pathway === 'quadrature') return quadratureRows(samples, fe);
   throw new Error(`unknown pathway ${pathway}`);
 }

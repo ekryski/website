@@ -1,11 +1,11 @@
 // One clip through one config: front end, arm, read, readout.
 //
-// A config is one arm on one pathway at one registered input gain and noise
-// level (manifest.configs). Everything an arm needs is in the store; the
+// A config is one arm on one pathway at one of the study's input gains and
+// noise levels (manifest.configs). Everything an arm needs is in the store; the
 // figures get the arm's state over time alongside the scores.
 
 import { frontEnd } from './frontend.js';
-import { PhaseNetwork, SLNetwork } from './oscillators.js';
+import { PhaseNetwork, SLNetwork, AMPLITUDE_FUNCTIONS } from './oscillators.js';
 import { LeakyBank } from './bank.js';
 import { netHidden } from './nets.js';
 import { WindowStats, applyReadout, argmax } from './read.js';
@@ -18,14 +18,14 @@ const DISPLAY_FRAMES = 1000;
 export function buildArm(store, cfg) {
   const a = cfg.arm, physics = store.physics;
   const gain = cfg.gain ?? 1;
-  if (a.kind === 'field') {
-    if (a.physics === 'sl' || a.physics === 'sl-fixedamp') {
-      return new SLNetwork({ physics, fixedAmp: a.physics === 'sl-fixedamp', gain });
+  if (a.kind === 'network') {
+    if (AMPLITUDE_FUNCTIONS.includes(a.coupling)) {
+      return new SLNetwork({ physics, fixedAmp: a.coupling === 'stuart-landau-fixed', gain });
     }
-    return new PhaseNetwork({ physics, fn: a.physics, geometry: a.boundary, gain, severed: a.severed });
+    return new PhaseNetwork({ physics, fn: a.coupling, geometry: a.geometry, gain, coupled: a.coupled });
   }
   if (a.kind === 'bank') {
-    const bank = store.banks[`bank-c${a.channels}`];
+    const bank = store.banks[cfg.label];
     return new LeakyBank({ bank, grid: physics.grid, gain, rateHz: bank.rates_hz.hop });
   }
   return null;
@@ -48,23 +48,23 @@ export async function runConfig(store, cfgId, samples, { keepDisplay = true } = 
   const cfg = store.config(cfgId);
   const fe = store.frontend;
   const readout = await store.readout(cfgId);
-  const params = cfg.arm.kind === 'ann' ? await store.net(cfgId) : null;
+  const params = cfg.arm.kind === 'trained' ? await store.net(cfgId) : null;
   const t0 = (typeof performance !== 'undefined' ? performance : Date).now();   // compute only, not downloads
-  const input = frontEnd(samples, fe, cfg.drive);
+  const input = frontEnd(samples, fe, cfg.pathway);
   const T = input.T, G = fe.n_mels;
-  const quad = cfg.drive === 'quadrature';
+  const quad = cfg.pathway === 'quadrature';
   const lo = cfg.read === 'windowed@wholeclip' ? 0 : fe.warmup;
   const kind = cfg.arm.kind;
   const display = { kind, T, stride: Math.max(1, Math.ceil(T / DISPLAY_FRAMES)) };
   display.frames = Math.ceil(T / display.stride);
   let stats;
 
-  if (kind === 'floor') {
+  if (kind === 'baseline') {
     const D = quad ? 2 * G : G;
     stats = new WindowStats(D, T, lo, fe.windows);
     const src = quad ? input.pairs : input.rows;
     for (let t = 0; t < T; t++) stats.push(t, src.subarray(t * D, (t + 1) * D));
-  } else if (kind === 'ann') {
+  } else if (kind === 'trained') {
     const { hidden, H } = netHidden(cfg.arm.arch, params, input.rows, T, G);
     stats = new WindowStats(H, T, fe.warmup, fe.windows);
     for (let t = fe.warmup; t < T; t++) stats.push(t, hidden.subarray(t * H, (t + 1) * H));
@@ -74,13 +74,13 @@ export async function runConfig(store, cfgId, samples, { keepDisplay = true } = 
     const D = arm.D;
     stats = new WindowStats(D, T, lo, fe.windows);
     const sig = new Float64Array(D);
-    const isField = kind === 'field';
+    const isNetwork = kind === 'network';
     const C = arm.C, N = arm.N;
     if (keepDisplay) {
       display.C = C; display.N = N;
       display.state = new Float32Array(display.frames * C * N);
-      if (isField) display.R = new Float32Array(display.frames * C);
-      if (isField && arm instanceof SLNetwork) display.amp = new Float32Array(display.frames * C * N);
+      if (isNetwork) display.R = new Float32Array(display.frames * C);
+      if (isNetwork && arm instanceof SLNetwork) display.amp = new Float32Array(display.frames * C * N);
     }
     const drive = new Float32Array(G), pair = quad ? new Float32Array(2 * G) : null;
     for (let t = 0; t < T; t++) {
@@ -89,7 +89,7 @@ export async function runConfig(store, cfgId, samples, { keepDisplay = true } = 
       arm.step(quad ? null : drive, pair, sig);
       stats.push(t, sig);
       if (keepDisplay) {
-        if (isField) {
+        if (isNetwork) {
           if (t % display.stride === 0) {
             const th = arm.phases(), f = t / display.stride;
             orderParameter(th, C, N, display.R, f * C);

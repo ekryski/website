@@ -5,10 +5,15 @@
 // frames every arm is read over, with the shared statistics and readout.
 //
 //   gru          one GRU layer, 18 hidden units
-//   tcn, cnn     two causal 1-D convolutions (kernel 5): 16 -> 12 (13) -> 16, ReLU
+//   tcn          two residual blocks, each a dilated causal convolution 16 -> 10,
+//                a ReLU and a dilated causal convolution 10 -> 16 added back onto
+//                the block's input; kernel 3, dilations 1, 2 and 4, 8
+//   cnn          two causal 1-D convolutions (kernel 5), 16 -> 13 -> 16, a ReLU
+//                between them and a linear output
 //   transformer  input projection + sinusoidal positions, one causal
 //                self-attention layer (2 heads of 8), post-norm, a 2-layer FFN
-//   s4d          a diagonal state-space layer: 16 channels x 16 complex poles
+//   s4d          a diagonal state-space layer, 16 channels x 16 complex poles,
+//                and a linear output
 
 const sigmoid = (v) => 1 / (1 + Math.exp(-v));
 
@@ -43,29 +48,48 @@ function gru(p, rows, T, G) {
   return { hidden: out, H };
 }
 
-/** Causal conv1d, kernel k, left-padded with k - 1 zeros: [T][inC] -> [T][outC]. */
-function causalConv(w, b, x, T, inC, outC, k) {
+/**
+ * Causal conv1d with dilation d, left-padded with (k - 1) * d zeros: [T][inC] -> [T][outC],
+ * rectified if relu.
+ */
+function causalConv(w, b, x, T, inC, outC, k, { dilation = 1, relu = false } = {}) {
   const out = new Float64Array(T * outC);
+  const pad = (k - 1) * dilation;
   for (let t = 0; t < T; t++) {
     for (let o = 0; o < outC; o++) {
       let acc = b[o];
       for (let i = 0; i < inC; i++) {
         for (let j = 0; j < k; j++) {
-          const src = t + j - (k - 1);
+          const src = t + j * dilation - pad;
           if (src >= 0) acc += w[(o * inC + i) * k + j] * x[src * inC + i];
         }
       }
-      out[t * outC + o] = Math.max(0, acc);
+      out[t * outC + o] = relu ? Math.max(0, acc) : acc;
     }
   }
   return out;
 }
 
-function convNet(p, rows, T, G) {
+function cnn(p, rows, T, G) {
   const w1 = p['c1.weight'], w2 = p['c2.weight'];
   const hidden = w1.shape[0], k = w1.shape[2];
-  const x = causalConv(w1, p['c1.bias'], rows, T, G, hidden, k);
+  const x = causalConv(w1, p['c1.bias'], rows, T, G, hidden, k, { relu: true });
   return { hidden: causalConv(w2, p['c2.bias'], x, T, hidden, w2.shape[0], k), H: w2.shape[0] };
+}
+
+/** The harness's TCN dilations, per residual block (harness/models/baselines/tcn.py). */
+const TCN_DILATIONS = [[1, 2], [4, 8]];
+
+function tcn(p, rows, T, G) {
+  let x = Float64Array.from(rows);
+  TCN_DILATIONS.forEach(([d1, d2], b) => {
+    const w1 = p[`blocks.${b}.0.weight`], w2 = p[`blocks.${b}.1.weight`];
+    const hidden = w1.shape[0], k = w1.shape[2];
+    const h = causalConv(w1, p[`blocks.${b}.0.bias`], x, T, G, hidden, k, { dilation: d1, relu: true });
+    const y = causalConv(w2, p[`blocks.${b}.1.bias`], h, T, hidden, G, k, { dilation: d2 });
+    for (let i = 0; i < x.length; i++) x[i] += y[i];      // the residual path
+  });
+  return { hidden: x, H: G };
 }
 
 function layerNorm(x, off, d, w, b) {
@@ -151,12 +175,11 @@ function s4d(p, rows, T, G) {
       y[h] = acc + p.d_skip[h] * ut;
     }
     linear(p['out.weight'], p['out.bias'], y, 0, H, H, out, t * H);
-    for (let h = 0; h < H; h++) out[t * H + h] = Math.max(0, out[t * H + h]);
   }
   return { hidden: out, H };
 }
 
-export const NETS = { gru, tcn: convNet, cnn: convNet, transformer, s4d };
+export const NETS = { gru, tcn, cnn, transformer, s4d };
 
 /** Hidden trajectory [T][H] for a trained baseline. rows: Float32Array(T * G). */
 export function netHidden(arch, params, rows, T, G) {

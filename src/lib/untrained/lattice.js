@@ -1,10 +1,10 @@
-// The six lattice geometries as coupling operators.
+// The eight lattice geometries as coupling operators.
 //
 // A geometry never changes what is stored: every channel is 256 oscillators in
 // a 16 x 16 grid, row r driven by mel band r. It changes which oscillators are
 // neighbours, i.e. how the grid's edges are glued, and so how one channel's
 // kernel of taps becomes an operator. Port of harness/models/geometries/: the
-// export ships each geometry's clamped taps (the coupling ceiling already
+// export ships each geometry's capped taps (the coupling ceiling already
 // applied), and this builds the same dense [C, N, N] operator the harness's
 // matmul path builds from its gather index.
 //
@@ -14,8 +14,18 @@
 //   helix     one closed ring of 256, 64 per turn      taps 256
 //   cube      16 x 4 x 4, every axis wraps             taps 16 x 4 x 4
 //   sphere    as cylinder, sources weighted by cos(latitude)
+//   coil      one open line of 256, apex (lowest band) to base, 64 per turn;
+//             taps 2N at signed offsets, zero-padded so the line never closes
+//   cochlea   the coil with the travelling wave's direction (already in its
+//             taps) and each site's incoming coupling weighted by the spiral's
+//             curvature there, 1 at the apex to 1/4 at the base
+//   cochlea-matched  the cochlea's weights rescaled to average 1: the control
+//             at the coil's average coupling
 
-export const GEOMETRIES = ['torus', 'cylinder', 'sheet', 'helix', 'cube', 'sphere'];
+export const GEOMETRIES = ['torus', 'cylinder', 'sheet', 'helix', 'cube', 'sphere', 'coil', 'cochlea', 'cochlea-matched'];
+const COILS = new Set(['coil', 'cochlea', 'cochlea-matched']);
+/** The cochlea's radius at the apex, as a share of its radius at the base (harness Cochlea.APEX_RADIUS). */
+const APEX_RADIUS = 0.25;
 
 function offsetIndex(G, rowsMod, colsMod) {
   const N = G * G, idx = new Int32Array(N * N);
@@ -36,9 +46,10 @@ function circulantIndex(name, G) {
   if (name === 'torus') return offsetIndex(G, G, G);
   if (name === 'cylinder' || name === 'sphere') return offsetIndex(G, 2 * G, G);
   if (name === 'sheet') return offsetIndex(G, 2 * G, 2 * G);
-  if (name === 'helix') {
+  if (name === 'helix' || COILS.has(name)) {
+    const M = name === 'helix' ? N : 2 * N;      // the coil's taps sit in a buffer of 2N: the line stays open
     const idx = new Int32Array(N * N);
-    for (let i = 0; i < N; i++) for (let j = 0; j < N; j++) idx[i * N + j] = (((i - j) % N) + N) % N;
+    for (let i = 0; i < N; i++) for (let j = 0; j < N; j++) idx[i * N + j] = (((i - j) % M) + M) % M;
     return idx;
   }
   if (name === 'cube') {
@@ -65,6 +76,22 @@ export function sphereWeights(G) {
 }
 
 /**
+ * The cochlea's curvature weight on the coupling into each of the N coil sites:
+ * APEX_RADIUS ** (p / (N - 1)), 1 at the apex (p = 0) and APEX_RADIUS at the base;
+ * rescaled to average 1 for the matched control. None for the other geometries.
+ */
+export function curvatureWeights(name, N) {
+  if (name !== 'cochlea' && name !== 'cochlea-matched') return null;
+  const w = new Float64Array(N);
+  for (let p = 0; p < N; p++) w[p] = APEX_RADIUS ** (p / (N - 1));
+  if (name === 'cochlea-matched') {
+    const mean = w.reduce((a, b) => a + b, 0) / N;
+    for (let p = 0; p < N; p++) w[p] /= mean;
+  }
+  return w;
+}
+
+/**
  * Dense operator [C][N][N] (Float64Array, row-major): out_i = sum_j op[i][j] f_j.
  * taps: Float32Array(C * tapsPerChannel) from the export.
  */
@@ -72,13 +99,15 @@ export function denseOperator(name, taps, C, G) {
   const N = G * G, idx = circulantIndex(name, G);
   const per = taps.length / C;
   const op = new Float64Array(C * N * N);
-  const w = name === 'sphere' ? sphereWeights(G) : null;
+  const source = name === 'sphere' ? sphereWeights(G) : null;
+  const target = curvatureWeights(name, N);
   for (let c = 0; c < C; c++) {
     const base = c * per, ob = c * N * N;
     for (let i = 0; i < N; i++) {
       for (let j = 0; j < N; j++) {
         let v = taps[base + idx[i * N + j]];
-        if (w) v *= w[Math.floor(j / G)];     // the source's area element
+        if (source) v *= source[Math.floor(j / G)];     // the source's area element
+        if (target) v *= target[i];                      // the curvature where the coupling lands
         op[ob + i * N + j] = v;
       }
     }
@@ -96,37 +125,6 @@ export function rowSums(op, C, N) {
       for (let j = 0; j < N; j++) s += op[row + j];
       out[c * N + i] = s;
     }
-  }
-  return out;
-}
-
-/** A site's nearest neighbours under a geometry, as (row, col) pairs: for the figures. */
-export function neighbours(name, G, r, c) {
-  const out = [];
-  const add = (rr, cc) => out.push([rr, cc]);
-  const wrapR = name === 'torus' || name === 'cube';
-  const wrapC = name !== 'sheet';
-  if (name === 'helix') {
-    const N = G * G, p = r * G + c;
-    for (const d of [-1, 1, -64, 64]) {
-      const q = (((p + d) % N) + N) % N;
-      add(Math.floor(q / G), q % G);
-    }
-    return out;
-  }
-  if (name === 'cube') {
-    const s = Math.round(Math.sqrt(G));
-    const y = Math.floor(c / s), x = c % s;
-    add((r + 1) % G, c); add((r + G - 1) % G, c);
-    add(r, ((y + 1) % s) * s + x); add(r, ((y + s - 1) % s) * s + x);
-    add(r, y * s + ((x + 1) % s)); add(r, y * s + ((x + s - 1) % s));
-    return out;
-  }
-  for (const [dr, dc] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) {
-    let rr = r + dr, cc = c + dc;
-    if (rr < 0 || rr >= G) { if (!wrapR) continue; rr = (rr + G) % G; }
-    if (cc < 0 || cc >= G) { if (!wrapC) continue; cc = (cc + G) % G; }
-    add(rr, cc);
   }
   return out;
 }

@@ -9,14 +9,14 @@
 //
 // with the coupling function one of
 //
-//   kuramoto    sum_j K_ij sin(theta_j - theta_i)
-//   sakaguchi   sum_j K_ij sin(theta_j - theta_i - alpha),  alpha = pi/4
-//   harmonic2   kuramoto + beta sum_j K_ij sin 2(theta_j - theta_i),  beta = 0.5
-//   winfree     -sin theta_i * sum_j K_ij (1 + cos theta_j)
+//   kuramoto            sum_j K_ij sin(theta_j - theta_i)
+//   kuramoto-sakaguchi  sum_j K_ij sin(theta_j - theta_i - alpha),  alpha = pi/4
+//   second-harmonic     kuramoto + beta sum_j K_ij sin 2(theta_j - theta_i),  beta = 0.5
+//   winfree             -sin theta_i * sum_j K_ij (1 + cos theta_j)
 //
 // all computed from the convolutions K * sin and K * cos. The drive is the
 // band's row value, broadcast to every oscillator of the band's row in every
-// channel (band-energy pathway), or the quadrature pair's Adler torque
+// channel (spectrogram pathway), or the quadrature pair's Adler torque
 // A sin(phi - theta). "Uncoupled" is the same network with K = 0.
 //
 // The network exposes sin theta and cos theta of every oscillator: [sin of all
@@ -25,8 +25,8 @@
 import { denseOperator, rowSums } from './lattice.js';
 
 const TWO_PI = 2 * Math.PI;
-export const PHASE_FUNCTIONS = ['kuramoto', 'sakaguchi', 'harmonic2', 'winfree'];
-export const AMPLITUDE_FUNCTIONS = ['sl', 'sl-fixedamp'];
+export const PHASE_FUNCTIONS = ['kuramoto', 'kuramoto-sakaguchi', 'second-harmonic', 'winfree'];
+export const AMPLITUDE_FUNCTIONS = ['stuart-landau', 'stuart-landau-fixed'];
 export const COUPLING_FUNCTIONS = [...PHASE_FUNCTIONS, ...AMPLITUDE_FUNCTIONS];
 
 const opCache = new Map();
@@ -52,19 +52,19 @@ function matvec(op, base, N, f, out) {
 
 /**
  * A phase-oscillator network.
- * opts: {physics, fn, geometry, gain, severed}
+ * opts: {physics, fn, geometry, gain, coupled}: coupled false is the uncoupled network, K = 0.
  */
 export class PhaseNetwork {
-  constructor({ physics, fn = 'kuramoto', geometry = 'torus', gain = 1, severed = false }) {
+  constructor({ physics, fn = 'kuramoto', geometry = 'torus', gain = 1, coupled = true }) {
     if (!PHASE_FUNCTIONS.includes(fn)) throw new Error(`not a phase coupling function: ${fn}`);
     this.C = physics.channels; this.G = physics.grid; this.N = this.G * this.G;
     this.D = 2 * this.C * this.N;
-    this.dt = physics.dt; this.lambda = physics.damping;
-    this.fn = fn; this.gain = gain; this.severed = severed; this.geometry = geometry;
+    this.dt = physics.dt; this.lambda = physics.restoring;
+    this.fn = fn; this.gain = gain; this.coupled = coupled; this.geometry = geometry;
     this.alpha = physics.sakaguchi_alpha; this.beta = physics.harmonic2_beta;
     this.ws = physics.winfree_s; this.wi = physics.winfree_i;
     this.omega = physics.omega; this.phase0 = physics.phase0;
-    if (!severed) {
+    if (coupled) {
       const { op, sums } = operatorFor(physics, geometry);
       this.op = op;
       // Winfree's K * 1: the harness's matmul path takes site 0's row sum as one
@@ -95,19 +95,19 @@ export class PhaseNetwork {
    */
   step(rowDrive, quad, sig) {
     const { C, G, N, theta, s, c, cs, cc, s2, c2, cs2, cc2, dt, lambda, gain } = this;
-    const fn = this.fn, coupled = !this.severed;
+    const fn = this.fn, coupled = this.coupled;
     const ca = Math.cos(this.alpha), sa = Math.sin(this.alpha);
     for (let ch = 0; ch < C; ch++) {
       const base = ch * N;
       for (let i = 0; i < N; i++) {
         const th = theta[base + i];
         s[i] = Math.sin(th); c[i] = Math.cos(th);
-        if (fn === 'harmonic2') { s2[i] = Math.sin(2 * th); c2[i] = Math.cos(2 * th); }
+        if (fn === 'second-harmonic') { s2[i] = Math.sin(2 * th); c2[i] = Math.cos(2 * th); }
       }
       if (coupled) {
         const ob = ch * N * N;
         matvec(this.op, ob, N, s, cs); matvec(this.op, ob, N, c, cc);
-        if (fn === 'harmonic2') { matvec(this.op, ob, N, s2, cs2); matvec(this.op, ob, N, c2, cc2); }
+        if (fn === 'second-harmonic') { matvec(this.op, ob, N, s2, cs2); matvec(this.op, ob, N, c2, cc2); }
       }
       for (let r = 0; r < G; r++) {
         const drive = rowDrive ? gain * rowDrive[r] : 0;
@@ -117,10 +117,10 @@ export class PhaseNetwork {
           let torque = 0;
           if (coupled) {
             if (fn === 'kuramoto') torque = c[i] * cs[i] - s[i] * cc[i];
-            else if (fn === 'sakaguchi') {
+            else if (fn === 'kuramoto-sakaguchi') {
               const b = c[i] * cs[i] - s[i] * cc[i], q = c[i] * cc[i] + s[i] * cs[i];
               torque = ca * b - sa * q;
-            } else if (fn === 'harmonic2') {
+            } else if (fn === 'second-harmonic') {
               torque = c[i] * cs[i] - s[i] * cc[i] + this.beta * (c2[i] * cs2[i] - s2[i] * cc2[i]);
             } else {
               const sens = this.ws[0] * s[i] + this.ws[1] * c[i];
@@ -161,7 +161,7 @@ export class SLNetwork {
   constructor({ physics, fixedAmp = false, gain = 1 }) {
     this.C = physics.channels; this.G = physics.grid; this.N = this.G * this.G;
     this.D = 2 * this.C * this.N;
-    this.dt = physics.dt; this.lambda = physics.damping; this.gain = gain;
+    this.dt = physics.dt; this.lambda = physics.restoring; this.gain = gain;
     this.fixedAmp = fixedAmp;
     this.alpha = physics.sl.alpha; this.beta = physics.sl.beta;
     this.omega = physics.omega; this.state0 = physics.slState0;
