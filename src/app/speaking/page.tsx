@@ -44,7 +44,7 @@ function Appearance({
 export const metadata: Metadata = pageMetadata({
   title: 'Speaking',
   description:
-    "I've spoken at events all around the world and been interviewed for many podcasts.",
+    'Talks, panels and podcasts on payments, digital assets, startups and AI, from the World Economic Forum in Davos to a House of Commons committee.',
   url: '/speaking',
 })
 

@@ -11,6 +11,13 @@ import image4 from '@/images/photos/image-4.jpg'
 import image5 from '@/images/photos/image-5.jpg'
 
 const PHOTOS = [image1, image2, image3, image4, image5]
+const ALTS = [
+  'A selfie on a forest hike, with a backpack',
+  'A desk with an iMac showing the words “Do more.”',
+  'A selfie at the World Economic Forum in Davos',
+  'A gravel road beside a mountain lake at sunrise',
+  'A ski selfie in goggles, with snowy mountains behind',
+]
 const ROTATIONS = ['rotate-2', '-rotate-2', 'rotate-2', 'rotate-2', '-rotate-2']
 
 // Layout effects are a client-only concern; using the layout variant on the
@@ -53,7 +60,7 @@ export function HomePhotos() {
             >
               <Image
                 src={image}
-                alt=""
+                alt={ALTS[imageIndex]}
                 sizes="(min-width: 640px) 18rem, 11rem"
                 className="absolute inset-0 h-full w-full object-cover"
               />

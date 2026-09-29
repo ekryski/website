@@ -52,8 +52,8 @@ export function ResonantGuide() {
           className="mb-8 rounded-r-xl border-l-2 border-amber-500 bg-amber-500/5 px-5 py-4 text-[15px] text-zinc-600 dark:border-amber-300 dark:bg-amber-300/5 dark:text-zinc-400"
         >
           The interactive figures could not start in this browser. The text below still
-          reads on its own — everything visual is computed live from the audio, so it needs
-          WebGL and the Web Audio API.
+          reads on its own, but the figures are computed live from the audio and need WebGL
+          and the Web Audio API.
         </p>
       )}
       <ResonantArticle />

@@ -13,7 +13,7 @@ import { person } from '@/components/StructuredData'
 export const metadata: Metadata = pageMetadata({
   title: 'About',
   description:
-    "I'm Eric Kryski. I live in Calgary, where I design, build and invest in the future.",
+    "I'm Eric Kryski, a software designer, entrepreneur and investor in Calgary, Canada: what I've built, how I got here, and what I'm working on now.",
   url: '/about',
 })
 
@@ -43,7 +43,7 @@ export default function About() {
           <div className="max-w-xs px-2.5 lg:max-w-none">
             <Image
               src={portraitImage}
-              alt=""
+              alt="Portrait of Eric Kryski"
               sizes="(min-width: 1024px) 32rem, 20rem"
               className="aspect-square rotate-3 rounded-2xl bg-zinc-100 object-cover dark:bg-zinc-800"
             />
