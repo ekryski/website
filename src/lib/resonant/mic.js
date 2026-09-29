@@ -79,7 +79,7 @@ export function micErrorMessage(err) {
   switch (err?.name) {
     case 'NotAllowedError':
     case 'SecurityError':
-      return 'microphone blocked — allow it in the address bar';
+      return 'microphone blocked: allow it in the address bar';
     case 'NotFoundError':
     case 'OverconstrainedError':
       return 'no microphone found';
