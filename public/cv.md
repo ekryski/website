@@ -85,7 +85,7 @@ Helped lead the committee working toward Canadian regulatory standards for block
 
 ## Research & Open Source
 
-**Coupled-oscillator speech models** (2025 – present) · Original research into whether speech recognition can run on oscillator physics rather than attention. Two papers. The second measures spoken-digit recognition across **1,940 pre-registered experiment runs**, a full factorial of coupling laws, lattice geometries, frequency structures and drive pathways, against GRU, TCN, CNN, transformer and S4D baselines at exact parameter parity. An [interactive guide](https://erickryski.com/articles/how-a-machine-hears-a-number) runs the whole pipeline live in the browser.
+**Coupled-oscillator speech models** (2025 – present) · Original research into whether speech recognition can run on oscillator physics rather than attention. Two papers. The second measures spoken-digit recognition across 6,353 runs in eight experiments on coupling functions, lattice geometries, frequency structures and drive pathways, against GRU, TCN, CNN, transformer and S4D baselines of the same size. An [interactive guide](https://erickryski.com/articles/how-a-machine-hears-a-number) runs the whole pipeline live in the browser.
 
 **Sam** · A personal AI assistant for macOS running fully on-device on Apple Silicon through MLX, no cloud and no Python. Memory is a retrieval-augmented store over SQLite FTS5 with BM25 ranking, TTL-based decay and automatic context injection, with embedding-based semantic search and a directed-graph memory layer for associative recall.
 

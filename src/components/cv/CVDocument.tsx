@@ -3,6 +3,7 @@ import ReactMarkdown, { type Components } from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 
 import { Button } from '@/components/Button'
+import { GitHubIcon, LinkedInIcon } from '@/components/SocialIcons'
 import logoBidali from '@/images/companies/bidali.png'
 import logoBullishVentures from '@/images/companies/bullish-ventures.png'
 import logoCalgaryScientific from '@/images/companies/calgary-scientific.png'
@@ -118,6 +119,45 @@ function Markdown({ children }: { children: string }) {
   )
 }
 
+function MailIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" {...props}>
+      <path
+        fillRule="evenodd"
+        d="M6 5a3 3 0 0 0-3 3v8a3 3 0 0 0 3 3h12a3 3 0 0 0 3-3V8a3 3 0 0 0-3-3H6Zm.245 2.187a.75.75 0 0 0-.99 1.126l6.25 5.5a.75.75 0 0 0 .99 0l6.25-5.5a.75.75 0 0 0-.99-1.126L12 12.251 6.245 7.187Z"
+      />
+    </svg>
+  )
+}
+
+function GlobeIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" {...props}>
+      <path d="M21.721 12.752a9.711 9.711 0 0 0-.945-5.003 12.754 12.754 0 0 1-4.339 2.708 18.991 18.991 0 0 1-.214 4.772 17.165 17.165 0 0 0 5.498-2.477ZM14.634 15.55a17.324 17.324 0 0 0 .332-4.647c-.952.227-1.945.347-2.966.347-1.021 0-2.014-.12-2.966-.347a17.515 17.515 0 0 0 .332 4.647 17.385 17.385 0 0 0 5.268 0ZM9.772 17.119a18.963 18.963 0 0 0 4.456 0A17.182 17.182 0 0 1 12 21.724a17.18 17.18 0 0 1-2.228-4.605ZM7.777 15.23a18.87 18.87 0 0 1-.214-4.774 12.753 12.753 0 0 1-4.34-2.708 9.711 9.711 0 0 0-.944 5.004 17.165 17.165 0 0 0 5.498 2.477ZM21.356 14.752a9.765 9.765 0 0 1-7.478 6.817 18.64 18.64 0 0 0 1.988-4.718 18.627 18.627 0 0 0 5.49-2.098ZM2.644 14.752c1.682.971 3.53 1.688 5.49 2.099a18.64 18.64 0 0 0 1.988 4.718 9.765 9.765 0 0 1-7.478-6.816ZM13.878 2.43a9.755 9.755 0 0 1 6.116 3.986 11.267 11.267 0 0 1-3.746 2.504 18.63 18.63 0 0 0-2.37-6.49ZM12 2.276a17.152 17.152 0 0 1 2.805 7.121c-.897.23-1.837.353-2.805.353-.968 0-1.908-.122-2.805-.353A17.151 17.151 0 0 1 12 2.276ZM10.122 2.43a18.629 18.629 0 0 0-2.37 6.49 11.266 11.266 0 0 1-3.746-2.504 9.754 9.754 0 0 1 6.116-3.985Z" />
+    </svg>
+  )
+}
+
+/** The icon for a contact link, by where it goes. */
+function contactIcon(href: string) {
+  if (href.startsWith('mailto:')) return MailIcon
+  if (/github\.com/.test(href)) return GitHubIcon
+  if (/linkedin\.com/.test(href)) return LinkedInIcon
+  return GlobeIcon
+}
+
+function DocumentDownloadIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" strokeWidth="1.5" stroke="currentColor" aria-hidden="true" {...props}>
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m.75 12 3 3m0 0 3-3m-3 3v-6m-1.5-9H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z"
+      />
+    </svg>
+  )
+}
+
 function SectionTitle({ children }: { children: React.ReactNode }) {
   return (
     <h2 className="flex items-center gap-3 text-xs font-bold tracking-[0.16em] text-zinc-900 uppercase dark:text-zinc-100">
@@ -176,7 +216,7 @@ export function CVDocument({ markdown }: { markdown: string }) {
           alt="Portrait of Eric Kryski"
           sizes="7rem"
           priority
-          className="h-28 w-28 flex-none rounded-2xl bg-zinc-100 object-cover dark:bg-zinc-800"
+          className="h-28 w-28 flex-none rounded-2xl bg-zinc-100 object-cover shadow-lg shadow-zinc-900/15 dark:bg-zinc-800 dark:shadow-black/40"
         />
         <div className="sm:border-l-2 sm:border-violet-500 sm:pl-6">
           <h1 className="text-4xl font-bold tracking-tight text-zinc-900 sm:text-5xl dark:text-zinc-100">{cv.name}</h1>
@@ -186,7 +226,8 @@ export function CVDocument({ markdown }: { markdown: string }) {
           <p className="mt-1.5 text-sm text-zinc-500 dark:text-zinc-400">{cv.location}</p>
         </div>
         <div className="sm:ml-auto print:hidden">
-          <Button href="/Eric-Kryski-CV.pdf" download="Eric-Kryski-CV.pdf" variant="secondary">
+          <Button href="/Eric-Kryski-CV.pdf" download="Eric-Kryski-CV.pdf" variant="primary">
+            <DocumentDownloadIcon className="h-4 w-4" />
             Download PDF
           </Button>
         </div>
@@ -197,16 +238,20 @@ export function CVDocument({ markdown }: { markdown: string }) {
           <section>
             <SectionTitle>Contact</SectionTitle>
             <ul className="mt-4 space-y-2 text-sm">
-              {cv.links.map((link) => (
-                <li key={link.href}>
-                  <a
-                    href={link.href}
-                    className="break-all text-zinc-600 transition hover:text-violet-600 dark:text-zinc-400 dark:hover:text-violet-400"
-                  >
-                    {link.label}
-                  </a>
-                </li>
-              ))}
+              {cv.links.map((link) => {
+                const Icon = contactIcon(link.href)
+                return (
+                  <li key={link.href}>
+                    <a
+                      href={link.href}
+                      className="group flex items-center gap-3 text-zinc-600 transition hover:text-violet-600 dark:text-zinc-400 dark:hover:text-violet-400"
+                    >
+                      <Icon className="h-4 w-4 flex-none fill-zinc-400 transition group-hover:fill-violet-600 dark:fill-zinc-500 dark:group-hover:fill-violet-400" />
+                      <span className="break-all">{link.label}</span>
+                    </a>
+                  </li>
+                )
+              })}
             </ul>
           </section>
           {skillsBody && (
