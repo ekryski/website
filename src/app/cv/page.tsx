@@ -6,11 +6,14 @@ import remarkGfm from 'remark-gfm'
 
 import { Container } from '@/components/Container'
 import { Prose } from '@/components/Prose'
+import { pageMetadata } from '@/lib/metadata'
 
-export const metadata = {
+export const metadata = pageMetadata({
   title: 'CV',
-  description: 'Eric Kryski - Curriculum Vitae',
-}
+  description:
+    "Eric Kryski's CV: full-stack engineer and founder, eight years as technical co-founder of a payments company, now building AI systems and models.",
+  url: '/cv',
+})
 
 export default function CVPage() {
   const cvPath = join(process.cwd(), 'public', 'cv.md')

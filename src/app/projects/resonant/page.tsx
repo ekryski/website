@@ -15,7 +15,7 @@ const BODY = 'mt-4 space-y-4 text-base text-zinc-600 dark:text-zinc-400'
 
 const title = 'Resonant'
 const description =
-  'A research project testing whether speech models can be built on coupled-oscillator physics instead of attention — a field of Kuramoto oscillators as the core of a streaming speech model.'
+  'A research project testing whether speech models can be built on coupled-oscillator physics instead of attention, with Kuramoto oscillators at the core.'
 
 export const metadata: Metadata = pageMetadata({
   title,

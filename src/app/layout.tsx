@@ -18,7 +18,7 @@ export const metadata: Metadata = {
       'Eric Kryski - Building systems at the intersection of money and intelligence',
   },
   description:
-    'I\'m Eric, a software designer and entrepreneur based in Calgary, Canada. Co-founder and CEO of Bidali, and doing deep research into AI inference and performant model architectures.',
+    "I'm Eric, a software designer and entrepreneur in Calgary, Canada. Co-founder and CEO of Bidali, researching AI inference and model architectures.",
   keywords: [
     'Eric Kryski',
     'software designer',
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     siteName: 'Eric Kryski',
     title: 'Eric Kryski - Building systems at the intersection of money and intelligence',
     description:
-      'I\'m Eric, a software designer and entrepreneur based in Calgary, Canada. Co-founder and CEO of Bidali, and doing deep research into AI inference and performant model architectures.',
+      "I'm Eric, a software designer and entrepreneur in Calgary, Canada. Co-founder and CEO of Bidali, researching AI inference and model architectures.",
     images: [
       {
         url: '/og-image.png',
@@ -56,7 +56,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Eric Kryski - Building systems at the intersection of money and intelligence',
     description:
-      'I\'m Eric, a software designer and entrepreneur based in Calgary, Canada. Co-founder and CEO of Bidali, researching AI inference and model architectures.',
+      "I'm Eric, a software designer and entrepreneur in Calgary, Canada. Co-founder and CEO of Bidali, researching AI inference and model architectures.",
     images: ['/og-image.png'],
   },
   robots: {

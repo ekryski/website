@@ -37,7 +37,7 @@ function Article({ article }: { article: ArticleWithSlug }) {
 
 const title = 'Writing on distributed computing, payments, startups, economics and AI.'
 const description =
-  'Long-form thoughts from building at the intersection of money and intelligence — distributed systems, payments and programmable money, startups, economics, and AI. Collected in chronological order.'
+  'Long-form writing from building at the intersection of money and intelligence: distributed systems, payments, startups, economics and AI.'
 
 export const metadata: Metadata = pageMetadata({
   title: 'Articles',
