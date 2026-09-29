@@ -8,6 +8,7 @@ import { pageMetadata } from '@/lib/metadata'
 
 const REPO = 'https://github.com/ekryski/oscillator-research'
 const GUIDE = '/articles/how-a-machine-hears-a-number'
+const STUDY = '/articles/does-the-physics-do-the-work'
 
 /** Section chrome, shared so the sections below stay in step. */
 const HEADING = 'text-2xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100'
@@ -26,21 +27,41 @@ export const metadata: Metadata = pageMetadata({
     'A sound wave rippling through a lattice of oscillators and resolving into the digit seven',
 })
 
-const reading = [
+/** The two articles carry their reading order; the research card has none. */
+const reading: Array<{
+  href: string
+  internal: boolean
+  order?: string
+  wide?: boolean
+  title: string
+  blurb: string
+  cta: string
+}> = [
   {
     href: GUIDE,
     internal: true,
+    order: '01',
     title: 'How a machine hears a number',
     blurb:
       'The interactive guide: walking you through how your ear hears, how speech models work, followed by the new untrained 2,000 parameter oscillator model running live in your browser on real spoken digits.',
     cta: 'Read the guide',
   },
   {
+    href: STUDY,
+    internal: true,
+    order: '02',
+    title: 'Does the physics do the work?',
+    blurb:
+      'The follow-up: what an untrained network of coupled oscillators adds to spoken-digit recognition, how a 6,353-run study tested it against its own input, simpler memories and trained networks, and every model running live in your browser.',
+    cta: 'Read the article',
+  },
+  {
     href: REPO,
     internal: false,
+    wide: true,
     title: 'The research',
     blurb:
-      'Two papers so far: a survey of oscillator networks in machine learning, and 1,940 experiments to establish a baselines, ablations, and boundaries of what a frozen oscillator field can do on spoken digits. Each ships with the code and the raw per-run data behind its numbers.',
+      'Two papers so far: a survey of oscillator networks in machine learning, and a study of 6,353 runs measuring what an untrained oscillator network adds to spoken-digit recognition, against its baselines and ablations. Each ships with the code and the raw per-run data behind its numbers.',
     cta: 'Read the papers',
   },
 ]
@@ -151,8 +172,8 @@ export default function ResonantProject() {
             </p>
             <p>
               Because the coupling is a circular convolution, one step costs a single FFT,
-              and the phase field doubles as a fixed-size streaming memory — no cache that
-              grows with the length of what you said. The model in the the interactive guide 
+              and the phase field doubles as a fixed-size streaming memory, with no cache
+              that grows with the length of what you said. The model in the interactive guide 
               is roughly 2,000 parameters and does near perfect digit classification without 
               even being trained. <span className="font-bold">There is more to come as I have already begun training more complex models.</span>
             </p>
@@ -170,7 +191,21 @@ export default function ResonantProject() {
                 : { target: '_blank', rel: 'noopener noreferrer' }
               const body = (
                 <>
-                  <h3 className="text-lg font-semibold text-zinc-800 dark:text-zinc-100">
+                  {item.order && (
+                    <span
+                      aria-hidden="true"
+                      className="absolute top-6 right-6 font-mono text-base font-bold tracking-wider text-violet-500 dark:text-violet-400"
+                    >
+                      {item.order}
+                    </span>
+                  )}
+                  <h3
+                    className={clsx(
+                      'text-lg font-semibold text-zinc-800 dark:text-zinc-100',
+                      item.order && 'pr-10',
+                    )}
+                  >
+                    {item.order && <span className="sr-only">{`Part ${Number(item.order)}: `}</span>}
                     {item.title}
                   </h3>
                   <p className="mt-3 text-sm text-zinc-600 dark:text-zinc-400">{item.blurb}</p>
@@ -192,7 +227,7 @@ export default function ResonantProject() {
               const shell =
                 'flex h-full flex-col rounded-2xl border p-6 transition border-zinc-200 bg-zinc-100/60 dark:border-zinc-700/50 dark:bg-zinc-800/50'
               return (
-                <li key={item.title}>
+                <li key={item.title} className={clsx(item.wide && 'sm:col-span-2')}>
                   {item.href ? (
                     <Link
                       href={item.href}
@@ -205,7 +240,7 @@ export default function ResonantProject() {
                       {body}
                     </Link>
                   ) : (
-                    <div className={clsx(shell, 'opacity-80')}>{body}</div>
+                    <div className={clsx(shell, 'relative opacity-80')}>{body}</div>
                   )}
                 </li>
               )
