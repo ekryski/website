@@ -8,7 +8,7 @@ import '@/components/untrained/untrained.css'
 
 /** The interactive figures, in page order: the engine loads when the first of them comes near. */
 const FIGURES = ['ringCanvas', 'leakyCanvas', 'clipPicker', 'readTraces', 'recordExplorer', 'kernelGrid',
-                 'm-root', 'pwSpectrogram', 'd-root']
+                 'pwSpectrogram', 'm-root']
 /** How far ahead of the viewport the engine starts loading. */
 const LOAD_AHEAD_PX = 700
 

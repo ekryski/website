@@ -1,7 +1,7 @@
 // The explanatory figures: everything on the page except the two consoles.
 // Each mount function finds its markup by id and returns a disposer.
 
-import { drawWaveform, drawHeatmap, drawLines, drawBars, fitCanvas, magmaColor } from '../resonant/plots.js';
+import { drawWaveform, drawHeatmap, drawLines, drawBars, fitCanvas } from '../resonant/plots.js';
 import { spectrogramRows, quadratureRows } from './frontend.js';
 import { denseOperator } from './lattice.js';
 import { LatticeView, signedRGB } from './lattice3d.js';
@@ -211,8 +211,6 @@ export function mountLeakyToy(shared) {
   const canvas = $('leakyCanvas');
   if (!canvas) return () => {};
   const state = { band: 6, gain: 1 };
-  const TAUS = [1 / 62.5, 0.045, 0.125, 0.35, 1.0];
-  const COLORS = ['#ff8a5b', '#ffd166', '#6ee7a8', '#7cc4ff', '#c4a7ff'];
   on($('leakyBand'), 'input', () => { state.band = Number($('leakyBand').value); draw(); });
   document.querySelectorAll('[data-lgain]').forEach((b) => on(b, 'click', () => { state.gain = Number(b.dataset.lgain); draw(); }));
 
@@ -236,7 +234,7 @@ export function mountLeakyToy(shared) {
     }
     drawTimeSeries(canvas, [
       { values: target, color: 'rgba(231,234,241,0.45)', width: 1 },
-      ...outs.map((values, k) => ({ values, color: COLORS[k], width: 1.8 })),
+      ...outs.map((values, k) => ({ values, color: TAU_COLORS[k], width: 1.8 })),
     ], { yLabel: 'state x' });
     document.querySelectorAll('[data-lgain]').forEach((b) => b.setAttribute('aria-pressed', String(Number(b.dataset.lgain) === state.gain)));
   }
@@ -246,6 +244,23 @@ export function mountLeakyToy(shared) {
 }
 
 const hz = (f) => Math.round(f).toLocaleString('en-US');
+
+/**
+ * The time-constant key figures 5 and 6 share: five log-spaced time constants,
+ * orange (16 ms, fast) to violet (1 s, slow). Magma stays reserved for values,
+ * energy and state, so no colour means two things on this page.
+ */
+const TAUS = [1 / 62.5, 0.045, 0.125, 0.35, 1.0];
+const TAU_COLORS = ['#ff8a5b', '#ffd166', '#6ee7a8', '#7cc4ff', '#c4a7ff'];
+
+/** A colour on the time-constant key, for t in [0, 1] along log tau from 16 ms to 1 s. */
+function tauColor(t) {
+  const rgb = TAU_COLORS.map((h) => [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16)));
+  const x = Math.min(1, Math.max(0, t)) * (rgb.length - 1);
+  const i = Math.min(rgb.length - 2, Math.floor(x)), f = x - i;
+  const [r, g, b] = rgb[i].map((a, k) => Math.round(a + (rgb[i + 1][k] - a) * f));
+  return `rgb(${r},${g},${b})`;
+}
 
 /**
  * The frequency span of mel band b: the feet of its triangular filter, on the
@@ -272,8 +287,7 @@ export function drawBankLayout(store) {
     const span = bank.tau.subarray(c * G * G, (c + 1) * G * G);
     labels.push(`ch ${c + 1} · ${fmt(Math.min(...span))} to ${fmt(Math.max(...span))}`);
   }
-  // magma runs dark to light, so the slowest units are the darkest
-  drawMosaic(canvas, logTau.map((v) => 1 - v), 0, bank.channels, G, { cols: 4, lo: 0, hi: 1, color: magmaColor, labels });
+  drawMosaic(canvas, logTau, 0, bank.channels, G, { cols: 4, lo: 0, hi: 1, color: tauColor, labels });
 }
 
 // ---------------------------------------------------------------------------

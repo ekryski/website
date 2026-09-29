@@ -62,18 +62,16 @@ const FIELDS = {
 };
 
 /**
- * Mount one console. ctx: {store, clips, player}; opts: {prefix, mode: 'models' | 'drive'}.
+ * Mount the console. ctx: {store, clips, player}; opts: {prefix}.
  * Returns {dispose}.
  */
-export function mountConsole(ctx, { prefix, mode }) {
+export function mountConsole(ctx, { prefix }) {
   const { store, player } = ctx;
   const root = document.getElementById(`${prefix}-root`);
   if (!root) return { dispose() {} };
   const $ = (name) => document.getElementById(`${prefix}-${name}`);
   const configs = Object.values(store.manifest.configs);
-  const models = mode === 'drive'
-    ? MODELS.filter((m) => ['bank-state', 'uncoupled', 'coupled'].includes(m.key))
-    : MODELS;
+  const models = MODELS;
   const G = store.physics.grid;
   const disposers = [];
   const on = (el, type, fn) => {
@@ -84,7 +82,7 @@ export function mountConsole(ctx, { prefix, mode }) {
 
   const clips = [...ctx.clips];
   const sel = {
-    model: 'coupled', fn: 'kuramoto', geo: 'torus', gain: 1, noise: mode === 'drive' ? 0 : null,
+    model: 'coupled', fn: 'kuramoto', geo: 'torus', gain: 1, noise: null,
     pathway: 'spectrogram', clip: Math.max(0, clips.findIndex((c) => c.digit === 7)), channel: 0,
   };
   const local = { cfg: null, result: null, samples: null, frame: 0, final: true, token: 0, running: false };
@@ -108,10 +106,17 @@ export function mountConsole(ctx, { prefix, mode }) {
 
   /** The config for a selection, adjusting whatever the export does not have; `changed` wins. */
   function resolve(changed) {
+    const moved = [];
     let cands = pool(sel);
     if (!cands.length) {
-      const fallback = models.find((m) => pool({ ...sel, model: m.key }).length);
-      sel.model = fallback.key;
+      // a model the paper never ran on this pathway keeps the model and moves the pathway
+      const other = Object.keys(PATHWAY_NAMES).find((p) => pool({ ...sel, pathway: p }).length);
+      if (other) {
+        moved.push(['pathway', sel.pathway, other]);
+        sel.pathway = other;
+      } else {
+        sel.model = models.find((m) => pool({ ...sel, model: m.key }).length).key;
+      }
       cands = pool(sel);
     }
     const order = ['fn', 'geo', 'gain', 'noise'];
@@ -119,7 +124,6 @@ export function mountConsole(ctx, { prefix, mode }) {
       order.splice(order.indexOf(changed), 1);
       order.unshift(changed);
     }
-    const moved = [];
     for (const key of order) {
       const vals = cands.map(FIELDS[key]);
       if (vals.every((v) => v === null)) continue;
@@ -134,7 +138,11 @@ export function mountConsole(ctx, { prefix, mode }) {
     return { cfg: cands[0], moved };
   }
 
-  /** Values of `key` that some config of the current model (and pathway, function, geometry) has. */
+  /**
+   * Values of `key` the current model has on this pathway. Coupling functions and geometries are offered
+   * whenever any run has them (picking one moves the other settings to a run that does); gain and noise
+   * only where the chosen function and geometry were run.
+   */
   function available(key) {
     let cands = pool(sel);
     if (key === 'gain' || key === 'noise') {
@@ -142,7 +150,6 @@ export function mountConsole(ctx, { prefix, mode }) {
         if (cands.some((c) => FIELDS[k](c) !== null)) cands = cands.filter((c) => FIELDS[k](c) === sel[k]);
       }
     }
-    if (key === 'geo') cands = cands.filter((c) => FIELDS.fn(c) === sel.fn);
     return new Set(cands.map(FIELDS[key]));
   }
 
@@ -237,16 +244,10 @@ export function mountConsole(ctx, { prefix, mode }) {
     else segButtons($('gain'), gainValues, sel.gain, gains, (v) => `${v}`, (v) => { sel.gain = v; select('gain'); });
     const noises = available('noise');
     segButtons($('noise'), [null, 0, 5], sel.noise, noises, NOISE_NAMES, (v) => { sel.noise = v; select('noise'); });
-    if ($('pathway')) {
-      segButtons($('pathway'), Object.keys(PATHWAY_NAMES), sel.pathway,
-                 new Set(Object.keys(PATHWAY_NAMES).filter((p) => configs.some((c) => c.pathway === p))),
-                 (p) => PATHWAY_NAMES[p], (p) => { sel.pathway = p; select('pathway'); });
-      // a model with no run on this pathway is still offered; picking it moves the pathway
-      [...$('model').options].forEach((opt) => {
-        const mm = modelOf(opt.value);
-        opt.disabled = !configs.some((c) => c.pathway === sel.pathway && isModel(c, mm));
-      });
-    }
+    // a pathway is offered only for a model the paper (or this page) ran on it
+    segButtons($('pathway'), Object.keys(PATHWAY_NAMES), sel.pathway,
+               new Set(Object.keys(PATHWAY_NAMES).filter((p) => configs.some((c) => c.pathway === p && isModel(c, m)))),
+               (p) => PATHWAY_NAMES[p], (p) => { sel.pathway = p; select('pathway'); });
     $('clip').value = String(sel.clip);
   }
 
@@ -267,9 +268,11 @@ export function mountConsole(ctx, { prefix, mode }) {
     if (cfg.pathway === 'quadrature') {
       notes.push('The quadrature pathway drives phase oscillators only: a leaky integrator has no phase for the push to act on, and the Stuart–Landau networks were not run on it.');
     }
+    const NAMES = { fn: 'the coupling function', geo: 'the geometry', gain: 'the gain', noise: 'the noise', pathway: 'the pathway' };
+    const FORMATS = { noise: NOISE_NAMES, fn: (v) => FUNCTIONS[v], geo: (v) => GEOS[v], pathway: (v) => PATHWAY_NAMES[v] };
     for (const [key, from, to] of moved) {
-      const fmt = key === 'noise' ? NOISE_NAMES : key === 'fn' ? (v) => FUNCTIONS[v] : (v) => String(v);
-      notes.push(`Moved ${key === 'fn' ? 'the coupling function' : key} from ${fmt(from)} to ${fmt(to)}: the paper ran nothing at ${fmt(from)} here.`);
+      const fmt = FORMATS[key] ?? ((v) => String(v));
+      notes.push(`Moved ${NAMES[key]} from ${fmt(from)} to ${fmt(to)}, the nearest setting the paper ran with this choice.`);
     }
     $('controlNote').textContent = notes.join(' ');
   }

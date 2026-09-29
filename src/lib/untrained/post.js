@@ -182,14 +182,12 @@ export async function mountPost() {
     if (alive) disposers.push(mountKernelFigure(d.store));
   });
 
-  for (const [prefix, mode] of [['m', 'models'], ['d', 'drive']]) {
-    whenNear($(`${prefix}-root`), async () => {
-      const d = await data();
-      if (!alive) return;
-      const c = mountConsole(d.ctx, { prefix, mode });
-      disposers.push(() => c.dispose());
-    });
-  }
+  whenNear($('m-root'), async () => {
+    const d = await data();
+    if (!alive) return;
+    const c = mountConsole(d.ctx, { prefix: 'm' });
+    disposers.push(() => c.dispose());
+  });
 
   whenNear($('pwSpectrogram'), async () => {
     const d = await data();
@@ -205,7 +203,7 @@ export async function mountPost() {
       const d = await data();
       for (const id of DEFAULTS) await d.store.warm(id);
     }, PREFETCH_PX);
-    whenNear($('d-root'), async () => {
+    whenNear($('m-root'), async () => {
       const d = await data();
       await d.store.noiseTable({ priority: 'low' }).catch(() => {});
     }, PREFETCH_PX);

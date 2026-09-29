@@ -1,20 +1,20 @@
 /**
  * A live console: markup only.
  *
- * Rendered twice, for the model explorer (prefix "m") and the drive-signal
- * explorer (prefix "d"). Every id is `${prefix}-<name>` and is a contract with
+ * Rendered once, as the model explorer (prefix "m"). Every id is
+ * `${prefix}-<name>` and is a contract with
  * src/lib/untrained/console.js, which mounts the canvases and wires the
  * controls once React has rendered this tree. The option lists are built by
  * that module from the export's manifest, so they can never name a config the
  * export did not produce.
  */
-export function ModelConsole({ prefix, drive = false }: { prefix: string; drive?: boolean }) {
+export function ModelConsole({ prefix }: { prefix: string }) {
   const id = (name: string) => `${prefix}-${name}`
   return (
     <div className="console" id={id('root')}>
       <div className="pipelineStrip" id={id('strip')} aria-hidden="true">
         <div className="stage">waveform</div>
-        <div className="stage">{drive ? 'pathway' : 'mel bands'}</div>
+        <div className="stage">pathway</div>
         <div className="stage">drive rows</div>
         <div className="stage" id={id('stripArm')}>arm</div>
         <div className="stage">the read</div>
@@ -42,7 +42,7 @@ export function ModelConsole({ prefix, drive = false }: { prefix: string; drive?
 
         <div className="panel">
           <div className="panelTitle">
-            <span>{drive ? 'choose a reservoir and a pathway' : 'choose a model'}</span>
+            <span>choose a model</span>
             <em id={id('fitTag')} className="tag ok">in the paper</em>
           </div>
           <div className="controlGrid">
@@ -50,22 +50,18 @@ export function ModelConsole({ prefix, drive = false }: { prefix: string; drive?
               <span>model</span>
               <select className="action" id={id('model')} aria-label="model" />
             </label>
-            {drive && (
-              <div className="field">
-                <span>input pathway</span>
-                <div className="seg" id={id('pathway')} role="group" aria-label="input pathway" />
-              </div>
-            )}
+            <div className="field">
+              <span>input pathway</span>
+              <div className="seg" id={id('pathway')} role="group" aria-label="input pathway" />
+            </div>
             <label className="field" id={id('fnField')}>
               <span>coupling function</span>
               <select className="action" id={id('fn')} aria-label="coupling function" />
             </label>
-            {!drive && (
-              <label className="field" id={id('geoField')}>
-                <span>lattice geometry</span>
-                <select className="action" id={id('geo')} aria-label="lattice geometry" />
-              </label>
-            )}
+            <label className="field" id={id('geoField')}>
+              <span>lattice geometry</span>
+              <select className="action" id={id('geo')} aria-label="lattice geometry" />
+            </label>
             <div className="field">
               <span>input gain</span>
               <div className="seg" id={id('gain')} role="group" aria-label="input gain" />
@@ -118,7 +114,7 @@ export function ModelConsole({ prefix, drive = false }: { prefix: string; drive?
 
         <div className="panel">
           <div className="panelTitle">
-            <span>readout · ten digit scores</span>
+            <span>readout · ten digit scores · highest wins</span>
             <em id={id('verdict')}>—</em>
           </div>
           <div id={id('bars')} className="scoreBars" />

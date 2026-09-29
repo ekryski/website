@@ -367,14 +367,15 @@ export function UntrainedArticle() {
         <div className="panel">
           <div className="panelTitle">
             <span>the state-matched bank’s 1,024 time constants</span>
-            <em>dark = slow · light = fast</em>
+            <em>orange = fast (16 ms) · violet = slow (1 s)</em>
           </div>
           <div className="canvasFrame"><canvas id="bankLayout" style={{ height: 170 }} /></div>
         </div>
         <figcaption className={CAPTION}>
           <b>Figure 6 · every band at every time scale.</b> The bank stored as the network is: four channels
           of 16 × 16, row r fed by mel band r. Within a row, the 64 units run from the fastest (channel 1,
-          left) to the slowest (channel 4, right), so each band is integrated over 64 time scales.
+          left) to the slowest (channel 4, right), so each band is integrated over 64 time scales. The colours
+          are figure 5’s: orange for 16 ms through violet for 1 s.
         </figcaption>
       </figure>
 
@@ -697,7 +698,7 @@ export function UntrainedArticle() {
               <tr><td>design</td><td>3,744</td><td>Does the network’s design matter: its coupling function, lattice geometry, natural frequencies, restoring strength and coupling ceiling?</td></tr>
               <tr><td>cochlea</td><td>432</td><td>Do a coil and a cochlea, lattices built to follow the ear, do better than the torus?</td></tr>
               <tr><td>sweep</td><td>684</td><td>What happens beyond the design’s levels: restoring strengths up to 1, ceilings of 1.5 and 2, and input gains from 0.25 to 12?</td></tr>
-              <tr><td>quadrature</td><td>126</td><td>Can the networks use a drive that tells them when in a band’s cycle to push (section 09)?</td></tr>
+              <tr><td>quadrature</td><td>126</td><td>Can the networks use a drive that tells them when in a band’s cycle to push (section 08)?</td></tr>
               <tr><td>projection</td><td>432</td><td>Does the readout’s fixed random projection matter? The reservoirs are read again through one drawn from each run’s seed.</td></tr>
               <tr><td>Becker folds</td><td>70</td><td>Where do the arms sit against published AudioMNIST results, on the corpus’s own speaker folds?</td></tr>
             </tbody>
@@ -831,37 +832,7 @@ export function UntrainedArticle() {
 
       {/* ─────────────────────────────────────────────────────────── 08 ─── */}
       <Prose className={TYPE}>
-        <h2><span className="num">08 · run it yourself</span>The experiment, one clip at a time</h2>
-        <p>
-          Everything below runs in your browser: the front end, the arm, the read and the readout, with the
-          physics ported line for line from the paper’s harness and the readout for each condition fitted
-          exactly the way the paper fits it. Pick a model and a condition, pick a recording or record
-          yourself saying a digit, and press play. The clip is heard and the network is driven at the same
-          moment; the scores appear when the read’s last window closes.
-        </p>
-        <p>
-          Gain and noise snap to the levels the paper ran (gains 1 and 2; clean, 0 dB and −5 dB), and a
-          control is disabled where the paper ran nothing. Each prediction comes from a readout fitted at
-          exactly that condition at seed 0, and the accuracy beside it is the paper’s, over all three seeds.
-        </p>
-      </Prose>
-
-      <figure className="my-10">
-        <ModelConsole prefix="m" />
-        <figcaption className={CAPTION}>
-          <b>Figure 11 · the model explorer.</b> The coupled network starts at the paper’s reference
-          configuration: Kuramoto coupling on a torus, random natural frequencies, restoring strength 0.3,
-          ceiling 1. Change its coupling function or geometry and you are in the design or cochlea experiment.
-          Noise is added the way the paper adds it, with the same noise samples the paper drew for each clip;
-          your own recording gets Gaussian white noise at the same signal-to-noise ratio. Accuracy on one clip
-          says little: the paper’s number beside it is
-          over 6,000.
-        </figcaption>
-      </figure>
-
-      {/* ─────────────────────────────────────────────────────────── 09 ─── */}
-      <Prose className={TYPE}>
-        <h2><span className="num">09 · the drive signal</span>Two input pathways</h2>
+        <h2><span className="num">08 · the drive signal</span>Two input pathways</h2>
         <p>
           Everything so far drives the oscillators with the spectrogram: how loud each band is, frame by frame.
           That throws away something an oscillator could use. Sound is itself oscillation, and a spectrogram
@@ -897,7 +868,7 @@ export function UntrainedArticle() {
           <div className="canvasFrame"><canvas id="pwQuadrature" style={{ height: 80 }} /></div>
         </div>
         <figcaption className={CAPTION}>
-          <b>Figure 12 · what each pathway hands the network.</b> The same recording (chosen in section 04).
+          <b>Figure 11 · what each pathway hands the network.</b> The same recording (chosen in section 04).
           The spectrogram keeps 0 to 8 kHz at 16 ms resolution and discards phase. Quadrature keeps the same
           energies and adds each band’s drifting phase.
         </figcaption>
@@ -905,21 +876,44 @@ export function UntrainedArticle() {
 
       <Prose className={TYPE}>
         <p>
-          The console below restricts itself to the three reservoirs this question is about, the leaky bank,
-          the uncoupled network and the coupled network, on the torus with random natural frequencies. The
-          paper runs only coupled networks on the quadrature pathway, the four phase coupling functions: a
-          leaky integrator has no phase for the push to act on, and the question is whether coupled
-          oscillators can use a phase-referenced drive at all. The uncoupled network on the quadrature pathway
-          is not in the paper; it is included here as the obvious reference.
+          The paper runs the quadrature pathway on coupled networks only, the four phase coupling functions on
+          the torus: a leaky integrator has no phase for the push to act on, and the question is whether
+          coupled oscillators can use a phase-referenced drive at all. The console below adds the uncoupled
+          network on the quadrature pathway, which the paper did not run, as the obvious reference.
+        </p>
+      </Prose>
+
+      {/* ─────────────────────────────────────────────────────────── 09 ─── */}
+      <Prose className={TYPE}>
+        <h2><span className="num">09 · run it yourself</span>The experiment, one clip at a time</h2>
+        <p>
+          Everything below runs in your browser: the front end, the model, the read and the readout, with the
+          physics ported line for line from the paper’s harness and the readout for each condition fitted
+          exactly the way the paper fits it. Pick a model, a pathway and a condition, pick a recording or
+          record yourself saying a digit, and press play. The clip is heard and the network is driven at the
+          same moment; the scores appear when the read’s last window closes.
+        </p>
+        <p>
+          Gain and noise snap to the levels the paper ran (gains 1 and 2; clean, 0 dB and −5 dB). Where the
+          paper did not run a combination you pick, the console moves the other settings to the nearest one
+          it did and says so under the controls. Each prediction comes from a readout fitted at exactly that
+          condition at seed 0, and the accuracy beside it is the paper’s, over all three seeds.
         </p>
       </Prose>
 
       <figure className="my-10">
-        <ModelConsole prefix="d" drive />
+        <ModelConsole prefix="m" />
         <figcaption className={CAPTION}>
-          <b>Figure 13 · the drive explorer.</b> On the quadrature pathway the network’s left panel shows the
-          same oscillators as before; the rows panel shows each band’s phase as hue, its brightness the
-          band’s energy.
+          <b>Figure 12 · the model explorer.</b> The coupled network starts at the paper’s reference
+          configuration: Kuramoto coupling on a torus, random natural frequencies, restoring strength 0.3,
+          ceiling 1. Change its coupling function or geometry and you are in the design or cochlea experiment;
+          switch the pathway and you are in the quadrature experiment, where the rows panel shows each band’s
+          phase as hue and its energy as brightness. Noise is added the way the paper adds it, with the same
+          noise samples the paper drew for each clip; your own recording gets Gaussian white noise at the same
+          signal-to-noise ratio. The ten scores are the readout’s outputs, fitted to 1 for the spoken digit and
+          0 for the others, so they are not probabilities and not accuracy: the highest wins. Accuracy is the
+          share of the 6,000 test clips on which the highest score is the right digit, and one clip says little
+          about it.
         </figcaption>
       </figure>
 
@@ -941,7 +935,7 @@ export function UntrainedArticle() {
           <Image src="/untrained/figures/fig01-sec4-1-recognition-arms.png" alt="Recognition accuracy for every arm at clean, 0 dB and minus 5 dB, from the paper" width={1981} height={997} className="h-auto w-full" unoptimized />
         </div>
         <figcaption className={CAPTION}>
-          <b>Figure 14 · every arm at the primary cell</b>, from the paper: mean ± one standard deviation over
+          <b>Figure 13 · every arm at the primary cell</b>, from the paper: mean ± one standard deviation over
           three seeds, the reservoirs at gain 1 (filled) and 2 (open). Dashed line: the whole-clip
           spectrogram-only baseline.
         </figcaption>
@@ -965,7 +959,7 @@ export function UntrainedArticle() {
           <Image src="/untrained/figures/fig02-sec4-2-order-arms.png" alt="Temporal-order accuracy for every arm, from the paper" width={1982} height={936} className="h-auto w-full" unoptimized />
         </div>
         <figcaption className={CAPTION}>
-          <b>Figure 15 · temporal order</b>, from the paper: which of two digits came first, averaged over five
+          <b>Figure 14 · temporal order</b>, from the paper: which of two digits came first, averaged over five
           digit pairs. Dotted line: chance. The CNN sees 9 frames, less than a digit, so with noise it reads
           chance.
         </figcaption>
@@ -988,7 +982,7 @@ export function UntrainedArticle() {
           <Image src="/untrained/figures/fig04-sec4-4-lattice-geometries.png" alt="Each lattice geometry minus the torus, from the paper" width={1763} height={579} className="h-auto w-full" unoptimized />
         </div>
         <figcaption className={CAPTION}>
-          <b>Figure 16 · lattice geometry</b>, from the paper: each geometry minus the torus, paired, with 95%
+          <b>Figure 15 · lattice geometry</b>, from the paper: each geometry minus the torus, paired, with 95%
           intervals. Left of the grey line, the design experiment; right, the cochlea experiment.
         </figcaption>
       </figure>
@@ -1009,7 +1003,7 @@ export function UntrainedArticle() {
           <Image src="/untrained/figures/fig06-sec4-5-restoring-ceiling-gain.png" alt="Accuracy of each coupling function against restoring strength, coupling ceiling and input gain, from the paper" width={1977} height={1026} className="h-auto w-full" unoptimized />
         </div>
         <figcaption className={CAPTION}>
-          <b>Figure 17 · restoring strength, ceiling and gain</b>, from the paper, for each coupling function at
+          <b>Figure 16 · restoring strength, ceiling and gain</b>, from the paper, for each coupling function at
           the reference configuration, at 0 dB (top) and −5 dB (bottom).
         </figcaption>
       </figure>
@@ -1070,11 +1064,11 @@ export function UntrainedArticle() {
 
       <aside className="mt-16 rounded-r-xl border-l-2 border-amber-500 bg-amber-500/5 px-5 py-4 dark:border-amber-300 dark:bg-amber-300/5">
         <h2 className="font-mono text-[11px] font-semibold tracking-[0.14em] text-amber-700 uppercase dark:text-amber-300">
-          Caveats, stated plainly
+          Caveats
         </h2>
         <ul className="mt-3 list-disc space-y-2 pl-5 text-[13.5px] leading-relaxed text-zinc-600 marker:text-amber-500/60 dark:text-zinc-400">
           <li>
-            The consoles run seed 0 of each model. The paper’s accuracy beside each is the mean over three
+            The console runs seed 0 of each model. The paper’s accuracy beside each is the mean over three
             seeds on 6,000 test clips; a single clip, or a handful, says almost nothing about either.
           </li>
           <li>
@@ -1084,7 +1078,8 @@ export function UntrainedArticle() {
           </li>
           <li>
             Your own recording is shaped like a corpus clip before it is run, but it is not one: a different
-            microphone, room and voice. The readouts were fitted on AudioMNIST alone.
+            microphone, a room with different background noise, and your unique voice. The readouts were fitted
+            to the AudioMNIST training clips alone.
           </li>
           <li>
             The paper’s harness computes in 32-bit floating point and this page in 64-bit. Over a clip’s 61
