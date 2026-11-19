@@ -1,0 +1,93 @@
+import { ArticleLayout } from '@/components/ArticleLayout'
+import { articleMetadata } from '@/lib/metadata'
+
+export const dynamic = 'force-static'
+
+export const article = {
+  author: 'Eric Kryski',
+  date: '2026-11-19',
+  published: true,
+  featured: true,
+  title: 'Why I’m the CEO of both Waffuru and Bidali',
+  description:
+    'We just announced Waffuru, a local-first AI company, and I’m staying on as CEO of Bidali. Here’s the health scare that led me here and why running both makes each one better.',
+}
+
+export const metadata = articleMetadata(article, 'why-im-ceo-of-waffuru-and-bidali')
+
+export default ({ children }) => <ArticleLayout article={article}>{children}</ArticleLayout>
+
+<div className="not-prose aspect-video overflow-hidden rounded-2xl bg-zinc-900">
+  <iframe
+    className="h-full w-full"
+    src="https://www.youtube-nocookie.com/embed/v063er_-Hbs"
+    title="Waffuru Teaser Trailer"
+    allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+    referrerPolicy="strict-origin-when-cross-origin"
+    allowFullScreen
+  />
+</div>
+
+Today myself and my team announced [Waffuru](https://waffuru.ai), a new company I'm leading as CEO. We're building AI that runs on the hardware you already own and keeps your data on your machine unless you choose otherwise. Our goal is simple: intelligence for everyone.
+
+I'm also staying on as CEO of [Bidali](https://bidali.com). People have been asking how and why I'm doing both. The honest answer starts about a decade ago, and runs through some unexpected health problems.
+
+## Two technologies, one intersection
+
+About ten years ago I became convinced that AI and cryptographically secure money were two of the most important technologies of our generation. I worked with one of my friends and old co-founders at Bidali, David Luecke, on a personal assistant called "Sam" that was an HTML5 speech API → NLP layer → convolutional neural net → Bayesian classifier → JavaScript plugins (sort of like today's tool calling). We built something very cool (mostly Dave), but we didn't really know what we had. AI was in its infancy compared to today. This was before the Transformer model architecture was really a thing. But a lot has changed in 10 years... and also not.
+
+Over the past decade, Bidali has been my bet on the second one: payments and digital money for regular people in 154 countries. Waffuru is my bet on the first. Running both means I finally get to work where the two meet.
+
+I didn't get here by following a neat plan, though. I got here by stepping away.
+
+## Stepping away
+
+Over the last while I had to step back from my professional life because of some unforeseen health and family issues.
+
+Two years ago I was diagnosed with ADHD and started taking medication. With prolonged use, it started giving me bad side effects: Raynaud's symptoms, tingling and numbness in my extremities, and kidney issues. We did tons of tests, including ultrasounds, blood work and urine tests, and nobody could figure out what was going on because all my organs looked normal and I didn't have high blood pressure or heart issues.
+
+Earlier this year I went back through my many test results with AI. Looking at all of them together, I realized I was having a reaction to the stimulant in my medication, and that it was building up in my body and causing these symptoms.
+
+This is my own experience, not medical advice. If something feels off with a medication you're taking, talk to your doctor.
+
+That realization was a turning point, and not only for my health.
+
+## The assistant that became a company
+
+Last December I was trying to catch up on everything that had piled up. My therapist, my doctor and my wife all gave me the same advice: I needed an executive assistant.
+
+I thought AI had gotten good enough to be one, so I started building my own.
+
+That project led me down the path to what is now Waffuru. Today it covers the whole stack an assistant needs to run privately: an inference engine, GPU kernels, a memory layer, and the assistant itself, all built to run on hardware you own.
+
+## Bringing it back to Bidali
+
+Bidali has always been a nimble, lean team of three, and we've been leaning into automation for a long time. As Waffuru took shape, we started deploying what we were learning inside Bidali and took that automation to the next level.
+
+AI has gotten good enough that we're able to automate 98% of the business. That freed me up to work on other things. More recently, the same tools have been helping us secure our infrastructure and fight off AI-driven cyber attacks.
+
+## Why I'm running both
+
+I believe the future of many companies is people working with a team of assistants, both in their personal lives and at work. At Bidali, we're living that now.
+
+Being CEO of both companies gives me insights I couldn't get from either one alone:
+
+- **Waffuru iterates faster.** Bidali is an established company where we've already done the automation legwork and built a company brain that an assistant can draw on to get things done. That makes it a real proving ground for our local inference tooling and personal assistant infrastructure.
+- **Bidali does more, faster.** What we learn building Waffuru gets deployed inside Bidali, so our team of three gets more done.
+
+A decade ago I hoped to work on both of these technologies. Now I get to work at their intersection, every day.
+
+<div className="not-prose my-10 rounded-2xl border border-zinc-200 bg-zinc-100 p-6 shadow-md dark:border-zinc-700/40 dark:bg-zinc-800/50">
+  <div className="flex flex-col items-center gap-6 text-center sm:flex-row sm:justify-between sm:text-left">
+    <div>
+      <p className="text-sm font-semibold text-zinc-800 dark:text-zinc-100">Announcing Waffuru</p>
+      <p className="mt-1 text-sm text-zinc-600 dark:text-zinc-400">What we're building, and why your AI should run on your own hardware.</p>
+    </div>
+    <a
+      href="https://waffuru.ai/blog/introducing-waffuru"
+      className="inline-flex shrink-0 items-center justify-center rounded-md bg-violet-500 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-violet-600"
+    >
+      Read the introduction
+    </a>
+  </div>
+</div>
